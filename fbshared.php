@@ -28,10 +28,10 @@ $businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row
 $domainpath = '';
 if($row->state == 'canceled' || $row->state == 'unpaid' || $row->ave == null){
 	header("HTTP/1.0 404 Not Found");
-	header('Location: http://www.tabluu.com');
+	header('Location: http://camrally.com');
 	exit;
 }
-$redirectpage = 'http://tabluu.com';
+$redirectpage = 'http://camrally.com';
 if($row->redirect == 1){
 	$redirectpage = (strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL);
 }
@@ -60,7 +60,7 @@ if($row->isselfie == 0){
 	$desc_meta = $str;
 	$description = $str;
 	$desc_meta = str_replace("<tabluu_url>",'',$desc_meta);
-	$description = str_replace("<tabluu_url>",'<a href="https://tabluu.com/'.$row->nicename.'.html" target="_blank">https://tabluu.com/'.$row->nicename.'.html</a>',$description);
+	$description = str_replace("<tabluu_url>",'<a href="https://camrally.com/'.$row->nicename.'.html" target="_blank">https://camrally.com/'.$row->nicename.'.html</a>',$description);
 }else{
 	$tagline = json_decode($row->taglineselfie);
 	//echo ($tagline->txtoccation); //tagline1,tagline2
@@ -83,8 +83,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 	list($width, $height) = getimagesize($srcimg);	
 $istest = true;
 if($istest){
-   $curDomain = 'https://tabluu.com/staging/';
-   $cur = 'https://tabluu.com/';
+   $curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
 }else
 	$curDomain = '../';	
 ?>
@@ -93,7 +93,7 @@ if($istest){
 <meta property="og:description" content="<?php echo $desc_meta?>" />
 <meta property="og:title" content="<?php echo $rev?>" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="www.tabluu.com" />
+<meta property="og:site_name" content="www.camrally.com" />
 <meta property="og:url" content="<?=$curDomain.'user/'.$nice?>" />
 <meta property="og:image" content="<?=$curDomain.$srcimg;?>" />
 <meta property="og:image:url" content="<?=$curDomain.$srcimg;?>" />
@@ -117,7 +117,7 @@ if($width > 820)
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
-			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="www.tabluu.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
+			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="www.camrally.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
 		</div>
 	</div>
 </div>
@@ -128,8 +128,8 @@ if($width > 820)
 	</div>	 
 	<div id="topmenu">
 		<ul>
-			<li class="borderright" id="showcase"><a href="https://tabluu.com/<?=$row->nicename?>.html" rel="follow">Showcase</a></li>
-			<li class="activeMenu" id="top-reviews"><a href="https://tabluu.com/<?=$row->nicename?>.html" rel="follow">Reviews</a></li>
+			<li class="borderright" id="showcase"><a href="https://camrally.com/<?=$row->nicename?>.html" rel="follow">Showcase</a></li>
+			<li class="activeMenu" id="top-reviews"><a href="https://camrally.com/<?=$row->nicename?>.html" rel="follow">Reviews</a></li>
 		</ul>
 	</div>
 </div>

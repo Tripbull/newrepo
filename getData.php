@@ -282,7 +282,7 @@ switch($opt){
 						<p>As requested, we have added '. (int)$_REQUEST['addloc'] .' location(s) to your Tabluu account.</p>
 						<p>Happy-Tabluu-ing!</p>
 						<p>Cheers,<br/>Tabluu Support</p>';
-				sendEmail($rows['email'],$subject,$body,'support@tabluu.com');		
+				sendEmail($rows['email'],$subject,$body,'support@camrally.com');		
 			}else
 				$array = array('response'=>$result->response,'code'=>$result->code); 
 			echo json_encode($array); 
@@ -371,7 +371,7 @@ switch($opt){
 					<p>As requested, we have changed your Tabluu plan from '.$currentPlan.' to '.$newplan.'. This change is effective immediately.</p>
 					<p>Happy-Tabluu-ing!</p>
 					<p>Cheers,<br/>Tabluu Support</p>';
-			sendEmail($rows['email'],$subject,$body,'support@tabluu.com');	
+			sendEmail($rows['email'],$subject,$body,'support@camrally.com');	
 		}else{
 			$array = array('response'=>$result->response,'code'=>$result->code); 
 			echo json_encode($array);
@@ -1022,7 +1022,7 @@ switch($opt){
 		$sql2 = "SELECT fname FROM `businessUsers` WHERE email='$email'";
 		$result = mysql_query($sql2);
 		$row = mysql_fetch_object($result);		
-		$subject = 'Tabluu.com - reset password';	
+		$subject = 'camrally.com - reset password';	
 		$body="";
 		$body = 'Hi '. $row->fname .',
 
@@ -1273,7 +1273,7 @@ switch($opt){
 			else if($rows->productId == $enterprise24)
 				$currentPlan = 'Enterprise 24 Months';		
 		if($_REQUEST['setting'] == 'cancel'){
-			$subject = 'Tabluu.com - cancel plan request';
+			$subject = 'camrally.com - cancel plan request';
 			$body= '<p>Customer ID: '. $rows->chargify_cust_id .' - '.$rows->fname . ' ' . $rows->lname .' has requested to cancel the '. $currentPlan . ' plan</p>
 					<p><strong>Note:</strong></p>
 					<p>The request may take up to 24 hours to process</p>
@@ -1281,7 +1281,7 @@ switch($opt){
 					<p>Tabluu Support</p>';
 		}else if($_REQUEST['setting'] == 'change'){
 			$plan = $_REQUEST['plan'];
-			$subject = 'Tabluu.com - change plan request'; 
+			$subject = 'camrally.com- change plan request'; 
 			$body = '<p>Customer ID: '. $rows->chargify_cust_id .' - '.$rows->fname . ' ' . $rows->lname .' has requested to change the plan from '.$currentPlan.' to '.$plan.'</p>
 					<p><strong>Note:</strong></p>
 					<p>The request may take up to 24 hours to process</p>
@@ -1289,7 +1289,7 @@ switch($opt){
 					<p>Tabluu Support</p>';
 		}else if($_REQUEST['setting'] == 'add'){
 			$placeToadd = $_REQUEST['ttalAddRem'];
-			$subject = 'Tabluu.com - add new location(s) request';
+			$subject = 'camrally.com - add new location(s) request';
 		$body ='<p>Customer ID: '. $rows->chargify_cust_id .' - '.$rows->fname . ' ' . $rows->lname .' has requested to add '.($placeToadd > 1 ? $placeToadd : $placeToadd).' location(s).</p>
 					<p><strong>Note:</strong></p>
 					<p>The request may take up to 24 hours to process</p>
@@ -1297,14 +1297,14 @@ switch($opt){
 					<p>Tabluu Support</p>';
 		}else if($_REQUEST['setting'] == 'remove'){
 			$placeToadd = $_REQUEST['ttalAddRem'];
-			$subject = 'Tabluu.com - Remove Place'; 
+			$subject = 'camrally.com - Remove Place'; 
 			$body = '<p>Customer ID: '. $rows->chargify_cust_id .' - '.$rows->fname . ' ' . $rows->lname .' has requested to remove '.($placeToadd > 1 ? $placeToadd : $placeToadd).' location(s)</p>
 					<p><strong>Note:</strong></p>
 					<p>The request may take up to 24 hours to process</p>
 					<p>Thank you.</p>
 					<p>Tabluu Support</p>';
 		} 
-		sendEmail($rows->groupmail,$subject,$body,$cc_email='support@tabluu.com');
+		sendEmail($rows->groupmail,$subject,$body,$cc_email='support@camrally.com');
 	break;
 	case 'logout':
 		include_once('class/class.cookie.php');
@@ -1333,8 +1333,8 @@ function sendEmail($email,$subject,$body,$cc_email=''){
 	$mail->IsAmazonSES();
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
-	$mail->From = 'support@tabluu.com';
-	$mail->FromName = 'Tabluu Support';
+	$mail->From = 'support@camrally.com';
+	$mail->FromName = 'Dino Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;
 	$mail->Body = $body; 

@@ -332,10 +332,10 @@ switch($opt){
 		mysql_query("INSERT INTO businessUsers SET userGroupId =$groupID,fname='$fname',lname='$lname',pwd='".md5($pwd)."',email='$email',permission=$permission,created='".date('Y-m-d h:i:s')."'") or die(mysql_error());
 		$result = mysql_query("SELECT fname,lname FROM businessUsers WHERE id=$id LIMIT 1");
 		$row = mysql_fetch_object($result);	
-		$subject = 'Tabluu.com - user invitation link';
+		$subject = 'camrally.com - user invitation link';
 		$body = 'Hi '.$fname .',
-				<p>You have been invited by '.$row->fname.' '.$row->lname.' to join Tabluu.com as a user/administrator.</p>
-				<p>Please go to: <a href="https://www.tabluu.com">www.tabluu.com</a><br/>
+				<p>You have been invited by '.$row->fname.' '.$row->lname.' to join camrally.com as a user/administrator.</p>
+				<p>Please go to: <a href="https://camrally.com">www.camrally.com</a><br/>
 				Login using the following details:</p>
 				<p>Username: '. $email .'<br/>Password: ' .$pwd. '</p>
 				<p>You may change the password provided by updating the User Admin section.</p>
@@ -513,11 +513,11 @@ switch($opt){
 				$name = trim($_REQUEST['name']); 
 				//$subject = 'A Tabluu user,'.($name != '' ? ' '.$name.' ' : ' ').'posted a feedback / review of '.$rows->businessName.'!';
 				$subject = 'You\'ve got feedback for '.$rows->businessName.'!';
-				$body = '<p>Login to your Tabluu account and manage your feedback / reviews now!<br/><a href="https://www.tabluu.com">https://www.tabluu.com</a></p><p>Or check your Tabluu page for the latest updates:<br/><a href="https://www.tabluu.com/'.$rows->nicename.'.html">https://www.tabluu.com/'.$rows->nicename.'.html</a></p>'; 
+				$body = '<p>Login to your Tabluu account and manage your feedback / reviews now!<br/><a href="https://camrally.com">https://camrally.com</a></p><p>Or check your Tabluu page for the latest updates:<br/><a href="https://camrally.com/'.$rows->nicename.'.html">https://camrally.com/'.$rows->nicename.'.html</a></p>'; 
 			}else{
 				$subject = 'You have a new follower for '.$rows->businessName.'!';
-				$body = '<p>See what\'s changed at your Customer Advocacy (Tabluu) page:<br/><a href="https://www.tabluu.com/'.$rows->nicename.'.html">https://www.tabluu.com/'.$rows->nicename.'.html</a></p>
-				<p>Or login to Tabluu.com to manage your reviews.</p>
+				$body = '<p>See what\'s changed at your Customer Advocacy (Tabluu) page:<br/><a href="https://camrally.com/'.$rows->nicename.'.html">https://camrally.com/'.$rows->nicename.'.html</a></p>
+				<p>Or login to Camrally.com to manage your reviews.</p>
 				<p>Happy Tabluu-ing!</p>
 				<p>Cheers,<br/>
 				Tabluu Support</p>';
@@ -756,7 +756,7 @@ switch($opt){
 		$id = $_REQUEST['placeId'];$case = $_REQUEST['case'];
 		if($case > 0){
 			$sql = "CREATE TABLE IF NOT EXISTS `businessplace_$id` (
-			  `id` int(10) NOT NULL AUTO_INCREMENT,
+			`id` int(10) NOT NULL AUTO_INCREMENT,
 			  `rated1` tinyint(1) NOT NULL,
 			  `rated2` tinyint(1) NOT NULL,
 			  `rated3` tinyint(1) NOT NULL,
@@ -769,9 +769,13 @@ switch($opt){
 			  `userName` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `userId` varchar(50) NOT NULL,
 			  `source` varchar(5) NOT NULL,
+			  `labelId` int(11) NOT NULL,
+			  `feedsource` varchar(2) NOT NULL,
 			  `photo_url` varchar(200) NOT NULL,
 			  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `date` datetime NOT NULL,
+			  `hideimg` tinyint(4) NOT NULL,
+			  `feature` tinyint(4) NOT NULL,
 			  PRIMARY KEY (`id`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
 			$sql2 = "CREATE TABLE IF NOT EXISTS `businessCustomer_$id` (
@@ -827,7 +831,7 @@ function sendEmail($email,$subject,$body,$cc_email=''){
 	$mail->IsAmazonSES();
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
-	$mail->From = 'support@tabluu.com';
+	$mail->From = 'support@camrally.com';
 	$mail->FromName = 'Tabluu Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;

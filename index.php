@@ -81,7 +81,7 @@ echo date_default_timezone_get();*/
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="js/dashboard.js"></script>
 	<script type="text/javascript" src="js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	<link rel="Shortcut Icon" href="http://www.tabluu.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+	<link rel="Shortcut Icon" href="http://www.camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 		<div id="dashboard" data-role="page" data-dom-cache="false" data-prefetch="false">
@@ -113,8 +113,7 @@ echo date_default_timezone_get();*/
 							<div class="right-header"></div>
 							<section class="right-menu-help hide">
 								<ul class="right-menu" data-role="listview">
-									<!--<li><a href="http://www.tabluu.com/blog/getting-started-with-tabluu" target="_blank">Remove getting started<span class="listview-arrow-default"></span></a></li>-->
-									<li ><a href="http://www.tabluu.com/blog/tabluu-general/how-do-i-setup-tabluu-2" target="_blank">Setting Up Tabluu<span class="listview-arrow-default"></span></a></li><li ><a href="http://www.tabluu.com/blog/tabluu-general/some-examples-to-get-you-started" target="_blank">Examples<span class="listview-arrow-default"></span></a></li>					
+									<li ><a href="http://camrally.com/blog/tabluu-general/how-do-i-setup-tabluu-2" target="_blank">Setting Up Tabluu<span class="listview-arrow-default"></span></a></li><li ><a href="http://camrally.com/blog/tabluu-general/some-examples-to-get-you-started" target="_blank">Examples<span class="listview-arrow-default"></span></a></li>					
 								</ul>
 							</section>
 							<section class="right-menu-admin hide">

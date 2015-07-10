@@ -31,7 +31,7 @@
 				$mail = new PHPMailer;
 				$mail->IsAmazonSES();
 				$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key); 
-				$mail->From = 'noreply@tabluu.com';
+				$mail->From = 'noreply@camrally.com';
 				$mail->FromName = 'Tabluu';					
 				while($row2 =  mysql_fetch_object($resultfollow)){
 					$footer="";

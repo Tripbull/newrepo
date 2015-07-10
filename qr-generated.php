@@ -21,14 +21,14 @@ else if($_REQUEST['size'] == 5)
 	$size = 500;
 if(strlen($_REQUEST['p']) > 6){
 	if($_REQUEST['s'] == 1)
-		$link = 'http://tabluu.com/'.$_REQUEST['p'].'=1';
+		$link = 'http://camrally.com/'.$_REQUEST['p'].'=1';
 	else if($_REQUEST['s'] == 0)	
-		$link = 'http://tabluu.com/'.$_REQUEST['p'].'=0';
+		$link = 'http://camrally.com/'.$_REQUEST['p'].'=0';
 }else{
 	if($_REQUEST['s'] == 1)
-		$link = 'http://tabluu.com/'.$_REQUEST['p'];
+		$link = 'http://camrally.com/'.$_REQUEST['p'];
 	else if($_REQUEST['s'] == 0)	
-		$link = 'http://tabluu.com/'.$_REQUEST['p'];
+		$link = 'http://camrally.com/'.$_REQUEST['p'];
 }	
 ?>
 <!DOCTYPE html>

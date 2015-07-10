@@ -26,7 +26,7 @@ if(isset($_REQUEST['type']) && isset($_REQUEST['plan'])){
 	<script type="text/javascript" src="js/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>	
 	<script type="text/javascript" src="js/signup.js"></script>
-<link rel="Shortcut Icon" href="http://www.tabluu.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+<link rel="Shortcut Icon" href="http://www.camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 <div id="sign" data-role="page" data-prefetch="true">
@@ -48,7 +48,7 @@ if(isset($_REQUEST['type']) && isset($_REQUEST['plan'])){
 						<input type="password" data-clear-btn="false" name="newpwdConfirm" id="newpwdConfirm" value="" placeholder="confirm password">
 						<input type="hidden" name="groupId" id="groupId" value="" >
 						<div class="clear" style="padding-top:1em"></div>
-						<a href="https://www.tabluu.com/subscription_agreement.html" class="fancybox fancybox.iframe" style="font-weight:normal;color: #00AEEF;">I accept the terms &amp; conditions</a>
+						<a href="https://camrally.com/subscription_agreement.html" class="fancybox fancybox.iframe" style="font-weight:normal;color: #00AEEF;">I accept the terms &amp; conditions</a>
 						<div class="clear" style="padding-top:0.5em"></div>
 						<div class="btn-submit">
 							<button class="ui-btn" id="submit-signing">Submit</button>

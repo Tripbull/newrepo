@@ -85,12 +85,12 @@ function sendEmail($email,$subject,$body){
 	$mail->IsAmazonSES();
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
-	$mail->From = 'support@tabluu.com';
+	$mail->From = 'support@camrally.com';
 	$mail->FromName = 'Tabluu Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;
 	$mail->Body = $body; 
-	$mail->AddAddress("support@tabluu.com");
+	$mail->AddAddress("support@camrally.com");
 	$mail->AddAddress($email);
 	//if($rows->permission > 0)
 		//$mail->addBCC($rows->usermail);

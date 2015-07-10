@@ -110,7 +110,7 @@
 								<div class="clear" style="padding-top:1em"></div>	
 								<div class="QRFrame">
 								  <p class="gohere">GO HERE:</p>
-								  <p class="link">tabluu.com/hop8e5t=0</p>
+								  <p class="link">camrally.com/hop8e5t=0</p>
 								  <p class="postx">We Value Your</p>
 								  <p class="pselfiex2">FEEDBACK</p>
 								 <div style="padding-top:2em"> 
@@ -190,7 +190,7 @@
 								<div class="clear" style="padding-top:1em"></div>	
 								<div class="QRFrame">
 								  <p class="gohere">GO HERE:</p>
-								  <p class="link">tabluu.com/hop8e5t=1</p>
+								  <p class="link">camrally.com/hop8e5t=1</p>
 								  <p class="postx">POST YOUR "X"</p>
 								  <p class="pselfiex">SELFIE</p>
 								 <div style="padding-top:2em"> 

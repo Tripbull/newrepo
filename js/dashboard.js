@@ -1,5 +1,5 @@
 var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0;
-var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://tabluu.com";chargifydomain = 'https://tabluu.chargify.com';
+var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'https://tabluu.chargify.com';
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],txtdescription='',txtimg='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
@@ -8,7 +8,7 @@ var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 
 var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=true,domainpath='',pathfolder='';
+var istest=false,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -26,11 +26,11 @@ $(document).ready(function(){
 		//test component chargify ids
 		com_basicID=27367,com_basic12 = 69598,com_basic24 = 69599,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
 		chargifydomain = 'https://tripbull.chargify.com';
-		domainpath = '';pathfolder = 'https://tabluu.com/staging/';
+		domainpath = '';pathfolder = 'http://camrally.com/staging/';
 	}else{
-		domainpath = 'https://tabluu.com/';
-		chargifydomain = 'https://tabluu.chargify.com';
-		pathfolder = 'https://tabluu.com/app/';
+		domainpath = 'http://camrally.com/';
+		chargifydomain = 'https://tribull.chargify.com';
+		pathfolder = 'http://camrally.com/app/';
 	}
 });
 
@@ -374,7 +374,7 @@ $(document).ready(function(){
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-46314042-2', 'tabluu.com');
+	  ga('create', 'UA-46314042-2', 'camrally.com');
 	  ga('send', 'pageview');	
 	}
 	function goHome(){
@@ -917,18 +917,17 @@ $(document).ready(function(){
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'key='+s.userId+'&opt='+s.opt+'&groudId='+userArray.userGroupId+'&subscribe='+s.subs+'&name='+s.name+'&label='+s.label,async: false,success:function(lastId){
 				newplaceId = lastId +'|'+s.subs+'|'+0;
 				newentryloc = 1;
-				/*
-				if(userArray.productId == enterprise || userArray.productId == enterprise12 || userArray.productId == enterprise24){
+				//if(userArray.productId == enterprise || userArray.productId == enterprise12 || userArray.productId == enterprise24){
 					$.box_Dialog('<p>Please select the type of campaing you wish to run.</p>', {
 						'type':     'question',
 						'title':    '<span class="color-gold">Select your campaign type...</span>',
 						'center_buttons': true,
 						'show_close_button':false,
 						'overlay_close':false,
-						'buttons':  [{caption: 'feedback',callback:function(){setTimeout(function(){selfieonly = 0;hadError(lastId);},400)}},{caption: 'selfie only',callback:function(){selfieonly = 1;setSelfies(lastId);setTimeout(function(){hadError(lastId);},400)}}]
+						'buttons':  [{caption: 'Photo',callback:function(){setTimeout(function(){selfieonly = 0;hadError(lastId);},400)}},{caption: 'selfie only',callback:function(){selfieonly = 1;setSelfies(lastId);setTimeout(function(){hadError(lastId);},400)}}]
 					});
-				}else*/
-					hadError(lastId);
+				//}else
+					//hadError(lastId);
 				//window.open('http://tabluu.com/blog/tabluu-general/how-do-i-setup-tabluu-2', '_blank');
 			}});
 		break;
@@ -1188,12 +1187,12 @@ $(document).ready(function(){
 		
 		var isoktoview = false,timer,arrayDataURL= [],openlink1='',openlink2='',nice1='',nice2='';
 		$('.star').show();
-		$(".panel-outselfie #shortlink2").val('tabluu.com/'+customArray.nicename+'=0');
-		$(".panel-selfiex #shortlink3").val('tabluu.com/'+customArray.nicename+'=1');
-		$(".panel-outselfie .link").html('tabluu.com/'+customArray.nicename+'=0');
-		$(".panel-selfiex .link").html('tabluu.com/'+customArray.nicename+'=1');
-        $(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'tabluu.com/'+customArray.nicename+'=1'});
-		$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'tabluu.com/'+customArray.nicename+'=0'});		
+		$(".panel-outselfie #shortlink2").val('camrally.com/'+customArray.nicename+'=0');
+		$(".panel-selfiex #shortlink3").val('camrally.com/'+customArray.nicename+'=1');
+		$(".panel-outselfie .link").html('camrally.com/'+customArray.nicename+'=0');
+		$(".panel-selfiex .link").html('camrally.com/'+customArray.nicename+'=1');
+        $(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=1'});
+		$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=0'});		
 		openlink1 = domainpath+customArray.nicename+'=0';
 		openlink2 = domainpath+customArray.nicename+'=1';
 		nice1 = customArray.nicename;nice2 = customArray.nicename;
@@ -1219,27 +1218,27 @@ $(document).ready(function(){
 		function setshorturl(newurl){
 			if($.isPlainObject(arrayDataURL)){
 				if(typeof(arrayDataURL.source_1) != 'undefined'){
-					$('#shortlink3').val('tabluu.com/'+arrayDataURL.source_1.link);
+					$('#shortlink3').val('camrally.com/'+arrayDataURL.source_1.link);
 					$('#txtlabel1').val(decodequote(arrayDataURL.source_1.label));
-					$(".panel-selfiex .link").html('tabluu.com/'+arrayDataURL.source_1.link);
+					$(".panel-selfiex .link").html('camrally.com/'+arrayDataURL.source_1.link);
 					$(".QRimage3").html('');
-					$(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'tabluu.com/'+arrayDataURL.source_1.link});
+					$(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_1.link});
 					openlink2 = domainpath+arrayDataURL.source_1.link; 
 					nice1 = arrayDataURL.source_1.link;
 					if(newurl < 2){
-						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="https://tabluu.com/'+arrayDataURL.source_1.link+'" target="_blank">tabluu.com/'+arrayDataURL.source_1.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
+						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="https://camrally.com/'+arrayDataURL.source_1.link+'" target="_blank">camrally.com/'+arrayDataURL.source_1.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
 					}	
 				}
 				if(typeof(arrayDataURL.source_0) != 'undefined'){
-					$('#shortlink2').val('tabluu.com/'+arrayDataURL.source_0.link);
+					$('#shortlink2').val('camrally.com/'+arrayDataURL.source_0.link);
 					$('#txtlabel2').val(decodequote(arrayDataURL.source_0.label));
-					$(".panel-outselfie .link").html('tabluu.com/'+arrayDataURL.source_0.link);
+					$(".panel-outselfie .link").html('camrally.com/'+arrayDataURL.source_0.link);
 					$(".QRimage2").html('');
-					$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'tabluu.com/'+arrayDataURL.source_0.link});
+					$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_0.link});
 					openlink1 = domainpath+arrayDataURL.source_0.link; 
 					nice2 = arrayDataURL.source_0.link;
 					if(newurl < 2){
-						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="https://tabluu.com/'+arrayDataURL.source_0.link+'" target="_blank">tabluu.com/'+arrayDataURL.source_0.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
+						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="https://camrally.com/'+arrayDataURL.source_0.link+'" target="_blank">camrally.com/'+arrayDataURL.source_0.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
 					}	
 				}
 			}
@@ -1513,7 +1512,7 @@ $(document).ready(function(){
 		showLoader();
 		var placeId = locId.split('|');
 		if(selfieonly === 0)
-			window.open('http://tabluu.com/blog/tabluu/almost-there','_blank');
+			window.open('http://camrally.com/blog/tabluu/almost-there','_blank');
 		selfieonly = 0;bgwizard=0;postwizard=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
@@ -2338,14 +2337,14 @@ $(document).on("pagebeforechange", function (e, data) {
 						hideLoader();
 						$('#vanity-str').val('');$('#vanity-reset').hide();
 						//$('.van-link-default').html('<a href="'+domainpath+customArray.nicename+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://tabluu.com/'+customArray.nicename+'.html</a>');
-						$('.van-link-default').html('https://tabluu.com/');
+						$('.van-link-default').html('https://camrally.com/');
 						setTimeout(function(){alertBox('successful!','Your Custom Tabluu URL has been reset.');},300);
 					}});
 				}},{caption: 'no'}]
 			
 			});
 		});
-		$('.vanity-default-link').html('tabluu.com/'+customArray.nicename+'.html');
+		$('.vanity-default-link').html('camrally.com/'+customArray.nicename+'.html');
 	});
     
     function drawMap(){
@@ -4479,7 +4478,7 @@ $(document).on('pageshow','#plan', function () {
 			hideLoader();
 			result = $.parseJSON(result);
 			if(result.code != 201){
-				alertBox('error detected','We are unable to change your plan. Please email support@tabluu.com about this problem.');	
+				alertBox('error detected','We are unable to change your plan. Please email support@camrally.com about this problem.');	
 			}else{
 				userArray =  result.response;
 				currPlaceAvail = parseInt(userArray.addLoc) + 1;
@@ -5543,7 +5542,7 @@ $(document).on('pageinit','#feedback', function () {
 					});
 				});
 				//getEmailSent();
-				var nice = 'https://tabluu.com/'+customArray.nicename+'=e';
+				var nice = 'https://camrally.com/'+customArray.nicename+'=e';
 					var subject = "You're invited to give "+placename+" a review!";
 					$('.fnoted').html('Sample email for feedback invitation:');
 					var message = '<p>Dear Customer,</p>'
@@ -5603,7 +5602,7 @@ $(document).on('pageinit','#feedback', function () {
 		}else if(row == 3){
 			$( '#feedback .right-content' ).removeClass("right-bgblue");
 			$( '#feedback .right-content' ).addClass("bgwhite");
-			$('#photolink').val('http://tabluu.com/app/rateone.html?p='+customArray.nicename+'&s=2');
+			$('#photolink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=2');
 			if(customArray.nicename == ''){	
 				alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
 			}else{
@@ -6786,7 +6785,7 @@ $(document).on('pageshow','#fbpost', function () {
 	}
 		
 	var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-	var preview = String(arrayfbpost.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://tabluu.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+	var preview = String(arrayfbpost.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
 	$('.preview').html(preview);
 	$('#txtFBPost').val(decodequote(arrayfbpost.fbpost));
 
@@ -6812,7 +6811,7 @@ $(document).on('pageshow','#fbpost', function () {
 		if(found){
 			showLoader();
 			var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-			var preview = String($('#txtFBPost').val()).replace(/<brand>/,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://tabluu.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+			var preview = String($('#txtFBPost').val()).replace(/<brand>/,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
 			var preview2 = String($('#postdesc').val()).replace(/<brand>/,customArray.businessName);
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=fblink&'+$('#frmpost2social').serialize(),success:function(lastId){
 				hideLoader();
@@ -6831,7 +6830,7 @@ $(document).on('pageshow','#fbpost', function () {
 		var defaultstr2 = 'My review of <brand>';
 		var address = customArray.address +', '+ customArray.city +', '+customArray.country;
 		var preview2 = String(defaultstr2).replace(/<brand>/g,customArray.businessName);
-		var preview = String(defaultstr).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://tabluu.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+		var preview = String(defaultstr).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
 		$('#txtFBPost').val(defaultstr);
 		$('.preview').html(preview);
 		$('#postdesc').val(defaultstr2);

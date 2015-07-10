@@ -9,9 +9,9 @@ include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
 if(strstr($_SERVER['PHP_SELF'],'staging'))
-	$domain = 'http://www.tabluu.com/app/staging/';
+	$domain = 'http://camrally.com/app/staging/';
 else 
-	$domain = 'http://www.tabluu.com/app/';
+	$domain = 'http://camrally.com/app/';
 if(isset($_FILES["filefb"]))
 {
 	$placeId = $_REQUEST['placeidfb'];

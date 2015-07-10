@@ -144,7 +144,7 @@
 								<div class="clear" style="padding-top:0.5em"></div>	
 								 <textarea cols="20" rows="2" style="resize:none" name="txtFBPost" id="txtFBPost">See my "Selfie Review" of <brand> here! <tabluu_url> <brand>, <address>, <tel>.</textarea>
 								  <div class="clear" style="padding-top:1em"></div>
-								 <p>Preview:<br/><span class="preview">See my "Selfie Review" of Tokyo Cafe 4.3 out of 5. Awesome! Go to: <span style="text-decoration:underline;color:blue;">http://tabluu.com/ukw0cjn.html</span> - Addr: Spui 15 (tramhalte Spui), Amsterdam, Netherlands. Tel: 020-489 7918.</span></p>	
+								 <p>Preview:<br/><span class="preview">See my "Selfie Review" of Tokyo Cafe 4.3 out of 5. Awesome! Go to: <span style="text-decoration:underline;color:blue;">http://camrally.com/ukw0cjn.html</span> - Addr: Spui 15 (tramhalte Spui), Amsterdam, Netherlands. Tel: 020-489 7918.</span></p>	
 								 <div class="clear" style="padding-top:1em"></div>
 								 <p>Note: <br/>The &lt;comment&gt;, &lt;brand&gt; &amp; &lt;tabluu_url&gt; tags are mandatory.</p>
 								 <div class="clear" style="padding-top:0.5em"></div>								 

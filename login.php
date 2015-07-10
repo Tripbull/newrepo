@@ -25,10 +25,10 @@ $_SESSION['session']=$ur_session;
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-	  ga('create', 'UA-46314042-2', 'tabluu.com');
+	  ga('create', 'UA-46314042-2', 'camrally.com');
 	  ga('send', 'pageview');
 	</script>
-	<link rel="Shortcut Icon" href="http://www.tabluu.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+	<link rel="Shortcut Icon" href="http://www.camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
 </head>
 <body>
 		<div id="login" data-role="page" data-prefetch="false">

@@ -30,18 +30,19 @@ $result = mysql_query("SELECT s.id,s.source,s.link,s.label,p.nicename,v.link as 
 //$row = mysql_fetch_object($result);
 //print_r($row);
 //die();
+$domain = 'http://camrally.com';
 if(mysql_num_rows($result)){
 	$row = mysql_fetch_object($result);
 	if($row->state == 'canceled' || $row->state == 'unpaid'){
 		header("HTTP/1.0 404 Not Found");
-		header('Location: http://tabluu.com');
+		header('Location: '.$domain);
 		die();
 	}else{
 		if($row->link == $link){
 			if(trim($row->label) != '')
-				echo $goingto = 'https://tabluu.com/app/rateone.html?p='. $row->nicename .'&s='.$row->source.'&label='.$row->id; //urlencode 
+				echo $goingto = $domain.'/app/rateone.html?p='. $row->nicename .'&s='.$row->source.'&label='.$row->id; //urlencode 
 			else
-				echo $goingto = 'https://tabluu.com/app/rateone.html?p='. $row->nicename .'&s='.$row->source;
+				echo $goingto = $domain.'/app/rateone.html?p='. $row->nicename .'&s='.$row->source;
 			//header("HTTP/1.1 301 Moved Permanently");
 			header("Location: {$goingto}");
 			die();
@@ -49,32 +50,32 @@ if(mysql_num_rows($result)){
 			if($row->productId == $connect->basicID || $row->productId == $connect->basic24 || $row->productId == $connect->basic12 || $row->productId == $connect->freever){
 				//$goingto = 'https://www.tabluu.com/'.$row->nicename.'.html';
 				header("HTTP/1.1 301 Moved Permanently");
-				$goingto = 'https://tabluu.com/'.$row->nicename.'.html'; 
+				$goingto = $domain.'/'.$row->nicename.'.html'; 
 				header("Location: {$goingto}");
 				die();
 			}else{
 				//header("HTTP/1.1 301 Moved Permanently");
 				$nice = $row->nicename;
-				include_once('pinme.php');
+				include_once('app/pinme.php');
 				die();
 			}
 		}else if($row->nicename == $link){
 			//header("HTTP/1.1 301 Moved Permanently");
 			if(trim($row->vlink) != '' && $row->productId != $connect->basicID && $row->productId != $connect->basic24 && $row->productId != $connect->basic12 && $row->productId != $connect->freever){
 					header("HTTP/1.1 301 Moved Permanently");
-					$goingto = 'https://tabluu.com/'.$row->vlink;
+					$goingto = $domain.$row->vlink;
 					header("Location: {$goingto}");
 					die();
 			}else{
 				$nice = $row->nicename;
-				include_once('pinme.php');
+				include_once('app/pinme.php');
 				die();
 			}
 		}
 	}
 }else{
 	header("HTTP/1.0 404 Not Found");
-	$goingto = 'https://tabluu.com'; 
+	$goingto = $domain; 
 	header("Location: {$goingto}");
 	die();
 }	

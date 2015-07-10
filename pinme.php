@@ -29,7 +29,7 @@ $businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row
 $domainpath = '';
 if($row->state == 'canceled' || $row->state == 'unpaid'){
 	header("HTTP/1.0 404 Not Found");
-	header('Location: http://www.tabluu.com');
+	header('Location: http://camrally.com');
 	exit;
 }
 //$topostFB = json_decode($row->reviewPost);
@@ -99,7 +99,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 <a name="top"></a>
 <div class="header">
     <div class="HeaderContainer">
-        <div class="d-logo"><a href="/" class="Pinme"><img alt="www.tabluu.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
+        <div class="d-logo"><a href="/" class="Pinme"><img alt="www.camrally.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
     </div>		
 </div>
 <?php 
@@ -452,7 +452,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		if($row->contactNo)	
 			echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 		?>
-		<li><a href="/">Tabluu.com</a></li>
+		<li><a href="/">camrally.com</a></li>
 	</ul>
 </div>   
 <?php

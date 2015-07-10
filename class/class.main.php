@@ -31,7 +31,7 @@ class db{
 			$this->enterprise12 = 3410620; 
 			$this->basicID=3356305;$this->proID=3356306;$this->enterprise=3356316;$this->basic12 = 3405343;$this->basic24 = 3405344;
 			$this->pro12 = 3405345;$this->pro24 = 3405346;$this->enterprise24 =3410619;
-			$this->chargifydomain = 'tabluu';
+			$this->chargifydomain = 'tripbull';
 			$this->path = 'app/'; 
 		}
    }

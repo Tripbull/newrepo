@@ -11,7 +11,7 @@ var counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0,counter5 = 0,counter6 = 
 var questionDefault = ['How would you rate our staff based on how welcoming and friendly they were towards you?_Service Friendliness','Do you feel that you were provided service in a timely manner?_Service Timeliness','How would you rate the attentiveness of our service?_Service Attentiveness','How would you rate our overall service?_Overall Service','Was this experience worth the amount you paid?_Value for Money','Please rate our location._Location','Please rate our facilities._Facilities','How comfortable was your stay?_Comfort','How would you rate our property in terms of cleanliness?_Cleanliness','How would you rate the overall quality of your meal?_Quality of Meal','How would you rate the overall taste of your meal?_Taste of Meal','Do you feel that there were enough options for you to choose?_Variety','How likely are you to recommend us to your friends and loved ones?_Likelihood to Recommend','How likely are you to visit us again?_Likelihood to Visit Again','How valuable is our web service to you?_Value Proposition','For the value provided, how attractive is our pricing?_Price Attractiveness','How likely are you to recommend this website to your friends?_Recommended'];
 //live mode chargify ids
 var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619;
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -949,21 +949,22 @@ var logger = function()
 $(document).ready(function(){
 	window.fbAsyncInit = function() {
     // init the FB JS SDK
-	   FB.init({
-		  appId      : 682746285089153,                        // App ID from the app dashboard
-		  status     : true,                                 // Check Facebook Login status
-		  xfbml      : true                                  // Look for social plugins on the page
+		FB.init({
+		  appId      : '1629076397306918',  // App ID from the app dashboard
+		  status     : true, // Check Facebook Login status
+		  xfbml      : true, // Look for social plugins on the page
+		  version    : 'v2.4'
 		});
 		// Additional initialization code such as adding Event Listeners goes here
   };
   // Load the SDK asynchronously
-  (function(d, s, id){
+    (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
+     js.src = "//connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk')); 
+   }(document, 'script', 'facebook-jssdk'));
    nicename = getUrlVar('p');
    isTakeSelfie = getUrlVar('s');
    hadlabel = getUrlVar('label');   
@@ -972,10 +973,10 @@ $(document).ready(function(){
    if(istest == true){
 		//domainpath = 'https://tabluu.com/staging/';
 		domainpath = 'http://localhost.tabluu.com/repoorig/repo/';
-		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790; fbPhotoPathShare= 'https://www.tabluu.com/staging/';
+		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790; fbPhotoPathShare= 'http://www.camrally.com/staging/';
 	}else{
-		domainpath = 'https://tabluu.com/';
-		fbPhotoPathShare= 'https://tabluu.com/app/';
+		domainpath = 'http://camrally.com/';
+		fbPhotoPathShare= 'http://camrally.com/app/';
 	}
 
 });
@@ -1812,7 +1813,7 @@ function rate_initialize(){
 	if(customArray.logo != '')
 		logo = $.parseJSON(customArray.logo);
 	else
-		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"https://www.tabluu.com/images/desktop_default.png"}');
+		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"https://www.camrally.com/images/desktop_default.png"}');
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
 	businessname = decodequote(customArray.businessName);

@@ -183,7 +183,7 @@ $connect->db_connect();
 		$result = mysql_query($sql);
 	}
 	if($_REQUEST['event'] == 'signup_success'){
-        $subject = 'Tabluu Chargify - New Sign up user'; 
+        $subject = 'camrally Chargify - New Sign up user'; 
 		$body = '<p>Customer ID: '.  $request->payload->subscription->customer->id .' - '.$request->payload->subscription->customer->first_name . ' ' . $request->payload->subscription->customer->last_name . '</p>
 		<p>He/She signed up for '.$request->payload->subscription->product->product_family->name.' '. $request->payload->subscription->product->name . '</p>'; 
 		//echo $subject = 'Tabluu - New Sign up user'; 
@@ -192,12 +192,12 @@ $connect->db_connect();
 		$mail->IsAmazonSES();
 		$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 		$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
-		$mail->From = 'support@tabluu.com';
-		$mail->FromName = 'Tabluu Support';
+		$mail->From = 'support@camrally.com';
+		$mail->FromName = 'camrally Support';
 		$mail->Subject = $subject;
 		$mail->AltBody = $body;
 		$mail->Body = $body; 
-		$mail->AddAddress("support@tabluu.com");
+		$mail->AddAddress("support@camrally.com");
 		//$mail->addBCC('robert.garlope@gmail.com');
 		//$mail->AddAddress($email);
 		//if($rows->permission > 0)

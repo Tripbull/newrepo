@@ -21,11 +21,11 @@ if($_REQUEST['s'] == 1){
 	$selfiex2 = (!empty($textline->selfiex2) ? $textline->selfiex2 : 'POST YOUR "X"');
 	$selfiex3 = (!empty($textline->selfiex3) ? $textline->selfiex3 : 'SELFIE');
 	if($row->link == null){
-		$link = 'https://tabluu.com/'.$row->nicename.'=1';
-		$shortlink = 'tabluu.com/'.$row->nicename.'=1';
+		$link = 'https://camrally.com/'.$row->nicename.'=1';
+		$shortlink = 'camrally.com/'.$row->nicename.'=1';
 	}else{
-		$link = 'https://tabluu.com/'.$row->link;
-		$shortlink = 'tabluu.com/'.$row->link;
+		$link = 'https://camrally.com/'.$row->link;
+		$shortlink = 'camrally.com/'.$row->link;
 	}
 	$size = 80;$class='pselfiex';
 }else if($_REQUEST['s'] == 0){
@@ -33,19 +33,19 @@ if($_REQUEST['s'] == 1){
 	$selfiex2 = (!empty($textline->selfiex2) ? $textline->noselfie2 : 'We Value Your');
 	$selfiex3 = (!empty($textline->selfiex3) ? $textline->noselfie3 : 'FEEDBACK');
 	if($row->link == null){
-		$link = 'https://tabluu.com/'.$row->nicename.'=0';
-		$shortlink = 'tabluu.com/'.$row->nicename.'=0';
+		$link = 'https://camrally.com/'.$row->nicename.'=0';
+		$shortlink = 'camrally.com/'.$row->nicename.'=0';
 	}else{
-		$link = 'https://tabluu.com/'.$row->link;
-		$shortlink = 'tabluu.com/'.$row->link;
+		$link = 'https://camrally.com/'.$row->link;
+		$shortlink = 'camrally.com/'.$row->link;
 	}
 	$size = 80;$class='pselfiex2';
 }else if($_REQUEST['s'] == 3){
 	$selfiex1 = (!empty($textline) ? $textline->selfiex1 : 'GO HERE:');
 	$selfiex2 = (!empty($textline) ? $textline->selfiex2 : 'POST YOUR "X"');
 	$selfiex3 = (!empty($textline) ? $textline->selfiex3 : 'SELFIE');
-	$link = 'http://www.tabluu.com/'.$row->nicename.'=6';
-	$shortlink = 'tabluu.com/'.$row->nicename.'=6';
+	$link = 'http://www.camrally.com/'.$row->nicename.'=6';
+	$shortlink = 'camrally.com/'.$row->nicename.'=6';
 	$size = 80;
 }		
 ?>

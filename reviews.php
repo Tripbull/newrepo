@@ -30,65 +30,6 @@
 							<div class="right-header">Reviews</div>	
 							<section class="reviews-shared">
 								<div id="shared"></div>
-								<!--
-								<div class="divwrap" style="padding-top:5px;">
-									<div style="padding:10px 20px;">
-										<div class="iconProfile">
-											<div class="wrapImg"><img src="https://graph.facebook.com/100001247766045/picture?type=large" /></div>
-											<div class="profilename">name asdffds asfdasfd asfd</div>
-										</div>
-										<div class="imgSelfie">
-											<div class="wrapImg2"><img src="http://www.tabluu.com/app/images/shared/1008/913461164.jpg" /></div>
-										</div>
-									</div>
-								</div>
-								<div class="divwrap" style="margin-top:10px;">
-									<table cellspacing="0">
-											<tr>
-												<th class="padLeft-5 c1">Areas</th>
-												<th class="score c1">Score</th>
-												<th class="date c1">Manage</th>
-											</tr>
-											<tr>
-												<td class="padLeft-5">services</td>
-												<td class="center">3.5</td>
-												<td class="center" rowspan="7" style="vertical-align:middle;">
-													<div style=""><p>13 June 2013</p>
-														<fieldset id="ratetext" data-role="controlgroup" data-iconpos="left" data-corners="false">
-														<input type="checkbox" name="feature" id="feature" />
-														<label for="feature">Feature?</label>
-														<input type="checkbox" name="hideImg" id="hideImg" />
-														<label for="hideImg">Hide Image?</label>
-														</fieldset>	
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<td class="padLeft-5">Services</td>
-												<td class="center">3.5</td>
-											</tr>
-											<tr>
-												<td class="padLeft-5">Food</td>
-												<td class="center">3.5</td>
-											</tr>
-											<tr>
-												<td class="padLeft-5">Staff</td>
-												<td class="center">3.5</td>
-											</tr>
-											<tr>
-												<td class="padLeft-5">Location</td>
-												<td class="center">3.5</td>
-											</tr>
-											<tr>
-												<td class="padLeft-5">Overall</td>
-												<td class="center">3.5</td>
-											</tr>
-									</table>
-								</div>
-								<div class="divwrap" style="margin-top:10px;padding-bottom:10px;">
-									<div class="c1 Bottomborder" style="padding:5px;">Comment</div>
-									<p class="padLeft-5">asfdsfad asdfasfd asdf asfd asdf asfd asdfjasdf asdf asdf</p>
-								</div>-->
 							</section>
 							<section class="reviews-notshared hide">
 								<div id="notshared"></div>

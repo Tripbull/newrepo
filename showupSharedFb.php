@@ -28,7 +28,7 @@ $businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row
 $domainpath = '';
 if($row->state == 'canceled' || $row->state == 'unpaid' || $row->ave == null){
 	header("HTTP/1.0 404 Not Found");
-	header('Location: http://www.tabluu.com');
+	header('Location: http://camrally.com');
 	exit;
 }
 if($row->isselfie == 0){
@@ -56,7 +56,7 @@ $fbpost = json_decode($row->fbpost);
 	$desc_meta = $str;
 	$description = $str;
 	$desc_meta = str_replace("<tabluu_url>",'',$desc_meta);
-	$description = str_replace("<tabluu_url>",'<a href="https://tabluu.com/'.$row->nicename.'.html" target="_blank">https://tabluu.com/'.$row->nicename.'.html</a>',$description);
+	$description = str_replace("<tabluu_url>",'<a href="https://camrally.com/'.$row->nicename.'.html" target="_blank">https://camrally.com/'.$row->nicename.'.html</a>',$description);
 }else{
 	$tagline = json_decode($row->taglineselfie);
 	//echo ($tagline->txtoccation); //tagline1,tagline2
@@ -79,8 +79,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 	list($width, $height) = getimagesize($srcimg);	
 $istest = true;
 if($istest){
-   $curDomain = 'https://tabluu.com/staging/';
-   $cur = 'https://tabluu.com/staging/';
+   $curDomain = 'https://camrally.com/staging/';
+   $cur = 'https://camrally.com/staging/';
 }else
 	$curDomain = '../';	
 ?>
@@ -89,7 +89,7 @@ if($istest){
 <meta property="og:description" content="<?php echo $desc_meta?>" />
 <meta property="og:title" content="<?php echo $rev?>" />
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="www.tabluu.com" />
+<meta property="og:site_name" content="www.camrally.com" />
 <meta property="og:url" content="<?=$curDomain.'user/'.$nice?>" />
 <meta property="og:image" content="<?=$curDomain.$srcimg;?>" />
 <meta property="og:image:url" content="<?=$curDomain.$srcimg;?>" />

@@ -6,7 +6,7 @@ $(document).ready(function(){
 		var height = ($( window ).height() / 16) - 5;
 		$( '.contentwrap').css( {"min-height":height.toFixed() + 'em'} );
 	});
-	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'overlayColor': '#000','href' :'#betapermission','overlayOpacity': 0.5,'beforeClose':function(){window.location= "https://www.tabluu.com";}});
+	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'overlayColor': '#000','href' :'#betapermission','overlayOpacity': 0.5,'beforeClose':function(){window.location= "https://camrally.com";}});
 	$('#iAgree').click(function(){
 		$('.alpha_p1').hide();$('.alpha_p2').hide();$('.alpha_p3').hide();
 		btnaggre++;
