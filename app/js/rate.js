@@ -970,8 +970,8 @@ $(document).ready(function(){
    $('.fancybox').fancybox();
    
    if(istest == true){
-		//domainpath = 'http://camrally.com/staging/';
-		domainpath = 'http://localhost.camrally.com/repoorig/repo/';
+		domainpath = 'http://camrally.com/';
+		//domainpath = 'http://localhost.camrally.com/repoorig/repo/';
 		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790; fbPhotoPathShare= 'http://camrally.com/staging/';
 	}else{
 		domainpath = 'http://camrally.com/';

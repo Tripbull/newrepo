@@ -83,7 +83,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 	list($width, $height) = getimagesize($srcimg);	
 $istest = true;
 if($istest){
-   $curDomain = 'http://camrally.com/staging/';
+   $curDomain = 'http://camrally.com/';
    $cur = 'http://camrally.com/';
 }else
 	$curDomain = '../';	

@@ -257,7 +257,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		}
 		if($row->showmap)
 			$w++;
-		$w++; //count for showcase or review tab	
+	//	$w++; //count for showcase or review tab	
 		if($w == 1)
 			$widthmenu = "width:50%";
         else if($w == 2)
@@ -278,7 +278,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		<ul>
 			<?php
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
-				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding">Showcase</div></a></li>';
+				//echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding">Showcase</div></a></li>';
 				if($row->websiteURL)	
 					echo '<li style="'.$widthmenu.'"><a href="'.$website.'" target="_blank"><div class="menupadding">Website</div></a></li>';	
 				if($row->facebookURL)
