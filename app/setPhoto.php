@@ -115,7 +115,68 @@ if(isset($_FILES["filebackground"]))
     }
     
 }
+if(isset($_FILES["campaignlogo"]))
+{
 
+	$placeId = $_REQUEST['placeIdCampaign'];
+    $UploadDirectory    = 'images/profile/'.$placeId;
+	if (!file_exists($UploadDirectory))
+		mkdir($UploadDirectory,0777);   
+
+    $File_Name          = strtolower($_FILES['campaignlogo']['name']);
+    $File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
+    $Random_Number      = rand(); //Random number to be added to name.
+    $NewFileName        = $Random_Number.$File_Ext; //new file name
+    
+    if(move_uploaded_file($_FILES['campaignlogo']['tmp_name'], $UploadDirectory.'/'.$NewFileName )){
+        $img = $UploadDirectory.'/'.$NewFileName;
+		$image = new Photos();
+		$image->load($img);
+		if($image->getWidth() > 600 || $image->getHeight() > 600){
+			echo 'greater';
+			unlink($img);
+			die();
+		}
+		if($image->image_type == 1)
+			$extn = '.gif';
+		else if($image->image_type == 2)
+			$extn = '.jpg';
+		else if($image->image_type == 3)
+			$extn = '.png';
+		$source = $UploadDirectory.'/desktop_'.$NewFileName;	
+		$sourceIp = $UploadDirectory.'/iphone_'.$NewFileName;
+		$source7 = $UploadDirectory.'/7Ins_'.$NewFileName;
+		$sourceM = $UploadDirectory.'/mobile_'.$NewFileName;
+
+		copy($img,$source);
+		copy($img,$sourceIp);
+		copy($img,$source7);
+		copy($img,$sourceM);	
+
+	  
+		// desktop or tablet
+		$image->load($source);
+		//  7 inches
+		$image->load($source7);
+		$image->scale(76);
+		$image->save($source7,$image->image_type);
+		// s4
+		$image->load($sourceM);
+		$image->scale(44);
+		$image->save($sourceM,$image->image_type);
+		//mobile
+		$image->load($sourceIp);
+		$image->scale(35);
+		$image->save($sourceIp,$image->image_type);
+
+		$obj = (object) array('dLogo' => $source, 'pLogo' => $sourceIp, 'logo7' => $source7, 'mLogo' => $sourceM);
+		echo json_encode($obj);
+		mysql_query('UPDATE businessCustom SET logo = '."'". json_encode($obj) ."'" .' WHERE customPlaceId = '. $placeId);
+    }else{
+        die('error uploading File!');
+    }
+    
+}
 if(isset($_FILES["filelogo"]))
 {
 

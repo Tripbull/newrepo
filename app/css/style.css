@@ -128,20 +128,20 @@ p{margin-top:0.5em;}
 #setup .panel-question .ui-li-count{cursor:pointer;border-style:none !important;z-index:1000 !important;height:30px;position: absolute;right: -0.8em;text-align: center;top: 50%;}
 #setup .panel-question .ui-checkbox{width:93%;}
 #setup .panel-question .ui-checkbox label{font-weight: normal;}
-#setup #frmfb .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
+#setup  #frmlogocampaign .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
 #settings #select-timezone-button{ background-color:#00AEEF; color:#fff; border:#00AEEF; }
 #settings #select-timezone-button .ui-focus{ border:#00AEEF; }
 #profile  .content-wrap,#setup .content-wrap{background:#E6E7E8;}
-#profile .pro-section, #profile .desc-section, #profile .open-section, #profile  .photo-section, #profile .map-section, #profile .pro-vanity{width:90%;margin: 0 auto;padding:1.25em 0 1.25em 0;text-align:left;}
+#profile .pro-section, #profile .desc-section, #profile .open-section, #profile  .photo-section, #profile .map-section, #profile .pro-vanity, .pad-left-right{width:90%;margin: 0 auto;padding:1.25em 0 1.25em 0;text-align:left;}
 /*#profile #profile-timezone-button{ background-color:#fff; color:#000; border:#000; text-align:left; }
 #profile #profile-timezone-button .ui-focus{ border:#000; } */
-#profile .pro-section #select-profile .ui-btn-icon-left:after, .ui-btn-icon-right:after, .ui-btn-icon-top:after, .ui-btn-icon-bottom:after, .ui-btn-icon-notext:after{background-color:#00AEEF;}
+#profile #select-profile .ui-btn-icon-left:after, .ui-btn-icon-right:after, .ui-btn-icon-top:after, .ui-btn-icon-bottom:after, .ui-btn-icon-notext:after{background-color:#00AEEF;}
 #profile #frmfb .ui-btn,#profile #frmweb .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
 #profile .pro-section .ui-focus,#profile .pro-vanity .ui-focus,#setup .panel-redirect .ui-focus{box-shadow:none;color:#000;border:1px solid #ddd !important;font-weight: normal !important;font-size: 1em !important;}
 #profile .pro-vanity{font-family:"OpenSans";}
-#profile .pro-vanity .ui-input-text{min-height: 1.7em !important;padding-left:88px !important;margin-top:10px;color:#38c}
-#profile .pro-section select#select-category,.pro-section select#profile-timezone{font-family: "Myriad" !important;font-size: 1em !important;color:#000;font-weight: normal !important;}
-#profile .pro-section .ui-select .ui-btn{background-color:#00AEEF;color:#fff;}
+#profile .pro-vanity .ui-input-text{min-height: 1.7em !important;padding-left:105px !important;margin-top:10px;color:#38c}
+select#select-category,select#profile-timezone{font-family: "Myriad" !important;font-size: 1em !important;color:#000;font-weight: normal !important;}
+#setup .ui-select .ui-btn,#profile .ui-select .ui-btn{background-color:#00AEEF;color:#fff;}
 #profile .pro-section .ui-btn-active{background-color:none !important;border:1px solid #ddd !important;color:#000 !important;font-size: 1em !important;font-weight: normal !important;}
 #profile .pro-section .ui-input-text{margin-top:0.9em !important;}
 #profile .pro-section .ui-input-text input{min-height: 2.5em !important;}
@@ -162,7 +162,7 @@ p{margin-top:0.5em;}
 .tbl .left, .tbl .right {display: text-align: center;vertical-align: middle;}
 .tbl .left {width:180px}
 #uic .uic-section-logo, #uic .uic-section-img, #uic .uic-section-bg, #uic  .uic-section-fc, #uic .uic-section-tbs,#uic .uic-section-tb,#uic .uic-section-box{width:90%;margin: 0 auto;padding:1.25em 0 1.25em 0;text-align:left;}
-#uic  .thumb{cursor:pointer;width:100%;max-width: 12.5em;min-width: 12.5em;height:100%;max-height:11.8em;min-height:11.8em;border:1px solid #000;padding:5px;float: left;margin:0.62em 0 0 0.62em;}
+#uic  .thumb,#setup .thumb{cursor:pointer;width:100%;max-width: 12.5em;min-width: 12.5em;height:100%;max-height:11.8em;min-height:11.8em;border:1px solid #000;padding:5px;float: left;margin:0.62em 0 0 0.62em;}
 #uic .uic-section-bg .ui-input-text input{min-height: 2.5em !important;}
 #uic .uic-section-tbs .ui-focus,.uic-section-box .ui-focus,.uic-section-tb .ui-focus{box-shadow:none !important;}
 #uic .uic-section-tbs .ui-input-text,.uic-section-box .ui-input-text{margin-top:0.9em !important;}

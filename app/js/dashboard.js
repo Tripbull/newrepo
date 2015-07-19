@@ -1,16 +1,16 @@
 var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0;
-var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'http://tabluu.chargify.com';
+var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'https://tabluu.chargify.com';
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],txtdescription='',txtimg='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
-var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619,lite = 3700318;
+var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619,liteID = 3700318;
 //live component chargify ids
 var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=true,domainpath='',pathfolder='';
+var istest=false,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
-var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,redirectwizardsetup=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0;
+var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0;
 var state_Array = ['unpaid','canceled'];
 
 $(document).bind('mobileinit', function(){
@@ -22,14 +22,14 @@ $(document).ready(function(){
 	$('.fancybox').fancybox();
 	if(istest == true){
 			//test mode chargify ids
-		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790,lite = 3710751; 
+		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790,liteID = 3710751; 
 		//test component chargify ids
 		com_basicID=27367,com_basic12 = 69598,com_basic24 = 69599,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
-		chargifydomain = 'http://tripbull.chargify.com';
-		domainpath = '';pathfolder = 'http://camrally.com/staging/';
+		chargifydomain = 'https://tripbull.chargify.com';
+		domainpath = '';pathfolder = 'http://camrally.com/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
-		chargifydomain = 'http://tabluu.chargify.com';
+		chargifydomain = 'https://tabluu.chargify.com';
 		pathfolder = 'http://camrally.com/app/';
 	}
 });
@@ -52,34 +52,47 @@ $(document).ready(function(){
 			var body = '<p>Please complete your business profile.</p>';
 			var redirect = "profile.html";
         }else if(whatsetup == 4){
-			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p style="text-align:left;">Please choose the questions you will like to ask your customers.</p>'
-						+ '<p style="text-align:left;padding-bottom: 7px">Don\'t forget to flick the switch "On"</p>';
-			var redirect = "setup.html";
-			curClick = 2;
-		}else if(whatsetup == 5){
-			curClick = 0;
-			//var step = (customArray.settingsItem == 0 ? 5 : 4);
-			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p style="text-align:left;">Please upload a logo for your business.</p>';
-			var redirect = "uic.html";
-        }else if(whatsetup == 6){
 				var title = 'Setup Wizard - Step '+level+' / '+ steps;
-				var body = '<p style="text-align:left;">Please upload at least one image of related to your website, business product or service.</p>'
+				var body = '<p style="text-align:left;">Please upload a few images related to your campaign.</p>'
 							+'<p style="text-align:left;">Upload the best image first as it will be used for posting to the social media in case your customer does not take a selfie or photo.</p>';
 				var redirect = "profile.html";
-				curClick = 5;
-        }else if(whatsetup == 7){
+				curClick = 4;
+        }else if(whatsetup == 5){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-				body = '<p>Please setup the landing page you wish to redirect your social media visitors.</p>';	   
-				curClick = 5;
-				var redirect = "setup.html";
+			var body = '<p>Users will upload campaign poster and fill up campaign details all In one page</p>';
+			var redirect = "setup.html";
+			curClick = 2;
+		 }else if(whatsetup == 6){
+			var title = 'Setup Wizard - Step '+level+' / '+ steps;
+			var body = '<p>Customize your Camrally vanity link.</p>';
+			var redirect = "profile.html";
+			curClick = 1;
+		 }else if(whatsetup == 7){
+			var title = 'Setup Wizard - Step '+level+' / '+ steps;
+			var body = '<p>Your custom Camrally page link has been created.</p>';
+			var redirect = "profile.html";
+			curClick = 1;
+			$.box_Dialog(body, {
+				'type':     'question',
+				'title':    '<span class="color-white">'+title+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'okay',callback:function(){
+					setTimeout(function(){wizardcreatedlink=0;wizardsetup();},300);
+				}}]
+			});	
+			return;
         }else if(whatsetup == 8){
+			/*
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			body = '<p>Almost there! Please add Tabluu’s codes to <head> tag of the web page you want to display the feedback widget. </p>';	   
-			curClick = 4;
-			var redirect = "feedback.html";
+			var body = '<p>Congratulations! You have completed the setup</p>'
+					 +'<p>Start promoting your Camrally mini link (http://camrally.com/sdfder) now!<br/>See your Camrally page here: http://camrally.com/hillaryfans.html</p>';*/
+			curClick = 2;
+			var redirect = "feedback.html"; 
+			$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
 			isdonewizard = 1;
+			return;
         }
 		//if(whatsetup != 6){
 			$.box_Dialog(body, {
@@ -127,22 +140,19 @@ $(document).ready(function(){
 				if(customArray.webImg8 != '')
 					j++;	
 				if(customArray.nicename == ''){
-					profilewizardsetup = 1;
+					profilewizardsetup=1;uicwizardsetup = 1;questionwizardsetup = 0;profilewizardwebImg = 1;
 					wizardAlert(3,1,6);
-				}else if(customArray.settingsItem == 0 && customArray.selectedItems == ''){
-					profilewizardsetup = 0;
-					questionwizardsetup = 1;
+				}else if(j == 0){
+					bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardsetup=0;
 					wizardAlert(4,2,6);
-				}else if(customArray.logo == ''){
-					uicwizardsetup = 1;questionwizardsetup = 0;
+				}else if(campaignwizard == 1){
+					vanitywizard=1;
 					wizardAlert(5,3,6);
-				}else if(j == 0 && selfieonly == 0){
-					if(selfieonly == 0)
-						profilewizardwebImg = 1;
-					profilewizardsetup=0;bgwizard = 1;redirectwizardsetup=1;
-					wizardAlert(6,4,6);
-				}else if(redirectwizardsetup == 1){
-					wizardAlert(7,5,6);
+				}else if(vanitywizard == 1){
+					wizardcreatedlink=1;
+					wizardAlert(6,4,6);	
+				}else if(wizardcreatedlink == 1){
+					wizardAlert(7,5,6);		
 				}else if(locOption[2] < 1){
 					issetup = 1;uicwizardsetup = 0;
 					wizardAlert(8,6,6);
@@ -169,9 +179,9 @@ $(document).ready(function(){
 							customArray =  $.parseJSON(result);
 							placename  = customArray.businessName + ($.trim(lab) != '' ? ' ('+lab+')' : '');
 							lab = '';
+							hideLoader();var j=0;
 							if(customArray.taglineselfie != '')
 								var arraytagline =  $.parseJSON(customArray.taglineselfie);
-							hideLoader();var j=0;
 							if(selfieonly == 1)
 								customArray.settingsItem = 1;
 							if(customArray.webImg != '')
@@ -191,22 +201,19 @@ $(document).ready(function(){
 							if(customArray.webImg8 != '')
 								j++;	
 							if(customArray.nicename == ''){
-								profilewizardsetup = 1;
+								profilewizardsetup=1;uicwizardsetup = 1;questionwizardsetup = 0;profilewizardwebImg = 1;
 								wizardAlert(3,3,8);
-							}else if(customArray.settingsItem == 0 && customArray.selectedItems == ''){
-								profilewizardsetup = 0;
-								questionwizardsetup = 1;
+							}else if(j == 0){
+								bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardsetup=0;
 								wizardAlert(4,4,8);
-							}else if(customArray.logo == ''){
-								uicwizardsetup = 1;questionwizardsetup = 0;
+							}else if(campaignwizard == 1){
+								vanitywizard=1;
 								wizardAlert(5,5,8);
-							}else if((j == 0 && selfieonly == 0)){
-								if(selfieonly == 0)
-									profilewizardwebImg = 1;
-								profilewizardsetup=0;bgwizard = 1;redirectwizardsetup=1;
-								wizardAlert(6,6,8);
-							}else if(redirectwizardsetup == 1){
-								wizardAlert(7,7,8);	
+							}else if(vanitywizard == 1){
+								wizardcreatedlink=1;
+								wizardAlert(6,6,8);	
+							}else if(wizardcreatedlink == 1){
+								wizardAlert(7,7,8);			
 							}else if(locArray[0].setup < 1){
 								issetup = 1;uicwizardsetup = 0;
 								wizardAlert(8,8,8);
@@ -264,17 +271,15 @@ $(document).ready(function(){
 					if(customArray.webImg8 != '')
 						j++;
 					if(customArray.city == '')	
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page ');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
 					else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
 						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
 					//else if(j < 2)
 					//	alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
 					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page > Create Your Tabluu Page');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
-					else if(customArray.settingsItem < 1)
-						alertBox('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
 					else
 						window.open('rateone.html?p='+customArray.nicename,'_blank');
 			  }});
@@ -307,17 +312,15 @@ $(document).ready(function(){
 					if(customArray.webImg8 != '')
 						j++;
 					if(customArray.city == '')	
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page ');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
 					else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
 						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
 					//else if(j < 2)
 						//alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
 					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page > Create Your Tabluu Page');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
-					else if(customArray.settingsItem < 1)
-						alertBox('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
 					else
 						window.open('rateone.html?p='+customArray.nicename+'&s='+s,'_blank');
 			  }});
@@ -380,7 +383,7 @@ $(document).ready(function(){
 		});
 		$('#manageFeedback').click(function(){
 			curClick = 0;
-			if(userArray.productId == everFree || userArray.productId == basicID || userArray.productId == lite || userArray.productId == basic12 || userArray.productId == basic24)
+			if(userArray.productId == everFree || userArray.productId == basicID || userArray.productId == basic12 || userArray.productId == basic24)
 				alertBox('no access','Please upgrade to pro plan & above to access this feature');
 			else{
 				if($.inArray(userArray.state,state_Array) == -1)
@@ -465,120 +468,12 @@ $(document).ready(function(){
                 }else{
 					 _setBusinessName(name);
 				}
-				/*
-				if(user.productId == basicID){
-                   /* if(rows > 1){
-                        defaulAlertBox('alert','no access',"Please upgrade to pro plan & above to add more locations.");
-                    }else{ 
-                        _setBusinessName(name);
-                  // }
-				}else if(user.productId == basic24){
-                    /*if(rows > 1){
-                        defaulAlertBox('alert','no access',"Please upgrade to pro plan & above to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //}	
-				}else if(user.productId == basic12){
-                    /*if(rows > 1){
-                        defaulAlertBox('alert','no access',"Please upgrade to pro plan & above to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //}		
-                }else if(user.productId == proID){
-                    /*if(rows > 4){
-                        defaulAlertBox('alert','no access',"Please upgrade to enterprise plan & above to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //}
-				}else if(user.productId == pro12){
-                   /* if(rows > 4){
-                        defaulAlertBox('alert','no access',"Please upgrade to enterprise plan & above to add more locations.");
-                    }else{ 
-                        _setBusinessName(name);
-                    //}
-				}else if(user.productId == pro24){
-                    /*if(rows > 4){
-                        defaulAlertBox('alert','no access',"Please upgrade to enterprise plan & above to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //}	
-                }else if(user.productId == enterprise){
-                    /*if(rows > 9){
-                        defaulAlertBox('alert','no access',"Please upgrade plan to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //} 
-               }else if(user.productId == enterprise12){
-                    /*if(rows > 9){
-                        defaulAlertBox('alert','no access',"Please upgrade plan to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //} 
-               }else if(user.productId == enterprise24){
-                    /*if(rows > 9){
-                        defaulAlertBox('alert','no access',"Please upgrade plan to add more locations.");
-                    }else{
-                        _setBusinessName(name);
-                    //} 
-               } */
 		  }else
 			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
 		}
 	});
     function loclabel(){
-	clearTimeout(resizeTimeout);
-	_setBusinessName2('');
-	/*
-	resizeTimeout = setTimeout(function(){ 
-		setTimeout(function(){$('#loclabel').focus();},300);
-			$.box_Dialog('<input type="text" name="loclabel" id="loclabel" value="" placeholder="your label..." style="width:90%" /><p>Note: A identification label may be the street name or a nick name that helps you identify an outlet or branch of your business...</p>', {'type':'confirm','title': '<span class="color-gold">please add an identification label</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'submit', callback: function() {
-					if($("#loclabel").val() == ''){
-							clearTimeout(resizeTimeout);
-							resizeTimeout = setTimeout(function(){ 
-								$.box_Dialog('Please enter your label', {
-									'type':     'question',
-									'title':    '<span class="color-gold">incomplete<span>',
-									'center_buttons': true,
-									'show_close_button':false,
-									'overlay_close':false,
-									'buttons':  [{caption: 'okay',callback:function(){loclabel();}}]
-								});
-						}, 300);
-					}else{
-						var tabname = $("#loclabel").val(),found = true;
-						for(var i in arraylabel){
-							if(decodequote(arraylabel[i]).toLowerCase() == tabname.toLowerCase()){
-								found = false;
-							}	
-						}
-						if(found){
-							lab = $("#loclabel").val();
-							clearTimeout(resizeTimeout);
-							resizeTimeout = setTimeout(function(){ 
-							_setBusinessName2(lab);
-							},300);
-						}else{
-							clearTimeout(resizeTimeout);
-							resizeTimeout = setTimeout(function(){ 
-								$.box_Dialog('Please use another label', {
-									'type':     'question',
-									'title':    '<span class="color-gold">"'+tabname+'" is in use<span>',
-									'center_buttons': true,
-									'show_close_button':false,
-									'overlay_close':false,
-									'buttons':  [{caption: 'okay',callback:function(){loclabel()}}]
-								});
-							}, 300);
-						}
-					}
-				}},{caption: 'skip',callback:function(){
-					clearTimeout(resizeTimeout);
-					resizeTimeout = setTimeout(function(){ 
-					_setBusinessName2('');
-					},300);
-				}}]
-			});	
-			}, 300);//to prevent the events fire twice */
+		_setBusinessName2('');
 	}
 	function _setBusinessName2(label){
 		var subs=0,curActive = parseInt(userArray.addLoc) + 1;
@@ -593,27 +488,7 @@ $(document).ready(function(){
 	}
 	function _setBusinessName(name){
 		locname = name;
-		loclabel();
-		/*
-		var isfound = true;
-		$('.left-menu li a').each(function (index) {
-			var locname  = $( this ).text();
-			if(locname == name)
-				isfound = false;
-		});
-		*/
-		//if(!isfound)	
-			//defaulAlertBox('alert','invalid','Location '+name +' existed')
-		//else{
-		/*
-			var subs=0,curActive = parseInt(userArray.addLoc) + 1;
-			if( parseInt(curActive) >= parseInt(activeLocLength) )
-				subs = 1;
-			setData({opt:'setLoc',userId:userArray.id,name:name,subs:subs});
-			if(userArray.permission == 1)
-				isAdminCreatedLocation = 1; */
-		//}
-		
+		loclabel();	
 	}
 	$( window ).resize(function() { // when window resize
 			if($( window ).width() > 600){
@@ -646,12 +521,6 @@ $(document).ready(function(){
 			$('#visit-tabluu-page').hide();
 			placeId= locId;
 			var index = row - 3;
-			isselfie = locArray[index].isselfie;
-			if(locArray[index].isselfie == 1)
-				diabledTab('.right-menu-loc .right-menu-loc',[5]);
-			else
-				diabledTab('.right-menu-loc .right-menu-loc',[]);	
-			
 			if(locArray[index].nicename){
 				if(newvanitylink != ''){
 					locArray[index].vlink = newvanitylink;
@@ -679,14 +548,14 @@ $(document).ready(function(){
 					activeLocLength++;
 				if($.trim(locArray[i].label) != '')
 					arraylabel.push(encodequote(locArray[i].label));	
-				locDefault = locDefault + '<li><a href="#" class="'+locArray[i].id+'|'+locArray[i].subscribe+'|'+locArray[i].setup+'"><img src="'+icon+'" alt="" class="ui-li-icon ui-corner-none">'+(locArray[i].isselfie == 1 ? '&lt;SELFIE ONLY&gt; ' : '')+locArray[i].name+' '+(locArray[i].label != '' ? '('+decodequote(locArray[i].label)+')' : '')+'<span class="listview-arrow-default"></span></a></li>';
+				locDefault = locDefault + '<li><a href="#" class="'+locArray[i].id+'|'+locArray[i].subscribe+'|'+locArray[i].setup+'"><img src="'+icon+'" alt="" class="ui-li-icon ui-corner-none">'+locArray[i].name+' '+(locArray[i].label != '' ? '('+decodequote(locArray[i].label)+')' : '')+'<span class="listview-arrow-default"></span></a></li>';
 			}
 			$('.left-menu').html('<ul class="left-menu" data-role="listview">'+locDefault+'</ul>');
 			$(".left-menu").on ('click', ' > li', function (event){
 				var row = $(this).index();
 				var clas = $(this).find( "a" ).attr("class");
 				var str = $( this ).text();
-				placename  = $.trim(String(str).replace('<SELFIE ONLY>','')); 
+				placename  = str;
 				var id = clas.split(' ');
 				locId = id[0];
 				$( ".right-header" ).html( placename );
@@ -709,7 +578,7 @@ $(document).ready(function(){
 				var row = $(this).index();
 				var clas = $(this).find( "a" ).attr("class");
 				var str = $( this ).text();
-				placename  = $.trim(String(str).replace('<SELFIE ONLY>','')); 
+				placename  = str; 
 				var id = clas.split(' ');
 				locId = id[0];
 				$( ".right-header" ).html( placename );		
@@ -887,8 +756,8 @@ $(document).ready(function(){
 						'buttons':  [{caption: 'feedback',callback:function(){setTimeout(function(){selfieonly = 0;hadError(lastId);},400)}},{caption: 'selfie only',callback:function(){selfieonly = 1;setSelfies(lastId);setTimeout(function(){hadError(lastId);},400)}}]
 					});
 				}else*/
-					hadError(lastId);
-				//window.open('http://camrally.com/blog/tabluu-general/how-do-i-setup-tabluu-2', '_blank');
+					//hadError(lastId);
+				selfieonly = 1;setSelfies(lastId);setTimeout(function(){hadError(lastId);},400);
 			}});
 		break;
 		case 'delLoc':
@@ -1154,55 +1023,15 @@ $(document).ready(function(){
         $(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=1'});
 		$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=0'});		
 		openlink1 = domainpath+customArray.nicename+'=0';
-		openlink2 = domainpath+customArray.nicename+'=1';
 		nice1 = customArray.nicename;nice2 = customArray.nicename;
 		$('#submit-shortlink2').click(function(){
 			window.open(openlink1,'_blank');
 		});
-		$('#submit-shortlink3').click(function(){
-			window.open(openlink2,'_blank');
-		});
-		$('#qr-generate3').click(function(){
-			window.open('qr-generated.html?p='+nice1+'&s=1&size='+$("#qr-size3 :radio:checked").val(),'_blank');
-		});
+		
+		
 		$('#qr-generate2').click(function(){
 			window.open('qr-generated.html?p='+nice2+'&s=0&size='+$("#qr-size2 :radio:checked").val(),'_blank');
 		});
-		places = locId.split('|');
-		showLoader();
-		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getshorturl',async: true,success:function(result){
-			hideLoader();
-			arrayDataURL =  $.parseJSON(result);
-			setshorturl(2);
-		}});
-		function setshorturl(newurl){
-			if($.isPlainObject(arrayDataURL)){
-				if(typeof(arrayDataURL.source_1) != 'undefined'){
-					$('#shortlink3').val('camrally.com/'+arrayDataURL.source_1.link);
-					$('#txtlabel1').val(decodequote(arrayDataURL.source_1.label));
-					$(".panel-selfiex .link").html('camrally.com/'+arrayDataURL.source_1.link);
-					$(".QRimage3").html('');
-					$(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_1.link});
-					openlink2 = domainpath+arrayDataURL.source_1.link; 
-					nice1 = arrayDataURL.source_1.link;
-					if(newurl < 2){
-						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="http://camrally.com/'+arrayDataURL.source_1.link+'" target="_blank">camrally.com/'+arrayDataURL.source_1.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
-					}	
-				}
-				if(typeof(arrayDataURL.source_0) != 'undefined'){
-					$('#shortlink2').val('camrally.com/'+arrayDataURL.source_0.link);
-					$('#txtlabel2').val(decodequote(arrayDataURL.source_0.label));
-					$(".panel-outselfie .link").html('camrally.com/'+arrayDataURL.source_0.link);
-					$(".QRimage2").html('');
-					$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_0.link});
-					openlink1 = domainpath+arrayDataURL.source_0.link; 
-					nice2 = arrayDataURL.source_0.link;
-					if(newurl < 2){
-						alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="http://camrally.com/'+arrayDataURL.source_0.link+'" target="_blank">camrally.com/'+arrayDataURL.source_0.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
-					}	
-				}
-			}
-		}
 		
 		$('#submit-label1').click(function(){
 			places = locId.split('|');
@@ -1376,13 +1205,13 @@ $(document).ready(function(){
 					if(customArray.webImg8 != '')
 						j++;
 					if(customArray.city == '')	
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page');
 					else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
 						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
 					//else if(j < 2)
 						//alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
 					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+						alertBox('setup incomplete','Go to Setup > Your Camrally Page');
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
 					else if(customArray.settingsItem < 1)
@@ -1471,8 +1300,7 @@ $(document).ready(function(){
 	function wizardstep7(){
 		showLoader();
 		var placeId = locId.split('|');
-		if(selfieonly === 0)
-			window.open('http://camrally.com/blog/tabluu/almost-there','_blank');
+	//	window.open(domainpath+customArray.nicename,'_blank');
 		selfieonly = 0;bgwizard=0;postwizard=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
@@ -1494,9 +1322,6 @@ $(document).ready(function(){
 	}
 	
 	$(document).on('pageshow','#weblink', function () {
-		if(customArray.isselfie == 1){
-					diabledTab('.weblink-left-menu',[1]);
-				}
 	
 	});
 	function codes(str){
@@ -1523,7 +1348,8 @@ $(document).on("pagebeforechange", function (e, data) {
 });
 
 	$(document).on('pageinit','#setup', function () {
-		
+		$('#frmlogocampaign').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
+		$('#frmlogocampaign').find('div').css({height:'1px'});
 		$('.iconsetup').click(function(e){
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(function(){ 
@@ -1537,6 +1363,123 @@ $(document).on("pagebeforechange", function (e, data) {
 			});
 		}, 500);//to prevent the events fire twice
 			e.preventDefault();
+		});
+		places = locId.split('|');
+		$('#placeIdCampaign').val(places[0]);
+		$('#uploadcampaign').click(function(e){e.preventDefault();$('#campaignlogo').click();});
+		$('#campaignlogo').on('change',function(){ // save fb photo
+			showLoader();
+			$('#frmlogocampaign').ajaxSubmit({beforeSubmit:  beforeSubmitImage,success: logoresponse,resetForm: true });
+		});	
+		function logoresponse(responseText, statusText, xhr, $form)  { 
+			hideLoader();
+			if(responseText == 'greater'){
+				alertBox('incorrect logo size','Please upload a logo image with max width 600px & max height 600px');
+			}else{
+				$('#frmlogocampaign').css({display:'none'});
+				var logoArray = $.parseJSON(responseText);			
+				$('#logothumb').attr('src', logoArray.dLogo);
+				customArray.logo = responseText;
+			}
+		}
+		$("#logothumb").click(function (){ 
+			if(customArray.logo != ''){
+				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=1',success:function(lastId){
+							hideLoader();
+							customArray.logo = '';$('#frmlogocampaign').css({display:'inline'});
+							$('#logothumb').attr('src', noPhoto);
+						}});
+					}},{caption: 'no'}]
+				});	
+			}			
+		});	
+		function beforeSubmitImage(){
+			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
+			if (window.File){
+				   var fsize = $('#campaignlogo')[0].files[0].size; //get file size
+				   var ftype = $('#campaignlogo')[0].files[0].type; // get file type
+						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
+				   if(parseFloat(fsize)>1000000){
+						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
+						$('#overlay').remove();
+						return false;			
+				   }else{
+						switch(ftype){
+							case 'image/png':
+							case 'image/png':
+							case 'image/gif':
+							case 'image/jpeg':
+							case 'image/jpg':
+							case 'image/bmp':
+							case 'image/pjpeg':
+							$('#logothumb').attr('src', loadingPhoto);
+							break;
+							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
+							$('#overlay').remove();
+							return false;					
+						}
+				  }
+			}else{
+			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
+			   $('#overlay').remove();
+			   return false;
+			}
+		}
+		function updateTextcampaign(){
+			showLoader();
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=detailscampaign&placeId='+places[0]+'&'+$('#frmselfies').serialize(),success:function(result){
+				hideLoader();
+				customArray.businessName=$("#namecampaign").val();customArray.brand=$("#txtbrand").val();customArray.tag1=$("#txtcamp1").val();customArray.tag2=$("#txtcamp2").val();customArray.btntext=$("#txtbtnselfie").val();customArray.category=$("#select-category").val();
+				$.box_Dialog('successfully updated', {
+				'type': 'information',
+				'title': '<span class="color-white">update</span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons': [{caption:'okay', callback:function(){ setTimeout(function(){campaignwizard = 0;wizardsetup();}, 300); }}]
+				});
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keyId+'&opt=getLoc&permission='+userArray.permission,success:	function(result){
+					locArray =  $.parseJSON(result);
+					isprofileupdated = 1;
+					placename = $("#namecampaign").val();
+					$( ".right-header" ).html( placename );
+				}});
+			}});
+		}
+		$('#setup #submit-tagline').click(function(e){
+			e.preventDefault();
+			var placeId = locId.split('|');
+				if($("#namecampaign").val() == '')
+					uicAlertBox('incomplete information','Please input occasion','#namecampaign');
+				else if($("#select-category").val() == '')
+					uicAlertBox('incomplete information','Please select category','#select-category');	
+				else if($("#txtbrand").val() == '')
+					uicAlertBox('incomplete information','Please add your brand','#txtbrand');
+				else if($("#txtcamp1").val() == '')
+					uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
+				else if($("#txtcamp2").val() == '')
+					uicAlertBox('incomplete information','Please add your slogan','#txtcamp2');
+				else if($("#txtbtnselfie").val() == '')
+					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
+				else if(customArray.logo == '')
+					uicAlertBox('incomplete information','Please upload campaign logo','#uploadcampaign');		
+				else{	
+					updateTextcampaign()
+				}
+		});
+		$('#setup #delCampaign').click(function(e){
+			e.preventDefault();
+			$.box_Dialog('All feedback data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+			{caption: 'yes', callback: function() {
+					showLoader();
+					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
+						hideLoader();
+					}});
+				}},{caption: 'no',callback:function(){ 
+			}}]
+			});
 		});
 		$("#setup-logo").click(function (e){  //logo click
 			
@@ -1574,34 +1517,25 @@ $(document).on("pagebeforechange", function (e, data) {
 		//checkboxQuestion();
 		
 		/*pageshow event script*/
-		googleAnalytic();var val,val2;
+		var val,val2;
 		$('.star').show();
-		if(questionwizardsetup == 1){
-			diabledTab('.setup-left-menu',[0,1,3,4,5]);
-		}else if(redirectwizardsetup == 1){
-			diabledTab('.setup-left-menu',[0,1,2,3,4]);
-		}else
-			curClick = defaultSetup;	
-		showHideMenuSetup(curClick);
-		defaultMenuSetup();	
-		/*if(questionwizardsetup == 1){
+		
+		if($( window ).width() < 600){
+				$( '.main-wrap .right-content' ).show();
+				$( '.main-wrap .left-content' ).hide();
+				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
+			}
+		if(campaignwizard == 1){
 			clas = 'ui-state-disabled';
 			curClick = 2;
 			showHideMenuSetup(curClick);
 			defaultMenuSetup();
-			$('.setup-left-menu li').each(function (index) {
-				if(index != 2)
-					$(this).addClass(clas);
-			});
-
-			if($( window ).width() < 600){
-				$( '.main-wrap .right-content' ).show();
-				$( '.main-wrap .left-content' ).hide();
-				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-			}	
-		}else{ */
-			
-		//}
+			diabledTab('#setup .setup-left-menu',[0,1,3]);
+		}else{
+			curClick = defaultSetup;
+			showHideMenuSetup(curClick);
+			defaultMenuSetup();	
+		}
 		$('.setup-right-weblink').on('click', ' > li', function () {
 		   curClick = $(this).index();
 		});
@@ -1644,143 +1578,6 @@ $(document).on("pagebeforechange", function (e, data) {
 			$('#alertsend3 input[value="1"]').attr('checked',true).checkboxradio('refresh');
 			$('#aveAlert input[value="2.5"]').attr('checked',true).checkboxradio('refresh');
 		}
-		
-	
-		
-		$('#flipsetting').on('change',function(){ // save whin flipswitch
-			var user = userArray;
-		    if(noAswer > 0)
-				noAswer=0;
-			else if(rateName.length < 1 && tagName.length < 1){
-				noAswer = 1;
-				var off = $("select#flipsetting");off[0].selectedIndex = 0;off.flipswitch("refresh");
-				alertBox('question(s) setup incomplete','Please complete Setup > What Questions to Ask');
-				
-			}else if(tagName.length < 1){
-				noAswer = 1;
-				var off = $("select#flipsetting");off[0].selectedIndex = 0;off.flipswitch("refresh");			
-				alertBox('please select questions','Please check 1 to 7 questions (just click or touch a question to check it).');
-			}else if($('#flipsetting').val() > 0){
-					$.box_Dialog('All feedback data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
-					{caption: 'yes', callback: function() {
-							customArray.settingsItem = 0;
-							 checkboxQuestion();
-							$('<div id="overlay"> </div>').appendTo(document.body);
-							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
-								$("#overlay").remove();
-							}});
-						}},{caption: 'no',callback:function(){ 
-					    noAswer = 1;
-						var off = $("select#flipsetting");off[0].selectedIndex = 1;off.flipswitch("refresh");
-					}}]
-					});
-			}else if($('#flipsetting').val() < 1){
-				customArray.settingsItem = 1;
-				checkboxQuestion();
-				$('<div id="overlay"> </div>').appendTo(document.body);
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=1&set=1',success:function(lastId){
-					$("#overlay").remove();
-					wizardsetup();
-				}});
-			}
-		});	
-		
-		$(".addnew-rate li a").click(function () {  // create new rating 
-			if(customArray.settingsItem > 0)
-				alertBox('settings locked','Please switch off the settings');
-			else{
-				$('.addnew-rate').hide();
-				$('.text-rate').show();
-				$('#txtrate').focus();
-			}
-		});	
-
-		
-		$( ".text-rate .ui-input-text input" ).blur(function() { // input new rate blur
-			if($('#txtrate').val() == ''){
-				$('.addnew-rate').show();
-				$('.text-rate').hide();
-			}
-		});
-		
-		function showtag(){
-				setTimeout(function(){$('#tagname').focus();},300);
-				if(rateName.length < 8){
-					isfocus = 1;
-					$.box_Dialog('<input type="text" name="tagname" id="tagname" value="" placeholder="your tag..." /><p>For example, if your question is about service, please use "Service" as your tag.</p>', {'type':'confirm','title': '<span class="color-gold">Please add a tag for this question.<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'submit', callback: function() { 
-							isfocus = 1;
-							if($("#tagname").val() == ''){
-							setTimeout(function() {
-									isfocus = 1;
-									$.box_Dialog('Please enter a tag.', {
-										'type':     'question',
-										'title':    '<span class="color-gold">incomplete<span>',
-										'center_buttons': true,
-										'show_close_button':false,
-										'overlay_close':false,
-										'buttons':  [{caption: 'okay',callback:function(){setTimeout(function() {isfocus = 1;showtag();},300);}}]
-									});
-							}, 300);
-							}else{
-								var found = true,oldtag; 
-								var tabname = $("#tagname").val();
-								 for(var i in questionDefault){
-									oldtag = questionDefault[i].split('_');
-									if(oldtag[1].toLowerCase() == tabname.toLowerCase())
-										found = false;
-										
-								}
-								var temp = [];
-								 for(var i in rateName){
-									temp.push(encodeURIComponent(encodequote(rateName[i])));
-									oldtag = rateName[i].split('_');
-									if(oldtag[1].toLowerCase() == tabname.toLowerCase())
-										found = false;
-										
-								}
-								if(found){
-									var name = encodeURIComponent(encodequote($("#txtrate").val() +'_'+$("#tagname").val()));
-									//rateName.reverse();
-									rateName.push(name);
-									temp.push(name);
-									showLoader();
-									$.ajax({type: "POST",url:"setData.php",contentType: "application/x-www-form-urlencoded;charset=UTF-8",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=9&check='+temp,success:function(lastId){
-										customArray.item2Rate = lastId.replace(/\\/,'');
-										hideLoader();
-										$("#txtrate").val('');
-										$('.addnew-rate').show();
-										$('.text-rate').hide();
-										checkboxQuestion();
-									}});
-								}else{
-									setTimeout(function() {
-										isfocus = 1;
-										$.box_Dialog('Please use another tag', {
-											'type':     'question',
-											'title':    '<span class="color-gold">"'+tabname+'" is in use<span>',
-											'center_buttons': true,
-											'show_close_button':false,
-											'overlay_close':false,
-											'buttons':  [{caption: 'okay',callback:function(){setTimeout(function() {isfocus = 1;showtag();},300);}}]
-										});
-									}, 300);
-								}
-							}
-						}},{caption: 'cancel'}]
-					});	
-				}else
-					alertBox('maximum questions added','Please delete some questions before adding new ones');	
-		}
-		$( "#txtrate" ).keypress(function(e) { // get the new rate text
-			if(e.which == 13){
-				if($("#txtrate").val() != ''){
-					//$( "#tagname" ).keypress(function(e) {
-						//alert('sdf');
-					//})
-					showtag();
-				}									
-			}	
-		});
 				
 		function createPage1(){
 			places = locId.split('|');
@@ -1821,22 +1618,25 @@ $(document).on("pagebeforechange", function (e, data) {
 		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
 		if(customArray.city != ''){
 			if(customArray.nicename == "")
-				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Tabluu Page<span class="listview-arrow-default"></span></a></li>';
+				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
 			else
-				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Tabluu Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Opening Hours<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Tabluu URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		}else{
 			if(customArray.nicename != "")
-				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >Visit Your Tabluu Page<span class="listview-arrow-default"></span></a></li>';
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Opening Hours<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Tabluu URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
 				
 		}
 			$('.profile-left-menu1').html(newli);
 			$('.profile-left-menu1').on('click', ' > li', function () {
 				curClick = $(this).index();
-				if(curClick == 4){
-					curClick = 0;
-					$( ":mobile-pagecontainer" ).pagecontainer( "change", "uic.html",{});
+				//alert(curClick)
+				if(curClick == 2){
+					defaultSetup = 2;
+					showHideMenuSetup(curClick);		
+				    defaultMenuSetup();
+					//$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
 				}	
 			});
 			$(".profile-left-menu1").listview();
@@ -1930,6 +1730,15 @@ $(document).on("pagebeforechange", function (e, data) {
 		   }
 			
 		});
+		$('#submit-desc').click(function(e){ //save description
+			showLoader();
+			var str = strencode($('#campaign-desc').sceditor('instance').val());
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
+				hideLoader();
+				customArray.description = str;
+				alertBox('update successful','Description section has been updated');
+			}});		
+		});	
 		function showHideMenuSetup(row){
 			curClick = row;
 			$('.panel-question').hide();$('.panel-post').hide();$('.panel-profile').hide();$('.panel-UIC').hide();$('.setup-cust-post').hide();$('.setup-email-alert').hide();$('.panel-fbpost').hide();$('.panel-redirect').hide();	
@@ -1941,38 +1750,47 @@ $(document).on("pagebeforechange", function (e, data) {
 			if(row == 0){
 				createProfileMenu1();
 				$('.panel-profile').show();
-				if(customArray.isselfie == 1)
-					diabledTab('.panel-profile .profile-left-menu1',[2]);
 			}else if(row == 1){
-				/*$.ajax({url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getImages&',async: false,success:function(result){
-					hideLoader();
-					if(result != 0){
-						imagesArray =  $.parseJSON(result);
-					}
-					$('.panel-fbpost').show(); 
-				}});*/
 				$( '#setup .right-content' ).addClass("right-bgblue");
 				$('.panel-UIC').show();
-				if(customArray.isselfie == 1)	
-					diabledTab('.panel-UIC .right-menu',[2,3,4]);
 			}else if(row == 2){
-				if(customArray.isselfie == 1){
-					alertBox('section disabled','You are running a "selfie only" campaign and it is not required to setup up this section.');
-				}else{
-					checkboxQuestion();
-					$('.panel-question').show();
+				$('.panel-question').show();
+				setTimeout(function(){
+					$(function() {
+						$("#setup #campaign-desc").sceditor({
+							plugins: "xhtml",
+							style: "minified/jquery.sceditor.default.min.css",
+							toolbar: "bold,italic,underline,link,unlink,email,strike,subscript,superscript,left,center,right,justify,size,color,bulletlist,orderedlist,table,horizontalrule,date,time,ltr,rtl",
+							resizeEnabled:false
+						});
+					});
+					$('textarea').sceditor('instance').focus(function(e) {isfocus=1;});
+					if(customArray.description != '' && customArray.description != null)	
+						$('#campaign-desc').sceditor('instance').val(strdecode(customArray.description));
+				},300);	
+				if(customArray.logo != ''){ 
+					var logoArray = $.parseJSON(customArray.logo);
+					$('#frmlogocampaign').css({display:'none'});	
+					$('#logothumb').attr('src', (logoArray.dLogo == 'images/desktop_default.png' ? 'images/default-logo.png' : logoArray.dLogo)); //logoArray.dLogo
 				}
+				if(customArray.businessName != '')
+					$('#namecampaign').val(customArray.businessName);
+				if(customArray.tag1 != ''){
+					$('#txtbrand').val(customArray.brand);
+					$('#txtcamp1').val(customArray.tag1);
+					$('#txtcamp2').val(customArray.tag2);
+					$('#txtbtnselfie').val(customArray.btntext);
+					var selectobject=document.getElementById("select-category");
+					var n= 0;
+					for (var i=0; i<selectobject.length; i++){
+						if(selectobject.options[i].value==customArray.category)
+							n = i;
+					}
+					var cat = $("#select-category"); //set selected
+					cat[0].selectedIndex = n;
+					cat.selectmenu("refresh");
+		        }
 			}else if(row == 3){
-				$('.panel-postFB').show();
-				if(customArray.isselfie == 1)
-					diabledTab('.panel-postFB .right-menu',[1,2]);
-			}else if(row == 4){
-				if(userArray.productId != enterprise12 && userArray.productId != enterprise24 && userArray.productId != enterprise)
-					 alertBox('no access','Please upgrade to enterprise plan & above to access this feature');
-				else	
-					$('.setup-email-alert').show();	
-				/*$('.panel-post').show(); */
-			}else if(row == 5){
 				$('.panel-redirect').show();
 				$('#txtwebdesired').val('');
 				$('#txtwebdesired').val(customArray.websiteURL);
@@ -2054,181 +1872,9 @@ $(document).on("pagebeforechange", function (e, data) {
 	$(document).on('pageshow','#setup', function () {
 		if(newvanitylink != "")
 			$('.link-visit-page').attr('href',domainpath+newvanitylink);
-		if(customArray.isselfie == 1)
-			diabledTab('.setup-left-menu',[2,4]);	
 	});
 	
 	var rateName=[],tagName=[],noAswer=0;
-	var questionDefault = ['How would you rate our staff based on how welcoming and friendly they were towards you?_Service Friendliness','Do you feel that you were provided service in a timely manner?_Service Timeliness','How would you rate the attentiveness of our service?_Service Attentiveness','How would you rate our overall service?_Overall Service','Was this experience worth the amount you paid?_Value for Money','Please rate our location._Location','Please rate our facilities._Facilities','How comfortable was your stay?_Comfort','How would you rate our property in terms of cleanliness?_Cleanliness','How would you rate the overall quality of your meal?_Quality of Meal','How would you rate the overall taste of your meal?_Taste of Meal','Do you feel that there were enough options for you to choose?_Variety','How likely are you to recommend us to your friends and loved ones?_Likelihood to Recommend','How likely are you to visit us again?_Likelihood to Visit Again','How valuable is our web service to you?_Value Proposition','For the value provided, how attractive is our pricing?_Price Attractiveness','How likely are you to recommend this website to your friends?_Recommended'];
-   
-   function checkboxQuestion(){	
-		var checkbox='',allcheckbox='',checkboxweb='',allcheckboxweb='',createdchecbox='',allcreatedchecbox='';
-		rateName=[],tagName=[];
-
-		if(customArray.item2Rate != ''){
-			var item2rate = $.parseJSON(customArray.item2Rate);
-			if(typeof(item2rate.rows) != 'undefined'){
-				for(var i in item2rate.rows){
-					rateName.push(item2rate.rows[i].data);
-				}
-			}else
-				rateName =item2rate;
-		}
-		if(customArray.selectedItems != ''){
-			var selectedItems = $.parseJSON(customArray.selectedItems);
-			if(typeof(selectedItems.rows) != 'undefined'){
-				for(var i in selectedItems.rows){
-					tagName.push(selectedItems.rows[i].data);
-				}
-			}else
-				tagName = selectedItems;	
-		}			
-		var off = $("select#flipsetting"); //set selected flipswitch
-		off[0].selectedIndex = customArray.settingsItem;
-		off.flipswitch("refresh");
-		//rateName.reverse();		
-		 for(var i in rateName){
-			var name = decodequote(rateName[i]).split('_');
-			//if($.inArray(name[1],['Price Attractiveness','Value Proposition','Recommended'] ) == -1){
-				createdchecbox ='<div class="ui-checkbox"><div class="delRate ui-li-count"><img src="images/template/areasIconDel2.png"  alt="'+encodequote(name[1])+'"></div>'
-					+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="checkbox-'+i+'">'+name[0]+' ('+name[1]+')</label>'
-					+'<input id="checkbox-'+i+'" '+(customArray.settingsItem > 0 ? 'disabled=""' : '')+' type="checkbox" value="'+encodequote(name[1])+'" name="checkbox-'+i+'">'
-					+'</div>';
-			   allcreatedchecbox = allcreatedchecbox + createdchecbox;
-			/*}else{
-				checkboxweb ='<div class="ui-checkbox"><div class="delRate ui-li-count"><img src="images/template/areasIconDel2.png"  alt="'+encodequote(name[1])+'"></div>'
-					+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="checkbox-'+i+'">'+name[0]+' ('+name[1]+')</label>'
-					+'<input id="checkbox-'+i+'" '+(customArray.settingsItem > 0 ? 'disabled=""' : '')+' type="checkbox" value="'+encodequote(name[1])+'" name="checkbox-'+i+'">'
-					+'</div>';
-			   allcheckboxweb = allcheckboxweb + checkboxweb;
-				
-		   }*/
-		}
-		if(rateName.length > 0)
-			$('.createdquest').show();
-		else
-			$('.createdquest').hide();
-		 for(var j in questionDefault){
-			var name = questionDefault[j].split('_');
-			if($.inArray(name[1],['Price Attractiveness','Value Proposition','Recommended'] ) == -1){
-				checkbox ='<div class="ui-checkbox">'
-				+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="defaultQ-'+j+'">'+name[0]+' ('+name[1]+')</label>'
-				+'<input id="defaultQ-'+j+'" '+(customArray.settingsItem > 0 ? 'disabled=""' : '')+' type="checkbox" value="'+name[1]+'" name="defaultQ-'+j+'">'
-				+'</div>';
-				allcheckbox = allcheckbox + checkbox;
-			}else{
-				checkboxweb ='<div class="ui-checkbox">'
-				+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="defaultQ-'+j+'">'+name[0]+' ('+name[1]+')</label>'
-				+'<input id="defaultQ-'+j+'" '+(customArray.settingsItem > 0 ? 'disabled=""' : '')+' type="checkbox" value="'+name[1]+'" name="defaultQ-'+j+'">'
-				+'</div>';
-				allcheckboxweb = allcheckboxweb + checkboxweb;
-			}	
-		}
-		allcreatedchecbox = '<div class="ui-controlgroup-controls">'+allcreatedchecbox + '</div>'; 
-		$('#ratetextcreated').html(allcreatedchecbox);
-		allcheckbox = '<div class="ui-controlgroup-controls">'+allcheckbox + '</div>'; 
-		$('#ratetext').html(allcheckbox);
-		allcheckboxweb = '<div class="ui-controlgroup-controls">'+allcheckboxweb + '</div>'; 
-		$('#ratetextweb').html(allcheckboxweb);
-		//$("[type=checkbox]").attr("checked",true).checkboxradio();
-		for(var j in tagName){
-			var seclted = tagName[j];
-			for(var i in rateName){
-				name = decodequote(rateName[i]).split('_');
-				if(name[1] == decodequote(seclted)){
-					$("input[id=checkbox-"+i+"]").attr("checked",true).checkboxradio();
-				}
-			}
-		} 	
-		
-		for(var j in tagName){
-			seclted = tagName[j];
-			for(var i in questionDefault){
-				name = questionDefault[i].split('_');
-				if(name[1] == decodequote(seclted)){
-					$("input[id=defaultQ-"+i+"]").attr("checked",true).checkboxradio();
-				}
-			}
-		} 
-		$(".ui-li-count").click(function () {  // create new rating 
-			var alt = $(this).find( "img" ).attr('alt');
-			checkboxQuestion();
-			removeName(alt);
-		});	
-	
-		$("input[type='checkbox']").on('click',function(index){
-			//alert($(this).attr("value") +' '+$(this).is(':checked'))
-			var newText=[];
-			 $("input[type='checkbox']").each(function(index){
-				if($(this).is(':checked')){
-					newText.push(encodeURIComponent(encodequote($(this).val())));
-				}	
-			 });
-			// alert(newText.length);
-			 if(newText.length < 8){
-			//	showLoader();
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=8&check='+newText,success:function(lastId){
-					hideLoader();
-					customArray.selectedItems = lastId.replace(/\\/,'');
-					checkboxQuestion();
-				}});
-			}else{
-				$(this).attr("checked",false).checkboxradio();
-				alertBox('please select questions','Please check 1 to 7 questions (just click or touch a question to check it).');
-			}
-				//alertBox('maximum questions added','Please delete some questions before adding new ones');
-		 })	 
-		$("input[type=checkbox]").checkboxradio();
-		$("[data-role=controlgroup]").controlgroup("refresh");
-		
-   }
-   
-  	function removeName(alt){
-		if($("select#flipsetting").val() > 0){
-			$.box_Dialog('Delete this entry?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-				var newText=[];
-				//rateName.reverse();
-				for(var i in rateName){
-					var name = rateName[i].split('_');
-						if(decodequote(name[1]) != decodequote(alt))
-							newText.push(encodeURIComponent(encodequote(rateName[i])));
-						
-				}
-				
-				if(rateName.length < 1){
-					tagName=[];
-					showLoader();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=8&check='+tagName,success:function(lastId){
-						hideLoader();
-						customArray.selectedItems = lastId.replace(/\\/,'');
-						checkboxQuestion();
-					}});				
-				}else{
-					var temp = [];
-					for(var i in tagName){
-						name = alt.split('_');
-							if(tagName[i] != name)
-								temp.push(encodeURIComponent(encodequote(tagName[i])));
-					}
-					
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=8&check='+temp,success:function(lastId){
-						hideLoader();
-						customArray.selectedItems = lastId.replace(/\\/,'');
-						checkboxQuestion();
-					}});
-				}	
-					showLoader();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=9&check='+newText,success:function(lastId){
-						hideLoader();
-						customArray.item2Rate = lastId.replace(/\\/,'');
-						checkboxQuestion();
-					}});
-					
-				}},{caption: 'no'}]
-			});	
-		}
-	} 	
-
 
 	$(document).on('pageinit','#profile', function () {
 		
@@ -2293,12 +1939,13 @@ $(document).on("pagebeforechange", function (e, data) {
 				if(data == 'exist')
 					setTimeout(function(){alertBox('not available','This entry is not available anymore. Please try another one.');},300);
 				else{
-					vanitylinkupdate = 1;
 					$('#vanity-reset').show();
 					$('#vanity-str').val(data);newvanitylink = data;
 					$('.link-visit-page').attr('href',domainpath+data); 
-					//$('.van-link-default').html('<a href="'+domainpath+data+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">http://camrally.com/'+data+'</a>');
-					setTimeout(function(){alertBox('successful!','Congratulations! Your Custom Tabluu URL has been updated.');},300);
+					if(vanitywizard == 1){
+						vanitywizard=0;wizardsetup();
+					}else	
+						setTimeout(function(){alertBox('successful!','Congratulations! Your Custom Camrally URL has been updated.');},300);
 				}
 			}});
 			}else{
@@ -2315,9 +1962,9 @@ $(document).on("pagebeforechange", function (e, data) {
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case=2',success:function(data){
 						hideLoader();
 						$('#vanity-str').val('');$('#vanity-reset').hide();
-						//$('.van-link-default').html('<a href="'+domainpath+customArray.nicename+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">http://camrally.com/'+customArray.nicename+'.html</a>');
+						//$('.van-link-default').html('<a href="'+domainpath+customArray.nicename+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+customArray.nicename+'.html</a>');
 						$('.van-link-default').html('http://camrally.com/');
-						setTimeout(function(){alertBox('successful!','Your Custom Tabluu URL has been reset.');},300);
+						setTimeout(function(){alertBox('successful!','Your Custom Camrally URL has been reset.');},300);
 					}});
 				}},{caption: 'no'}]
 			
@@ -2395,7 +2042,6 @@ $(document).on("pagebeforechange", function (e, data) {
 		});	
 		$('.star').show();
 		var places = locId.split('|'),n=0;
-		$('#select-category').removeClass('ui-corner-all ui-shadow');
 		$( ".right-header" ).html( placename );	
 		$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=customerTime&groupID='+userArray.userGroupId,success:function(result){
 			hideLoader();
@@ -2413,29 +2059,11 @@ $(document).on("pagebeforechange", function (e, data) {
 				} 
 			}
 		}});
+		
 		createProfileMenu2();
 		$('#placeidweb').val(places[0]);
 		// setting up values
-		$('#webthumb1').attr('src', noPhoto);$('#webthumb2').attr('src', noPhoto);$('#webthumb3').attr('src', noPhoto);$('#webthumb4').attr('src', noPhoto);$('#webthumb5').attr('src', noPhoto);$('#webthumb6').attr('src', noPhoto);$('#webthumb7').attr('src', noPhoto);$('#webthumb8').attr('src', noPhoto);$('#txtname').val('');$('#txtadd').val('');$('#txtcity').val('');$('#txtlabel').val('');$('#txtcountry').val('');$('#txtzip').val('');$('#txtpho').val('');$('#txtfb').val('');$('#txtweb').val('');$('#txtlink').val('');$('#txttwit').val('');$('#txtproemail').val('');$('#txtbooknow').val('');
-		if(customArray.category === 'Accomodation') n=1;
-		else if(customArray.category == 'Arts & Entertainment') n=2;
-		else if(customArray.category == 'Auto Sales, Rental & Repair') n=3;
-		else if(customArray.category == 'Beauty') n=4;
-		else if(customArray.category == 'Child Care') n=5;
-		else if(customArray.category == 'Health & Fitness') n=6;
-		else if(customArray.category == 'Home Services') n=7;
-		else if(customArray.category == 'Massage') n=8;
-		else if(customArray.category == 'Personal Training') n=9;
-		else if(customArray.category == 'Photography') n=10;
-		else if(customArray.category == 'Real Estate') n=11;
-		else if(customArray.category == 'Restaurant, Cafe & Food and Beverage') n=12;
-		else if(customArray.category == 'Travel') n=13;
-		else if(customArray.category == 'Wedding Planning') n=14;
-		else if(customArray.category == 'Online') n=15;
-		else if(customArray.category == 'Others') n=16;
-		var cat = $("#select-category"); //set selected
-		cat[0].selectedIndex = n;
-		cat.selectmenu("refresh");
+		$('#webthumb1').attr('src', noPhoto);$('#webthumb2').attr('src', noPhoto);$('#webthumb3').attr('src', noPhoto);$('#webthumb4').attr('src', noPhoto);$('#webthumb5').attr('src', noPhoto);$('#webthumb6').attr('src', noPhoto);$('#webthumb7').attr('src', noPhoto);$('#webthumb8').attr('src', noPhoto);$('#txtorg').val('');$('#txtadd').val('');$('#txtcity').val('');$('#txtcountry').val('');$('#txtzip').val('');$('#txtpho').val('');$('#txtfb').val('');$('#txtweb').val('');$('#txtlink').val('');$('#txttwit').val('');$('#txtproemail').val('');$('#txtbooknow').val('');
 		//if(customArray.fbImg != ''){
 			//$('#fbthumb').attr('src', customArray.fbImg);
 			//$('#frmfb').css({display:'none'});	
@@ -2457,12 +2085,10 @@ $(document).on("pagebeforechange", function (e, data) {
 		}if(customArray.webImg8 != ''){
 			$('#webthumb8').attr('src', customArray.webImg8);
 		}
-		if(customArray.businessName != ''){
-			$('#txtname').val(customArray.businessName);	
-		}if(customArray.address != ''){
+		if(customArray.organization != '')
+			$('#txtorg').val(customArray.organization);
+		if(customArray.address != ''){
 			$('#txtadd').val(customArray.address);
-		}if(customArray.label != ''){
-			$('#txtlabel').val(decodequote(customArray.label));	
 		}if(customArray.city != ''){
 			$('#txtcity').val(customArray.city);
 		}if(customArray.country != ''){
@@ -2505,9 +2131,9 @@ $(document).on("pagebeforechange", function (e, data) {
 				setTimeout(function() {wizardsetup();},200);
 			}else{	
 			//window.open('http://camrally.com/'+nicename+'.html', '_blank');
-			$.box_Dialog('Click "visit your Tabluu page" on the left column', {
+			$.box_Dialog('Click "visit your Camrally Page" on the left column', {
 				'type':     'question',
-				'title':    '<span class="color-gold">visit your Tabluu page?<span>',
+				'title':    '<span class="color-gold">visit your Camrally Page?<span>',
 				'center_buttons': true,
 				'show_close_button':false,
 				'overlay_close':false,
@@ -2523,13 +2149,6 @@ $(document).on("pagebeforechange", function (e, data) {
 	function createProfileMenu2(){
 		var j=0,clas = '';	
 		
-		if(profilewizardsetup == 1 ){ //
-			clas = 'class="ui-state-disabled"';
-		}else if(profilewizardwebImg == 1 ){
-			clas = 'class="ui-state-disabled"';
-		}
-		if(profilewizardwebImg == 0 && profilewizardsetup == 0)
-			clas = '';
 		if(customArray.city != ''){
 			$('#txtcity').val(customArray.city);
 		}	
@@ -2554,26 +2173,34 @@ $(document).on("pagebeforechange", function (e, data) {
 		if(customArray.city != ''){
 			if(customArray.nicename == "")
 				createPage2();
-				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Tabluu Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html"  data-prefetch="true">Opening Hours<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Tabluu URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>'
+				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>'
 		}else{
 			if(customArray.nicename != "")
-				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" target="_blank" class="link-visit-page" >Visit Your Tabluu Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas )+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html"  data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Opening Hours<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Tabluu URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" target="_blank" class="link-visit-page" >Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas )+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		}
 		
 			$('.profile-left-menu2').html(newli);
 			$('.profile-left-menu2').on('click', ' > li', function () {
-				if($(this).index() == 4){
-					curClick = 0;
-					$( ":mobile-pagecontainer" ).pagecontainer( "change", "uic.html",{});
-				}else if($(this).index() < 7){
+				if($(this).index() == 2){
+					defaultSetup = 2;
+					$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
+				}else if($(this).index() < 6){
 					curClick = $(this).index();
 					showHideMenuProfile(curClick);
 					defaultMenuProfile();
 				}
 			});			
 			$(".profile-left-menu2").listview();
+		if(vanitywizard==1)
+			diabledTab('#profile .profile-left-menu2',[0,2,3,4,5,6]);
+		if(profilewizardsetup==1)
+			diabledTab('#profile .profile-left-menu2',[1,2,3,4,5,6]);
+		else if(profilewizardwebImg==1){
+			curClick = 3;
+			diabledTab('#profile .profile-left-menu2',[0,1,2,4,5,6]);
+		}
 		defaultMenuProfile();
 		showHideMenuProfile(curClick);			
 	}			
@@ -2748,45 +2375,10 @@ $(document).on("pagebeforechange", function (e, data) {
 				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
 			}
 			$('.pro-section').hide();$('.desc-section').hide();$('.open-section').hide();$('.photo-section').hide();$('.map-section').hide();$('.pro-vanity').hide();
-			if(customArray.isselfie == 1)
-				diabledTab('#profile .profile-left-menu2',[2]);
 			if(row == 0){
 				$('.pro-section').show();
 			}else if(row == 1){
-				$('.desc-section').show();
-				$(function() {
-					$("#textarea-desc").sceditor({
-						plugins: "xhtml",
-						style: "minified/jquery.sceditor.default.min.css",
-						toolbar: "bold,italic,underline,link,unlink,email,strike,subscript,superscript,left,center,right,justify,size,color,bulletlist,orderedlist,table,horizontalrule,date,time,ltr,rtl",
-						resizeEnabled:false
-					});
-				});
-				$('textarea').sceditor('instance').focus(function(e) {
-					isfocus=1;
-				});
-
-				if(customArray.description != '' && customArray.description != null)	
-					$('#textarea-desc').sceditor('instance').val(strdecode(customArray.description));				
-				
-			}else if(row == 2){
-				$('.open-section').show();
-				$(function() {
-					$("#textarea-hour").sceditor({
-						plugins: "xhtml",
-						style: "minified/jquery.sceditor.default.min.css",
-						toolbar: "bold,italic,underline,link,unlink,email,strike,subscript,superscript,left,center,right,justify,size,color,bulletlist,orderedlist,table,horizontalrule,date,time,ltr,rtl",
-						resizeEnabled:false
-					});
-				});
-				$('textarea').sceditor('instance').focus(function(e) {
-					isfocus=1;
-				});
-				if(customArray.opening != '' && customArray.opening != null)
-					$('#textarea-hour').sceditor('instance').val(strdecode(customArray.opening));
-				
-			}else if(row == 3){
-				if(userArray.productId == basicID || userArray.productId == lite || userArray.productId == basic24 || userArray.productId == basic12 || userArray.productId == everFree){
+				if(userArray.productId == basicID || userArray.productId == basic24 || userArray.productId == basic12 || userArray.productId == everFree){
 					alertBox('no access','Please upgrade to pro plan & above to access this feature');
 				}else{		
 				showLoader();
@@ -2795,7 +2387,7 @@ $(document).on("pagebeforechange", function (e, data) {
 						createdvanity = data;
 						if($.trim(createdvanity) != '' ){
 							$('#vanity-reset').show();
-							//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">http://camrally.com/'+createdvanity+'</a>');
+							//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+createdvanity+'</a>');
 							$('#vanity-str').val(createdvanity);
 						}else{
 							$('#vanity-reset').hide();
@@ -2805,7 +2397,7 @@ $(document).on("pagebeforechange", function (e, data) {
 					}});
 				}
 			
-			}else if(row == 5){
+			}else if(row == 3){
 				showLoader();
 				$('.ishide1').hide();$('.ishide2').hide();$('.ishide3').hide();$('.ishide4').hide();$('.ishide5').hide();$('.ishide6').hide();$('.ishide7').hide();$('.ishide8').hide();
 				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getImages&',async: false,success:function(result){
@@ -2854,7 +2446,7 @@ $(document).on("pagebeforechange", function (e, data) {
 					$('.photo-section').show();
 				}});
 				
-			}else if(row == 6){
+			}else if(row == 4){
 				$('.map-section').show();
 				drawMap();
 			}
@@ -2880,13 +2472,10 @@ $(document).on("pagebeforechange", function (e, data) {
 
         
 		function checkProfileBox(){
-			var r=true,txtCategory = $('#select-category').val(),txtName = $('#txtname').val(),txtAdd = $('#txtadd').val(), txtCity = $('#txtcity').val(),txtContact = $('#txtpho').val(),txtCountry=$('#txtcountry').val(),txtZip=$('#txtzip').val(),txtemail=$('#txtproemail').val(),txtcustombutton=$('#txtbooknowlabel').val(),txtcustombuttonurl=$('#txtbooknow').val();
+			var r=true,txtName = $('#txtname').val(),txtAdd = $('#txtadd').val(), txtCity = $('#txtcity').val(),txtContact = $('#txtpho').val(),txtCountry=$('#txtcountry').val(),txtZip=$('#txtzip').val(),txtemail=$('#txtproemail').val(),txtcustombutton=$('#txtbooknowlabel').val(),txtcustombuttonurl=$('#txtbooknow').val();
 			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var email=txtemail;
-			if(txtCategory == ''){
-				alertBox('incomplete information','Please select a category');
-				r=false;
-			}else if(txtName == ''){
+			if(txtName == ''){
 				alertBox('incomplete information','Please input a business name');
 				r=false;        
 			}else if(txtAdd == ''){
@@ -2908,30 +2497,17 @@ $(document).on("pagebeforechange", function (e, data) {
 				alertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)');
 				r=false;        
 			}
-
-			var tabname = $('#txtlabel').val(),found = true;
-			for(var i in arraylabel){
-				if(decodequote(arraylabel[i]).toLowerCase() == tabname.toLowerCase() && customArray.label == ''){
-					found = false;
-				}else if(customArray.label != '' && $('#txtlabel').val() != customArray.label && decodequote(arraylabel[i]).toLowerCase() == tabname.toLowerCase()){
-					found = false;
-				}	
-			}
-			if(found == false){
-				alertBox('Please use another label',tabname+' is in use');
-				r=false;
-			}
 			return r;
 		}	
        		$('#txtbooknowlabel').keyup(function(e){     
 				limitText(this,30);
 			});
+			
         function saveProfile(){
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&lat='+lat+'&lng='+lng+'&opt=profile&'+$('#frmpro').serialize()+'&timezone='+$('#profile-timezone').val()+'&groupId='+userArray.userGroupId,async: false,success:function(lastId){
 				hideLoader();
-				placename = $('#txtname').val() + ($.trim($('#txtlabel').val()) != '' ? ' ('+$('#txtlabel').val()+')' : '');
 				$( ".right-header" ).html( placename );	
-				customArray.businessName =$('#txtname').val();customArray.category=$('#select-category').val();customArray.address=$('#txtadd').val(); customArray.city=$('#txtcity').val(); customArray.country=$('#txtcountry').val(); customArray.zip=$('#txtzip').val(); customArray.txtlabel=$('#txtlabel').val(); customArray.contactNo=$('#txtpho').val(); customArray.facebookURL=$('#txtfb').val();customArray.websiteURL=$('#txtweb').val();customArray.linkedinURL=$('#txtlink').val();customArray.twitterURL=$('#txttwit').val();customArray.email=$('#txtproemail').val();customArray.booknowlabel=$('#txtbooknowlabel').val();customArray.booknow=$('#txtbooknow').val();
+				customArray.organization=$('#txtorg').val();customArray.address=$('#txtadd').val(); customArray.city=$('#txtcity').val(); customArray.country=$('#txtcountry').val(); customArray.zip=$('#txtzip').val(); customArray.contactNo=$('#txtpho').val(); customArray.facebookURL=$('#txtfb').val();customArray.websiteURL=$('#txtweb').val();customArray.linkedinURL=$('#txtlink').val();customArray.twitterURL=$('#txttwit').val();customArray.email=$('#txtproemail').val();customArray.booknowlabel=$('#txtbooknowlabel').val();customArray.booknow=$('#txtbooknow').val();
 				//alertBox('update successful','Profile section has been updated');
 				$.box_Dialog('Profile section has been updated', {
 					'type':     'question',
@@ -2941,26 +2517,6 @@ $(document).on("pagebeforechange", function (e, data) {
 					'overlay_close':false,
 					'buttons':  [{caption: 'okay',callback:function(){setTimeout(function() {createProfileMenu2();}, 300);}}]
 				});	
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keyId+'&opt=getLoc&permission='+userArray.permission,success:	function(result){
-					locArray =  $.parseJSON(result);
-					isprofileupdated = 1;
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=customerTime&groupID='+userArray.userGroupId,success:function(result){
-					   /*
-						var selectobject=document.getElementById("profile-timezone");
-						for (var i=0; i<selectobject.length; i++){
-							if(selectobject.options[i].value==result){
-								selectobject.options[i].setAttribute('selected','selected');
-								if(result=='none'){
-									$('#profile-timezone-button span').html('Select Time Zone');
-								} else {
-									$('#profile-timezone-button span').html(result);
-								}
-							} else {
-								selectobject.options[i].removeAttribute('selected');
-							}
-						} */
-					}});
-				}});
 			}});	
 		}		
 		$('#submit-pro').click(function(e){ // save profile location
@@ -2968,6 +2524,7 @@ $(document).on("pagebeforechange", function (e, data) {
 			
 			if(checkProfileBox()){
 				//$('<div id="overlay"> </div>').appendTo(document.body);
+				/*
 				showLoader();
 				  var geocoder = new google.maps.Geocoder();
 				  var address = $('#txtname').val() +' '+ $('#txtadd').val() +', '+ $('#txtcity').val() +', '+$('#txtcountry').val();
@@ -2980,8 +2537,8 @@ $(document).on("pagebeforechange", function (e, data) {
 					} //else 
 						//alertBox('notice','Your locaton address had no geocode'); 
 					 saveProfile();
-				  }); 
-				 // saveProfile();
+				  });  */
+				  saveProfile();
 			}
 		});		
 		
@@ -3072,7 +2629,6 @@ $(document).on("pagebeforechange", function (e, data) {
 				alertBox('incorrect image size','Please upload images products with min width 600px & min height 200px');
 			}else{
 				if(profilewizardwebImg == 1){
-					window.open('rateone.html?p='+customArray.nicename+'&s=0','_blank');
 					setTimeout(function() {wizardsetup();profilewizardwebImg = 0;},200);
 				}	
 				if(customArray.webImg == ''){
@@ -3121,6 +2677,7 @@ $(document).on("pagebeforechange", function (e, data) {
 			}
 		}
 		function changephoto2(){
+			
 			if(customArray.webImg == ''){
 				$('#typeweb').val('webImg');
 				$('#imgdesc').val(txtdescription);$('#imgtitle').val(txtimg);
@@ -3227,6 +2784,7 @@ $(document).on("pagebeforechange", function (e, data) {
 		$( "input" ).focus(function() {
 			isfocus = 1;
 		});
+
 		$('.iconuic').click(function(e){
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(function(){ 
@@ -3270,9 +2828,6 @@ $(document).on("pagebeforechange", function (e, data) {
 					}else{
 						diabledTab('#uic .uic-left-menu',[1,2,3,4,5,6,7]);
 					}
-				}else{
-					if(customArray.isselfie == 1)
-						diabledTab('#uic .uic-left-menu',[2,3,4]);				
 				}
 			}
 			function defaultMenuUIC(){
@@ -3304,33 +2859,46 @@ $(document).on("pagebeforechange", function (e, data) {
 			}
 			$('.uic-section-logo').hide();$('.uic-section-img').hide();$('.uic-section-bg').hide();$('.uic-section-fc').hide();$('.uic-section-tbs').hide();$('.uic-section-tb').hide();$('.uic-section-box').hide();
 			if(row == 0){
-				//if(userArray.productId == everFree)
-				//	 alertBox('no access','Please upgrade to basic plan & above to access this feature');
-				//else			
-				$('.uic-section-logo').show();
-			}else if(row == 1){
 				/*if(userArray.productId == basicID || userArray.productId == lite || userArray.productId == basic24 || userArray.productId == basic12 || userArray.productId == everFree){
 					alertBox('no access','Please upgrade to pro plan & above to access this feature');
 				}else*/
 					$('.uic-section-img').show();
-			}else if(row == 2){
+			}else if(row == 1){
 				if(userArray.productId == everFree)
 					 alertBox('no access','Please upgrade to basic plan & above to access this feature');
 				else
 					$('.uic-section-bg').show();
-			}else if(row == 3){
-				if(userArray.productId == everFree)
-					 alertBox('no access','Please upgrade to basic plan & above to access this feature');
-				else			
-					$('.uic-section-fc').show();
-			}else if(row == 4){
-				$('.uic-section-tbs').show();
-			}else if(row == 5){
+			}else if(row == 2){
 				$('.uic-section-tb').show();
-			}else if(row == 6){
+			}else if(row == 3){
 				$('.uic-section-box').show();
 			}
 		}		
+
+		function changeLabel(getClass)
+		{
+			if(customArray.isselfie == 1)
+			{
+				$(getClass + ' li').each(function (index) {
+					if(index == 1)
+					{
+						var getHtml = $(this).html().replace('Background Image', 'Campaign Poster');
+						$(this).html(getHtml);
+					}
+				});
+			}
+			else
+			{
+				$(getClass + ' li').each(function (index) {
+					if(index == 1)
+					{
+						var getHtml = $(this).html().replace('Campaign Poster', 'Background Image');
+						$(this).html(getHtml);
+					}
+				});
+			}
+		}
+
 	$(document).on('pageshow','#uic', function () { // UIC script start here
 		googleAnalytic();
 	   $('input[type="text"]').textinput({ preventFocusZoom: true });
@@ -3342,6 +2910,9 @@ $(document).on("pagebeforechange", function (e, data) {
 		$('#placeIdLogo').val(places[0]);
 		$('#placeIdbackground').val(places[0]);
 		$( ".right-header" ).html( placename );	
+
+		changeLabel('#uic .uic-left-menu');
+
 		defaultMenuUIC();
 		showHideMenuUIC(curClick);
 		diabledUICMenu(uicwizardsetup);
@@ -3351,37 +2922,18 @@ $(document).on("pagebeforechange", function (e, data) {
 			$('.share').html(decodequote(messArray.share));
 			$('.recommend').html(decodequote(messArray.comment));
 			$('.next').html(decodequote(messArray.nxt));
-			$('.take').html(decodequote(messArray.takePhoto));
-			$('.option').html(decodequote(messArray.option));
 			$('.pass').html(decodequote(messArray.pass));
-			if(typeof(messArray.logoutB) != 'undefined')
-				$('.log-out').html(decodequote(messArray.logoutB));
-			if(typeof(messArray.followT) != 'undefined'){
-				var strs = messArray.followT;
-				var strs = strs.replace('?','');
-				$('.follow-loc').html(decodequote(strs.replace(/<brand>/g,customArray.businessName)) + '?');
-			}		
-			if(typeof(messArray.badEmailB) != 'undefined')
-				$('.leave').html(decodequote(messArray.badEmailB))	
-			if(typeof(messArray.allow) != 'undefined')
-				$('.allow').html(decodequote(messArray.allow))
-			if(typeof(messArray.takeselfieT) != 'undefined')
-				$('.btnTakeSelfie').html(decodequote(messArray.takeselfieT));
-			if(typeof(messArray.surveyselfieT) != 'undefined')
-				$('.btnfeedbackSelfie').html(decodequote(messArray.surveyselfieT));
-			if(typeof(messArray.captureT) != 'undefined')
-				$('.btncapture').html(decodequote(messArray.captureT));		
-				
+			$('.logged').html(decodequote(messArray.sharedB));
+			$('.follow-loc').html(messArray.followT);
+			$('.log-out').html(decodequote(messArray.logoutB));
+				//var strs = messArray.followT;
+				//var strs = strs.replace('?','');
+				//$('.follow-loc').html(decodequote(strs.replace(/<brand>/g,customArray.businessName)) + '?');
 		 }
 		//set default value	
 		if(customArray.messageBox != ''){
 			var messArray = $.parseJSON(customArray.messageBox);
-			$('#txtbox1').val(decodequote(messArray.comment));
-			$('#txtbox2').val(decodequote(messArray.average));
 			$('#txtbox3').val(decodequote(messArray.share));
-			$('#txtbox4').val(decodequote(messArray.thank));
-			$('#txtbox6').val(decodequote(messArray.option));
-			$('#txtbox8').val(decodequote(messArray.takePhoto));
 			if(typeof(messArray.logoutT) != 'undefined')
 				$('#txtbox9').val(decodequote(messArray.logoutT));
 			if(typeof(messArray.logoutB) != 'undefined')
@@ -3390,32 +2942,8 @@ $(document).on("pagebeforechange", function (e, data) {
 				$('#txtbox11').val(decodequote(messArray.followT));
 			if(typeof(messArray.followB) != 'undefined')
 				$('#txtbox12').val(decodequote(messArray.followB));
-			if(typeof(messArray.badEmailT) != 'undefined')
-				$('#txtbox13').val(decodequote(messArray.badEmailT));
-			if(typeof(messArray.badEmailB) != 'undefined')
-				$('#txtbox14').val(decodequote(messArray.badEmailB));
-			if(typeof(messArray.detailsEmailT) != 'undefined')
-				$('#txtbox15').val(decodequote(messArray.detailsEmailT));
-			if(typeof(messArray.detailsEmailB) != 'undefined')
-				$('#txtbox16').val(decodequote(messArray.detailsEmailB));
-			if(typeof(messArray.allow) != 'undefined')
-				$('#txtbox17').val(decodequote(messArray.allow));				
-			if(typeof(messArray.takeselfieT) != 'undefined')
-				$('#txtbox19').val(decodequote(messArray.takeselfieT));
-			if(typeof(messArray.takeselfieB) != 'undefined')
-				$('#txtbox18').val(decodequote(messArray.takeselfieB));
-			if(typeof(messArray.surveyselfieT) != 'undefined')
-				$('#txtbox20').val(decodequote(messArray.surveyselfieT));
-			if(typeof(messArray.surveyselfieB) != 'undefined')
-				$('#txtbox21').val(decodequote(messArray.surveyselfieB));
 			if(typeof(messArray.shareB) != 'undefined')
-				$('#txtbox22').val(decodequote(messArray.shareB));
-            if(typeof(messArray.commentB) != 'undefined')
-				$('#txtbox23').val(decodequote(messArray.commentB));
-            if(typeof(messArray.captureT) != 'undefined')
-				$('#txtbox24').val(decodequote(messArray.captureT));
-            if(typeof(messArray.captureB) != 'undefined')
-				$('#txtbox25').val(decodequote(messArray.captureB)); 						
+				$('#txtbox22').val(decodequote(messArray.shareB));						
 			setmessageBox();
 		}else
 			$('.follow-loc').html('Be a fan of '+customArray.businessName+'?');
@@ -3435,46 +2963,23 @@ $(document).on("pagebeforechange", function (e, data) {
 			$('#txt-logout').val((typeof(boxArray.logout) != 'undefined' ? decodequote(boxArray.logout[0]) : 'okay'));
 			$('#follow-no').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[0]) : 'no'));
 			$('#follow-yes').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[1]) : 'yes'));
-			$('#txtrecommend1').val((boxArray.comment[0] != '' ? decodequote(boxArray.comment[0]) : 'proceed'));
-			$('#txtphoto1').val((boxArray.photo[0] != '' ? decodequote(boxArray.photo[0]) : 'no'));
-			$('#txtphoto2').val((boxArray.photo[1] != '' ? decodequote(boxArray.photo[1]) : 'yes'));	
-			$('#txtoption1').val((boxArray.option[0] != '' ? decodequote(boxArray.option[0]) : 'cancel'));
-			$('#txtoption2').val((boxArray.option[1] != '' ? decodequote(boxArray.option[1]) : 'login'));
-			$('#txtoption3').val((boxArray.option[2] != '' ? decodequote(boxArray.option[2]) : 'reset'));
 			$('#btncam1').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[0]) : 'cancel'));
 			$('#btncam2').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[1]) : 'snap'));
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
-			$('#txtleave1').val((typeof(boxArray.badEmail) != 'undefined' ? decodequote(boxArray.badEmail[0]) : 'no'));
-			$('#txtleave2').val((typeof(boxArray.badEmail) != 'undefined' ? decodequote(boxArray.badEmail[1]) : 'yes'));
-			$('#txtallow1').val((typeof(boxArray.allow) != 'undefined' ? decodequote(boxArray.allow[0]) : 'cancel'));
-			$('#txtallow2').val((typeof(boxArray.allow) != 'undefined' ? decodequote(boxArray.allow[1]) : 'submit'));
-			$('#btnTakeSelfie').val((typeof(boxArray.btntake) != 'undefined' ? decodequote(boxArray.btntake[0]) : 'okay'));
-			$('#btnfeedbackSelfie').val((typeof(boxArray.btnfeedback) != 'undefined' ? decodequote(boxArray.btnfeedback[0]) : 'no'));
-			$('#btnfeedbackSelfie2').val((typeof(boxArray.btnfeedback) != 'undefined' ? decodequote(boxArray.btnfeedback[1]) : 'yes'));
-			$('#btncapture').val((typeof(boxArray.btncapture) != 'undefined' ? decodequote(boxArray.btncapture[0]) : 'okay'));
-			$('#btncampaign').val((typeof(boxArray.btncampaign) != 'undefined' ? decodequote(boxArray.btncampaign[0]) : 'Your Selfie Now!'));
 		}	
-		if(customArray.logo != ''){ 
-			var logoArray = $.parseJSON(customArray.logo);
-			$('#frmlogo').css({display:'none'});	
-			$('#logothumb').attr('src', (logoArray.dLogo == 'images/desktop_default.png' ? 'images/default-logo.png' : logoArray.dLogo)); //logoArray.dLogo
-		}
+		
 		if(customArray.backgroundImg != ''){ 
 			var logoArray = $.parseJSON(customArray.backgroundImg);
 			$('#frmbackground').css({display:'none'});	
 			$('#backgroundthumb').attr('src', logoArray.bckimage);
 		}		
-		$('#uploadlogo').click(function(e){e.preventDefault();$('#filelogo').click();});
 		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
 		$('#filebackground').on('change',function(){ // save fb photo
 			$('<div id="overlay"> </div>').appendTo(document.body);
 			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
 		});			
-		$('#filelogo').on('change',function(){ // save fb photo
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			$('#frmlogo').ajaxSubmit({beforeSubmit:  beforeSubmitImage,success: showResponse,resetForm: true });
-		});	
+
 		$('#pickerbackground').colpick({
 			flat:true,
 			layout:'hex',
@@ -3517,11 +3022,7 @@ $(document).on("pagebeforechange", function (e, data) {
 		$('#submit-box').click(function(e){
 			e.preventDefault();
 			var found = true,lessthan = '<',greaterthan='>';
-			if($('#txtbox11').val().search(/<brand>/i) == '-1'){
-				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt;" is used or entered correctly.','#txtbox11');
-				$('#txtbox11').focus();
-			}else if($('#txtbox12').val().search(/<brand>/i) == '-1'){
+			if($('#txtbox12').val().search(/<brand>/i) == '-1'){
 				found = false;
 				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
@@ -3529,22 +3030,18 @@ $(document).on("pagebeforechange", function (e, data) {
 				found = false;
 				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
-			}else if($('#txtbox17').val().search('<privacy_policy_link>') == '-1'){
-				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox17');
-				$('#txtbox17').focus()
-			}else if($('#txtbox17').val().search(/<brand>/i) == '-1'){
-				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox17');
 			}else if($('#txtbox22').val().search('<privacy_policy_link>') == '-1'){
 				found = false;
 				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox22');
+			}else if($('#txtbox10').val().search('<social_media>') == '-1'){
+				found = false;
+				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;social_media&gt" are used or entered correctly.','#txtbox10');
 			}
 			if(found){
 				showLoader();	
 				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=7&'+$('#frmUIC3').serialize(),success:function(lastId){
 					customArray.messageBox = 
-					JSON.stringify({"comment":$('#txtbox1').val(),"logoutT":$('#txtbox9').val(),"logoutB":$('#txtbox10').val(),"average":$('#txtbox2').val(),"followT":$('#txtbox11').val(),"followB":$('#txtbox12').val(),"badEmailT":$('#txtbox13').val(),"badEmailB":$('#txtbox14').val(),"detailsEmailT":$('#txtbox15').val(),"detailsEmailB":$('#txtbox16').val(),"allow":$('#txtbox17').val(),"share":$('#txtbox3').val(),"thank":$('#txtbox4').val(),"option":$('#txtbox6').val(),"optionB":$('#txtbox28').val(),"takePhoto":$('#txtbox8').val(),"takeselfieB":$('#txtbox18').val(),"takeselfieT":$('#txtbox19').val(),"surveyselfieT":$('#txtbox20').val(),"surveyselfieB":$('#txtbox21').val(),"shareB":$('#txtbox22').val(),"commentB":$('#txtbox23').val(),"captureT":$('#txtbox24').val(),"captureB":$('#txtbox25').val(),"sharedT":$('#txtbox26').val(),"sharedB":$('#txtbox27').val()});
+					JSON.stringify({"logoutT":$('#txtbox9').val(),"logoutB":$('#txtbox10').val(),"followT":$('#txtbox11').val(),"followB":$('#txtbox12').val(),"share":$('#txtbox3').val(),"shareB":$('#txtbox22').val(),"sharedT":$('#txtbox26').val(),"sharedB":$('#txtbox27').val()});
 					hideLoader();
 					setmessageBox();
 					alertBox('successful','Update completed.');
@@ -3556,7 +3053,7 @@ $(document).on("pagebeforechange", function (e, data) {
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=6&'+$('#frmUIC2').serialize(),success:function(lastId){
 				customArray.button =
-				JSON.stringify({"btncampaign":[$('#btncampaign').val()],"btntake":[$('#btnTakeSelfie').val()],"btncapture":[$('#btncapture').val()],"btnfeedback":[$('#btnfeedbackSelfie').val(),$('#btnfeedbackSelfie2').val()],"share":[$('#txtshare1').val(),$('#txtshare2').val()],"comment":[$('#txtrecommend1').val()],"leave":[$('#txtleave1').val(),$('#txtleave2').val()],"allow":[$('#txtallow1').val(),$('#txtallow2').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"photo":[$('#txtphoto1').val(),$('#txtphoto2').val()],"option":[$('#txtoption1').val(),$('#txtoption2').val(),$('#txtoption3').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()]});
+				JSON.stringify({"share":[$('#txtshare1').val(),$('#txtshare2').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()]});
 				hideLoader();
 				alertBox('successful','Update completed.');
 			}});	
@@ -3570,18 +3067,7 @@ $(document).on("pagebeforechange", function (e, data) {
 			wizardsetup();
 
 		}			
-		function showResponse(responseText, statusText, xhr, $form)  { 
-			$('#overlay').remove();
-			if(responseText == 'greater'){
-				alertBox('incorrect logo size','Please upload a logo image with max width 600px & max height 600px');
-			}else{
-				$('#frmlogo').css({display:'none'});
-				var logoArray = $.parseJSON(responseText);			
-				$('#logothumb').attr('src', logoArray.dLogo);
-				customArray.logo = responseText;
-				uicwizardsetup = 0;wizardsetup();
-			}
-		}	
+			
 		$("#backgroundthumb").click(function (){ 
 			if(customArray.backgroundImg != ''){
 				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
@@ -3595,19 +3081,7 @@ $(document).on("pagebeforechange", function (e, data) {
 				});	
 			}			
 		});			
-		$("#logothumb").click(function (){ 
-			if(customArray.logo != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-						showLoader();
-						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=1',success:function(lastId){
-							hideLoader();
-							customArray.logo = '';$('#frmlogo').css({display:'inline'});
-							$('#logothumb').attr('src', noPhoto);
-						}});
-					}},{caption: 'no'}]
-				});	
-			}			
-		});	
+		
 		function beforeSubmitImage2(){
 			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
 			if (window.File){
@@ -3639,38 +3113,7 @@ $(document).on("pagebeforechange", function (e, data) {
 			   return false;
 			}
 		}		
-		function beforeSubmitImage(){
-			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			if (window.File){
-				   var fsize = $('#filelogo')[0].files[0].size; //get file size
-				   var ftype = $('#filelogo')[0].files[0].type; // get file type
-						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
-				   if(parseFloat(fsize)>1000000){
-						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
-						$('#overlay').remove();
-						return false;			
-				   }else{
-						switch(ftype){
-							case 'image/png':
-							case 'image/png':
-							case 'image/gif':
-							case 'image/jpeg':
-							case 'image/jpg':
-							case 'image/bmp':
-							case 'image/pjpeg':
-							$('#logothumb').attr('src', loadingPhoto);
-							break;
-							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
-							$('#overlay').remove();
-							return false;					
-						}
-				  }
-			}else{
-			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-			   $('#overlay').remove();
-			   return false;
-			}
-		}		
+		
 		$('.uic-left-menu').on('click', ' > li', function () {
 			if($(this).index() < 7){
 				curClick = $(this).index();
@@ -4575,7 +4018,7 @@ $(document).on('pageshow','#plan', function () {
 					result = $.parseJSON(result);
 					hideLoader();
 					if(result.code == 200){
-						$.box_Dialog('Congratulatons! You are now subscribed to Tabluu.', {'type':'confirm','title': '<span class="color-gold">plan active<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'okay', callback: function() {
+						$.box_Dialog('Congratulatons! You are now subscribed to Camrally.', {'type':'confirm','title': '<span class="color-gold">plan active<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'okay', callback: function() {
 							 window.location = 'index.html';	
 						}}]
 						});	
@@ -5300,11 +4743,6 @@ $(document).on('pageinit','#onspot', function () {
 		curClick = row;
 		onspotbackMenu(row);
 	});
-	$('#surveyopen').click(function(e){
-		e.preventDefault();
-		feedbackpage(5);
-		//window.open('rateone.html?p='+customArray.nicename+'&s=5','_blank');
-	});
 	$('#anyopen').click(function(e){
 		e.preventDefault();
 		feedbackpage(3);
@@ -5318,7 +4756,7 @@ $(document).on('pageinit','#onspot', function () {
 		$(".onspot-section-anywhere").hide();$(".onspot-section-survey").hide();
 		$( '#onspot .right-content' ).addClass("bgwhite");
 		if(row == 0){
-			$('#surveyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=5');
+			//$('#surveyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=5');
 			$(".onspot-section-survey").show();
 		}else if(row == 1){
 			$('#anyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=3');
@@ -5415,6 +4853,11 @@ $(document).on('pageinit','#feedback', function () {
 		feedbackpage(2);
 		//window.open('rateone.html?p='+customArray.nicename+'&s=2','_blank');
 	});
+	$('#emaillinkopen').click(function(e){
+		e.preventDefault();
+		feedbackpage('e');
+		//window.open('rateone.html?p='+customArray.nicename+'&s=2','_blank');
+	});
 	$('#website-widget-update').click(function(e){
 		e.preventDefault();
 		var placeId = locId.split('|'),top=0,bot=0;
@@ -5455,172 +4898,119 @@ $(document).on('pageinit','#feedback', function () {
 		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
 		feedbackActiveMenu();	
 	});
-});
-/*
-	function diabledMenu(s){
-		clas = 'ui-state-disabled';
-		if(s == 1){
-			$('.feedback-left-menu li').each(function (index) {
-				if(index != 2)
-					$(this).addClass(clas);
-			});
-		}else{
-			$('.feedback-left-menu li').each(function (index) {
-				$(this).removeClass(clas);
-			});		
+	$('#submit-shortlink3').click(function(){
+		window.open(domainpath+customArray.nicename+'=1','_blank');
+	});
+	$('#qr-generate3').click(function(){
+		window.open('qr-generated.html?p='+nice1+'&s=1&size='+$("#qr-size3 :radio:checked").val(),'_blank');
+	});
+	places = locId.split('|');
+	showLoader();
+	$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getshorturl',async: true,success:function(result){
+		hideLoader();
+		arrayDataURL =  $.parseJSON(result);
+		var title = 'Setup Wizard - Step 6 / 6',nicelink='';
+		if(liteID == userArray.productId)
+			nicelink = customArray.nicename+'.html'; 
+		else if(basicID == userArray.productId || proID == userArray.productId){
+			nicelink = newvanitylink;
+		}
+		if(isdonewizard > 0){
+			wizardstep7();
+			var body = '<p style="text-align:left">Congratulations! You have completed the setup</p>'
+					 +'<p style="text-align:left">Start promoting your Camrally mini link (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">http://camrally.com/'+domainpath+arrayDataURL.source_1.link+'</a>) now!<br/>See your Camrally page here: <a href="'+domainpath+nicelink+'" target="_blank">http://camrally.com/'+nicelink+'</a> </p>';
+			$.box_Dialog(body, {
+				'type':     'question',
+				'title':    '<span class="color-white">'+title+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'okay',callback:function(){
+					curClick = 0;
+					$( ":mobile-pagecontainer" ).pagecontainer( "change",'index.html',{});
+				}}]	
+			});	
+		}		
+		setshorturl(2);
+	}});
+	function setshorturl(newurl){
+		if($.isPlainObject(arrayDataURL)){
+			if(typeof(arrayDataURL.source_1) != 'undefined'){
+				$('#shortlink3').val('camrally.com/'+arrayDataURL.source_1.link);
+				$('#txtlabel1').val(decodequote(arrayDataURL.source_1.label));
+				$(".panel-selfiex .link").html('camrally.com/'+arrayDataURL.source_1.link);
+				$(".QRimage3").html('');
+				$(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_1.link});
+				openlink2 = domainpath+arrayDataURL.source_1.link; 
+				nice1 = arrayDataURL.source_1.link;
+				if(newurl < 2){
+					alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="http://camrally.com/'+arrayDataURL.source_1.link+'" target="_blank">camrally.com/'+arrayDataURL.source_1.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
+				}	
+			}
+			if(typeof(arrayDataURL.source_0) != 'undefined'){
+				$('#shortlink2').val('camrally.com/'+arrayDataURL.source_0.link);
+				$('#txtlabel2').val(decodequote(arrayDataURL.source_0.label));
+				$(".panel-outselfie .link").html('camrally.com/'+arrayDataURL.source_0.link);
+				$(".QRimage2").html('');
+				$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+arrayDataURL.source_0.link});
+				openlink1 = domainpath+arrayDataURL.source_0.link; 
+				nice2 = arrayDataURL.source_0.link;
+				if(newurl < 2){
+					alertBox('A new URL is generated.','You may print out the new messages/QR Codes or share this link: <a href="http://camrally.com/'+arrayDataURL.source_0.link+'" target="_blank">camrally.com/'+arrayDataURL.source_0.link+'</a> now.<p>Please download the stats if you wish check your "label" data. </p>');
+				}	
+			}
 		}
 	}
-	function getEmailSent(){
-		showLoader();
-		var placeId = locId.split('|');
-		$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
-			hideLoader();
-			customArray =  $.parseJSON(result);
-			if(customArray.setup < 1){
-				newplaceId = placeId[0] +'|'+placeId[1]+'|'+1;
-				if(locArray.length == 1 && locArray[0].setup < 1)
-					locArray[0].setup = 1;
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId[0]+'&opt=wizardsetupdone',success:function(result){
-					newplaceId = placeId[0] +'|'+placeId[1]+'|'+1;
-				}});
-				diabledMenu(1);
-				curClick = 0;
-			}else{
-				emailwizardsetup = 0;
-				diabledMenu(0);
-			}	
-		}});
-	}
-	*/
+});
+
 	function showFeedbackMenu(row){
 		
-		$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
-		if(row == 1){
+$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
+		if(row == 2){
 			$( '#feedback .right-content' ).removeClass("bgwhite");
 			$( '#feedback .right-content' ).addClass("right-bgblue");
 			if(customArray.nicename == ''){
-				alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
 				$(".feedback-weblink").show();
-				if(customArray.isselfie == 1){
-					diabledTab('.feedback-weblink .feedback-right-weblink',[1]);
-				}	
 			}
-		}else if(row == 2){
+		}else if(row == 0){
 			if(customArray.nicename == ''){	
-					alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+					alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
 				$(".tellafriend").show();
-				$(function() {
-					$("#textarea-invite").sceditor({
-						plugins: "xhtml",
-						style: "minified/jquery.sceditor.default.min.css",
-						toolbar: "",
-						width: '100%',
-						height: 280,
-						resizeEnabled:false
-					});
-				});
-				//getEmailSent();
-				var nice = 'http://camrally.com/'+customArray.nicename+'=e';
-					var subject = "You're invited to give "+placename+" a review!";
-					$('.fnoted').html('Sample email for feedback invitation:');
-					var message = '<p>Dear Customer,</p>'
-							+'<div style="clear:both;"></div>'
-							+'<p>Thank you for patronizing our business recently.</p>'
-							+'<p>We hope you had a pleasant experience.</p>'
-							+'<div style="clear:both;"></div>'
-							+'<p>Please help us improve by giving us a review using the link'
-							+' below:</p>'
-							+'<p><a href="'+nice+'">'+nice+'</a> (And because it\'s'
-							+" powered by Tabluu, we'll ask you for your selfie! :D).</p>"
-							+'<div style="clear:both;"></div>'
-							+'<p>Don\'t be shy! Please say a big "yeahhh!" for the camera.</p>'
-							+'<div style="clear:both;"></div>'
-							+'Thank you!<br/>'
-							+ placename;
-				$('#invitxtsubject').val(subject);
-				$('#textarea-invite').sceditor('instance').val(message);				
-				if(customArray.isselfie == 1){
-					$('.emailselfie').show();
-					$(function() {
-						$("#textarea-invite2").sceditor({
-							plugins: "xhtml",
-							style: "minified/jquery.sceditor.default.min.css",
-							toolbar: "",
-							width: '100%',
-							height: 200,
-							resizeEnabled:false
-						});
-					});
-					var subject = "Celebrate Christmas with a Selfie!";
-					$('.fnoted2').html('Sample email for "selfie" invitation:');
-					var message = '<p>Hi There!</p>'
-							+'<div style="clear:both;"></div>'
-							+'<p>Celebrate this year\'s Christmas with a selfie. Just click on the the link below join millions worldwide in wishing world peace happiness this holiday festive season.</p>'
-							+'<div style="clear:both;"></div>'
-							+' Click here:</p>'
-							+'<p><a href="'+nice+'">'+nice+'</a>'
-							+'<div style="clear:both;"></div>'
-							+'<p>Merry Christmas!</p>'
-							+ placename;
-					$('#invitxtsubject2').val(subject);
-					$('#textarea-invite2').sceditor('instance').val(message);		
-					//$('#textarea-invite2').sceditor('instance').focus(function(e) {});
-				}
-				
-			}
+				$('#feedback #emaillink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=e');
+			}	
 			$( '#feedback .right-content' ).removeClass("right-bgblue");
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			
-		}else if(row == 0){
+		}else if(row == 1){
 			$( '#feedback .right-content' ).removeClass("bgwhite");
 			$( '#feedback .right-content' ).addClass("right-bgblue");
-			
-			//$('#surveylink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename);
-			$(".survey").show();
+			if(customArray.nicename == ''){
+				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
+			}else{
+				$('#surveyopenlink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=5');
+				$(".survey").show();
+			}	
 		}else if(row == 3){
 			$( '#feedback .right-content' ).removeClass("right-bgblue");
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			$('#photolink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=2');
 			if(customArray.nicename == ''){	
-				alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
-				if(userArray.productId != proID && userArray.productId != pro12 && userArray.productId != pro24 && userArray.productId != enterprise12 && userArray.productId != enterprise24 && userArray.productId != enterprise)
-					alertBox('no access','Please upgrade to pro plan & above to access this feature');
-				else	
+				//if(userArray.productId != proID && userArray.productId != pro12 && userArray.productId != pro24 && userArray.productId != enterprise12 && userArray.productId != enterprise24 && userArray.productId != enterprise)
+					//alertBox('no access','Please upgrade to pro plan & above to access this feature');
+				//else	
 					$(".feedback-photo").show();
 			}
-		}else if(row == 4){	
-			var placeId = locId.split('|');
-			showLoader();
-			if(isdonewizard > 0)
-				wizardstep7();
-			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget',success:function(result){
-				hideLoader();
-				$(".feedback-widget").show();
-				if(result != ''){
-					data = $.parseJSON(result);
-					if(data.top == 1)
-						$('.feedback-widget input[id="checkbox-top"]').attr("checked",true).checkboxradio();
-					else
-						$('.feedback-widget input[id="checkbox-top"]').attr("checked",false).checkboxradio();
-					if(data.bot == 1)
-						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",true).checkboxradio();
-					else
-						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",false).checkboxradio();	
-			   }else
-				  $('.feedback-widget input[type="checkbox"]').attr("checked",true).checkboxradio();
-				$(".feedback-widget [data-role=controlgroup]").controlgroup("refresh");
-			
-			}});
-			$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="tabluu-script" src= "http://camrally.com/app/widget/js/tabluuwidget.min.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
 		}
 		feedbackActiveMenu();
 	}
 	
 	function feedbackActiveMenu(){
-		$( "#feedback .left-header" ).html('Collect Response');
+		$( "#feedback .left-header" ).html('Ways to Collect Posts');
 	    $( "#feedback .right-header" ).html( placename );
 		if($( window ).width() > 600){
 			$('#feedback .feedback-left-menu li').each(function (index) {
@@ -5654,11 +5044,7 @@ $(document).on('pageshow','#feedback', function () {
 	showLoader();
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
-		hideLoader();
-		if(customArray.isselfie == 1){
-			diabledTab('.feedback-left-menu',[4]);
-			diabledTab('.survey .feedback-right-weblink',[1]);
-		}	
+		hideLoader();	
 	  }});	
 	showFeedbackMenu(curClick);
 });
@@ -5726,8 +5112,8 @@ $(document).on('pageshow','#reviews', function () {
 		t = t + '<div class="divwrap" style="padding-top:5px;margin-top:10px;">'
 			+'<div class="wrapProfileImg">'
 				+'<div class="iconProfile">'
-					+'<div class="wrapImg fbImg'+counter+'"><img src="http://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
-					+'<div class="profilename"><a href="http://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
+					+'<div class="wrapImg fbImg'+counter+'"><img src="https://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
+					+'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
 				+'</div>'
 				+'<div class="imgSelfie">'
 					+'<div class="wrapImg2 selfImg'+counter+'"><img src="'+feedbackArray[i].url+'" /></div>'
@@ -5877,8 +5263,8 @@ $(document).on('pageshow','#reviews', function () {
 		t = t + '<div class="divwrap" style="padding-top:5px;margin-top:10px;">'
 			+'<div class="wrapProfileImg">'
 				+'<div class="iconProfile">'
-					+'<div class="wrapImg fbImg'+counter+'"><img src="http://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
-					+'<div class="profilename"><a href="http://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
+					+'<div class="wrapImg fbImg'+counter+'"><img src="https://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
+					+'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
 				+'</div>'
 				+'<div class="imgSelfie">'
 					+'<div class="wrapImg2 selfImg'+counter+'"><img src="'+feedbackArray[i].url+'" /></div>'
@@ -6111,7 +5497,7 @@ $(document).on('pageshow','#reviews', function () {
 	});
 	
 	function reviewActiveMenu(){
-		$( "#reviews .left-header" ).html('Manage Response');
+		$( "#reviews .left-header" ).html('Manage Received Posts');
 	    $( "#reviews .right-header" ).html( placename );
 		if($( window ).width() > 600){
 			$('#reviews .reviews-left-menu li').each(function (index) {
@@ -6241,7 +5627,7 @@ $(document).on('pageshow','#widget', function () {
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getReviewProduct',success:function(result){
 				reviewProduct =  $.parseJSON(result);
 				if(reviewProduct.nicename == '')
-					alertBox('setup incomplete','Go to Setup > Your Tabluu Page');
+					alertBox('setup incomplete','Go to Setup > Your Camrally Page');
 				else if(reviewProduct.productId != proID && reviewProduct.productId != enterprise && reviewProduct.productId != pro12 && reviewProduct.productId != pro24 && reviewProduct.productId != enterprise12 && reviewProduct.productId != enterprise24)
 					alertBox('no access','Please upgrade to pro plan & above to access this widget');
 				else{
@@ -6291,9 +5677,9 @@ $(document).on('pageshow','#widget', function () {
 		for (var i in arrayreviews){
 			div = div + '<div class="pin">'
 				+'<p class="fblink">'
-					+'<a href="http://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a>'
+					+'<a href="https://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a>'
 				+'</p>'
-				+'<div class="text-center"><img alt="fb profile" src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'http://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" class="pinImage"></div>';
+				+'<div class="text-center"><img alt="fb profile" src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'https://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" class="pinImage"></div>';
 				if(isselfie == 0){
 					div = div +'<div class="wrap-iconstar">'
 						+'<div class="my-rating">'
@@ -6340,8 +5726,8 @@ $(document).on('pageshow','#widget', function () {
 			div = div +'<div class="rate-wrap">'
 				+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-wrap-avatar' : 'm-rate-wrap-avatar')+'">'
 					+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-avatar' : 'm-rate-avatar')+'">'
-						+'<img src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'http://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" />'
-						+'<div class="name-profile"><a href="http://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a></div>'
+						+'<img src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'https://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" />'
+						+'<div class="name-profile"><a href="https://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a></div>'
 					+'</div>'
 				+'</div>'
 				+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-wrap-comment' : 'm-rate-wrap-comment')+'">'
@@ -6518,52 +5904,7 @@ $(document).on('pageinit','#fbpost', function () {
     });
 
 	$('#fbpost .star').click(function(){goHome();});
-	function updateTextcampaign(){
-		showLoader();
-		$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=optsocialpost&placeId='+places[0]+'&val='+$("#optPost :radio:checked").val()+'&'+$('#frmselfies').serialize(),success:function(result){
-			hideLoader();
-			customArray.taglineselfie = {"txtoccation":$("#txtoccation").val(),"txtinfodate":$("#txtinfodate").val(),"tagline1":$("#txtcamp1").val(),"tagline2":$("#txtcamp2").val()}
-			$.box_Dialog('successfully updated', {
-			'type': 'information',
-			'title': '<span class="color-white">update</span>',
-			'center_buttons': true,
-			'show_close_button':false,
-			'overlay_close':false,
-			'buttons': [{caption:'okay', callback:function(){ setTimeout(function(){wizardsetup();}, 300); }}]
-			});
-		}});
-	}
-	$('#fbpost #btnsocialpost').click(function(){
-		var placeId = locId.split('|');
-		if($("#optPost :radio:checked").val() == 2){
-			if($("#txtoccation").val() == '')
-				uicAlertBox('incomplete information','Please input occasion','#txtoccation');
-			else if($("#txtcamp1").val() == '')
-				uicAlertBox('incomplete information','Please input tagline row 1','#txtcamp1');
-			else if($("#txtcamp2").val() == '')
-				uicAlertBox('incomplete information','Please input tagline row 2','#txtcamp2');
-			else{	
-				var arraytagline =  $.parseJSON(customArray.taglineselfie);
-				if(arraytagline.txtoccation != ''){
-				}else{
-				
-				}
-			}			
-		}else{
-			showLoader();
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=optsocialpost&placeId='+places[0]+'&val='+$("#optPost :radio:checked").val(),success:function(result){
-				hideLoader();
-				$.box_Dialog('successfully updated', {
-					'type': 'information',
-					'title': '<span class="color-white">update</span>',
-					'center_buttons': true,
-					'show_close_button':false,
-					'overlay_close':false,
-					'buttons': [{caption:'okay', callback:function(){ setTimeout(function(){wizardsetup();}, 300); }}]
-					});
-			}});
-		}
-	});
+
 	/*
 	$('#optPost').click(function(){
 		if($("#optPost :radio:checked").val() > 0){
@@ -6620,13 +5961,14 @@ $(document).on('pageshow','#fbpost', function () {
 				}
 				$('.panel-fbpost').show(); 
 			}});
+			/*
 			var clas = 'ui-state-disabled';
 			$('#optPost .ui-controlgroup-controls div').each(function (index) {
 				if(customArray.isselfie == 1 && (index == 0 || index == 2))
 					$(this).addClass(clas);
 				else if(customArray.isselfie == 0 && index == 1)
 					$(this).addClass(clas);
-			});	
+			});	*/
 			$('#optPost input[value="'+customArray.optsocialpost+'"]').attr('checked',true).checkboxradio('refresh');
 			if(customArray.optsocialpost == 1){
 				$('.ownimg').hide();

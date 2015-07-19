@@ -6,15 +6,12 @@ $connect->db_connect();
 $imgrotate = new fucn();
 $nice = strtolower($_REQUEST['link']);
 $splitID = explode('-',$nice);
-$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'isselfie'") or die(mysql_error());
-if(mysql_num_rows($addnewfield) < 1)
-	mysql_query("ALTER TABLE `businesscustom`  ADD `isselfie` TINYINT NOT NULL DEFAULT '0'  AFTER `fbpost`");
-$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'taglineselfie'") or die(mysql_error());
-if(mysql_num_rows($addnewfield) < 1)
-	mysql_query("ALTER TABLE `businessCustom` ADD `taglineselfie` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `fbpost`");		
-$sql = "SELECT s.pathimg,s.ave,s.comment, p.profilePlaceId, p.businessName, p.nicename, p.category, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.showmap, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,c.fbpost,c.isselfie,c.taglineselfie,c.redirect FROM businessProfile AS p
+
+$sql = "SELECT s.pathimg,s.ave,s.comment, p.profilePlaceId, p.nicename, p.category, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.showmap, p.booknow,p.email as pemail, l.businessName, l.subscribe, u.productId,u.state,c.redirect,v.link,cam.brand, cam.tag1, cam.tag2 FROM businessProfile AS p
 LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId
+LEFT JOIN businessvanitylink AS v ON v.placeId = l.id
+LEFT JOIN campaigndetails AS cam ON cam.posterId = l.id
 LEFT JOIN businessCustom AS c ON c.customPlaceId = p.profilePlaceId
 LEFT JOIN sharedlink_{$splitID[1]} AS s ON s.link = '{$nice}'
 WHERE p.profilePlaceId =  {$splitID[1]}
@@ -24,57 +21,26 @@ $row = mysql_fetch_object($result1);
 $placeId = $row->profilePlaceId;
 $photoDomain = '';//'http://camrally.com/';
 $path = '../'.$connect->path;
-$businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Tabluu';
+$businessTitle = $row->businessName .' - '.$row->tag1.' '.$row->tag2;
 $domainpath = '';
-if($row->state == 'canceled' || $row->state == 'unpaid' || $row->ave == null){
+if($row->state == 'canceled' || $row->state == 'unpaid'){
 	header("HTTP/1.0 404 Not Found");
 	header('Location: http://camrally.com');
 	exit;
 }
-$redirectpage = 'http://camrally.com';
-if($row->redirect == 1){
-	$redirectpage = (strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL);
-}
-if($row->isselfie == 0){
-	$fbpost = json_decode($row->fbpost);
-	$str = (!empty($fbpost->fbpost) ? encodequote($fbpost->fbpost) : '<comment> <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>.');
-	$rev = (!empty($fbpost->postdesc) ? encodequote($fbpost->postdesc) : 'My review of <brand>');
-	if($row->fbpost){
-		if(empty($fbpost->fbpost) && empty($fbpost->postdesc))
-			$str =  $row->fbpost;
-	}
-	$rev = str_replace("<brand>",$row->businessName,$rev); 
-	$str = str_replace("<brand>",$row->businessName,$str); 
-	$str = str_replace("<rating>",round($row->ave,1),$str);
-	$str = str_replace("<max_rating>",5,$str);
-	$str = str_replace("<address>",$row->address,$str); 
-	if(trim($row->comment) == ''){
-		$str = str_replace('<comment> ','',$str);
-	}else
-		$str = str_replace("<comment>",$row->comment,$str); 
-		
-	if(trim($row->contactNo) == ''){
-		$str = str_replace(', <tel>','',$str);
-	}else
-		$str = str_replace("<tel>",$row->contactNo,$str);
-	$desc_meta = $str;
-	$description = $str;
-	$desc_meta = str_replace("<tabluu_url>",'',$desc_meta);
-	$description = str_replace("<tabluu_url>",'<a href="http://camrally.com/'.$row->nicename.'.html" target="_blank">http://camrally.com/'.$row->nicename.'.html</a>',$description);
-}else{
-	$tagline = json_decode($row->taglineselfie);
-	//echo ($tagline->txtoccation); //tagline1,tagline2
-	$rev = $tagline->txtoccation;
-	$desc_meta =  $tagline->tagline1.' '.$tagline->tagline2 .' '.$tagline->txtinfodate;  //'http://camrally.com/'.$row->nicename.'.html';
-	$description = '<p class="tag-occation">'.$tagline->txtoccation.'</p><p class="tag-row">'.$tagline->tagline1 .' '.$tagline->tagline2.'</p><p class="tag-date">'.$tagline->txtinfodate.'</p>'; //.'<p><a href="http://camrally.com/'.$row->nicename.'.html" target="_blank" class="tag-date">http://camrally.com/'.$row->nicename.'.html</a></p>';
-}
+$redirectpage = 'http://camrally.com/'.$row->nicename.'.html';
+if($row->link != '' || $row->link != null)
+	$redirectpage = 'http://camrally.com/'.$row->link;
+$rev = $businessTitle;
+$desc_meta =  $row->tag1.' '.$row->tag2 .' '.$row->brand;  //'http://camrally.com/'.$row->nicename.'.html';
+$description = '<p class="tag-occation">'.$row->businessName.'</p><p class="tag-row">'.$row->tag1 .' '.$row->tag2.'</p><p class="tag-date">'.$row->brand.'</p>';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
 
 <?php
-echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Tabluu</title>';
+echo '<title>'. $businessTitle. '</title>';
 	if($row->state == 'active' && $row->subscribe > 0)
 		echo '<meta name="robots" content="index, follow" />';
 	else 

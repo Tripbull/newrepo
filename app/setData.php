@@ -101,29 +101,30 @@ switch($opt){
 		$query = mysql_query("INSERT INTO businessList SET userGroupId = $gId, businessName = '{$name}', subscribe={$subs},label='{$label}'");
 		if(mysql_affected_rows()){
 			 $lastId = mysql_insert_id();
-			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, businessName = '$name', showmap=1");
+			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=1");
 			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
 			 $defaultLogo ='';
 			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#DBEBF1',backgroundFont = '#3b3a26'");
 			// mysql_query("INSERT INTO businessImages SET placeId = $lastId,name`fbImg` =  'images/desktop_default.png',`webImg` =  'images/desktop_default.png',`webImg2` =  'images/desktop_default.png'");
 			$defaultimg = '';//'images/default-image.png';
 			 mysql_query("INSERT INTO businessImages (placeId,path,title,description,name) VALUES($lastId,'','','','fbImg'),($lastId,'{$defaultimg}','','','webImg'),($lastId,'{$defaultimg}','','','webImg2'),($lastId,'{$defaultimg}','','','webImg3'),($lastId,'{$defaultimg}','','','webImg4'),($lastId,'{$defaultimg}','','','webImg5'),($lastId,'','','','webImg6'),($lastId,'','','','webImg7'),($lastId,'','','','webImg8')");
-			 mysql_query("INSERT INTO businessOpeningHours SET openingPlaceId = $lastId");
+			 mysql_query("INSERT INTO campaigndetails SET posterId = $lastId");
 			 mysql_query("INSERT INTO businessDescription SET descPlaceId = $lastId");
 		     echo $lastId;
+			 feedbacktable($lastId);
 		}else
 			echo 0;
 	break;
 	case 'delLoc':
 		$placeId = $_REQUEST['key'];
-		$sql = "DELETE l,p,d,h,pho,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN businessOpeningHours as h ON h.openingPlaceId=l.id LEFT JOIN businessPhotos as pho ON pho.photoPlaceId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
+		$sql = "DELETE l,p,d,h,pho,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessPhotos as pho ON pho.photoPlaceId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();
 			$src = 'images/shared/'.$placeId;
 			$remove->delete_dir($src);
 			$src = 'images/profile/'.$placeId;
-			$remove->delete_dir($src);			
+			$remove->delete_dir($src);
 		}else
 			echo 0; 
 		mysql_query("DROP TABLE IF EXISTS businessplace_$placeId");
@@ -154,9 +155,9 @@ switch($opt){
 	break;	
 	case 'profile':
 		$placeId = $_REQUEST['placeId'];
-		$category = mysql_real_escape_string($_REQUEST['select-category']);$txtname = mysql_real_escape_string($_REQUEST['txtname']);$txtadd = mysql_real_escape_string($_REQUEST['txtadd']);$txtcity = mysql_real_escape_string($_REQUEST['txtcity']);$txtcountry = mysql_real_escape_string($_REQUEST['txtcountry']);$txtzip = mysql_real_escape_string($_REQUEST['txtzip']);$txtpho = mysql_real_escape_string($_REQUEST['txtpho']);$txtfb = mysql_real_escape_string($_REQUEST['txtfb']);$txtweb = mysql_real_escape_string($_REQUEST['txtweb']);$txtemail = mysql_real_escape_string($_REQUEST['txtproemail']);$txtlink = mysql_real_escape_string($_REQUEST['txtlink']);$txttwit = mysql_real_escape_string($_REQUEST['txttwit']);$txtbooknowlabel = mysql_real_escape_string($_REQUEST['txtbooknowlabel']);$txtbooknow = mysql_real_escape_string($_REQUEST['txtbooknow']);$txtlabel = mysql_real_escape_string($_REQUEST['txtlabel']);$lng = $_REQUEST['lng'];$lat = $_REQUEST['lat'];
-		mysql_query("UPDATE businessList SET businessName='$txtname', label='{$txtlabel}' WHERE id = $placeId");
-		$sql = "UPDATE businessProfile SET businessName='$txtname', category='$category', address='$txtadd', city='$txtcity', country='$txtcountry', zip='$txtzip', contactNo='$txtpho', facebookURL='$txtfb', websiteURL='$txtweb', booknowlabel='$txtbooknowlabel', booknow='$txtbooknow', email='$txtemail', latitude=$lat, longitude=$lng WHERE profilePlaceId = $placeId";
+		$txtname = mysql_real_escape_string($_REQUEST['txtorg']);$txtadd = mysql_real_escape_string($_REQUEST['txtadd']);$txtcity = mysql_real_escape_string($_REQUEST['txtcity']);$txtcountry = mysql_real_escape_string($_REQUEST['txtcountry']);$txtzip = mysql_real_escape_string($_REQUEST['txtzip']);$txtpho = mysql_real_escape_string($_REQUEST['txtpho']);$txtfb = mysql_real_escape_string($_REQUEST['txtfb']);$txtweb = mysql_real_escape_string($_REQUEST['txtweb']);$txtemail = mysql_real_escape_string($_REQUEST['txtproemail']);$txtlink = mysql_real_escape_string($_REQUEST['txtlink']);$txttwit = mysql_real_escape_string($_REQUEST['txttwit']);$txtbooknowlabel = mysql_real_escape_string($_REQUEST['txtbooknowlabel']);$txtbooknow = mysql_real_escape_string($_REQUEST['txtbooknow']);$lng = $_REQUEST['lng'];$lat = $_REQUEST['lat'];
+		//mysql_query("UPDATE businessList SET businessName='$txtname', label='{$txtlabel}' WHERE id = $placeId");
+		$sql = "UPDATE businessProfile SET businessName='$txtname', address='$txtadd', city='$txtcity', country='$txtcountry', zip='$txtzip', contactNo='$txtpho', facebookURL='$txtfb', websiteURL='$txtweb', booknowlabel='$txtbooknowlabel', booknow='$txtbooknow', email='$txtemail', latitude=$lat, longitude=$lng WHERE profilePlaceId = $placeId";
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();		
@@ -651,18 +652,11 @@ switch($opt){
 		}
 		echo json_encode($list);		
 	break;
-	case 'optsocialpost':
-		$placeId = $_REQUEST['placeId'];$val = $_REQUEST['val'];
-		if($val == 2){
-			$tagline1 = mysql_real_escape_string($_REQUEST['txtcamp1']);$tagline2 = mysql_real_escape_string($_REQUEST['txtcamp2']);$txtoccation = mysql_real_escape_string($_REQUEST['txtoccation']);$txtinfodate = mysql_real_escape_string($_REQUEST['txtinfodate']);
-			$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'taglineselfie'") or die(mysql_error());
-			if(mysql_num_rows($addnewfield) < 1)
-				mysql_query("ALTER TABLE `businessCustom` ADD `taglineselfie` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL AFTER `fbpost`");
-			$obj = array('txtoccation' => $txtoccation, 'txtinfodate' => $txtinfodate, 'tagline1' => $tagline1, 'tagline2' => $tagline2);
-			$json = array2json($obj);
-			mysql_query("UPDATE businessCustom SET taglineselfie= '".$json."' WHERE customPlaceId = {$placeId}") or die(mysql_error());	
-		}
-		mysql_query("UPDATE businessCustom SET optsocialpost= $val WHERE customPlaceId = $placeId") or die(mysql_error());		
+	case 'detailscampaign':
+			$placeId = $_REQUEST['placeId'];
+			$tagline1 = mysql_real_escape_string($_REQUEST['txtcamp1']);$tagline2 = mysql_real_escape_string($_REQUEST['txtcamp2']);$namecampaign = mysql_real_escape_string($_REQUEST['namecampaign']);$txtbrand = mysql_real_escape_string($_REQUEST['txtbrand']);$category = mysql_real_escape_string($_REQUEST['select-category']);$txtbtnselfie = mysql_real_escape_string($_REQUEST['txtbtnselfie']);
+			mysql_query("UPDATE campaigndetails SET brand= '{$txtbrand}',tag1= '{$tagline1}',tag2= '{$tagline2}',category= '{$category}',btntext= '{$txtbtnselfie}' WHERE posterId = {$placeId}") or die(mysql_error());
+			mysql_query("UPDATE  `businessList` SET  `businessName` =  '{$namecampaign}' WHERE  `id` = {$placeId}");	
 	break;	
 	case 'redirectpage':
 		$placeId = $_REQUEST['placeId'];$selected = $_REQUEST['selected'];
@@ -691,11 +685,11 @@ switch($opt){
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET ratingText= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==6){
-		   $obj =  array('btntake' => array(encodequote($_REQUEST['btnTakeSelfie'])),'btnshare' => array(encodequote($_REQUEST['txt-share'])),'btncampaign' => array(encodequote($_REQUEST['btncampaign'])),'btncapture' => array(encodequote($_REQUEST['btncapture'])),'btnfeedback' => array(encodequote($_REQUEST['btnfeedbackSelfie']),encodequote($_REQUEST['btnfeedbackSelfie2'])),'share' => array(encodequote($_REQUEST['txtshare1']),encodequote($_REQUEST['txtshare2'])), 'comment' => array(encodequote($_REQUEST['txtrecommend1'])),'badEmail' => array(encodequote($_REQUEST['txtleave1']),encodequote($_REQUEST['txtleave2'])),'allow' => array(encodequote($_REQUEST['txtallow1']),encodequote($_REQUEST['txtallow2'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])), 'photo' => array(encodequote($_REQUEST['txtphoto1']),encodequote($_REQUEST['txtphoto2'])), 'option' => array(encodequote($_REQUEST['txtoption1']),encodequote($_REQUEST['txtoption2']),encodequote($_REQUEST['txtoption3'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])));
+		   $obj =  array('btnshare' => array(encodequote($_REQUEST['txt-share'])),'share' => array(encodequote($_REQUEST['txtshare1']),encodequote($_REQUEST['txtshare2'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])));
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET button= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==7){
-		   $obj = array('comment' => encodequote($_REQUEST['txtbox1']),'logoutT' => encodequote($_REQUEST['txtbox9']),'logoutB' => encodequote($_REQUEST['txtbox10']), 'average' => encodequote($_REQUEST['txtbox2']),'followT' => encodequote($_REQUEST['txtbox11']),'followB' => encodequote($_REQUEST['txtbox12']),'badEmailT' => encodequote($_REQUEST['txtbox13']),'badEmailB' => encodequote($_REQUEST['txtbox14']),'detailsEmailT' => encodequote($_REQUEST['txtbox15']),'detailsEmailB' => encodequote($_REQUEST['txtbox16']),'allow' => encodequote($_REQUEST['txtbox17']), 'share' => encodequote($_REQUEST['txtbox3']), 'thank' => encodequote($_REQUEST['txtbox4']), 'option' => encodequote($_REQUEST['txtbox6']), 'optionT' => encodequote($_REQUEST['txtbox28']), 'takePhoto' => encodequote($_REQUEST['txtbox8']), 'takeselfieB' => encodequote($_REQUEST['txtbox18']), 'takeselfieT' => encodequote($_REQUEST['txtbox19']), 'surveyselfieT' => encodequote($_REQUEST['txtbox20']), 'surveyselfieB' => encodequote($_REQUEST['txtbox21']), 'shareB' => encodequote($_REQUEST['txtbox22']), 'commentB' => encodequote($_REQUEST['txtbox23']), 'captureT' => encodequote($_REQUEST['txtbox24']), 'captureB' => encodequote($_REQUEST['txtbox25']), 'sharedT' => encodequote($_REQUEST['txtbox26']), 'sharedB' => encodequote($_REQUEST['txtbox27']));
+		   $obj = array('logoutT' => encodequote($_REQUEST['txtbox9']),'logoutB' => encodequote($_REQUEST['txtbox10']),'followT' => encodequote($_REQUEST['txtbox11']),'followB' => encodequote($_REQUEST['txtbox12']), 'shareB' => encodequote($_REQUEST['txtbox22']), 'sharedT' => encodequote($_REQUEST['txtbox26']), 'sharedB' => encodequote($_REQUEST['txtbox27']));
 			$json = array2json($obj);
 			$sql = "UPDATE businessCustom SET messageBox= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==8){
@@ -727,25 +721,6 @@ switch($opt){
 	case 'delImg':
 		$placeId = $_REQUEST['placeId'];$id = $_REQUEST['id'];$sql='';
 		$sql = "UPDATE businessImages SET path= '',title='',description='' WHERE placeId = $placeId AND id = $id";
-		/*
-		if($case == 1)
-			$sql = "UPDATE businessPhotos SET fbImg= '' WHERE photoPlaceId = $placeId";
-		else if($case == 2)
-			$sql = "UPDATE businessPhotos SET webImg= '' WHERE photoPlaceId = $placeId";
-		else if($case == 3)
-			$sql = "UPDATE businessPhotos SET webImg2= '' WHERE photoPlaceId = $placeId";
-		else if($case == 4)
-			$sql = "UPDATE businessPhotos SET webImg3= '' WHERE photoPlaceId = $placeId";
-		else if($case == 5)
-			$sql = "UPDATE businessPhotos SET webImg4= '' WHERE photoPlaceId = $placeId";
-		else if($case == 6)
-			$sql = "UPDATE businessPhotos SET webImg5= '' WHERE photoPlaceId = $placeId";
-		else if($case == 7)
-			$sql = "UPDATE businessPhotos SET webImg6= '' WHERE photoPlaceId = $placeId";
-		else if($case == 8)
-			$sql = "UPDATE businessPhotos SET webImg7= '' WHERE photoPlaceId = $placeId";	
-		else if($case == 9)
-			$sql = "UPDATE businessPhotos SET webImg8= '' WHERE photoPlaceId = $placeId";		*/	
 		mysql_query($sql) or die(mysql_error());
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();		
@@ -753,68 +728,10 @@ switch($opt){
 			echo 0;
 	break;	
 	case 'createTable':
-		$id = $_REQUEST['placeId'];$case = $_REQUEST['case'];
-		if($case > 0){
-			$sql = "CREATE TABLE IF NOT EXISTS `businessplace_$id` (
-			`id` int(10) NOT NULL AUTO_INCREMENT,
-			  `rated1` tinyint(1) NOT NULL,
-			  `rated2` tinyint(1) NOT NULL,
-			  `rated3` tinyint(1) NOT NULL,
-			  `rated4` tinyint(1) NOT NULL,
-			  `rated5` tinyint(1) NOT NULL,
-			  `rated6` tinyint(1) NOT NULL,
-			  `rated7` tinyint(1) NOT NULL,
-			  `aveRate` float NOT NULL,
-			  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `userName` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `userId` varchar(50) NOT NULL,
-			  `source` varchar(5) NOT NULL,
-			  `labelId` int(11) NOT NULL,
-			  `feedsource` varchar(2) NOT NULL,
-			  `photo_url` varchar(200) NOT NULL,
-			  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `date` datetime NOT NULL,
-			  `hideimg` tinyint(4) NOT NULL,
-			  `feature` tinyint(4) NOT NULL,
-			  PRIMARY KEY (`id`)
-			) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
-			$sql2 = "CREATE TABLE IF NOT EXISTS `businessCustomer_$id` (
-			  `id` int(11) NOT NULL AUTO_INCREMENT,
-			  `placeId` int(11) NOT NULL,
-			  `userId` varchar(100) NOT NULL,
-			  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `email` varchar(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `totalFriends` int(11) NOT NULL,
-			  `source` tinyint(4) NOT NULL,
-			  `follow` tinyint(4) NOT NULL,
-			  `data` longtext NOT NULL,
-			  PRIMARY KEY (`id`),
-			  KEY `follow` (`follow`)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-			$sql3 = " CREATE TABLE IF NOT EXISTS `sharedlink_$id` (
-			`id` int(11) NOT NULL,
-			  `feedbackId` int(11) NOT NULL,
-			  `fbId` bigint(20) NOT NULL,
-			  `link` varchar(50) NOT NULL,
-			  `pathimg` varchar(200) NOT NULL,
-			  `isshared` tinyint(4) NOT NULL DEFAULT '0',
-			  `ave` double NOT NULL,
-			  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `datecreated` datetime NOT NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-			$sql4 = "ALTER TABLE `sharedlink_$id` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";
-			$sql5 = "ALTER TABLE `sharedlink_$id` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-			mysql_query($sql);
-			mysql_query($sql2);
-			mysql_query($sql3);
-			mysql_query($sql4);
-			mysql_query($sql5);
-			mysql_query("UPDATE businessCustom SET settingsItem= 1 WHERE customPlaceId = $id");
-		}else{
-			mysql_query("DROP TABLE IF EXISTS businessplace_$id");
-			mysql_query("DROP TABLE IF EXISTS sharedlink_$id");
-			mysql_query("UPDATE businessCustom SET settingsItem= 0 WHERE customPlaceId = $id");
-		}	
+		$id = $_REQUEST['placeId'];
+		mysql_query("DROP TABLE IF EXISTS businessplace_$id");
+		mysql_query("DROP TABLE IF EXISTS sharedlink_$id");
+		feedbacktable($id);
 	break;
 	case 'updatetimezone':   //Joan Villamor Timezone
 		$id = $_REQUEST['groupId'];
@@ -822,7 +739,9 @@ switch($opt){
 		mysql_query("UPDATE businessUserGroup SET timezone='$timezone'  WHERE gId = '$id'");
 	break;	
 }
+
 $connect->db_disconnect();
+
 function sendEmail($email,$subject,$body,$cc_email=''){
 	require_once 'class/class.phpmailer2.php';
 	include_once('class/class.main.php');
@@ -903,6 +822,67 @@ function checkshortULR(){
 	else
 		return $link; 
 	$connect->db_connect();	
+}
+function feedbacktable($id){
+	include_once('class/class.main.php');
+	$connect = new db();
+	$connect->db_connect();
+	$sql = "CREATE TABLE IF NOT EXISTS `businessplace_$id` (
+		`id` int(10) NOT NULL AUTO_INCREMENT,
+		  `rated1` tinyint(1) NOT NULL,
+		  `rated2` tinyint(1) NOT NULL,
+		  `rated3` tinyint(1) NOT NULL,
+		  `rated4` tinyint(1) NOT NULL,
+		  `rated5` tinyint(1) NOT NULL,
+		  `rated6` tinyint(1) NOT NULL,
+		  `rated7` tinyint(1) NOT NULL,
+		  `aveRate` float NOT NULL,
+		  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `userName` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `userId` varchar(50) NOT NULL,
+		  `source` varchar(5) NOT NULL,
+		  `labelId` int(11) NOT NULL,
+		  `feedsource` varchar(2) NOT NULL,
+		  `photo_url` varchar(200) NOT NULL,
+		  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `date` datetime NOT NULL,
+		  `hideimg` tinyint(4) NOT NULL,
+		  `feature` tinyint(4) NOT NULL,
+		  PRIMARY KEY (`id`)
+		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
+		$sql2 = "CREATE TABLE IF NOT EXISTS `businessCustomer_$id` (
+		  `id` int(11) NOT NULL AUTO_INCREMENT,
+		  `placeId` int(11) NOT NULL,
+		  `userId` varchar(100) NOT NULL,
+		  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `email` varchar(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `totalFriends` int(11) NOT NULL,
+		  `source` tinyint(4) NOT NULL,
+		  `follow` tinyint(4) NOT NULL,
+		  `data` longtext NOT NULL,
+		  PRIMARY KEY (`id`),
+		  KEY `follow` (`follow`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		$sql3 = " CREATE TABLE IF NOT EXISTS `sharedlink_$id` (
+		`id` int(11) NOT NULL,
+		  `feedbackId` int(11) NOT NULL,
+		  `fbId` bigint(20) NOT NULL,
+		  `link` varchar(50) NOT NULL,
+		  `pathimg` varchar(200) NOT NULL,
+		  `isshared` tinyint(4) NOT NULL DEFAULT '0',
+		  `ave` double NOT NULL,
+		  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+		  `datecreated` datetime NOT NULL
+		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		$sql4 = "ALTER TABLE `sharedlink_$id` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";
+		$sql5 = "ALTER TABLE `sharedlink_$id` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
+		mysql_query($sql);
+		mysql_query($sql2);
+		mysql_query($sql3);
+		mysql_query($sql4);
+		mysql_query($sql5);	
+	$connect->db_connect();		
+	return;
 }
 function checksharedURL($table,$id){
 	include_once('class/class.main.php');
