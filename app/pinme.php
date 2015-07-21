@@ -1,20 +1,7 @@
 <?php
-/*
-if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start();//page compressed
-include_once('class/class.main.php');
-$connect = new db();
-$connect->db_connect();
-$imgrotate = new fucn();
-$nice = strtolower($_REQUEST['nicename']);
-*/
-$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'isselfie'") or die(mysql_error());
-if(mysql_num_rows($addnewfield) < 1)
-	mysql_query("ALTER TABLE `businessCustom`  ADD `isselfie` TINYINT NOT NULL DEFAULT '0'  AFTER `fbpost`");
-
-$sql = "SELECT p.profilePlaceId, p.businessName, p.category, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email, d.description, o.opening, c.item2Rate,c.selectedItems,c.reviewPost,c.logo,c.isselfie FROM businessProfile AS p
+$sql = "SELECT p.profilePlaceId, l.businessName, p.category,p.nicename, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email, d.description, c.item2Rate,c.selectedItems,c.reviewPost,c.logo FROM businessProfile AS p
 LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
-LEFT JOIN businessOpeningHours AS o ON o.openingPlaceId = p.profilePlaceId
 LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId
 LEFT JOIN businessCustom AS c ON c.customPlaceId = l.id
 WHERE p.nicename =  '$nice'
@@ -25,17 +12,13 @@ $row = mysql_fetch_object($result1);
 $placeId = $row->profilePlaceId;
 $photoDomain = '';//'http://camrally.com/';
 $path = $connect->path;
-$businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Tabluu';
+$businessTitle = $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Camrally';
 $domainpath = '';
 if($row->state == 'canceled' || $row->state == 'unpaid'){
 	header("HTTP/1.0 404 Not Found");
 	header('Location: http://camrally.com');
 	exit;
 }
-//$topostFB = json_decode($row->reviewPost);
-//$rateLimit = array(1.0,1.25,1.5,1.75,2.0,2.25,2.5,2.75,3.0,3.25,3.5,3.75,4.0,4.25,4.5,4.75);
-//$avgLimit = $topostFB->percent;	
-
 function htmldecode($str){
 	$remove = array("\n", "\r\n", "\r", "<br />", "</p>");
 	$remove2 = array("<span>", "</span>");
@@ -53,17 +36,14 @@ if(strlen($descAll) > $shortchar ){
 	$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc">... see more</a>';
 }else
 	$desc = strip_tags(htmldecode($row->description));
-if(strlen($openingAll) > $shortchar ){
-	$opening = mb_strcut($openingAll,0,$shortchar) . ' <a class="fancybox" href="#showmoreopen">... see more</a>';
-}else
-	$opening = strip_tags(htmldecode($row->opening));
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
 <head>
 
 <?php
-echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Tabluu</title>';
+echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country. ' @ Camrally</title>';
 	if($row->state == 'active' && $row->subscribe > 0)
 		echo '<meta name="robots" content="index, follow" />';
 	else 
@@ -71,9 +51,9 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="description" content="Interested in going to <?php echo $row->businessName?>? See the latest <?php echo $row->businessName?> Tabluu reviews first.">
-<meta name="keywords" content="<?php echo $row->businessName?> Tabluu reviews, <?php echo $row->businessName?>">
-<meta name="title" content="<?php echo $row->businessName?> - Tabluu">
+<meta name="description" content="Interested in going to <?php echo $row->businessName?>? See the latest <?php echo $row->businessName?> Camrally advocates first.">
+<meta name="keywords" content="<?php echo $row->businessName?> Camrally advocates, <?php echo $row->businessName?>">
+<meta name="title" content="<?php echo $row->businessName?> - Camrally">
 <link href="<?=$path?>css/face/main.css" media="screen" rel="stylesheet" type="text/css" />
 <!--[if IE 7]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 8]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
@@ -126,10 +106,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		<div class="left">
 			<div style="text-align:center;"><img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? $path.'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 			<?php
-			if($row->isselfie == 0 && $hadTable)
-				echo '<div class="follow">'.$follow->followTotal .' fans</div>';
-			else
-				echo '<div class="follow"></div>';
+			if($hadTable)
+				echo '<div class="follow">'.$follow->followTotal .' follow</div>';
 			?>
 			</div>
 		</div>
@@ -138,62 +116,20 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			 <div class="title-name FLeft"> <?php echo $row->businessName?> </div>
 			 <?php 
 		if($hadTable){
-			$resultAve = mysql_query("SELECT count(id) as totalAvg ,AVG(aveRate) as totalReviews FROM businessplace_$placeId WHERE source = 'fb' ORDER BY id DESC");
+			$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE source = 'fb' ORDER BY id DESC");
 			if(mysql_num_rows($resultAve)){
 			$rowAvg = mysql_fetch_object($resultAve);
-			$ave = explode(".",round($rowAvg->totalReviews,1));
-			$style='';
-			if($rowAvg->totalAvg < 1)
-				$style='width:0px';
-			if($rowAvg->totalReviews >= 1 && $rowAvg->totalReviews < 2){
-				if(count($ave) > 1){
-					$dec = "0.".$ave[1];					
-					$width = 21 + ($dec * 18); 
-					$style = 'width:'.$width.'px;';	
-				}else
-					$style = "width:25px;";	
-			}
-			if($rowAvg->totalReviews >= 2 && $rowAvg->totalReviews < 3){
-				if(count($ave) > 1){
-					$dec = "0.".$ave[1];					
-					$width = 42 + ($dec * 18); 
-					$style = 'width:'.$width.'px;';	
-				}else
-					$style = "width:50px;";		
-			}
-			if($rowAvg->totalReviews >= 3 && $rowAvg->totalReviews < 4){
-				if(count($ave) > 1){
-					$dec = "0.".$ave[1];					
-					$width = 77 + ($dec * 25); 
-					$style = 'width:'.$width.'px;';	
-				}else
-					$style = "width:75px;";	
-			}
-			if($rowAvg->totalReviews >= 4 && $rowAvg->totalReviews < 5){
-				if(count($ave) > 1){
-					$dec = "0.".$ave[1];					
-					$width = 103 + ($dec * 25); 
-					$style = 'width:'.$width.'px;';	
-				}else
-					$style = "width:100px;";		
+			if($row->booknow){
+				$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+			}else{
+				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
 			}
 			?>
 			 <div style="float:right;padding-right:10px;">
-				<!--<div style="width:120px;float:right;padding-right:5px;"><?php //echo "<span class=\"stargrey2\"><span class=\"staryellow2\" style=\"$style\"></span></span>"?></div> -->
-					<div style="clear:both;text-align:right;">
-					<?php
-					if($row->isselfie == 0)
-						echo '<div style="color: #777;padding:2px 0;font-size:18px">'.round($rowAvg->totalReviews,1).' out of 5</div>';
-					if($row->isselfie == 0){
-					?>
-					<a href="<?=$path?>baseshared.php?id=<?=$placeId ?>" class="fancybox fancybox.iframe" style="font-weight:normal;text-decoration:none;color: #00AEEF;font-size:14px;"><?php echo $rowAvg->totalAvg .' reviews' ?> </a>
-					<?php
-					}else{
-					?>
-					<span style="font-weight:normal;text-decoration:none;color: #00AEEF;font-size:14px;"><?php echo $rowAvg->totalAvg .' selfies' ?></span>
-					<?php
-					}?>
-					</div>
+				<div style="clear:both;text-align:right;">
+					<div style="color: #777;padding:2px 0;font-size:18px"><a href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
+					<span style="font-weight:normal;text-decoration:none;color: #00AEEF;font-size:14px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
+				</div>
 			</div>
 		<?php
 			}
@@ -211,7 +147,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 				if(mysql_num_rows($latestrev)){
 			?>	
 			<div class="reviews">
-				<h1 style="color: #ccc;font-size: 10px;font-weight: bold;">Latest <?php echo ($row->isselfie == 1 ? 'selfies' : 'reviews') ?>:</h1>
+				<h1 style="color: #ccc;font-size: 10px;font-weight: bold;">Latest advocates:</h1>
 				<div class="clear" style="height:10px"></div>
 				<?php
 				while($rev = mysql_fetch_object($latestrev)){
@@ -230,7 +166,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			?>
 			<div class="textDesc">
 				<?php
-				echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '') . (trim($opening) != '' ? '<p class="opentext">'.$opening.'</p>' : '');
+				echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '');
 				echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
 			  ?>
 			</div>
@@ -239,7 +175,12 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 </div>
 	<?php
 	$w=0;
-	$widthmenu = "width:100%";	
+	$widthmenu = "width:100%";
+		if($row->booknow){$w++;
+			$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+		}else{$w++;
+			$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+		}
 		if($row->websiteURL){$w++;
 			$website = (strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL);
 		}	
@@ -252,9 +193,6 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		if($row->twitterURL){$w++;
 			$twitter = (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL);
 		}	
-		if($row->booknow){$w++;
-			$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
-		}
 		if($row->showmap)
 			$w++;
 	//	$w++; //count for showcase or review tab	
@@ -290,7 +228,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 				if($row->showmap)
 					echo '<li style="'.$widthmenu.'"><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="fancybox fancybox.iframe"><div class="menupadding">Map</div></a></li>';	
 
-				if($row->booknow)
+				if($booksite)
 					echo '<li style="'.$widthmenu.'"><a href="'.$booksite.'" target="_blank"><div class="menupadding">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</div></a></li>';
 			?>
 		</ul>
@@ -308,19 +246,6 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 <a class="Button WhiteButton Indicator" href="#" id="ScrollToTop" style="display: none;"><strong>Top</strong><span></span></a>
     
 <!--CONTENT ENDS HERE-->
-<!--
-<div class="FixedSM">
-
-    <ul>
-        <li class="SMLinks2"><a href="http://www.facebook.com/sharer/sharer.php?u=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>" target="_blank" >Facebook</a></li>
-        <li class="SMLinks3"><a href="http://twitter.com/share?text=<?php //echo urlencode($businessTitle); ?>&url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>" target="_blank" >Twitter</a></li>
-        <li class="SMLinks4"><a href="http://www.pinterest.com/pin/create/button/?url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>&media=http://camrally.com/<?php //echo ($logo != '' ? $path.$logo->dLogo : $path.'images/defaultLogo.png') ?>&description=<?php //echo urlencode($businessTitle); ?>" target="_blank" >Pinterest</a></li>
-        <li class="SMLinks6"><a href="mailto:?subject=<?php //echo urlencode('I wanted you to see this site'); ?>&body=<?php //echo urlencode('Check out this site'). 'http://camrally.com/' . $domainpath.$nice.'.html'; ?>" target="_blank" title="Email">Email</a></li>
-        <li class="SMLinks11"><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>&title=<?php //echo urlencode($businessTitle); ?>" target="_blank">Linkedin</a></li>
-        <li class="SMLinks12"><a href="http://plus.google.com/share?url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'?>" target="_blank">Google+</a></li>
-    </ul>
-</div>
--->
 </div>
 <div class="vmobile">
 	<div class="main_wrapper">
@@ -332,7 +257,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		<div id="topmenu">
 			<ul>
 				<li class="borderright" id="showcase"><a href="#">Showcase</a></li>
-				<li class="activeMenu" id="top-reviews"><a href="#"><?php echo ($row->isselfie == 1 ? 'Selfies' : 'Reviews')?></a></li>
+				<li class="activeMenu" id="top-reviews"><a href="#">Advocates</a></li>
 			</ul>
 		</div>    
 			<div class="MerchantWrapper">
@@ -347,23 +272,14 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 					  if($hadTable){
 						?>
 						 <div style="margin-top:5px;">
-						 <!--<?php //echo "<span class=\"stargrey2\"><span class=\"staryellow2\" style=\"$style\"></span></span>"?><div style="font-size:12px;">-->
-						  <?php
-						if($row->isselfie == 0){
-							echo '<div style="color: #777;padding:2px 0;font-size:18px">'.round($rowAvg->totalReviews,1). 'out of 5</div>';
-						?>
-							 <a href="<?=$path?>baseshared.php?id=<?=$placeId ?>" class="fancybox fancybox.iframe" style="font-weight:normal;color:#00AEEF;text-decoration:none;font-size:14px"><?php echo $rowAvg->totalAvg .' reviews'; ?></a>
-						<?php
-						}else{
-						?>
-						   <span style="font-weight:normal;color:#00AEEF;text-decoration:none;font-size:14px"><?php echo $rowAvg->totalAvg .' selfies'?></span>
-						 <?php
-						 }
-						 ?>
+						 
+						   <span style="font-weight:normal;color:#00AEEF;text-decoration:none;font-size:14px"><?php echo $rowAvg->totalAvg .' advocates'?></span>
 						 </div>
-						</div>
-						<?php
+						 <?php
 						}
+						?>
+					</div>
+						<?php
 						$shortchar = 200;
 						$openingAll = strip_tags(htmldecode($row->opening));
 						$descAll = strip_tags(htmldecode($row->description));
@@ -381,7 +297,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 							echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '') . (trim($opening) != '' ? '<p class="opentext">'.$opening.'</p>' : '');
 							echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
 							$n= 0;
-							if($row->booknow)
+							if($booksite)
 								$n = $n + 93;
 							if($row->showmap)
 								$n = $n + 93;
@@ -392,8 +308,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';	
-					if($row->booknow){
-						echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</span></a>'; 
+					if($booksite){
+						echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
 					}if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
@@ -402,22 +318,6 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     }					
-					  /*
-					if($row->booknow && $row->showmap && $row->contactNo)
-						echo '<a href="tel:'.$row->contactNo.'" rel="nofollow" class="MRight">Call Us</a><a href="'.$booksite.'"  class="FRight" target="_blank"><div style="border:1px solid red;overflow: hidden;text-overflow: ellipsis;width: 20px;">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</div></a><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="MRight fancybox fancybox.iframe">Map</a>';
-					else if($row->showmap && $row->contactNo)
-						echo '<a href="tel:'.$row->contactNo.'" rel="nofollow" class="MRight">Call Us</a><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="MRight fancybox fancybox.iframe">Map</a>';
-					else if($row->booknow && $row->contactNo)
-						echo '<a href="tel:'.$row->contactNo.'" rel="nofollow" class="MRight">Call Us</a><a href="'.$booksite.'"  class="FRight" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a>';
-					else if($row->booknow && $row->showmap)
-						echo '<a href="'.$booksite.'"  class="FRight" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="MRight fancybox fancybox.iframe">Map</a>';
-					else if($row->showmap)
-						echo '<p class="FRight"><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="MRight fancybox fancybox.iframe">Map</a></p>';
-					else if($row->booknow)
-						echo '<p class="FRight"><a href="'.$booksite.'"  class="FRight" target="_blank"><span>' .($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</span></a></p>'; 
-					else if($row->contactNo)
-						echo '<p class="FRight"><a href="tel:'.$row->contactNo.'"  class="FRight" target="_blank">Call Us</a></p>'; 	
-						*/
 					?>
 					  </div>    
 				</div>
@@ -426,16 +326,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
             	<div id="m_reviews" style="margin-top:5px;"></div>
 				<div style="height:5px"></div>
         </div>
-  <!--CONTENT ENDS HERE-->
-  <!--
-<div class="FixedSM">
-
-    <ul>
-        <li class="SMLinks2"><a href="http://www.facebook.com/sharer/sharer.php?u=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>" target="_blank" >Facebook</a></li>
-        <li class="SMLinks3"><a href="http://twitter.com/share?text=<?php //echo urlencode($businessTitle); ?>&url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>" target="_blank" >Twitter</a></li>
-		 <li class="SMLinks4"><a href="http://www.linkedin.com/shareArticle?mini=true&url=http://camrally.com/<?php //echo $domainpath.$nice.'.html'; ?>&title=<?php //echo urlencode($businessTitle); ?>" target="_blank">Linkedin</a></li>
-    </ul>
-</div> -->      
+  <!--CONTENT ENDS HERE-->     
     </div>
 </div>
 <div id="socialmenu" style="text-align:center;display: none;">
@@ -449,8 +340,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			echo '<li><a href="'. (strstr($row->linkedinURL,'http') ? $row->linkedinURL : 'http://'.$row->linkedinURL) .'"  target="_blank">LinkedIn Page</a></li>';
 		if($row->twitterURL)
 			echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
-		if($row->booknow)
-			echo '<li><a href="'.(strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow).'" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a></li>'; 		
+		if($booksite)
+			echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a></li>'; 		
 		if($row->contactNo)	
 			echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 		?>

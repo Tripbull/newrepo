@@ -206,48 +206,6 @@ switch($opt){
 		$rows = mysql_fetch_object($res);
 		$date = new DateTime((string)$rows->expiration);
 		echo json_encode(array('expiration'=>$date->format('F d, Y'),'curr'=>$remove));	
-
-		/*
-		$subscription_id = $_REQUEST['subsId'];$remove = $_REQUEST['remove'];$groupID = $_REQUEST['groupID'];$userId= $_REQUEST['userId'];$comp_id = $_REQUEST['comp_id'];
-		$url = '/subscriptions/'. $subscription_id .'/components/'. $comp_id .'.xml';
-		$result = $connector->sendRequest($url, $format = 'xml', $method = 'GET', $data='');
-		if($result->code == 200){
-			$objxml = simplexml_load_string($result->response);
-			$allocate = (int)$objxml->allocated_quantity;
-			$remove = $allocate - (int)$remove;
-			$removeloc = ($allocate > 0 ? $remove : 0);
-			$url = '/subscriptions/'. $subscription_id .'/components/'. $comp_id .'/allocations.xml';
-			$data = '<?xml version="1.0" encoding="UTF-8"?>
-			  <allocation>
-				  <quantity>'. $removeloc .'</quantity>
-				  <proration_downgrade_scheme>"no-prorate"</proration_downgrade_scheme>
-				   <proration_upgrade_scheme>"no-prorate"</proration_upgrade_scheme>
-			  </allocation>';
-			$result = $connector->sendRequest($url, $format = 'xml', $method = 'POST', $data);
-			$array = array();
-			if($result->code == 201){
-				$objxml = simplexml_load_string($result->response);
-				mysql_query("UPDATE businessUserGroup SET addLoc=".(int)$removeloc ." WHERE gId = $groupID") or die(mysql_error());
-				$sql = "SELECT u.id, u.userGroupId, u.fname, u.lname, u.permission,u.email, g.credits,g.chargify_cust_id,g.expiration, g.subscription_id, g.state, g.addLoc, g.productId, g.created,g.setup,g.timezone FROM businessUsers AS u
-				LEFT JOIN businessUserGroup AS g ON g.gId = u.userGroupId
-				WHERE u.id =  $userId
-				LIMIT 1";
-				$res = mysql_query($sql);
-				$rows = mysql_fetch_array($res);	
-				$array = array_merge(array('response'=>$rows,'code'=>$result->code));
-				$subject = 'add new location(s) request'; 
-				$body = '<p>Hi '.$rows['fname'] . ',</p>
-						<p>As requested, we have to remove '. (int)$removeloc .' location(s) from your current plan.</p>
-						<p>Happy-Tabluu-ing!</p>
-						<p>Cheers,<br/>Tabluu Support</p>';
-				sendEmail($rows['email'],$subject,$body);		
-			}else
-				$array = array('response'=>$result->response,'code'=>$result->code);
-			echo json_encode($array); 
-		}else{
-			$array = array('response'=>$result->response,'code'=>$result->code); 
-			echo json_encode($array);
-		}	*/
 	break;
 	case 'addplanlocation':
 		$subscription_id = $_REQUEST['subsId'];$addloc = $_REQUEST['addloc'];$groupID = $_REQUEST['groupID'];$userId= $_REQUEST['userId'];$comp_id = $_REQUEST['comp_id'];
@@ -981,25 +939,11 @@ switch($opt){
 		$sql = "SELECT u.id,g.suspend,g.state,g.type,g.subscription_id FROM businessUsers as u LEFT JOIN businessUserGroup as g ON g.gId = u.userGroupId
 		WHERE u.email =  '$email' AND u.pwd = '$pwd'";
 		$result = mysql_query($sql);
-		//echo mysql_num_rows($result);
-		//die();
-		if(mysql_num_rows($result)){
+		if(mysql_num_rows($result) > 0){
 			$row = mysql_fetch_object($result);
-			if($row->suspend)
-				echo 2;
-			else{
-				if($row->type > 1 && $row->subscription_id == 0){
-					echo 0;
-				}else{
-				    if($row->type == 0 && $row->state == 'notactive'){
-						echo 0;
-					}else{
-						$cookie = new cookie();
-						$cookie->setCookie( $row->id );
-						echo 1;
-					}
-				}
-			}
+			$cookie = new cookie();
+			$cookie->setCookie( $row->id );
+			echo 1;
 		}else	
 			echo 0;
 	break;

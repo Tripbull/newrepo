@@ -56,6 +56,7 @@ function alertBox2(title,message){
 function sendEmail2Client(cases){
 	showLoader();
 	$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&opt=sendEmail2Client&cases='+cases+'&name='+username,success:function(lastId){
+		setTimeout(function() {
 		if(customArray.redirect > 0){
 			var str = customArray.websiteURL;
 			var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
@@ -63,6 +64,7 @@ function sendEmail2Client(cases){
 		}else{
 			window.location = domainpath+nicename+'html';
 		}
+		},300);
 	}}); 
 }
 function sendEmail2Client2(cases){
@@ -247,7 +249,7 @@ function alertEmail2(){
 		function(){
 			showLoader();
 			if(isTakeSelfie == '' || isTakeSelfie == 2)
-				$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+				$( ":mobile-pagecontainer" ).pagecontainer( "change", "campaign.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
 		}}]
 	});
 }
@@ -594,7 +596,7 @@ function showCamera(IDparam){
 		Webcam.reset();
 
 		if(fromtakephotopage == 2){
-			setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
+			setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "campaign.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
 		}	
 		closeselfie=1;clearInterval(timeInverval);refresh_handler();
 	});

@@ -29,11 +29,10 @@ if($row->state == 'canceled' || $row->state == 'unpaid'){
 	exit;
 }
 $redirectpage = 'http://camrally.com/'.$row->nicename.'.html';
-if($row->link != '' || $row->link != null)
-	$redirectpage = 'http://camrally.com/'.$row->link;
-$rev = $businessTitle;
+$rev = $row->businessName;
 $desc_meta =  $row->tag1.' '.$row->tag2 .' '.$row->brand;  //'http://camrally.com/'.$row->nicename.'.html';
 $description = '<p class="tag-occation">'.$row->businessName.'</p><p class="tag-row">'.$row->tag1 .' '.$row->tag2.'</p><p class="tag-date">'.$row->brand.'</p>';
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">

@@ -39,9 +39,9 @@ if(mysql_num_rows($result)){
 	}else{
 		if($row->link == $link){
 			if(trim($row->label) != '')
-				echo $goingto = 'http://camrally.com/app/rateone.html?p='. $row->nicename .'&s='.$row->source.'&label='.$row->id; //urlencode 
+				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source.'&label='.$row->id; //urlencode 
 			else
-				echo $goingto = 'http://camrally.com/app/rateone.html?p='. $row->nicename .'&s='.$row->source;
+				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
 			//header("HTTP/1.1 301 Moved Permanently");
 			header("Location: {$goingto}");
 			die();

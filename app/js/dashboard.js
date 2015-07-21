@@ -3,14 +3,14 @@ var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,doma
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],txtdescription='',txtimg='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
-var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619,liteID = 3700318;
+var liteID = 3356308,basicID=3356305,proID=3356306;
 //live component chargify ids
-var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
+var liteID=34,com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=false,domainpath='',pathfolder='';
+var istest=true,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
-var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0;
+var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
 
 $(document).bind('mobileinit', function(){
@@ -22,9 +22,9 @@ $(document).ready(function(){
 	$('.fancybox').fancybox();
 	if(istest == true){
 			//test mode chargify ids
-		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790,liteID = 3710751; 
+		basicID=3361656,basic12 = 3602785,basic24 = 3602788,liteID = 3710751; 
 		//test component chargify ids
-		com_basicID=27367,com_basic12 = 69598,com_basic24 = 69599,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
+		com_basicID=27367,com_basic12 = 69598,liteID = 69599,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
 		chargifydomain = 'https://tripbull.chargify.com';
 		domainpath = '';pathfolder = 'http://camrally.com/app/';
 	}else{
@@ -43,51 +43,36 @@ $(document).ready(function(){
 			var redirect = "settings.html";	
         }else if(whatsetup == 2){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please add a new campaign / business.</p>';
+			var body = '<p>Please add a new campaign.</p>';
 			var redirect = "index.html";
 			$('.addnew-loc').hide();
 			$('.text-loc').show();
         }else if(whatsetup == 3){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please complete your business profile.</p>';
+			var body = '<p>Please complete your profile.</p>';
 			var redirect = "profile.html";
-        }else if(whatsetup == 4){
-				var title = 'Setup Wizard - Step '+level+' / '+ steps;
-				var body = '<p style="text-align:left;">Please upload a few images related to your campaign.</p>'
-							+'<p style="text-align:left;">Upload the best image first as it will be used for posting to the social media in case your customer does not take a selfie or photo.</p>';
-				var redirect = "profile.html";
-				curClick = 4;
+		}else if(whatsetup == 4){
+			var title = 'Setup Wizard - Step '+level+' / '+ steps;
+			var body = '<p>Please upload your profile image (for individuals) or a logo of your organization.</p>';
+			var redirect = "profile.html";
+			curClick = 1;
         }else if(whatsetup == 5){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Users will upload campaign poster and fill up campaign details all In one page</p>';
+			var body = '<p style="text-align:left;">Please upload up to 8 images related to your campaign.</p>'
+						+'<p style="text-align:left;">Upload the best image first as it will be used for posting to the social media in case your customer does not take a selfie or photo.</p>';
+			var redirect = "profile.html";
+			createProfileMenu2();
+        }else if(whatsetup == 6){
+			var title = 'Setup Wizard - Step '+level+' / '+ steps;
+			var body = '<p>Please upload your campaign poster & enter your campaign message.</p>';
 			var redirect = "setup.html";
-			curClick = 2;
-		 }else if(whatsetup == 6){
+			curClick = 1;
+		 }else if(whatsetup == 7){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
 			var body = '<p>Customize your Camrally vanity link.</p>';
 			var redirect = "profile.html";
 			curClick = 1;
-		 }else if(whatsetup == 7){
-			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Your custom Camrally page link has been created.</p>';
-			var redirect = "profile.html";
-			curClick = 1;
-			$.box_Dialog(body, {
-				'type':     'question',
-				'title':    '<span class="color-white">'+title+'<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: 'okay',callback:function(){
-					setTimeout(function(){wizardcreatedlink=0;wizardsetup();},300);
-				}}]
-			});	
-			return;
         }else if(whatsetup == 8){
-			/*
-			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Congratulations! You have completed the setup</p>'
-					 +'<p>Start promoting your Camrally mini link (http://camrally.com/sdfder) now!<br/>See your Camrally page here: http://camrally.com/hillaryfans.html</p>';*/
 			curClick = 2;
 			var redirect = "feedback.html"; 
 			$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
@@ -119,8 +104,6 @@ $(document).ready(function(){
 				placename  = customArray.businessName + ($.trim(lab) != '' ? ' ('+lab+')' : '');
 				lab = '';
 				hideLoader();var j=0;
-				if(customArray.taglineselfie != '')
-					var arraytagline =  $.parseJSON(customArray.taglineselfie);
 				if(selfieonly == 1)
 					customArray.settingsItem = 1;
 				if(customArray.webImg != '')
@@ -140,26 +123,26 @@ $(document).ready(function(){
 				if(customArray.webImg8 != '')
 					j++;	
 				if(customArray.nicename == ''){
-					profilewizardsetup=1;uicwizardsetup = 1;questionwizardsetup = 0;profilewizardwebImg = 1;
+					profilewizardsetup=1;logowizard=1; 
 					wizardAlert(3,1,6);
+				}else if(customArray.logo == ''){
+					bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
+					wizardAlert(4,2,6);	
 				}else if(j == 0){
-					bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardsetup=0;
-					wizardAlert(4,2,6);
+					wizardAlert(5,3,6);
 				}else if(campaignwizard == 1){
 					vanitywizard=1;
-					wizardAlert(5,3,6);
+					wizardAlert(6,4,6);
 				}else if(vanitywizard == 1){
 					wizardcreatedlink=1;
-					wizardAlert(6,4,6);	
-				}else if(wizardcreatedlink == 1){
-					wizardAlert(7,5,6);		
+					wizardAlert(7,5,6);			
 				}else if(locOption[2] < 1){
 					issetup = 1;uicwizardsetup = 0;
 					wizardAlert(8,6,6);
 				}
 			}});
 		}
-	}
+	} 
 
     function wizardsetup(){
 		//if(userArray.setup != '') {
@@ -281,7 +264,7 @@ $(document).ready(function(){
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
 					else
-						window.open('rateone.html?p='+customArray.nicename,'_blank');
+						window.open('campaign.html?p='+customArray.nicename,'_blank');
 			  }});
 			
 			}else
@@ -322,7 +305,7 @@ $(document).ready(function(){
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
 					else
-						window.open('rateone.html?p='+customArray.nicename+'&s='+s,'_blank');
+						window.open('campaign.html?p='+customArray.nicename+'&s='+s,'_blank');
 			  }});
 			
 			}else
@@ -383,8 +366,8 @@ $(document).ready(function(){
 		});
 		$('#manageFeedback').click(function(){
 			curClick = 0;
-			if(userArray.productId == everFree || userArray.productId == basicID || userArray.productId == basic12 || userArray.productId == basic24)
-				alertBox('no access','Please upgrade to pro plan & above to access this feature');
+			if(userArray.productId == liteID)
+				alertBox('no access','Please upgrade to basic plan & above to access this feature');
 			else{
 				if($.inArray(userArray.state,state_Array) == -1)
 					$( ":mobile-pagecontainer" ).pagecontainer( "change", "reviews.html",{ });
@@ -459,15 +442,15 @@ $(document).ready(function(){
 			var name = $.trim($("#text-6").val());
             if(user.permission < 2){
                 var rows = locArray.length; //get total length of location
-                if(user.productId == everFree){
+                /*if(user.productId == everFree){
                     if(rows > 0){
                         defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
                     }else{
                         _setBusinessName(name);
                     }
-                }else{
+                }else{ */
 					 _setBusinessName(name);
-				}
+				//}
 		  }else
 			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
 		}
@@ -985,304 +968,6 @@ $(document).ready(function(){
 		}, 500);//to prevent the events fire twice
     }
 	
-	$(document).on('pageinit','#weblink', function () {
-		$('.iconsetup').click(function(e){
-			clearTimeout(resizeTimeout);
-			resizeTimeout = setTimeout(function(){ 
-				$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-					showLoader();
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-						hideLoader();
-						window.location = 'index.php'
-					}});		
-				}},{caption: 'cancel'}]
-				});
-			}, 500);//to prevent the events fire twice
-			e.preventDefault();
-		});
-		$("#weblink-logo").click(function (e){  //logo click
-			if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-				$( '.main-wrap .left-content' ).show();
-				$( '.main-wrap .right-content' ).hide();
-				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-			}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-				curClick = 1;defaultSetup=4;
-				$( ":mobile-pagecontainer" ).pagecontainer( "change", "feedback.html",{ });	
-			}
-			e.preventDefault();
-		});
-		$('#weblink .star').click(function(){goHome();});
-		//checkboxQuestion();
-		
-		var isoktoview = false,timer,arrayDataURL= [],openlink1='',openlink2='',nice1='',nice2='';
-		$('.star').show();
-		$(".panel-outselfie #shortlink2").val('camrally.com/'+customArray.nicename+'=0');
-		$(".panel-selfiex #shortlink3").val('camrally.com/'+customArray.nicename+'=1');
-		$(".panel-outselfie .link").html('camrally.com/'+customArray.nicename+'=0');
-		$(".panel-selfiex .link").html('camrally.com/'+customArray.nicename+'=1');
-        $(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=1'});
-		$(".QRimage2").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=0'});		
-		openlink1 = domainpath+customArray.nicename+'=0';
-		nice1 = customArray.nicename;nice2 = customArray.nicename;
-		$('#submit-shortlink2').click(function(){
-			window.open(openlink1,'_blank');
-		});
-		
-		
-		$('#qr-generate2').click(function(){
-			window.open('qr-generated.html?p='+nice2+'&s=0&size='+$("#qr-size2 :radio:checked").val(),'_blank');
-		});
-		
-		$('#submit-label1').click(function(){
-			places = locId.split('|');
-			if($.trim($('#txtlabel1').val()) != ''){
-				showLoader();
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=generateshorturl&label='+encodeURIComponent(encodequote($('#txtlabel1').val()))+'&source=1',async: true,success:function(result){
-					hideLoader();
-					arrayDataURL =  $.parseJSON(result);
-					setshorturl(1);
-				}});
-			}else{
-				uicAlertBox('incomplete','Please enter label','#txtlabel1');
-			}
-		});
-		$('#submit-label2').click(function(){
-			places = locId.split('|');
-			if ( timer ) clearTimeout(timer);
-			timer = setTimeout(function(){
-				if($.trim($('#txtlabel2').val()) != ''){
-					showLoader();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=generateshorturl&label='+encodeURIComponent(encodequote($('#txtlabel2').val()))+'&source=0',async: true,success:function(result){
-						hideLoader();
-						//alertBox('complete','New generated url');
-						arrayDataURL =  $.parseJSON(result);
-						setshorturl(1);
-					}});
-				}else{
-					uicAlertBox('incomplete','Please enter label','#txtlabel2');
-				}
-			}, 300);
-		});
-		$( ".right-header" ).html( placename );
-		if($( window ).width() <= 600){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}
-		$('.weblink-left-menu').on('click', ' > li', function () {
-		   curClick = $(this).index();
-		   if(isoktoview){
-			   qrmenuleft();
-			   $('.panel-selfie').hide();$('.panel-outselfie').hide();$('.panel-selfiex').hide();
-			   if(curClick == 0){
-					$('#qr-size3 input[id="webb2"]').attr('checked',true).checkboxradio('refresh');
-					$('.panel-selfiex').show();
-				}else if(curClick == 1){
-					$('#qr-size2 input[id="webb2"]').attr('checked',true).checkboxradio('refresh');
-					$('.panel-outselfie').show();
-				}else if(curClick == 2){
-					$('#qr-size3 input[id="webb2"]').attr('checked',true).checkboxradio('refresh');
-					$('.panel-selfiex').show();
-				}
-				if($( window ).width() <= 600){
-					$( '.main-wrap .left-content' ).hide();
-					$( '.main-wrap .right-content' ).show();
-					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-				}
-			}
-		});
-		//$(".panel-selfie .shortlink").html('camrally.com/'+customArray.nicename+'=1');
-
-		
-		//no selfie input box code
-		$("#noselfie1").blur(function(){
-		  $('.panel-outselfie .gohere').html($("#noselfie1").val());
-		   printSaveTxt();
-		});
-		$("#noselfie1").keyup(function(){
-		  $('.panel-outselfie .gohere').html($("#noselfie1").val());
-		});
-		$("#noselfie2").blur(function(){
-		  $('.panel-outselfie .postx').html($("#noselfie2").val());
-		   printSaveTxt();
-		});
-		$("#noselfie2").keyup(function(){
-		  $('.panel-outselfie .postx').html($("#noselfie2").val());
-		});
-		$("#noselfie3").blur(function(){
-		  $('.panel-outselfie .pselfiex2').html($("#noselfie3").val());
-		   printSaveTxt();
-		});
-		$("#noselfie3").keyup(function(){
-		  $('.panel-outselfie .pselfiex2').html($("#noselfie3").val());
-		});
-		//selfie input box code
-		$("#selfiex1").blur(function(){
-		  $('.panel-selfiex .gohere').html($("#selfiex1").val());
-		   printSaveTxt();
-		});
-		$("#selfiex1").keyup(function(){
-		  $('.panel-selfiex .gohere').html($("#selfiex1").val());
-		});
-		$("#selfiex2").blur(function(){
-		  $('.panel-selfiex .postx').html($("#selfiex2").val());
-		   printSaveTxt();
-		});
-		$("#selfiex2").keyup(function(){
-		  $('.panel-selfiex .postx').html($("#selfiex2").val());
-		});
-		$("#selfiex3").blur(function(){
-		  $('.panel-selfiex .pselfiex').html($("#selfiex3").val());
-		   printSaveTxt();
-		});
-		$("#selfiex3").keyup(function(){
-		  $('.panel-selfiex .pselfiex').html($("#selfiex3").val());
-		});
-		$(".panel-outselfie #submit-print4").click(function(e){
-			e.preventDefault();
-			openqrprint(4,0);
-		});
-		$(".panel-outselfie #submit-print9").click(function(e){
-			e.preventDefault();
-			openqrprint(9,0);
-		});
-		/*
-		$(".panel-selfie #submit-print4").click(function(e){
-			e.preventDefault();
-			openqrprint(4,1);
-		});
-		$(".panel-selfie #submit-print9").click(function(e){
-			e.preventDefault();
-			openqrprint(9,1);
-		}); */
-		$(".panel-selfiex #submit-print4").click(function(e){
-			e.preventDefault();
-			openqrprint(4,1);
-		});
-		$(".panel-selfiex #submit-print9").click(function(e){
-			e.preventDefault();
-			openqrprint(9,1);
-		});
-
-		//$(".QRimage3").qrcode({render: 'image',fill: '#000',size: 50,text: 'camrally.com/'+customArray.nicename+'=6'});
-		function openqrprint(cases,selfie){
-			places = locId.split('|');
-			if(cases == 4)
-				window.open('qrframe4.html?id='+places[0]+'&s='+selfie,'_blank');
-			else
-				window.open('qrframe9.html?id='+places[0]+'&s='+selfie,'_blank');
-		}
-		function printSaveTxt(){
-			places = locId.split('|');
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=print&selfie-1='+'&noselfie1='+encodeURIComponent(encodequote($('#noselfie1').val()))+'&noselfie2='+encodeURIComponent(encodequote($('#noselfie2').val()))+'&noselfie3='+encodeURIComponent(encodequote($('#noselfie3').val()))+'&selfiex1='+encodeURIComponent(encodequote($('#selfiex1').val()))+'&selfiex2='+encodeURIComponent(encodequote($('#selfiex2').val()))+'&selfiex3='+encodeURIComponent(encodequote($('#selfiex3').val())),async: false,success:function(result){}	
-			});
-		}
-		qrmenushow(curClick);
-		qrmenuleft();
-		function qrmenushow(row){
-			curClick = row;
-			$('.panel-selfie').hide();$('.panel-outselfie').hide();
-			places = locId.split('|');	
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			  $.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+places[0]+'&opt=getCustom',async: false,success:function(result){
-				 customArray =  $.parseJSON(result);
-				 $("#overlay").remove();
-					var j=0;
-					if(customArray.webImg != '')
-						j++;
-					if(customArray.webImg2 != '')
-						j++;
-					if(customArray.webImg3 != '')
-						j++;
-					if(customArray.webImg4 != '')
-						j++;
-					if(customArray.webImg5 != '')
-						j++;
-					if(customArray.webImg6 != '')
-						j++;
-					if(customArray.webImg7 != '')
-						j++;
-					if(customArray.webImg8 != '')
-						j++;
-					if(customArray.city == '')	
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page');
-					else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
-						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
-					//else if(j < 2)
-						//alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
-					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page');
-					else if(customArray.subscribe < 1)
-						alertBox('this campaign is offline','Please change the status to online');
-					else if(customArray.settingsItem < 1)
-						alertBox('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
-					else{
-						isoktoview = true;
-						if(customArray.printvalue != ''){
-							var printval = $.parseJSON(customArray.printvalue)
-							if(typeof(printval.noselfie1) != 'undefined'){
-								$("#noselfie1").val(decodequote(printval.noselfie1));
-								$("#noselfie2").val(decodequote(printval.noselfie2));
-								$("#noselfie3").val(decodequote(printval.noselfie3));
-								$('.panel-outselfie .gohere').html(decodequote(printval.noselfie1));
-								$('.panel-outselfie .postx').html(decodequote(printval.noselfie2));
-								$('.panel-outselfie .pselfiex2').html(decodequote(printval.noselfie3));
-							}
-							 
-							if(typeof(printval.selfiex1) != 'undefined'){
-								$("#selfiex1").val(decodequote(printval.selfiex1));
-								$("#selfiex2").val(decodequote(printval.selfiex2));
-								$("#selfiex3").val(decodequote(printval.selfiex3));
-								$('.panel-selfiex .gohere').html(decodequote(printval.selfiex1));
-								$('.panel-selfiex .postx').html(decodequote(printval.selfiex2));
-								$('.panel-selfiex .pselfiex').html(decodequote(printval.selfiex3));
-							}
-						}
-						if(row == 0){
-							$('#qr-size3 input[id="webb2"]').attr('checked',true).checkboxradio('refresh');
-							$('.panel-selfiex').show();
-							if(isdonewizard > 0)
-								wizardstep7();
-						}else if(row == 1){
-							$('#qr-size2 input[id="webb2"]').attr('checked',true).checkboxradio('refresh');
-							$('.panel-outselfie').show();
-						}					
-					}
-			  }});
-		}
-		$( window ).resize(function() { // when window resize
-			is_resize();
-			qrmenuleft();
-			$( ".right-header" ).html( placename );
-		});
-		
-		function qrmenuleft(){
-			var height = ($( window ).height() / 16) - 5;
-			$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-			$('#weblink .ui-content').css({"background-color":'#E6E7E8'})
-			if($( window ).width() > 600){
-				$('.weblink-left-menu li a').each(function (index) {
-					if(index == curClick){
-						var str  = $( this ).text();				
-						$(this).addClass('ui-btn-active'); 
-						$(this).find( "span" ).addClass("listview-arrow-active");
-					}else{
-						$(this).removeClass("ui-btn-active");
-						$(this).find( "span" ).removeClass("listview-arrow-active");
-					}
-				});	
-			}else{
-				$('.weblink-left-menu li a').each(function (index) {
-					if(index == curClick){
-						var str  = $( this ).text();	
-					}
-					$(this).removeClass("ui-btn-active");
-					$(this).find( "span" ).removeClass("listview-arrow-active");
-				});				
-			}
-		}
-		
-	}); 
 
 	function diabledMenu(s){
 		clas = 'ui-state-disabled';
@@ -1300,8 +985,8 @@ $(document).ready(function(){
 	function wizardstep7(){
 		showLoader();
 		var placeId = locId.split('|');
-	//	window.open(domainpath+customArray.nicename,'_blank');
-		selfieonly = 0;bgwizard=0;postwizard=0;
+		window.open(domainpath+customArray.nicename,'_blank');
+		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
 			customArray =  $.parseJSON(result);
@@ -1321,9 +1006,6 @@ $(document).ready(function(){
 		}});
 	}
 	
-	$(document).on('pageshow','#weblink', function () {
-	
-	});
 	function codes(str){
 		return String(str).replace(',','||');
 	}
@@ -1331,25 +1013,11 @@ $(document).ready(function(){
 		return String(str).replace('||',',');
 	}	
 
-$(document).on("pagebeforechange", function (e, data) {
-	//console.log(data.options.fromPage[0].id);
-	if(typeof(data.toPage) === "string"){
-		//alert(data.toPage)
-		//$( ":mobile-pagecontainer" ).pagecontainer( "change", data.toPage,{ transition: "flip" });	
-	//	e.preventDefault();
-	}	
-	//if ( typeof (data.toPage) == "string") {
-		
-		 //if (data.toPage.indexOf("#") == -1 && typeof (data.options.fromPage[0].id) == "string") {
-			        
-		//}
-	//}//else
-		//e.preventDefault();
-});
+
 
 	$(document).on('pageinit','#setup', function () {
-		$('#frmlogocampaign').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
-		$('#frmlogocampaign').find('div').css({height:'1px'});
+		$('#frmbackground').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');		
+		$('#frmbackground').find('div').css({height:'1px'});
 		$('.iconsetup').click(function(e){
 			clearTimeout(resizeTimeout);
 			resizeTimeout = setTimeout(function(){ 
@@ -1365,68 +1033,6 @@ $(document).on("pagebeforechange", function (e, data) {
 			e.preventDefault();
 		});
 		places = locId.split('|');
-		$('#placeIdCampaign').val(places[0]);
-		$('#uploadcampaign').click(function(e){e.preventDefault();$('#campaignlogo').click();});
-		$('#campaignlogo').on('change',function(){ // save fb photo
-			showLoader();
-			$('#frmlogocampaign').ajaxSubmit({beforeSubmit:  beforeSubmitImage,success: logoresponse,resetForm: true });
-		});	
-		function logoresponse(responseText, statusText, xhr, $form)  { 
-			hideLoader();
-			if(responseText == 'greater'){
-				alertBox('incorrect logo size','Please upload a logo image with max width 600px & max height 600px');
-			}else{
-				$('#frmlogocampaign').css({display:'none'});
-				var logoArray = $.parseJSON(responseText);			
-				$('#logothumb').attr('src', logoArray.dLogo);
-				customArray.logo = responseText;
-			}
-		}
-		$("#logothumb").click(function (){ 
-			if(customArray.logo != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-						showLoader();
-						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=1',success:function(lastId){
-							hideLoader();
-							customArray.logo = '';$('#frmlogocampaign').css({display:'inline'});
-							$('#logothumb').attr('src', noPhoto);
-						}});
-					}},{caption: 'no'}]
-				});	
-			}			
-		});	
-		function beforeSubmitImage(){
-			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			if (window.File){
-				   var fsize = $('#campaignlogo')[0].files[0].size; //get file size
-				   var ftype = $('#campaignlogo')[0].files[0].type; // get file type
-						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
-				   if(parseFloat(fsize)>1000000){
-						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
-						$('#overlay').remove();
-						return false;			
-				   }else{
-						switch(ftype){
-							case 'image/png':
-							case 'image/png':
-							case 'image/gif':
-							case 'image/jpeg':
-							case 'image/jpg':
-							case 'image/bmp':
-							case 'image/pjpeg':
-							$('#logothumb').attr('src', loadingPhoto);
-							break;
-							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
-							$('#overlay').remove();
-							return false;					
-						}
-				  }
-			}else{
-			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-			   $('#overlay').remove();
-			   return false;
-			}
-		}
 		function updateTextcampaign(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=detailscampaign&placeId='+places[0]+'&'+$('#frmselfies').serialize(),success:function(result){
@@ -1463,12 +1069,13 @@ $(document).on("pagebeforechange", function (e, data) {
 					uicAlertBox('incomplete information','Please add your slogan','#txtcamp2');
 				else if($("#txtbtnselfie").val() == '')
 					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
-				else if(customArray.logo == '')
-					uicAlertBox('incomplete information','Please upload campaign logo','#uploadcampaign');		
+				else if(customArray.backgroundImg == '')
+					uicAlertBox('incomplete information','Please upload campaign poster','#uploadbackground');		
 				else{	
 					updateTextcampaign()
 				}
 		});
+		$('#placeIdbackground').val(places[0]);
 		$('#setup #delCampaign').click(function(e){
 			e.preventDefault();
 			$.box_Dialog('All feedback data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
@@ -1480,7 +1087,67 @@ $(document).on("pagebeforechange", function (e, data) {
 				}},{caption: 'no',callback:function(){ 
 			}}]
 			});
+		});		
+		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
+		$('#filebackground').on('change',function(){ // save fb photo
+			showLoader();
+			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
 		});
+		
+		function showResponsebck(responseText, statusText, xhr, $form)  { 
+			hideLoader();
+			$('#frmbackground').css({display:'none'});
+			var logoArray = $.parseJSON(responseText);			
+			$('#backgroundthumb').attr('src', logoArray.bckimage);
+			customArray.backgroundImg = responseText;
+		}			
+			
+		$("#backgroundthumb").click(function (){ 
+			if(customArray.backgroundImg != ''){
+				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=2',success:function(lastId){
+							hideLoader();
+							customArray.backgroundImg = '';$('#frmbackground').css({display:'inline'});
+							$('#backgroundthumb').attr('src', noPhoto);	
+						}});
+					}},{caption: 'no'}]
+				});	
+			}			
+		});	
+		
+		function beforeSubmitImage2(){
+			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
+			if (window.File){
+				   var fsize = $('#filebackground')[0].files[0].size; //get file size
+				   var ftype = $('#filebackground')[0].files[0].type; // get file type
+						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
+				   if(parseFloat(fsize)>1000000){
+						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
+						$('#overlay').remove();
+						return false;			
+				   }else{
+						switch(ftype){
+							case 'image/png':
+							case 'image/gif':
+							case 'image/jpeg':
+							case 'image/jpg':
+							case 'image/bmp':
+							case 'image/pjpeg':
+							$('#backgroundthumb').attr('src', loadingPhoto);
+							break;
+							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
+							$('#overlay').remove();
+							return false;					
+						}
+				  }
+			}else{
+			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
+			   $('#overlay').remove();
+			   return false;
+			}
+		}
+		
 		$("#setup-logo").click(function (e){  //logo click
 			
 			if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
@@ -1527,10 +1194,10 @@ $(document).on("pagebeforechange", function (e, data) {
 			}
 		if(campaignwizard == 1){
 			clas = 'ui-state-disabled';
-			curClick = 2;
+			curClick = 1;
 			showHideMenuSetup(curClick);
 			defaultMenuSetup();
-			diabledTab('#setup .setup-left-menu',[0,1,3]);
+			diabledTab('#setup .setup-left-menu',[0,2,3]);
 		}else{
 			curClick = defaultSetup;
 			showHideMenuSetup(curClick);
@@ -1545,39 +1212,7 @@ $(document).on("pagebeforechange", function (e, data) {
 	   $( ".right-header" ).html( placename );	
 		places = locId.split('|');
 		$('.star').show();	
-		if(customArray.email_alert != ''){ 
-			var alerts = $.parseJSON(customArray.email_alert),alertmail='';
-			for(var i in alerts.emails){
-				if(alertmail == '')
-					alertmail = alerts.emails[i];
-				else
-					alertmail = alertmail + ',' +alerts.emails[i];
-			}		
-			$("#multi-email").val(alertmail);
-			val = new Array();
-			val['1.0']='1.0';val['1.25']='1.25';val['1.5']='1.5';val['1.75']='1.75';val['2.0']='2.0';val['2.25']='2.25';val['2.75']='2.75';val['3.0']='3.0';val['3.25']='3.25';val['3.5']='3.5';val['3.75']='3.75';val['4.0']='4.0';val['4.25']='4.25';val['4.5']='4.5';val['4.75']='4.75';
-			val2 = ['1.0','1.25','1.5','1.75','2.0','2.25','2.5','2.75','3.0','3.25','3.5','3.75','4.0','4.25','4.5','4.75'];
-			var average = val[alerts.average];
-			if(typeof(val[alerts.average]) == 'undefined')
-				average = val2[alerts.average];
-				
-			$('#alertsend input[value="'+alerts.is_alert+'"]').attr('checked',true).checkboxradio('refresh');
-			$('#alertsend2 input[value="'+alerts.alertType+'"]').attr('checked',true).checkboxradio('refresh');
-			$('#alertsend3 input[value="'+alerts.indiRate+'"]').attr('checked',true).checkboxradio('refresh');
-			$('#aveAlert input[value="'+average+'"]').attr('checked',true).checkboxradio('refresh');
-			if(alerts.alertType > 0){
-				$('.average').hide();
-				$('.individual').show();
-		   }else{
-				$('.individual').hide();
-				$('.average').show();
-		   }
-		}else{
-			$('#alertsend input[value="0"]').attr('checked',true).checkboxradio('refresh');
-			$('#alertsend2 input[value="0"]').attr('checked',true).checkboxradio('refresh');
-			$('#alertsend3 input[value="1"]').attr('checked',true).checkboxradio('refresh');
-			$('#aveAlert input[value="2.5"]').attr('checked',true).checkboxradio('refresh');
-		}
+
 				
 		function createPage1(){
 			places = locId.split('|');
@@ -1620,24 +1255,17 @@ $(document).on("pagebeforechange", function (e, data) {
 			if(customArray.nicename == "")
 				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
 			else
-				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		}else{
 			if(customArray.nicename != "")
-				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
 				
 		}
 			$('.profile-left-menu1').html(newli);
 			$('.profile-left-menu1').on('click', ' > li', function () {
 				curClick = $(this).index();
-				//alert(curClick)
-				if(curClick == 2){
-					defaultSetup = 2;
-					showHideMenuSetup(curClick);		
-				    defaultMenuSetup();
-					//$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
-				}	
 			});
 			$(".profile-left-menu1").listview();
 	}	
@@ -1730,15 +1358,7 @@ $(document).on("pagebeforechange", function (e, data) {
 		   }
 			
 		});
-		$('#submit-desc').click(function(e){ //save description
-			showLoader();
-			var str = strencode($('#campaign-desc').sceditor('instance').val());
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-				hideLoader();
-				customArray.description = str;
-				alertBox('update successful','Description section has been updated');
-			}});		
-		});	
+		
 		function showHideMenuSetup(row){
 			curClick = row;
 			$('.panel-question').hide();$('.panel-post').hide();$('.panel-profile').hide();$('.panel-UIC').hide();$('.setup-cust-post').hide();$('.setup-email-alert').hide();$('.panel-fbpost').hide();$('.panel-redirect').hide();	
@@ -1750,11 +1370,16 @@ $(document).on("pagebeforechange", function (e, data) {
 			if(row == 0){
 				createProfileMenu1();
 				$('.panel-profile').show();
-			}else if(row == 1){
+			}else if(row == 2){
 				$( '#setup .right-content' ).addClass("right-bgblue");
 				$('.panel-UIC').show();
-			}else if(row == 2){
+			}else if(row == 1){
 				$('.panel-question').show();
+				if(customArray.backgroundImg != ''){ 
+					var logoArray = $.parseJSON(customArray.backgroundImg);
+					$('#frmbackground').css({display:'none'});	
+					$('#backgroundthumb').attr('src', logoArray.bckimage);
+				}
 				setTimeout(function(){
 					$(function() {
 						$("#setup #campaign-desc").sceditor({
@@ -1768,11 +1393,6 @@ $(document).on("pagebeforechange", function (e, data) {
 					if(customArray.description != '' && customArray.description != null)	
 						$('#campaign-desc').sceditor('instance').val(strdecode(customArray.description));
 				},300);	
-				if(customArray.logo != ''){ 
-					var logoArray = $.parseJSON(customArray.logo);
-					$('#frmlogocampaign').css({display:'none'});	
-					$('#logothumb').attr('src', (logoArray.dLogo == 'images/desktop_default.png' ? 'images/default-logo.png' : logoArray.dLogo)); //logoArray.dLogo
-				}
 				if(customArray.businessName != '')
 					$('#namecampaign').val(customArray.businessName);
 				if(customArray.tag1 != ''){
@@ -1872,12 +1492,244 @@ $(document).on("pagebeforechange", function (e, data) {
 	$(document).on('pageshow','#setup', function () {
 		if(newvanitylink != "")
 			$('.link-visit-page').attr('href',domainpath+newvanitylink);
+		$('#submit-desc').click(function(e){ //save description
+			showLoader();
+			var str = strencode($('#campaign-desc').sceditor('instance').val());
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
+				hideLoader();
+				customArray.description = str;
+				alertBox('update successful','Description section has been updated');
+			}});
+		});		
 	});
 	
 	var rateName=[],tagName=[],noAswer=0;
-
-	$(document).on('pageinit','#profile', function () {
+	  	function createPage2(){
+		places = locId.split('|');
+		var nicename = rand_nicename(7);
+		$('<div id="overlay"> </div>').appendTo(document.body);
+		$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=nicename&nicename='+nicename,async: false,success:function(link){
+			$("#overlay").remove();
+			customArray.nicename=link;
+			if(profilewizardsetup == 1){
+				profilewizardsetup = 0;
+				setTimeout(function() {wizardsetup();},200);
+			}else{	
+			//window.open('http://camrally.com/'+nicename+'.html', '_blank');
+			$.box_Dialog('Click "visit your Camrally Page" on the left column', {
+				'type':     'question',
+				'title':    '<span class="color-gold">visit your Camrally Page?<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'okay',callback:function(){
+					setTimeout(function() {	alertBox('setup your questions...','Please create the survey questions to complete the setup.');}, 300);
+				}}]
+			});	
+			createProfileMenu2();
+			}
+		}});
+	}
+     function createProfileMenu2(){
+		var j=0,clas = '';	
+		if(customArray.logo != ''){ 
+			var logoArray = $.parseJSON(customArray.logo);
+			$('#frmlogocampaign').css({display:'none'});	
+			$('#logothumb').attr('src', (logoArray.dLogo == 'images/desktop_default.png' ? 'images/default-logo.png' : logoArray.dLogo)); //logoArray.dLogo
+		}
+		if(customArray.city != '')
+			$('#txtcity').val(customArray.city);
+		if(customArray.webImg != '')
+			j++;
+		if(customArray.webImg2 != '')
+			j++;
+		if(customArray.webImg3 != '')
+			j++;
+		if(customArray.webImg4 != '')
+			j++;
+		if(customArray.webImg5 != '')
+			j++;
+		if(customArray.webImg6 != '')
+			j++;
+		if(customArray.webImg7 != '')
+			j++;
+		if(customArray.webImg8 != '')
+			j++;
+		//if(customArray.city != '' && j > 1){
+		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
+		if(customArray.city != ''){
+			if(customArray.nicename == "")
+				createPage2();
+				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+clas+'><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html"  data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>'
+		}else{
+			if(customArray.nicename != "")
+				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" target="_blank" class="link-visit-page" >Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+clas+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+		}
 		
+			$('.profile-left-menu2').html(newli);
+			$('.profile-left-menu2').on('click', ' > li', function () {
+				//if($(this).index() == 1){
+					//defaultSetup = 2;
+					//$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
+				if($(this).index() > 4){
+				}else{	
+					curClick = $(this).index();
+					showHideMenuProfile(curClick);
+					defaultMenuProfile();
+				}	
+			
+			});			
+			$(".profile-left-menu2").listview();
+		if(profilewizardsetup==1){
+			curClick = 0;	
+			diabledTab('#profile .profile-left-menu2',[1,2,3,4,5,6]);
+		}else if(logowizard==1){
+			curClick = 1;
+			diabledTab('#profile .profile-left-menu2',[0,2,3,4,5,6]);		
+		}else if(profilewizardwebImg==1){
+			curClick = 3;
+			diabledTab('#profile .profile-left-menu2',[0,1,2,4,5,6]);
+		}else if(vanitywizard==1){
+			curClick = 2;
+			diabledTab('#profile .profile-left-menu2',[0,1,3,4,5,6]);
+		} 
+         defaultMenuProfile();
+		showHideMenuProfile(curClick);
+		//$("#create-page2").click(function () {  // listview when tried to add new location
+			//createPage2();
+		//});
+		
+		}
+				function defaultMenuProfile(){
+			var height = ($( window ).height() / 16) - 5;
+			$( '.ui-content,.left-content,.right-content' ).css( {"min-height":height.toFixed() + 'em'} );
+			if($( window ).width() > 600){
+				$('.profile-left-menu2 li a').each(function (index) {
+					if(index == curClick){
+						$(this).addClass('ui-btn-active'); 
+						$(this).find( "span" ).addClass("listview-arrow-active");
+					}else{
+						$(this).removeClass("ui-btn-active");
+						$(this).find( "span" ).removeClass("listview-arrow-active");
+					}	
+				}); 			
+			}else{
+				$('.profile-left-menu2 li a').each(function (index) {
+					$(this).removeClass("ui-btn-active");
+					$(this).find( "span" ).removeClass("listview-arrow-active");
+				});				
+			}
+		}
+		
+		function showHideMenuProfile(row){
+			curClick = row;
+			if($( window ).width() <= 600){
+				$( '.main-wrap .left-content' ).hide();
+				$( '.main-wrap .right-content' ).show();
+				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+			}
+			$('.pro-section').hide();$('.desc-section').hide();$('.open-section').hide();$('.photo-section').hide();$('.map-section').hide();$('.pro-vanity').hide();
+			if(row == 0){
+				$('.pro-section').show();
+			}else if(row == 1){
+				$('.open-section').show();	
+			}else if(row == 2){
+				if(userArray.productId == liteID){
+					alertBox('no access','Please upgrade to basic plan & above to access this feature');
+				}else{		
+				showLoader();
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink',success:function(data){
+						hideLoader();
+						createdvanity = data;
+						if($.trim(createdvanity) != '' ){
+							$('#vanity-reset').show();
+							//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+createdvanity+'</a>');
+							$('#vanity-str').val(createdvanity);
+						}else{
+							$('#vanity-reset').hide();
+							//$('.van-link-default').html('');
+						}	
+						$('.pro-vanity').show();
+					}});
+				}
+			
+			}else if(row == 3){
+				showLoader();
+				$('.ishide1').hide();$('.ishide2').hide();$('.ishide3').hide();$('.ishide4').hide();$('.ishide5').hide();$('.ishide6').hide();$('.ishide7').hide();$('.ishide8').hide();
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getImages&',async: false,success:function(result){
+					hideLoader();
+					if(result != 0){
+						imagesArray =  $.parseJSON(result);
+						if(imagesArray.webImg.title != '' || imagesArray.webImg.desc != ''){
+							$('.ishide1').show();
+							$('.title1').html(imagesArray.webImg.title);$('.desc1').html(imagesArray.webImg.desc);
+						}
+						if(imagesArray.webImg2.title != '' || imagesArray.webImg2.desc != ''){
+							$('.ishide2').show();
+							$('.title2').html(imagesArray.webImg2.title);$('.desc2').html(imagesArray.webImg2.desc);
+						}
+						if(imagesArray.webImg3.title != '' || imagesArray.webImg3.desc != ''){
+							$('.ishide3').show();
+							$('.title3').html(imagesArray.webImg3.title);$('.desc3').html(imagesArray.webImg3.desc);
+						}
+						if(imagesArray.webImg4.title != '' || imagesArray.webImg4.desc != ''){
+							$('.ishide4').show();
+							$('.title4').html(imagesArray.webImg4.title);$('.desc4').html(imagesArray.webImg4.desc);
+						}
+						if(imagesArray.webImg5.title != '' || imagesArray.webImg5.desc != ''){
+							$('.ishide5').show();
+							$('.title5').html(imagesArray.webImg5.title);$('.desc5').html(imagesArray.webImg5.desc);
+						}
+						if(imagesArray.webImg6.title != '' || imagesArray.webImg6.desc != ''){	
+							$('.ishide6').show();
+							$('.title6').html(imagesArray.webImg6.title);$('.desc6').html(imagesArray.webImg6.desc);
+						}
+						if(imagesArray.webImg7.title != '' || imagesArray.webImg7.desc != ''){
+							$('.ishide7').show();
+							$('.title7').html(imagesArray.webImg7.title);$('.desc7').html(imagesArray.webImg7.desc);
+						}
+						if(imagesArray.webImg8.title != '' || imagesArray.webImg8.desc != ''){	
+							$('.ishide8').show();
+							$('.title8').html(imagesArray.webImg8.title);$('.desc8').html(imagesArray.webImg8.desc);
+						}
+						var $container = $('#container');
+						$container.imagesLoaded( function(){
+						  $container.masonry({
+							itemSelector : '.masonryImage'
+						  });
+						});
+					}
+					$('.photo-section').show();
+				}});
+				
+			}else if(row == 4){
+				$('.map-section').show();
+				drawMap();
+			}
+			
+		}
+		$( window ).resize(function() { // when window resize
+		var height = ($( window ).height() / 16) - 5;
+		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
+			/*if($( window ).width() > 600){
+				$( '.main-wrap .left-content' ).show();
+				$( '.main-wrap .right-content' ).show();		
+				$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
+				$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
+			}else{
+				$( '.main-wrap .left-content' ).show();
+				$( '.main-wrap .right-content' ).hide();
+				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
+			}	*/
+			//is_resize();
+			$( ".right-header" ).html( placename );	
+			defaultMenuProfile();
+		});
+	$(document).on('pageinit','#profile', function () {
+		$('#frmlogocampaign').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
+		$('#frmlogocampaign').find('div').css({height:'1px'});
 		$('#frmfb').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
 		$('#frmfb').find('div').css({height:'1px'});
 		$('#frmweb').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
@@ -1971,6 +1823,72 @@ $(document).on("pagebeforechange", function (e, data) {
 			});
 		});
 		$('.vanity-default-link').html('camrally.com/'+customArray.nicename+'.html');
+		places = locId.split('|');
+		$('#placeIdCampaign').val(places[0]);
+		$('#uploadcampaign').click(function(e){e.preventDefault();$('#campaignlogo').click();});
+		$('#campaignlogo').on('change',function(){ // save fb photo
+			showLoader();
+			$('#frmlogocampaign').ajaxSubmit({beforeSubmit:  beforeSubmitImage,success: logoresponse,resetForm: true });
+		});	
+		function logoresponse(responseText, statusText, xhr, $form)  { 
+			hideLoader();
+			if(responseText == 'greater'){
+				alertBox('incorrect logo size','Please upload a logo image with max width 600px & max height 600px');
+			}else{
+				$('#frmlogocampaign').css({display:'none'});
+				var logoArray = $.parseJSON(responseText);			
+				$('#logothumb').attr('src', logoArray.dLogo);
+				if(logowizard == 1){
+					logowizard=0;wizardsetup();
+				}	
+				customArray.logo = responseText;
+			}
+		}
+		$("#logothumb").click(function (){ 
+			if(customArray.logo != ''){
+				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=1',success:function(lastId){
+							hideLoader();
+							customArray.logo = '';$('#frmlogocampaign').css({display:'inline'});
+							$('#logothumb').attr('src', noPhoto);
+						}});
+					}},{caption: 'no'}]
+				});	
+			}			
+		});	
+		function beforeSubmitImage(){
+			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
+			if (window.File){
+				   var fsize = $('#campaignlogo')[0].files[0].size; //get file size
+				   var ftype = $('#campaignlogo')[0].files[0].type; // get file type
+						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
+				   if(parseFloat(fsize)>1000000){
+						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
+						hideLoader();
+						return false;			
+				   }else{
+						switch(ftype){
+							case 'image/png':
+							case 'image/png':
+							case 'image/gif':
+							case 'image/jpeg':
+							case 'image/jpg':
+							case 'image/bmp':
+							case 'image/pjpeg':
+							$('#logothumb').attr('src', loadingPhoto);
+							break;
+							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
+							$('#overlay').remove();
+							return false;					
+						}
+				  }
+			}else{
+			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
+			   $('#overlay').remove();
+			   return false;
+			}
+		}
 	});
     
     function drawMap(){
@@ -2039,7 +1957,8 @@ $(document).on("pagebeforechange", function (e, data) {
 	   $('input[type="text"]').textinput({ preventFocusZoom: true });
 		$( "input" ).focus(function() {
 			isfocus = 1;
-		});	
+		});
+		//diabledbox('#frmpro',[1,2,3]);
 		$('.star').show();
 		var places = locId.split('|'),n=0;
 		$( ".right-header" ).html( placename );	
@@ -2059,15 +1978,17 @@ $(document).on("pagebeforechange", function (e, data) {
 				} 
 			}
 		}});
-		
 		createProfileMenu2();
 		$('#placeidweb').val(places[0]);
 		// setting up values
 		$('#webthumb1').attr('src', noPhoto);$('#webthumb2').attr('src', noPhoto);$('#webthumb3').attr('src', noPhoto);$('#webthumb4').attr('src', noPhoto);$('#webthumb5').attr('src', noPhoto);$('#webthumb6').attr('src', noPhoto);$('#webthumb7').attr('src', noPhoto);$('#webthumb8').attr('src', noPhoto);$('#txtorg').val('');$('#txtadd').val('');$('#txtcity').val('');$('#txtcountry').val('');$('#txtzip').val('');$('#txtpho').val('');$('#txtfb').val('');$('#txtweb').val('');$('#txtlink').val('');$('#txttwit').val('');$('#txtproemail').val('');$('#txtbooknow').val('');
-		//if(customArray.fbImg != ''){
-			//$('#fbthumb').attr('src', customArray.fbImg);
-			//$('#frmfb').css({display:'none'});	
-		//}
+		var str = $.trim(customArray.booknow);
+		/*
+		if(str != '' && str.indexOf("campaign.html") == -1){
+			$('#txtbooknow').val(customArray.booknow);			
+		}else{
+			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=b');	
+		}*/
 		if(customArray.webImg != ''){
 			$('#webthumb1').attr('src', customArray.webImg);
 		}if(customArray.webImg2 != ''){
@@ -2119,96 +2040,8 @@ $(document).on("pagebeforechange", function (e, data) {
 		mapoff[0].selectedIndex = customArray.showmap;
 		mapoff.flipswitch("refresh");
 		// end of setting up value	
-	function createPage2(){
-		places = locId.split('|');
-		var nicename = rand_nicename(7);
-		$('<div id="overlay"> </div>').appendTo(document.body);
-		$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=nicename&nicename='+nicename,async: false,success:function(link){
-			$("#overlay").remove();
-			customArray.nicename=link;
-			if(profilewizardsetup == 1){
-				profilewizardsetup = 0;
-				setTimeout(function() {wizardsetup();},200);
-			}else{	
-			//window.open('http://camrally.com/'+nicename+'.html', '_blank');
-			$.box_Dialog('Click "visit your Camrally Page" on the left column', {
-				'type':     'question',
-				'title':    '<span class="color-gold">visit your Camrally Page?<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: 'okay',callback:function(){
-					setTimeout(function() {	alertBox('setup your questions...','Please create the survey questions to complete the setup.');}, 300);
-				}}]
-			});	
-			createProfileMenu2();
-			}
-		}});		
-	}
 
-	function createProfileMenu2(){
-		var j=0,clas = '';	
-		
-		if(customArray.city != ''){
-			$('#txtcity').val(customArray.city);
-		}	
-		if(customArray.webImg != '')
-			j++;
-		if(customArray.webImg2 != '')
-			j++;
-		if(customArray.webImg3 != '')
-			j++;
-		if(customArray.webImg4 != '')
-			j++;
-		if(customArray.webImg5 != '')
-			j++;
-		if(customArray.webImg6 != '')
-			j++;
-		if(customArray.webImg7 != '')
-			j++;
-		if(customArray.webImg8 != '')
-			j++;
-		//if(customArray.city != '' && j > 1){
-		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
-		if(customArray.city != ''){
-			if(customArray.nicename == "")
-				createPage2();
-				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>'
-		}else{
-			if(customArray.nicename != "")
-				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" target="_blank" class="link-visit-page" >Visit Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+(profilewizardsetup == 1 ? '' : clas )+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#" data-prefetch="true" class="addlogo">Logo<span class="listview-arrow-default"></span></a></li><li '+(profilewizardwebImg == 1 ? '' : clas)+'><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
-		}
-		
-			$('.profile-left-menu2').html(newli);
-			$('.profile-left-menu2').on('click', ' > li', function () {
-				if($(this).index() == 2){
-					defaultSetup = 2;
-					$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
-				}else if($(this).index() < 6){
-					curClick = $(this).index();
-					showHideMenuProfile(curClick);
-					defaultMenuProfile();
-				}
-			});			
-			$(".profile-left-menu2").listview();
-		if(vanitywizard==1)
-			diabledTab('#profile .profile-left-menu2',[0,2,3,4,5,6]);
-		if(profilewizardsetup==1)
-			diabledTab('#profile .profile-left-menu2',[1,2,3,4,5,6]);
-		else if(profilewizardwebImg==1){
-			curClick = 3;
-			diabledTab('#profile .profile-left-menu2',[0,1,2,4,5,6]);
-		}
-		defaultMenuProfile();
-		showHideMenuProfile(curClick);			
-	}			
-		//$("#create-page2").click(function () {  // listview when tried to add new location
-			//createPage2();
-		//});
-		
-		
+	
 		$("#webthumb1").click(function (){
 			if(customArray.webImg != ''){
 				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
@@ -2346,129 +2179,6 @@ $(document).on("pagebeforechange", function (e, data) {
 			}			
 		});	
 		
-		function defaultMenuProfile(){
-			var height = ($( window ).height() / 16) - 5;
-			$( '.ui-content,.left-content,.right-content' ).css( {"min-height":height.toFixed() + 'em'} );
-			if($( window ).width() > 600){
-				$('.profile-left-menu2 li a').each(function (index) {
-					if(index == curClick){
-						$(this).addClass('ui-btn-active'); 
-						$(this).find( "span" ).addClass("listview-arrow-active");
-					}else{
-						$(this).removeClass("ui-btn-active");
-						$(this).find( "span" ).removeClass("listview-arrow-active");
-					}	
-				}); 			
-			}else{
-				$('.profile-left-menu2 li a').each(function (index) {
-					$(this).removeClass("ui-btn-active");
-					$(this).find( "span" ).removeClass("listview-arrow-active");
-				});				
-			}
-		}
-		
-		function showHideMenuProfile(row){
-			curClick = row;
-			if($( window ).width() <= 600){
-				$( '.main-wrap .left-content' ).hide();
-				$( '.main-wrap .right-content' ).show();
-				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-			}
-			$('.pro-section').hide();$('.desc-section').hide();$('.open-section').hide();$('.photo-section').hide();$('.map-section').hide();$('.pro-vanity').hide();
-			if(row == 0){
-				$('.pro-section').show();
-			}else if(row == 1){
-				if(userArray.productId == basicID || userArray.productId == basic24 || userArray.productId == basic12 || userArray.productId == everFree){
-					alertBox('no access','Please upgrade to pro plan & above to access this feature');
-				}else{		
-				showLoader();
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink',success:function(data){
-						hideLoader();
-						createdvanity = data;
-						if($.trim(createdvanity) != '' ){
-							$('#vanity-reset').show();
-							//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+createdvanity+'</a>');
-							$('#vanity-str').val(createdvanity);
-						}else{
-							$('#vanity-reset').hide();
-							//$('.van-link-default').html('');
-						}	
-						$('.pro-vanity').show();
-					}});
-				}
-			
-			}else if(row == 3){
-				showLoader();
-				$('.ishide1').hide();$('.ishide2').hide();$('.ishide3').hide();$('.ishide4').hide();$('.ishide5').hide();$('.ishide6').hide();$('.ishide7').hide();$('.ishide8').hide();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getImages&',async: false,success:function(result){
-					hideLoader();
-					if(result != 0){
-						imagesArray =  $.parseJSON(result);
-						if(imagesArray.webImg.title != '' || imagesArray.webImg.desc != ''){
-							$('.ishide1').show();
-							$('.title1').html(imagesArray.webImg.title);$('.desc1').html(imagesArray.webImg.desc);
-						}
-						if(imagesArray.webImg2.title != '' || imagesArray.webImg2.desc != ''){
-							$('.ishide2').show();
-							$('.title2').html(imagesArray.webImg2.title);$('.desc2').html(imagesArray.webImg2.desc);
-						}
-						if(imagesArray.webImg3.title != '' || imagesArray.webImg3.desc != ''){
-							$('.ishide3').show();
-							$('.title3').html(imagesArray.webImg3.title);$('.desc3').html(imagesArray.webImg3.desc);
-						}
-						if(imagesArray.webImg4.title != '' || imagesArray.webImg4.desc != ''){
-							$('.ishide4').show();
-							$('.title4').html(imagesArray.webImg4.title);$('.desc4').html(imagesArray.webImg4.desc);
-						}
-						if(imagesArray.webImg5.title != '' || imagesArray.webImg5.desc != ''){
-							$('.ishide5').show();
-							$('.title5').html(imagesArray.webImg5.title);$('.desc5').html(imagesArray.webImg5.desc);
-						}
-						if(imagesArray.webImg6.title != '' || imagesArray.webImg6.desc != ''){	
-							$('.ishide6').show();
-							$('.title6').html(imagesArray.webImg6.title);$('.desc6').html(imagesArray.webImg6.desc);
-						}
-						if(imagesArray.webImg7.title != '' || imagesArray.webImg7.desc != ''){
-							$('.ishide7').show();
-							$('.title7').html(imagesArray.webImg7.title);$('.desc7').html(imagesArray.webImg7.desc);
-						}
-						if(imagesArray.webImg8.title != '' || imagesArray.webImg8.desc != ''){	
-							$('.ishide8').show();
-							$('.title8').html(imagesArray.webImg8.title);$('.desc8').html(imagesArray.webImg8.desc);
-						}
-						var $container = $('#container');
-						$container.imagesLoaded( function(){
-						  $container.masonry({
-							itemSelector : '.masonryImage'
-						  });
-						});
-					}
-					$('.photo-section').show();
-				}});
-				
-			}else if(row == 4){
-				$('.map-section').show();
-				drawMap();
-			}
-			
-		}
-		$( window ).resize(function() { // when window resize
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-			/*if($( window ).width() > 600){
-				$( '.main-wrap .left-content' ).show();
-				$( '.main-wrap .right-content' ).show();		
-				$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-				$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-			}else{
-				$( '.main-wrap .left-content' ).show();
-				$( '.main-wrap .right-content' ).hide();
-				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-			}	*/
-			//is_resize();
-			$( ".right-header" ).html( placename );	
-			defaultMenuProfile();
-		});
 
         
 		function checkProfileBox(){
@@ -2538,7 +2248,7 @@ $(document).on("pagebeforechange", function (e, data) {
 						//alertBox('notice','Your locaton address had no geocode'); 
 					 saveProfile();
 				  });  */
-				  saveProfile();
+				 saveProfile();
 			}
 		});		
 		
@@ -2629,7 +2339,7 @@ $(document).on("pagebeforechange", function (e, data) {
 				alertBox('incorrect image size','Please upload images products with min width 600px & min height 200px');
 			}else{
 				if(profilewizardwebImg == 1){
-					setTimeout(function() {wizardsetup();profilewizardwebImg = 0;},200);
+					setTimeout(function() {profilewizardwebImg = 0;wizardsetup();},200);
 				}	
 				if(customArray.webImg == ''){
 					$('#webthumb1').attr('src', responseText);
@@ -2777,10 +2487,6 @@ $(document).on("pagebeforechange", function (e, data) {
 		});
 	}
 	$(document).on('pageinit','#uic', function () {
-		$('#frmlogo').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');
-		$('#frmlogo').find('div').css({height:'1px'});
-		$('#frmbackground').find('div').removeClass('ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset');		
-		$('#frmbackground').find('div').css({height:'1px'});
 		$( "input" ).focus(function() {
 			isfocus = 1;
 		});
@@ -2859,18 +2565,13 @@ $(document).on("pagebeforechange", function (e, data) {
 			}
 			$('.uic-section-logo').hide();$('.uic-section-img').hide();$('.uic-section-bg').hide();$('.uic-section-fc').hide();$('.uic-section-tbs').hide();$('.uic-section-tb').hide();$('.uic-section-box').hide();
 			if(row == 0){
-				/*if(userArray.productId == basicID || userArray.productId == lite || userArray.productId == basic24 || userArray.productId == basic12 || userArray.productId == everFree){
-					alertBox('no access','Please upgrade to pro plan & above to access this feature');
-				}else*/
-					$('.uic-section-img').show();
-			}else if(row == 1){
-				if(userArray.productId == everFree)
+				if(userArray.productId == liteID)
 					 alertBox('no access','Please upgrade to basic plan & above to access this feature');
 				else
 					$('.uic-section-bg').show();
-			}else if(row == 2){
+			}else if(row == 1){
 				$('.uic-section-tb').show();
-			}else if(row == 3){
+			}else if(row == 2){
 				$('.uic-section-box').show();
 			}
 		}		
@@ -2908,7 +2609,6 @@ $(document).on("pagebeforechange", function (e, data) {
 		$('.star').show();
 		places = locId.split('|');
 		$('#placeIdLogo').val(places[0]);
-		$('#placeIdbackground').val(places[0]);
 		$( ".right-header" ).html( placename );	
 
 		changeLabel('#uic .uic-left-menu');
@@ -2945,8 +2645,8 @@ $(document).on("pagebeforechange", function (e, data) {
 			if(typeof(messArray.shareB) != 'undefined')
 				$('#txtbox22').val(decodequote(messArray.shareB));						
 			setmessageBox();
-		}else
-			$('.follow-loc').html('Be a fan of '+customArray.businessName+'?');
+		}//else
+			//$('.follow-loc').html('Be a fan of '+customArray.businessName+'?');
 		
 		if(customArray.ratingText != ''){
 			var rateArray = $.parseJSON(customArray.ratingText);
@@ -2969,17 +2669,6 @@ $(document).on("pagebeforechange", function (e, data) {
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 		}	
 		
-		if(customArray.backgroundImg != ''){ 
-			var logoArray = $.parseJSON(customArray.backgroundImg);
-			$('#frmbackground').css({display:'none'});	
-			$('#backgroundthumb').attr('src', logoArray.bckimage);
-		}		
-		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
-		$('#filebackground').on('change',function(){ // save fb photo
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
-		});			
-
 		$('#pickerbackground').colpick({
 			flat:true,
 			layout:'hex',
@@ -3058,61 +2747,8 @@ $(document).on("pagebeforechange", function (e, data) {
 				alertBox('successful','Update completed.');
 			}});	
 		});			
-		function showResponsebck(responseText, statusText, xhr, $form)  { 
-			$('#overlay').remove();
-			$('#frmbackground').css({display:'none'});
-			var logoArray = $.parseJSON(responseText);			
-			$('#backgroundthumb').attr('src', logoArray.bckimage);
-			customArray.logo = responseText;
-			wizardsetup();
-
-		}			
-			
-		$("#backgroundthumb").click(function (){ 
-			if(customArray.backgroundImg != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-						showLoader();
-						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=2',success:function(lastId){
-							hideLoader();
-							customArray.backgroundImg = '';$('#frmbackground').css({display:'inline'});
-							$('#backgroundthumb').attr('src', noPhoto);	
-						}});
-					}},{caption: 'no'}]
-				});	
-			}			
-		});			
-		
-		function beforeSubmitImage2(){
-			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			if (window.File){
-				   var fsize = $('#filebackground')[0].files[0].size; //get file size
-				   var ftype = $('#filebackground')[0].files[0].type; // get file type
-						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
-				   if(parseFloat(fsize)>1000000){
-						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
-						$('#overlay').remove();
-						return false;			
-				   }else{
-						switch(ftype){
-							case 'image/png':
-							case 'image/gif':
-							case 'image/jpeg':
-							case 'image/jpg':
-							case 'image/bmp':
-							case 'image/pjpeg':
-							$('#backgroundthumb').attr('src', loadingPhoto);
-							break;
-							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');	
-							$('#overlay').remove();
-							return false;					
-						}
-				  }
-			}else{
-			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-			   $('#overlay').remove();
-			   return false;
-			}
-		}		
+	
+	  			
 		
 		$('.uic-left-menu').on('click', ' > li', function () {
 			if($(this).index() < 7){
@@ -3199,460 +2835,6 @@ $(document).on('pageinit','#send-email', function () {
 	$('#send-email .star').click(function(){goHome();});
 });
 
-$(document).on('pageshow','#send-email', function () { // UIC script start here	
-	googleAnalytic();
-	$('input[type="text"]').textinput({ preventFocusZoom: true });
-	$( "input" ).focus(function() {
-		isfocus = 1;
-	});	
-	$('.star').show();
-	var hadFollow = 0;
-	$(function() {
-		$("#textarea-send").sceditor({
-			plugins: "xhtml",
-			style: "minified/jquery.sceditor.default.min.css",
-			toolbar: "bold,italic,underline,link,unlink,email,strike,subscript,superscript,left,center,right,justify,size,color,bulletlist,orderedlist,table,horizontalrule,date,time,ltr,rtl",
-			resizeEnabled:false
-		});
-	});	
-
-	$('#submit-sendemail').click(function(){
-		var objId = [],follow = false;
-		if(userArray.productId != everFree){ 	
-			if(hadFollow > 0){
-				 $("input[type='checkbox']").each(function(index){
-					if($(this).is(':checked')){
-						var val = $(this).val().split('_');
-						if(val[1] > 0)
-							follow = true;
-						objId.push(val[0]);
-					}	
-				 });      
-				if(objId.length > 0){
-					if(follow){
-						var creditdate =  $.parseJSON(userArray.credits);
-						if(creditdate.credits > 0){
-							if($('#txtSubject').val() != '' && $('#txtSubject').val().length > 4){
-								if($('#textarea-send').sceditor('instance').val() != '<br _moz_editor_bogus_node="TRUE" />' && $('#textarea-send').sceditor('instance').val().length > 1){
-									var desc = $('#textarea-send').sceditor('instance').val();
-									var countChars = desc.length;
-									if(countChars > 14){
-										var body = strencode($('#textarea-send').sceditor('instance').val());
-										var subject = strencode($('#txtSubject').val());
-										$.box_Dialog('Proceed with sending emails?', {'type':'confirm','title': '<span class="color-gold">send emails?<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-												showLoader();
-												$.ajax({type: "POST",url:"setData.php",cache: false,data:'objId='+objId+'&gid='+userArray.userGroupId+'&opt=sendEmail&subject='+subject+'&body='+body,success:function(lastId){
-													hideLoader();
-													alertBox('processing email sending...','It may take up to 1 hour for all emails to be processed.');
-												}});
-											}},{caption: 'no'}]
-										});
-									}else
-										 alertBox('message too short ','Your message must have at least 15 words.');
-								}else
-									alertBox('message too short','Your message must have at least 15 words.'); 
-							}else
-								alertBox('invalid subject','Please enter at least 5 chars for Subject.');    
-						}else
-							alertBox('insufficient email credits','Please contact support for more email credits');
-					}else
-					 alertBox('invalid','Atleast one follower for email to send');	
-				}else
-					 alertBox('invalid','Please check one or more Locations');
-			}else
-				alertBox('invalid','No fans');
-		}else 
-			alertBox('no access','Please upgrade to basic plan and above to access this feature.');
-			
-	});
-	
-	function setCredits(){
-		var credit='',totalLoc = parseInt(userArray.addLoc) + 1;
-		if(userArray.productId == everFree){
-			credit = parseInt(creditsFree) * parseInt(totalLoc);
-		}else if(userArray.productId == basicID){
-			credit = parseInt(creditsBasic) * parseInt(totalLoc);
-		}else if(userArray.productId == basic12){
-			credit = parseInt(creditsBasic) * parseInt(totalLoc);
-        }else if(userArray.productId == basic24){
-			credit = parseInt(creditsBasic) * parseInt(totalLoc);			
-		}else if(userArray.productId == proID){
-			credit = parseInt(creditsPro) * parseInt(totalLoc);
-		}else if(userArray.productId == pro12){
-			credit = parseInt(creditsPro) * parseInt(totalLoc);
-        }else if(userArray.productId == pro24){
-			credit = parseInt(creditsPro) * parseInt(totalLoc);			
-		}else if(userArray.productId == enterprise){
-			credit = parseInt(creditsEnterprise) * parseInt(totalLoc);
-		}else if(userArray.productId == enterprise12){
-			credit = parseInt(creditsEnterprise) * parseInt(totalLoc);
-		}else if(userArray.productId == enterprise24){
-			credit = parseInt(creditsEnterprise) * parseInt(totalLoc);
-		} 
-		
-		$('#available').html('Email credits available: '+credit);
-		$('<div id="overlay"> </div>').appendTo(document.body);
-		$.ajax({type: "POST",url:"setData.php",cache: false,data:'gid='+userArray.userGroupId+'&opt=setcredit&credit='+credit,success:function(data){
-			$('#overlay').remove();
-			userArray.credits = data;
-		}});			
-	}
-	getCredits();
-	function getCredits(){
-		if(userArray.credits == ''){
-			setCredits();
-		}else{
-			var creditdate =  $.parseJSON(userArray.credits);
-			var prevDate = creditdate.date;
-			prevDate = prevDate.split('-');
-			var t=new Date();
-			var day=new Array();day[1]="01";day[2]="02";day[3]="03";day[4]="04";day[5]="05";day[6]="06";day[7]="07";day[8]="08";day[9]="09";
-			var currentday = (typeof(day[t.getDate()]) == 'undefined' ? t.getDate() : day[t.getDate()]);
-			var year = t.getFullYear();
-			if(prevDate[0] != year || prevDate[1] != currentday)
-				setCredits();
-			else
-				$('#available').html('Email credits available: '+creditdate.credits);     
-		}
-	}	
-	
-	$('<div id="overlay"> </div>').appendTo(document.body);
-	$.ajax({type: "POST",url:"getData.php",cache: false,data:'id='+userArray.userGroupId+'&opt=getFollower',success:function(data){
-		$('#overlay').remove();
-		var folower = $.parseJSON(data);
-		var allcheckbox = '';hadFollow = folower.totalnum;
-		$('#total-followers').html('Total number of fans: '+folower.totalnum);
-		 for(var i in locArray){
-				var name = locArray[i].name;
-				var n = (typeof(folower[locArray[i].id]) != 'undefined' ? ' ('+folower[locArray[i].id]+' '+(folower[locArray[i].id] > 1 ? 'fans' : 'fan')+')' : '');
-				var perfollow = (typeof(folower[locArray[i].id]) != 'undefined' ? folower[locArray[i].id] : '');
-				var checkbox ='<div class="ui-checkbox">'
-					+'<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-checkbox-off ui-first-child ui-last-child" for="checkbox-'+i+'">'+name+n+'</label>'
-					+'<input id="checkbox-'+i+'" type="checkbox" '+(typeof(folower[locArray[i].id]) != 'undefined' ? 'checked="checked"' : '')+' value="'+locArray[i].id+'_'+perfollow+'" name="checkbox-'+i+'">'
-					+'</div>';
-			   allcheckbox = allcheckbox + checkbox;		   
-			}
-			allcheckbox = '<div class="ui-controlgroup-controls">'+allcheckbox + '</div>'; 
-			$('#box-send-name').html(allcheckbox);		
-			$("input[type=checkbox]").checkboxradio();
-			$("[data-role=controlgroup]").controlgroup("refresh");
-		leftMenu();
-		rightMenu(curClick);
-	}});
-	
-	$('.send-left-menu').on('click', ' > li', function () {
-	    curClick = $(this).index();
-		rightMenu(curClick);
-		leftMenu();	
-		if($( window ).width() > 600){
-			$(this).find( "a" ).addClass('ui-btn-active'); 
-			$(this).find( "span" ).addClass("listview-arrow-active");
-		}else{
-			$('.send-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-		}		
-	});	
-
-	function leftMenu(){
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content' ).css( {"min-height":height.toFixed() + 'em'} );
-		if($( window ).width() > 600){
-			$('.send-left-menu li a').each(function (index) {
-				if(index == curClick){
-					$(this).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).removeClass("ui-btn-active");
-					$(this).find( "span" ).removeClass("listview-arrow-active");
-				}	
-			}); 			
-		}else{
-			$('.send-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});				
-		}
-	}
-
-	function rightMenu(row){
-		curClick = row;
-		$( '.panel-send' ).show();
-		if($( window ).width() <= 600){
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}
-		if(userArray.permission > 1 ){
-			$( '.panel-send' ).hide();
-			alertBox('request not granted',"Unauthorized or invalid request");
-		}
-	}
-
-	$( window ).resize(function() { // when window resize
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-		/*if($( window ).width() > 600){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).show();		
-			$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-			$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-		}else{
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}	*/
-		//is_resize();
-		$( ".right-header" ).html( 'Send Emails' );	
-		leftMenu();
-	});
-});
-
-$(document).on('pageinit','#statistic', function () {
-	$('.iconstat').click(function(e){
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function(){ 
-			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-					hideLoader();
-					window.location = 'index.php'
-				}});		
-			}},{caption: 'cancel'}]
-			});
-		}, 500);//to prevent the events fire twice
-		e.preventDefault();	
-	});
-	$("#statistic img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick = setupclickmenu;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });	
-		}
-		e.preventDefault();
-	});	
-	$('#statistic .star').click(function(){goHome();});
-	/*pageshow script*/
-	 $('input[type="text"]').textinput({ preventFocusZoom: true });
-	$( "input" ).focus(function() {
-		isfocus = 1;
-	});	
-	var firstdates;
-	$( ".right-header" ).html( placename );		
-	curClick = 0;
-	$('.star').show();
-	showHideMenuStat(curClick);
-	//defaultMenuStat();	
-	var height = ($( window ).height() / 16) - 5;
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );	
-	if($( window ).width() <= 600){
-		$( '.main-wrap .left-content' ).show();
-		$( '.main-wrap .right-content' ).hide();
-		$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-			$('.stat-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});		
-	}	
-	$('.stat-left-menu').on('click', ' > li', function () {
-	   curClick = $(this).index();		
-		showHideMenuStat(curClick);		
-		defaultMenuStat();	
-		if($( window ).width() > 600){
-			$(this).find( "a" ).addClass('ui-btn-active'); 
-			$(this).find( "span" ).addClass("listview-arrow-active");
-		}else{
-			$('.stat-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-		}	
-	});	
-	$('.right-menu').on('click', ' > li', function () {
-	   curClick = $(this).index();
-	});
-
-	function defaultMenuStat(){
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-		if($( window ).width() > 600){
-			$('#statistic .stat-left-menu li').each(function (index) {
-				if(index == curClick){
-					$(this).find( "a" ).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).find( "a" ).removeClass('ui-btn-active'); 
-					$(this).find( "span" ).removeClass("listview-arrow-active");				
-				}
-			});	
-		}else{
-			$('#statistic .stat-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});			
-		}	
-	}
-	function getStatPerday(day,interval){
-		places = locId.split('|'),hadstat = '';
-		$('<div id="overlay"> </div>').appendTo(document.body);
-			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=statistic&interval='+interval+'&day='+day,success:function(data){
-				$('#overlay').remove();
-				var review = $.parseJSON(data);
-				hadstat = review;
-				if($.trim(hadstat) == '' || review.dates == null || review.dates == ''){
-					$.box_Dialog("Not available", {'type':'question','title':'<span class="color-gold">note<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'okay',callback:function(){setTimeout(function() {curClick = setupclickmenu;$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });}, 200);}}]});
-				}
-				var tags = review.selected;
-				firstdates = review.dates;
-				var array_share = [review.srate1,review.srate2,review.srate3,review.srate4,review.srate5,review.srate6,review.srate7];
-				var array_notshare = [review.nrate1,review.nrate2,review.nrate3,review.nrate4,review.nrate5,review.nrate6,review.nrate7];
-				$('.tshared').html(review.totalReview + ' (100%)');
-				var noShare = review.totalNoShare +' ('+review.noPercent+'%)';
-				$('.notshared').html(noShare);
-				var Share = review.totalShare +' ('+ review.percent +'%)';
-				$('.shared').html(Share);
-				//share table
-				var table = '<table data-role="table" id="table-share" data-mode="reflow" class="ui-responsive"><thead><tr></tr></thead><tbody>';
-				var share = 0;
-				for(var i in tags){
-					share = parseFloat(share) + parseFloat(array_share[i]);
-					table = table + '<tr><td>'+decodequote(tags[i])+'<div style="width:250px;"></div></td><td>'+array_share[i]+'</td></tr>';
-				}	
-				table = table + '</tbody></table>'
-				$('#table-share').html(table);
-				$( 'table#table-share' ).table( "refresh" );
-				//overall
-				var table1 = '<table data-role="table" id="overallshare" data-mode="reflow" class="ui-responsive"><thead><tr></tr></thead><tbody>';
-				table1 = table1 + '<tr><td>Overall<div style="width:250px;"></div></td><td>'+parseFloat(parseFloat(share) / parseInt(tags.length)).toFixed(1)+'</td></tr>';
-				table1 = table1 + '</tbody></table>'
-				$('#overallshare').html(table1);
-				$( 'table#overallshare' ).table( "refresh" );
-				//share not table
-				var table2 = '<table data-role="table" id="table-notshare" data-mode="reflow" class="ui-responsive"><thead><tr></tr></thead><tbody>';
-				var notshare = 0;
-				for(var i in tags){
-					notshare = parseFloat(notshare) + parseFloat(array_notshare[i]);
-					table2 = table2 + '<tr><td>'+decodequote(tags[i])+'<div style="width:250px;"></div></td><td>'+array_notshare[i]+'</td></tr>';
-				}	
-				table2 = table2 + '</tbody></table>'
-				$('#table-notshare').html(table2);
-				$( 'table#table-notshare' ).table( "refresh" );
-				//overall
-				var table3 = '<table data-role="table" id="overallnoshare" data-mode="reflow" class="ui-responsive"><thead><tr></tr></thead><tbody>';
-				table3 = table3 + '<tr><td>Overall<div style="width:250px;"></div></td><td>'+parseFloat(parseFloat(notshare) / parseInt(tags.length)).toFixed(1)+'</td></tr>';
-				table3 = table3 + '</tbody></table>'
-				$('#overallnoshare').html(table3);
-				$( 'table#overallnoshare' ).table( "refresh" );
-			}});   
-	}
-	$('#submit-export').click(function(){
-		if($('#end-date').val() == '' || $('#start-date').val() == '')
-			alertBox('input required',"Please enter both start and end dates");
-		else{
-			places = locId.split('|');        
-			var date1 = $('#start-date').val()
-			var date2 = $('#end-date').val();
-			if(date1 == date2){
-				alertBox('invalid date(s)','Start date and End date should not be the same');
-			}else if(date1 > date2)
-				alertBox('invalid date(s)',"End date should not be earlier than start date");
-			else
-				//window.open(domainFile+'/exportData.php?date1='+date1+'&date2='+date2+'&placeId='+places[0],'_blank');
-				window.open('exportData.php?groupID='+userArray.userGroupId+'&date1='+date1+'&date2='+date2+'&placeId='+places[0],'_blank');
-				//window.open('exportData.php?date1='+date1+'&date2='+date2+'&placeId='+places[0],'_blank');
-			   
-		} 
-	})
-
-	function showHideMenuStat(row){
-		curClick = row;
-		$('.panel-today').show();$('.panel-export').hide();
-		if(row == 0){
-			$('#statstitle').html('Average Review Scores for Today');
-			getStatPerday(0,1);
-		}else if(row == 1){
-			$('#statstitle').html('Average Review Scores for Yesterday'); 
-			getStatPerday(1,1);
-		}else if(row == 2){
-			$('#statstitle').html('Average Review Scores for the Last 7 Days (exclude today)');
-			getStatPerday(1,7);
-		}else if(row == 3){
-			$('#statstitle').html('Average Review Scores for the Last 14 Days (exclude today)'); 
-			getStatPerday(1,14);
-		}else if(row == 4){
-			$('#statstitle').html('Average Review Scores for the Last 21 Days (exclude today)');
-			getStatPerday(1,21);
-		}else if(row == 5){
-			$('#statstitle').html('Average Review Scores for the Last 30 Days (exclude today)');
-			getStatPerday(1,30);
-		}else if(row == 6){
-			firstdates = firstdates.split(' ');
-			firstdates = firstdates[0].split('-');
-			var month='';
-			if(firstdates[1] == 01)
-				month ="Jan";
-			else if(firstdates[1] == 02)	
-				month="Feb";
-			else if(firstdates[1] == 03)	
-				month="Mar";
-			else if(firstdates[1] == 04)	
-				month="Apr";
-			else if(firstdates[1] == 05)	
-				month="May";
-			else if(firstdates[1] == 06)	
-				month="Jun";
-			else if(firstdates[1] == 07)	
-				month="Jul";
-			else if(firstdates[1] == 08)	
-				month="Aug";
-			else if(firstdates[1] == 09)	
-				month="Sep";
-			else if(firstdates[1] == 10)	
-				month="Oct";
-			else if(firstdates[1] == 11)	
-				month="Nov";
-			else if(firstdates[1] == 12)	
-				month="Dec";
-			$('#title-export').html('Note: First review on '+firstdates[2]+' '+month+' '+firstdates[0]);
-			$('.panel-today').hide();
-			$('.panel-export').show();
-			
-		}	
-	}
-		
-   	$( window ).resize(function() { // when window resize
-	var height = ($( window ).height() / 16) - 5;
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-		/*if($( window ).width() > 600){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).show();		
-			$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-			$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-		}else{
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}*/
-		//is_resize();
-		$( ".right-header" ).html( placename );	
-		defaultMenuStat();
-	});
-});
-
-$(document).on('pageshow','#statistic', function () {
-	googleAnalytic();
-    
-});
 
 $(document).on('pageinit','#plan', function () {
 	$('.iconplan').click(function(e){
@@ -3704,7 +2886,7 @@ $(document).on('pageshow','#plan', function () {
 		$('#lblStatus').html('Status: '+state);
 		$('#lblPlan').html('Current plan: '+txtPlan);
 		if($.inArray(userArray.state,state_Array) == -1){
-			if(userArray.productId == everFree){
+			if(userArray.productId == liteID){
 				$('#lblExpired').hide();
 				$('.addlocation').hide();
 				$('#lblperLoc').hide();
@@ -3738,21 +2920,9 @@ $(document).on('pageshow','#plan', function () {
 			id = com_basicID;
 		}else if(userArray.productId == proID){
 			id = com_proID;
-		}else if(userArray.productId == enterprise){
+		}else if(userArray.productId == liteID){
 			id = com_enterprise;
-		}else if(userArray.productId == basic12){
-			id = com_basic12;
-		}else if(userArray.productId == basic24){
-			id = com_basic24;
-		}else if(userArray.productId == pro12){
-			id = com_pro12;
-		}else if(userArray.productId == pro24){
-			id = com_pro24;
-		}else if(userArray.productId == enterprise12){
-			id = com_enterprise12;
-		}else if(userArray.productId == enterprise24){
-			id = com_enterprise24;
-		} 
+		}
 		return id;
    }
    function getProductId(){
@@ -3844,21 +3014,9 @@ $(document).on('pageshow','#plan', function () {
 			id = com_basicID_price;
 		}else if(userArray.productId == proID){
 			id = com_proID_price;
-		}else if(userArray.productId == enterprise){
+		}else if(userArray.productId == liteID){
 			id = com_enterprise_price;
-		}else if(userArray.productId == basic12){
-			id = com_basic12_price;
-		}else if(userArray.productId == basic24){
-			id = com_basic24_price;
-		}else if(userArray.productId == pro12){
-			id = com_pro12_price;
-		}else if(userArray.productId == pro24){
-			id = com_pro24_price;
-		}else if(userArray.productId == enterprise12){
-			id = com_enterprise12_price;
-		}else if(userArray.productId == enterprise24){
-			id = com_enterprise24_price;
-		} 
+		}
 		return id;
    }
    function seCommas(num) {
@@ -3876,10 +3034,10 @@ $(document).on('pageshow','#plan', function () {
 			var t = '<option value="">Change Your Plan</option>';
 			for(var i in product_plan_array.response){
 				if(userArray.productId != product_plan_array.response[i].productId){
-					if($.inArray(product_plan_array.response[i].productId,[basic12,basic24,pro12,pro24,enterprise12,enterprise24,everFree]) == -1){
+					//if($.inArray(product_plan_array.response[i].productId,[basic12,basic24,pro12,pro24,enterprise12,enterprise24,]) == -1){
 						
 						t = t + '<option value="'+product_plan_array.response[i].productId+'_'+product_plan_array.response[i].price+'">'+product_plan_array.response[i].name+' ($'+seCommas(parseFloat(product_plan_array.response[i].price))+') '+'</option>'
-					} 
+					//} 
 				}else{
 					currentPlanprice = product_plan_array.response[i].price;
 					$('#lblPlan').html('Current plan: '+product_plan_array.response[i].name+' ($'+currentPlanprice+')');
@@ -3943,9 +3101,9 @@ $(document).on('pageshow','#plan', function () {
 					product_plan_array = [];
 					getProductId();
 					alertBox('plan updated','Your plan now is '+textplan);
-					if(userArray.productId != 0 && userArray.productId != everFree)
+					if(userArray.productId != 0 && userArray.productId != liteID)
 						$('.btncancelplan').show();
-					if(userArray.productId == everFree){
+					if(userArray.productId == liteID){
 						$('#lblperLoc').hide();$('.addlocation').hide();$('#lblExpired').hide();$('#lblcostLoc').hide();
 						downgradeToFreePlan();
 					}else{
@@ -4109,22 +3267,6 @@ $(document).on('pageshow','#plan', function () {
 						result = $.parseJSON(result);
 						var str = 'Please take note that if you have a previous request to remove locations, it will be disregarded. A total of '+result.curr+' location(s) will be removed on the next billing cycle '+result.expiration+'.'
 						setTimeout(function() {hideLoader();alertBox('updated',str);},300); 
-					
-						
-						/*if(result.code == 201){
-							userArray =  result.response;
-							currPlaceAvail = parseInt(userArray.addLoc) + 1;//(parseInt(userArray.addLoc) > 0 ? (parseInt(userArray.addLoc)- 1) : 1);
-							if(userArray.addLoc < 1)
-								$('#submit-planremove').hide();
-							$('#lblTotalSubs').html('Total # of online locations: '+ currPlaceAvail);
-							$('#label7').html('Free: 1');
-							$('#label8').html('Subscribed: '+ userArray.addLoc);
-							offlineLocation(removeloc);
-							alertBox('Updated',removeloc+' location(s) removed');
-						}else{
-							hideLoader();
-							alertBox('error detected',result.response);
-						}	*/
 					}});
 				}else
 					setTimeout(function() {alertBox('invalid',"Your total Subscribed location was "+(currPlaceAvail - 1));},300);
@@ -4324,16 +3466,14 @@ $(document).on('pageshow','#admin', function () {
 	});
 	$('#submit-invite').click(function(){ // add users
 		var totalUsers = listuser;
-		var numUsers=0;   
+		var numUsers=1;   
 		if(userArray.state == 'active' || userArray.state == 'trialing'){
-			if(userArray.productId == everFree) //free 30 days  
+			if(userArray.productId == liteID) //free 30 days  
 				numUsers = (parseInt(userArray.addLoc) + 1) * 1;
-			else if(userArray.productId == basicID || userArray.productId == basic12 || userArray.productId == basic24) //basic
+			else if(userArray.productId == basicID) //basic
 				numUsers = (parseInt(userArray.addLoc) + 1) * 3;		
-			else if(userArray.productId == proID || userArray.productId == pro12 || userArray.productId == pro24) //plan 
-				numUsers = (parseInt(userArray.addLoc) + 1) * 7;		
-			else if(userArray.productId == enterprise || userArray.productId == enterprise12 || userArray.productId == enterprise24) //plan
-				numUsers = (userArray.addLoc + 1) * 10;	
+			else if(userArray.productId == proID ) //plan 
+				numUsers = (parseInt(userArray.addLoc) + 1) * 7;
 			if(totalUsers.length < numUsers){  
 				var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 				var demail=$('#txtemail').val();
@@ -4917,8 +4057,8 @@ $(document).on('pageinit','#feedback', function () {
 		}
 		if(isdonewizard > 0){
 			wizardstep7();
-			var body = '<p style="text-align:left">Congratulations! You have completed the setup</p>'
-					 +'<p style="text-align:left">Start promoting your Camrally mini link (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">http://camrally.com/'+domainpath+arrayDataURL.source_1.link+'</a>) now!<br/>See your Camrally page here: <a href="'+domainpath+nicelink+'" target="_blank">http://camrally.com/'+nicelink+'</a> </p>';
+			var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>'
+					 +'<p style="text-align:left">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">http://camrally.com/'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
 			$.box_Dialog(body, {
 				'type':     'question',
 				'title':    '<span class="color-white">'+title+'<span>',
@@ -4965,7 +4105,7 @@ $(document).on('pageinit','#feedback', function () {
 
 	function showFeedbackMenu(row){
 		
-$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
+	$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
 		if(row == 2){
 			$( '#feedback .right-content' ).removeClass("bgwhite");
 			$( '#feedback .right-content' ).addClass("right-bgblue");
@@ -4978,8 +4118,9 @@ $(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide
 			if(customArray.nicename == ''){	
 					alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
+				$('#feedback #emaillink').val('http://camrally.com/'+customArray.nicename+'=e');
 				$(".tellafriend").show();
-				$('#feedback #emaillink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=e');
+				
 			}	
 			$( '#feedback .right-content' ).removeClass("right-bgblue");
 			$( '#feedback .right-content' ).addClass("bgwhite");
@@ -4990,13 +4131,13 @@ $(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide
 			if(customArray.nicename == ''){
 				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
-				$('#surveyopenlink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=5');
+				$('#surveyopenlink').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=5');
 				$(".survey").show();
 			}	
 		}else if(row == 3){
 			$( '#feedback .right-content' ).removeClass("right-bgblue");
 			$( '#feedback .right-content' ).addClass("bgwhite");
-			$('#photolink').val('http://camrally.com/app/rateone.html?p='+customArray.nicename+'&s=2');
+			$('#photolink').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=2');
 			if(customArray.nicename == ''){	
 				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
 			}else{
@@ -5044,9 +4185,10 @@ $(document).on('pageshow','#feedback', function () {
 	showLoader();
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
-		hideLoader();	
+		hideLoader();
+		showFeedbackMenu(curClick);
 	  }});	
-	showFeedbackMenu(curClick);
+	
 });
 //==================================================== Reviews =============================================== 
 //	Date created: Oct, 15 2014
@@ -5427,7 +4569,7 @@ $(document).on('pageshow','#reviews', function () {
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=0&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
-					alertBox('note',"No review / selfie available.");
+					alertBox('note',"No post available.");
 				else{
 					if(reviewQuestion.length < 1){
 						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
@@ -5446,7 +4588,7 @@ $(document).on('pageshow','#reviews', function () {
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=1&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
-					alertBox('note',"No review / selfie available.");
+					alertBox('note',"No post available.");
 				else{
 					if(reviewQuestion.length < 1){
 						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
@@ -5474,7 +4616,7 @@ $(document).on('pageshow','#reviews', function () {
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=2&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
-					alertBox('note',"No review / selfie available.");
+					alertBox('note',"No post available.");
 				else{
 					if(reviewQuestion.length < 1){
 						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
@@ -6211,70 +5353,6 @@ $(document).on('pageshow','#fbpost', function () {
 	}
 });
 
-//==================================================== newly created tab Post to Social Networks  =============================================== 
-//	Date created: descember, 12 2014
-
-$(document).on('pageinit','#social', function () {
-	$('.iconfbpost').click(function(e){
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function(){ 
-			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-					hideLoader();
-					window.location = 'index.php'
-				}});		
-			}},{caption: 'cancel'}]
-			});
-		}, 500);//to prevent the events fire twice
-		e.preventDefault();	
-	});
-	 $("#social img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick=0;defaultSetup=5;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{ });
-		}
-		e.preventDefault();
-	});	
-	$('#social .star').click(function(){goHome();});
-	/* pageshow script*/
-	
-	/* end of code for setup-cust-post */
-	$('.social-left-menu').on('click', ' > li', function () {
-	    curClick = $(this).index();  
-		showFbpostMenu(curClick);		
-		socialActiveMenu();
-		if($( window ).width() > 600){
-			$(this).find( "a" ).addClass('ui-btn-active'); 
-			$(this).find( "span" ).addClass("listview-arrow-active");
-		}else{
-			$('.fbpost-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-		}	
-	});	
-	$( window ).resize(function() { // when window resize
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-		socialActiveMenu();	
-	});
-	$("#social input[type='checkbox']").click(function(){
-		$("#social input[type='checkbox']").each(function(index){
-		
-			if($(this).is(':checked')){
-				//alert($(this).val());
-			}	
-		 });
-	});
-});
 	function showFbpostMenu(row){
 		$(".panel-social-add").hide();$(".panel-social-select").hide();$(".panel-social-manual").hide();
 		if(row == 0){
@@ -6317,12 +5395,13 @@ function diabledTab(classes,tabs){
 		else
 			$(this).addClass(clas);
 	});
+}
+function diabledbox(classes,tabs){
+	clas = 'ui-state-disabled';
+	$(classes + ' div.ui-input-text').each(function (index) {
+		if($.inArray(index,tabs) == -1)
+			$(this).removeClass(clas);
+		else
+			$(this).addClass(clas);
+	});
 }	
-$(document).on('pageshow','#social', function () { 
-	var height = ($( window ).height() / 16) - 5;
-	var placeId = locId.split('|');
-	$('.star').show();
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-	$('#social .ui-content').css({"background-color":'#E6E7E8'});
-	showFbpostMenu(curClick);
-});

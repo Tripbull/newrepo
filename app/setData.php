@@ -101,7 +101,7 @@ switch($opt){
 		$query = mysql_query("INSERT INTO businessList SET userGroupId = $gId, businessName = '{$name}', subscribe={$subs},label='{$label}'");
 		if(mysql_affected_rows()){
 			 $lastId = mysql_insert_id();
-			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=1");
+			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0");
 			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
 			 $defaultLogo ='';
 			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#DBEBF1',backgroundFont = '#3b3a26'");
@@ -117,7 +117,7 @@ switch($opt){
 	break;
 	case 'delLoc':
 		$placeId = $_REQUEST['key'];
-		$sql = "DELETE l,p,d,h,pho,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessPhotos as pho ON pho.photoPlaceId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
+		$sql = "DELETE l,p,d,h,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();
@@ -829,37 +829,24 @@ function feedbacktable($id){
 	$connect->db_connect();
 	$sql = "CREATE TABLE IF NOT EXISTS `businessplace_$id` (
 		`id` int(10) NOT NULL AUTO_INCREMENT,
-		  `rated1` tinyint(1) NOT NULL,
-		  `rated2` tinyint(1) NOT NULL,
-		  `rated3` tinyint(1) NOT NULL,
-		  `rated4` tinyint(1) NOT NULL,
-		  `rated5` tinyint(1) NOT NULL,
-		  `rated6` tinyint(1) NOT NULL,
-		  `rated7` tinyint(1) NOT NULL,
-		  `aveRate` float NOT NULL,
-		  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `userName` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `userId` varchar(50) NOT NULL,
 		  `source` varchar(5) NOT NULL,
-		  `labelId` int(11) NOT NULL,
 		  `feedsource` varchar(2) NOT NULL,
 		  `photo_url` varchar(200) NOT NULL,
 		  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		  `date` datetime NOT NULL,
 		  `hideimg` tinyint(4) NOT NULL,
 		  `feature` tinyint(4) NOT NULL,
+		  `date` datetime NOT NULL,
 		  PRIMARY KEY (`id`)
 		) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;";
 		$sql2 = "CREATE TABLE IF NOT EXISTS `businessCustomer_$id` (
 		  `id` int(11) NOT NULL AUTO_INCREMENT,
-		  `placeId` int(11) NOT NULL,
 		  `userId` varchar(100) NOT NULL,
 		  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `email` varchar(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		  `totalFriends` int(11) NOT NULL,
 		  `source` tinyint(4) NOT NULL,
 		  `follow` tinyint(4) NOT NULL,
-		  `data` longtext NOT NULL,
 		  PRIMARY KEY (`id`),
 		  KEY `follow` (`follow`)
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
@@ -876,11 +863,11 @@ function feedbacktable($id){
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		$sql4 = "ALTER TABLE `sharedlink_$id` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";
 		$sql5 = "ALTER TABLE `sharedlink_$id` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT";
-		mysql_query($sql);
-		mysql_query($sql2);
-		mysql_query($sql3);
-		mysql_query($sql4);
-		mysql_query($sql5);	
+		mysql_query($sql) or die(mysql_error());
+		mysql_query($sql2) or die(mysql_error());
+		mysql_query($sql3) or die(mysql_error());
+		mysql_query($sql4) or die(mysql_error());
+		mysql_query($sql5) or die(mysql_error());
 	$connect->db_connect();		
 	return;
 }

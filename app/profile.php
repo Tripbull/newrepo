@@ -65,9 +65,9 @@ foreach($time_zones as $zones){
 									<label for="number-1"></label>
 									<input type="text" data-clear-btn="true" name="txttwit" id="txttwit" value="" placeholder="twitter url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="true" name="txtbooknowlabel" id="txtbooknowlabel" value="Book Now" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
-									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Take a Selfie!, etc.)</label>
-									<input type="text" data-clear-btn="true" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url (optional)">
+									<input type="text" data-clear-btn="true" name="txtbooknowlabel" id="txtbooknowlabel" value="Post Your Photo!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
+									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Take a advocates!, etc.)</label>
+									<input type="text" data-clear-btn="true" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url">
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-pro">Submit</button>
 								</div>
@@ -88,20 +88,26 @@ foreach($time_zones as $zones){
 								</div>								
 							</section>	
 							<section class="open-section hide">
-								<div class="clear" style="padding-top:0.2em"></div>
-								<p class="font-17 fl">Description of your opening hours (up to 150 words)</p>
-								<div class="clear" style="padding-top:1.4em"></div>
-								<div>
-									<textarea name="bbcode_field" id="textarea-hour" style="height:400px;width:100%;max-height: 900px;"></textarea>
-								</div>
-								<div class="clear" style="padding-top:0.8em"></div>
-								<div class="btn-submit">
-									<button class="ui-btn" id="submit-hour">Submit</button>
-								</div>
+								<div class="clear"></div>
+								<form id="frmlogocampaign" action="setPhoto.php" method="post" enctype="multipart/form-data" >
+									<button class="ui-btn" id="uploadcampaign">Upload an Image</button>
+									<input type="file" name="campaignlogo" style="visibility:hidden;height:0px" id="campaignlogo" value="">
+									<input type="hidden" value="" name="placeIdCampaign" id="placeIdCampaign" />
+								 </form>
+								 <div class="thumb">
+									<img src="<?php echo $noPhoto ?>" id="logothumb" height="190" style="width:100%" />
+								 </div>
+								 <div class="clear" style="padding-top:0.5em"></div>
+								<span class="color-grey font-12 fl">
+									<p>Max width 600px; Max height 600px</p>
+									<p>Recommended logo sizes: Horizontal logo: 500px by 200px Vertical logo: 300px by 450px</p>
+									<p>Tip 1: Uploaded logo image will be used for laptop resolution: 1366 x 768. Logo's size will be automatically reduced to fit multiple device resolution.</p>
+									<p>Tip 2: Lock device's screen orientation to landscape for horizontal logo. Lock device's screen orientation to portrait for vertical logo</p>
+								</span>
 							</section>
 							<section class="photo-section hide">
 								 
-								<span class="font-17 fl">Upload images for your Tabluu page...</span>
+								<span class="font-17 fl">Upload images for your Camrally page...</span>
 								<div class="clear"></div>
 								<form id="frmweb" action="setPhoto.php" method="post" enctype="multipart/form-data" >
 									<button class="ui-btn" id="uploadweb">Upload Images</button>
@@ -208,7 +214,7 @@ foreach($time_zones as $zones){
 									Using your current subscription, you can change your URL to an easy to remember custom link your customers will not forget.
 								</p>
 								<div class="clear" style="padding:1.5em 10px 0 10px;">
-								<p class="font-16 fl">Your default Tabluu URL:&nbsp;</p>
+								<p class="font-16 fl">Your default Camrally URL:&nbsp;</p>
 								<p class="font-16 fl vanity-default-link" style="text-decoration:none;font-weight: normal;font-size: 16px;color:blue">        camrally.com/09z9wxb.html</p>
 								<!--<div class="clear" style="padding-top:1em"></div>
 								<p class="van-link-default font-16" style="font-weight: normal;color:#38c">http://camrally.com/</p> -->
@@ -216,7 +222,7 @@ foreach($time_zones as $zones){
 							    <div class="tbl">
 									<div class="row">
 										<div class="left">
-											<div class="font-16" style="width:195px;">Your custom Tabluu URL: </div>
+											<div class="font-16">Your custom Camrally URL: </div>
 										</div>
 										<div class="right">
 											<input type="text" data-clear-btn="true" name="vanity-str" id="vanity-str" value="" placeholder="CustomName">

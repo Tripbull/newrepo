@@ -26,7 +26,7 @@ $noPhoto = 'images/template/no-photo.gif';
 						<div class="left-content fl">
 							<div class="left-header">Customizations</div>			
 							<ul class="uic-left-menu" data-role="listview">
-								<li ><a href="#" >Background Image<span class="listview-arrow-default"></span></a></li><li ><a href="#">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Message<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Message<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -35,22 +35,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								
 							</section>
 							<section class="uic-section-img hide">
-								<div class="clear"></div>
-								<form id="frmbackground" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-									<button class="ui-btn" id="uploadbackground">Upload an Image</button>
-									<input type="file" name="filebackground" style="visibility:hidden;height:0px" id="filebackground" value="">
-									<input type="hidden" value="" name="placeIdbackground" id="placeIdbackground" />
-								 </form>
-								 <div class="thumb">
-									<img src="<?php echo $noPhoto ?>" id="backgroundthumb" height="190" style="width:100%" />
-								 </div>
-								 <div class="clear" style="padding-top:0.5em"></div>
-								<span class="color-grey font-12 fl">
-									<p>For best results, upload an image based on your device's…</p>
-									<p>1. Display resolution</p>
-									<p>2. Screen orientation.</p>
-									<p>For example, if you are using Ipad mini locked on landscape orientation, you should upload an image 1024px by 768px.</p>
-								</span>	
+								
 							</section>	
 							<section class="uic-section-bg hide">
 								<p class="font-17 fl">Set a background color...</p>

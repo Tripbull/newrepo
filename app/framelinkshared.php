@@ -9,7 +9,7 @@ $_SESSION['session']=$ur_session;
 	<title>shared pages</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<script type='text/javascript'>window.location='rateone.html?<?php echo  $_SERVER['QUERY_STRING']; ?>'</script>
+	<script type='text/javascript'>window.location='campaign.html?<?php echo  $_SERVER['QUERY_STRING']; ?>'</script>
     <style type="text/css">
 
 	</style>
