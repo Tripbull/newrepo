@@ -1,5 +1,5 @@
 <?php
-
+$noPhoto = 'images/template/no-photo.gif';
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,37 +25,100 @@
 						<div class="left-content fl">
 							<div class="left-header">Setup</div>			
 							<ul class="setup-left-menu" data-role="listview">
-								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Your Tabluu Page<span class="listview-arrow-default listview-arrow-active"></span></a></li>
-								<li><a href="#">Customize the Response Page<span class="listview-arrow-default"></span></a></li>
-								<li><a href="#">What Question(s) to Ask?<span class="listview-arrow-default"></span></a></li>
-								<li><a href="#">Social Media Posts<span class="listview-arrow-default"></span></a></li>
-								<li><a href="#">Poor Feedback Alerts<span class="listview-arrow-default"></span></a></li>
-								<li><a href="#">Redirect Social Media Visitors<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Camrally Page Info<span class="listview-arrow-default listview-arrow-active"></span></a></li>
+								<li><a href="#">Customizations<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#">Campaign Info<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#">Redirect Participants<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content fr">
 							<div class="right-header"></div>
 							<section class="panel-profile hide">									
-								<ul class="profile-left-menu1" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Opening Hours<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Photos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map Display<span class="listview-arrow-default"></span></a></li></ul>										
+								<ul class="profile-left-menu1" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Photos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map Display<span class="listview-arrow-default"></span></a></li></ul>										
 							</section>
 							<section class="panel-UIC hide">
-								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Logo<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Background Image<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Font Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text Below Stars<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li><li ><a href="#" data-prefetch="true" id="seefeedback">See the Response Page<span class="listview-arrow-default"></span></a></li></ul>
+								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Background Image<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
-							<section class="panel-postFB hide">
-								<ul class="right-menu" data-role="listview">
-								<li><a href="fbpost.html" data-prefetch="true">Type of Image<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="fbpost.html" data-prefetch="true">Post Reviews to Social Media &amp; Tabluu?<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="fbpost.html" data-prefetch="true">Customize Message<span class="listview-arrow-default"></span></a></li>
-								</ul>
-							</section>
-							<section class="panel-redirect hide">
+							<section class="panel-question hide">
+								<div class="clear"></div>
+								<form id="frmlogocampaign" action="setPhoto.php" method="post" enctype="multipart/form-data" >
+									<button class="ui-btn" id="uploadcampaign">Upload an Image</button>
+									<input type="file" name="campaignlogo" style="visibility:hidden;height:0px" id="campaignlogo" value="">
+									<input type="hidden" value="" name="placeIdCampaign" id="placeIdCampaign" />
+								 </form>
+								 <div class="thumb">
+									<img src="<?php echo $noPhoto ?>" id="logothumb" height="190" style="width:100%" />
+								 </div>
+								 <div class="clear" style="padding-top:0.5em"></div>
+								<span class="color-grey font-12 fl">
+									<p>Max width 600px; Max height 600px</p>
+									<p>Recommended logo sizes: Horizontal logo: 500px by 200px Vertical logo: 300px by 450px</p>
+									<p>Tip 1: Uploaded logo image will be used for laptop resolution: 1366 x 768. Logo's size will be automatically reduced to fit multiple device resolution.</p>
+									<p>Tip 2: Lock device's screen orientation to landscape for horizontal logo. Lock device's screen orientation to portrait for vertical logo</p>
+								</span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="clear"></div>
+							    <div class="clear" style="padding-top:0.2em"></div>
+								<p class="font-17 fl">Description of campaign (up to 300 words)</p>
+								 <div class="clear" style="padding-top:1.4em"></div>
+								<div>
+									<textarea name="bbcode_field" id="campaign-desc" style="height:400px;width:100%;max-height: 900px;"></textarea>
+								</div>
+								<div class="clear" style="padding-top:0.8em"></div>
 								<div class="btn-submit">
-									<button class="ui-btn visittabluupage">See Your Tabluu Page</button>
+									<button class="ui-btn" id="submit-desc">Update Description</button>
 								</div>
 								<div class="clear" style="padding-top:0.5em"></div>
+								<form id="frmselfies" action="#" method="post" enctype="multipart/form-data" >
+								<select name="select-category" id="select-category">
+										<option value="">Select a Category</option>
+										<option value="Social cause">Social cause</option>
+										<option value="Fanbase building">Fanbase building</option>
+										<option value="Fundraising">Fundraising</option>
+										<option value="New product/service launch">New product/service launch</option>
+										<option value="Marketing promotions">Marketing promotions</option>
+										<option value="Contest">Contest</option>
+										<option value="Event">Event</option>
+										<option value="Others">Others</option>
+								</select>
+								<div class="clear" style="padding-top:1em"></div>
+								<span class="font-17 fl"><i>Campaign name:</i></span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<input type="text" data-clear-btn="true" name="namecampaign" id="namecampaign" value="" placeholder="Text (max 40 chars)">
+								<div class="clear" style="padding-top:1em"></div>
+								<span class="font-17 fl"><i>Presented by brand:</i></span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<input type="text" data-clear-btn="true" name="txtbrand" id="txtbrand" value="" placeholder="Text (max 40 chars)">
+								<div class="clear" style="padding-top:1em"></div>
+								<span class="font-17 fl"><i>Add your slogan:</i> </span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<input type="text" data-clear-btn="true" name="txtcamp1" id="txtcamp1" value="" placeholder="Text for row 1 (max 40 chars)">
+								<div class="clear" style="padding-top:0.5em"></div>
+								<input type="text" data-clear-btn="true" name="txtcamp2" id="txtcamp2" value="" placeholder="Text for row 2 (max 40 chars)">
+								<div class="clear" style="padding-top:0.5em"></div>
+								<span class="font-17 fl"><i>Your call to action message:</i></span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<input type="text" data-clear-btn="true" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo!" placeholder="Post Your Photo!">
+								<div class="clear" style="padding-top:1em"></div>
+								<span class="font-17 fl">Sample: </span>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<div style="width:500px;">
+									<img src="images/campaign-sample.jpg" style="width:100%;height:auto;" />
+								</div>
+								<div class="clear" style="padding-top:1em"></div>
+								<div class="btn-submit">
+									<button class="ui-btn" id="submit-tagline">Update</button>
+								</div>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="btn-submit">
+									<button class="ui-btn" id="delCampaign">Delete All Campaign Data</button>
+								</div>
+								</form>
+							</section>
+							<section class="panel-redirect hide">
 								<fieldset data-role="controlgroup" data-corners="false" id="optionredirect">
 									<input type="radio" name="redirect" id="redirect-a" value="0">
-									<label for="redirect-a">Your Tabluu Page (default)</label>
+									<label for="redirect-a">Your Camrally Page (default)</label>
 									<input type="radio" name="redirect" id="redirect-b" value="1">
 									<label for="redirect-b">Your desired landing page...</label>
 								</fieldset>	
@@ -67,119 +130,6 @@
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-redirect">Update</button>
 								</div>
-							</section>
-							<section class="panel-question hide">
-								<div class="btn-submit">
-									<button class="ui-btn" id="seefeedback3">See the Response Page</button>
-								</div>
-								<div class="clear" style="padding-top:0.5em"></div>
-								<p>Flick the switch "On" to start getting feedback / reviews</p>
-								<div class="clear" style="padding-top:0.5em"></div>
-								<select name="flipsetting" id="flipsetting" data-role="flipswitch" data-corners="false">
-									<option value="1">Off</option>
-									<option value="0">On</option>
-								</select>	
-								<div class="clear" style="padding-top:0.5em"></div>
-								<ul class="addnew-rate" data-role="listview">
-									<li><a href="#"><img src="images/template/plus.png" alt="" class="ui-li-icon ui-corner-none">Add a new question &amp; press enter...</a></li>
-								</ul>
-								<span class="text-rate hide"><input type="text" name="txtrate" id="txtrate" value="" placeholder="Add a new question &amp; press enter..."></span>
-								<div class="clear hide createdquest" style="padding-top:1em">	
-								<fieldset id="ratetextcreated" data-role="controlgroup" data-iconpos="left" data-corners="false">
-								</fieldset>
-								</div>
-								<div class="clear" style="padding-top:1em"></div>	
-								<p>Questions for web services:</p>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<fieldset id="ratetextweb" data-role="controlgroup" data-iconpos="left" data-corners="false">
-								</fieldset>	
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<p>Questions for accommodations & restaurants:</p>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<fieldset id="ratetext" data-role="controlgroup" data-iconpos="left" data-corners="false">
-								</fieldset>	
-								<div class="clear" style="padding-top:0.5em"></div>									
-							</section>	
-							
-							<section class="setup-email-alert hide">	
-								<form id="frmAlert" action="#" method="post" onsubmit="return false;" enctype="multipart/form-data" >
-								<p>Send alerts to...</p>
-								<div class="clear" style="padding-top:1em"></div>	
-								<input type="text" name="multi-email" id="multi-email" value="" placeholder="email address">
-								<div class="clear" style="padding-top:0.5em"></div>	
-								 <span class="color-grey font-12 fl">(Please use commas to separate multiple email addresses)</span>
-								<div class="clear" style="padding-top:1em"></div>	
-								<p>Send email alerts?</p>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<fieldset data-role="controlgroup" data-corners="false" id="alertsend">
-									<input type="radio" name="radioalert" id="radioalert1" value="0">
-									<label for="radioalert1">no</label>
-									<input type="radio" name="radioalert" id="radioalert2" value="1">
-									<label for="radioalert2">yes</label>
-								</fieldset>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<p>Alert for?</p>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<fieldset data-role="controlgroup" data-corners="false" id="alertsend2">
-									<input type="radio" name="aleftfor" id="aleftfor-a" value="0">
-									<label for="aleftfor-a">average rating</label>
-									<input type="radio" name="aleftfor" id="aleftfor-b" value="1">
-									<label for="aleftfor-b">individual rating</label>
-								</fieldset>	
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<div class="hide individual">
-									<p>When Individual rating is...</p>
-									<div class="clear" style="padding-top:0.5em"></div>	
-									<fieldset data-role="controlgroup" data-corners="false" id="alertsend3">
-										<input type="radio" name="indiRate" id="indiRate-a" value="0">
-										<label for="indiRate-a">1</label>
-										<input type="radio" name="indiRate" id="indiRate-b" value="1">
-										<label for="indiRate-b">2 & below</label>
-									</fieldset>	
-								</div>
-								<div class="average">
-									<p>When Average rating is below...</p>
-									<div class="clear" style="padding-top:0.5em"></div>	
-									<fieldset data-role="controlgroup" data-corners="false" id="aveAlert">
-									<input type="radio" name="average" id="ave-a" value="1.0">
-									<label for="ave-a">1.0</label>
-									<input type="radio" name="average" id="ave-b" value="1.25">
-									<label for="ave-b">1.25</label>
-									<input type="radio" name="average" id="ave-c" value="1.5">
-									<label for="ave-c">1.5</label>
-									<input type="radio" name="average" id="ave-d" value="1.75">
-									<label for="ave-d">1.75</label>
-									<input type="radio" name="average" id="ave-e" value="2.0" >
-									<label for="ave-e">2.0</label>
-									<input type="radio" name="average" id="ave-f" value="2.25">
-									<label for="ave-f">2.25</label>
-									<input type="radio" name="average" id="ave-g" value="2.5">
-									<label for="ave-g">2.5</label>
-									<input type="radio" name="average" id="ave-h" value="2.75">
-									<label for="ave-h">2.75</label>
-									<input type="radio" name="average" id="ave-i" value="3.0">
-									<label for="ave-i">3.0</label>
-									<input type="radio" name="average" id="ave-j" value="3.25">
-									<label for="ave-j">3.25</label>
-									<input type="radio" name="average" id="ave-k" value="3.5">
-									<label for="ave-k">3.5</label>
-									<input type="radio" name="average" id="ave-l" value="3.75">
-									<label for="ave-l">3.75</label>
-									<input type="radio" name="average" id="ave-o" value="4.0" >
-									<label for="ave-o">4.0</label>
-									<input type="radio" name="average" id="ave-p" value="4.25">
-									<label for="ave-p">4.25</label>
-									<input type="radio" name="average" id="ave-q" value="4.5">
-									<label for="ave-q">4.5</label>
-									<input type="radio" name="average" id="ave-r" value="4.75">
-									<label for="ave-r">4.75</label>
-								</fieldset>		
-								</div>
-								<div class="clear" style="padding-top:0.5em"></div>	
-								<div class="btn-submit">
-									<button class="ui-btn" id="submit-average">Update</button>
-								</div>
-								</form>
 							</section>
 						</div>
 					</div>			

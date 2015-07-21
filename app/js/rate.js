@@ -7,11 +7,11 @@ var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],btncampaign:['Your S
 var defaultButtonText = {logout:['okay'],btnshare:['okay'],btncampaign:['Your Selfie Now!'],follow:['no','yes'],comment:['proceed'],share:['don\'t share','share'],photo:['no','yes'],option:['cancel','login','reset'],badEmail:['no','yes'],allow:['cancel','submit'],cambtnoption:['cancel','snap','discard','use']};
 var defaultTextMessage2 = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.',optionT:'Login OR select &quot;reset&quot; to take a new photo'};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takePhoto:'Take a new photo?',average:'Your average rating:',thank:'Thank you!',option:'Choose an option…',optionT:'Login OR select &quot;reset&quot; to take a new photo',comment:'Please comment...',share:'Share this page?',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.'},resizeTimeout;
+
 var counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0,counter5 = 0,counter6 = 0,counter7 = 0,countertake=0,countershare=0;
-var questionDefault = ['How would you rate our staff based on how welcoming and friendly they were towards you?_Service Friendliness','Do you feel that you were provided service in a timely manner?_Service Timeliness','How would you rate the attentiveness of our service?_Service Attentiveness','How would you rate our overall service?_Overall Service','Was this experience worth the amount you paid?_Value for Money','Please rate our location._Location','Please rate our facilities._Facilities','How comfortable was your stay?_Comfort','How would you rate our property in terms of cleanliness?_Cleanliness','How would you rate the overall quality of your meal?_Quality of Meal','How would you rate the overall taste of your meal?_Taste of Meal','Do you feel that there were enough options for you to choose?_Variety','How likely are you to recommend us to your friends and loved ones?_Likelihood to Recommend','How likely are you to visit us again?_Likelihood to Visit Again','How valuable is our web service to you?_Value Proposition','For the value provided, how attractive is our pricing?_Price Attractiveness','How likely are you to recommend this website to your friends?_Recommended'];
 //live mode chargify ids
 var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619;
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -57,24 +57,13 @@ function alertBox2(title,message){
 function sendEmail2Client(cases){
 	showLoader();
 	$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&opt=sendEmail2Client&cases='+cases+'&name='+username,success:function(lastId){
-		setTimeout(function() {
-			hideLoader();
-			if(getUrlVar('s') != '' && getUrlVar('s') == 8){
-				window.close();
-			}else if(isTakeSelfie == 0 || isTakeSelfie == 1 || isTakeSelfie == 'e' || isTakeSelfie == 4){
-				//window.location = domainpath+nicename+'.html';
-				showLoader();
-				setTimeout(function(){window.location = domainpath+nicename+'.html'},300);
-			}else{
-				setdefault();
-				if(item2Rate.length > 1)
-					$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-				else{
-					setTimeout(function() {location.reload();}, 1000);
-				}	
-				//$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-			}
-		}, 300);	
+		if(customArray.redirect > 0){
+			var str = customArray.websiteURL;
+			var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
+			window.location = redirectpage;
+		}else{
+			window.location = domainpath+nicename+'html';
+		}
 	}}); 
 }
 function sendEmail2Client2(cases){
@@ -85,144 +74,6 @@ function sendEmail2Client2(cases){
 			sendEmail2Client(0);
 		}, 300);
 	}});
-}
-
-function alertNextUser2(){
-	sendEmail2Client(0);
-	/*if(isTakeSelfie == 2 || isTakeSelfie == ''){
-		setTimeout(function() {
-		$.box_Dialog(decodequote(message), {
-			'type':     'question',
-			'title':    '<span class="color-white">'+decodequote(title)+'<span>',
-			'center_buttons': true,
-			'show_close_button':false,
-			'overlay_close':false,
-			'buttons':  [{caption: button,callback:function(){$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}}]
-		});
-		}, 300);	
-	}else{
-	
-		setTimeout(function() {
-			$.box_Dialog(message, {
-				'type':     'question',
-				'title':    '<span class="color-white">'+title+'<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: button}]
-			});
-		}, 300);	
-	}*/
-}
-function alertform(){
-	$.box_Dialog(
-		'<form id="frmalert" action="#" method="post" enctype="multipart/form-data" ><div class="alertbox"><input type="text" name="txtname" id="txtname" value="'+txtname+'" placeholder="name"/><br/><input type="text" name="txtphone" value="'+txtphone+'" id="txtphone" placeholder="phone number"/><br/><input type="text" value="'+txtemail+'" name="txtemail" id="txtemail" placeholder="email (Optional)"/><br/><p style="text-align:left;font-size:1em">'+(typeof(defaultTextMessage.detailsEmailB) != 'undefined' ? decodequote(defaultTextMessage.detailsEmailB) : decodequote(defaultTextMessage2.detailsEmailB))+'</p> <textarea cols="20" rows="3" style="resize:none" placeholder="additional info..." name="txtaddition" id="txtaddition"></textarea><p style="text-align:left;font-size:1em">'+(typeof(defaultTextMessage.allow) != 'undefined' ? decodequote(defaultTextMessage.allow) : decodequote(defaultTextMessage2.allow))+'</p></div></form>', {
-		'type':     'question',
-		'title':    '<span class="color-white">'+(typeof(defaultTextMessage.detailsEmailT) != 'undefined' ? decodequote(defaultTextMessage.detailsEmailT) : decodequote(defaultTextMessage2.detailsEmailT))+'<span>',
-		'center_buttons': true,
-		'show_close_button':false,
-		'overlay_close':false,
-		'buttons':  [{caption: (typeof(defaultButtonText.allow) != 'undefined' ? decodequote(defaultButtonText.allow[1]) : decodequote(defaultButtonText2.allow[1])),callback:function(){
-			
-			txtname=$('#txtname').val(),txtphone=$('#txtphone').val(),txtemail=$('#txtemail').val();
-			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			if($('#txtname').val() == ''){
-				setTimeout(function() {alertBox2('incomplete information','Please input your name');},300);
-			}else if($('#txtphone').val() == ''){
-				setTimeout(function() {alertBox2('incomplete information','Please input your phone number');},300);
-			}else if($('#txtemail').val() != ''){
-				if(!regex.test($('#txtemail').val()))
-					setTimeout(function() {alertBox2('invalid email address','Please enter a valid email address');},300);
-				else{
-					showLoader();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&lastId='+last_Id+'&opt=poorRating&'+$('#frmalert').serialize(),success:function(lastId){
-					$("#overlay").remove();
-					txtname='',txtphone='',txtemail='';
-						sendEmail2Client(0);
-					}});
-					//if(isTakeSelfie == '' || isTakeSelfie == 2)
-						//$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-				}	
-			}else{	
-				showLoader();
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&lastId='+last_Id+'&opt=poorRating&'+$('#frmalert').serialize(),success:function(lastId){
-					$("#overlay").remove();
-					txtname='',txtphone='',txtemail='';
-						sendEmail2Client(0);
-					}});	
-				//if(isTakeSelfie == '' || isTakeSelfie == 2)
-				//	$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-			}
-		}},{caption: (typeof(defaultButtonText.allow) != 'undefined' ? decodequote(defaultButtonText.allow[0]) : decodequote(defaultButtonText2.allow[0])),callback:function(){
-			sendEmail2Client(0);
-			//if(isTakeSelfie == '' || isTakeSelfie == 2)
-				//$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		}}]
-	});
-}
-
-function alertEmail(){
-	$.box_Dialog((typeof(defaultTextMessage.badEmailB) != 'undefined' ? decodequote(defaultTextMessage.badEmailB) : decodequote(defaultTextMessage2.badEmailB)), {
-		'type':     'question',
-		'title':    '<span class="color-white">'+(typeof(defaultTextMessage.badEmailT) != 'undefined' ? decodequote(defaultTextMessage.badEmailT) : decodequote(defaultTextMessage2.badEmailT)),
-		'center_buttons': true,
-		'show_close_button':false,
-		'overlay_close':false,
-		'buttons':  [{caption: (typeof(defaultButtonText.badEmail) != 'undefined' ? decodequote(defaultButtonText.badEmail[1]) : decodequote(defaultButtonText2.badEmail[1])),callback:function(){setTimeout(function() {
-			saverate();
-			alertform();
-		}, 300);}},{caption: (typeof(defaultButtonText.badEmail) != 'undefined' ? decodequote(defaultButtonText.badEmail[0]) : decodequote(defaultButtonText2.badEmail[0])),callback:
-		function(){
-			showLoader();
-			saverate();
-			sendEmail2Client(0);
-			//if(isTakeSelfie == '' || isTakeSelfie == 2) 
-				//$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		}}]
-	});
-}
-function alertNextUser(){
-
-	if((isTakeSelfie == 1 || isTakeSelfie == 0) && isTakeSelfie != '' ){
-		//showLoader();
-		//setTimeout(function(){window.location = domainpath+nicename+'.html'},500);
-		alertNextUser2();
-	}else{
-	    if(customArray.email_alert != ''){
-			var alerts = $.parseJSON(customArray.email_alert);
-			if(alerts.is_alert > 0){ // when send alerts is active
-					var rate_1 =ratedObj[0];
-					var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-					var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-					var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-					var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-					var rate_6 =(typeof(ratedObj[5]) !== 'undefined' ? ratedObj[5] : 0);
-					var rate_7 =(typeof(ratedObj[6]) !== 'undefined' ? ratedObj[6] : 0);
-				if(alerts.alertType > 0){ //when individual rating was selected
-					
-					if(alerts.indiRate > 0){ //2 and below
-						if((rate_1 <= 2 && rate_1 > 0)  || (rate_2 <= 2 && rate_2 > 0) || (rate_3 <= 2 && rate_3 > 0) || (rate_4 <= 2 && rate_4 > 0) || (rate_5 <= 2 && rate_5 > 0) || (rate_6 <= 2 && rate_6 > 0) || (rate_7 <= 2 && rate_7 > 0)){
-							alertEmail();
-						}else
-							alertNextUser2();
-					}else{
-						if((rate_1 == 1 && rate_1 > 0)  || (rate_2 == 1 && rate_2 > 0) || (rate_3 == 1 && rate_3 > 0) || (rate_4 == 1 && rate_4 > 0) || (rate_5 == 1 && rate_5 > 0) || (rate_6 == 1 && rate_6 > 0) || (rate_7 == 1 && rate_7 > 0)){
-							alertEmail();
-						}else
-							alertNextUser2();
-					}
-				}else{ //when average was selected
-					if(alertaverate <= alerts.average){ // 5 < 1
-						alertEmail();
-					}else
-						alertNextUser2();
-				}
-				//var p = 'placeId='+placeId+'&rated1='+rate_1+'&rated2='+rate_2+'&rated3='+rate_3+'&rated4='+rate_4+'&rated5='+rate_5+'&rated6='+rate_6+'&rated7='+rate_7+'&aveRate='+aveRated.toFixed(1)+'&comment='+ratecomment+'&case=1&source=';
-			}else
-				alertNextUser2();
-		}else
-			alertNextUser2();
-	}
 }
 
 
@@ -246,7 +97,7 @@ function followplace(){
 				}, 300);
 			else{	
 				//setTimeout(function() {
-					//alertNextUser(defaultTextMessage.thank,defaultTextMessage.nxt,defaultButtonText.nxt[0]);
+					//sendEmail2Client(defaultTextMessage.thank,defaultTextMessage.nxt,defaultButtonText.nxt[0]);
 				//}, 300);
 				saverate();
 				$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=follow&email='+email+'&placeId='+placeId+'&case=1',success:function(lastId){
@@ -256,12 +107,12 @@ function followplace(){
 			}
 		}},{caption: 'cancel',callback:function(){setTimeout(function() {
 			saverate();
-			alertNextUser();
+			sendEmail2Client(0);
 		}, 500);}}]
 	});
    //clearconsole();	
 }
-//items: {src: 'http://camrally.com/app/privacy_policy.php?name='+customArray.businessName},
+//items: {src: 'http://www.camrally.com/app/privacy_policy.php?name='+customArray.businessName},
 function showpolicy(){
 	$.magnificPopup.open({
 		disableOn: 0,
@@ -289,60 +140,17 @@ function hadpoorexp(){
 				}, 300);
 		}},{caption: (typeof(defaultButtonText.follow) != 'undefined' ? defaultButtonText.follow[0] : defaultButtonText2.follow[0] ),callback:function(){setTimeout(function() {
 			saverate();
-			alertNextUser();
+			sendEmail2Client(0);
 		}, 500);}}]
 	  });
    }, 300); 
 }
-function hadpoorexp2(){
-	saverate();
-	if(item2Rate.length > 1)
-		alertNextUser();
-	else{
-		showLoader();
-		setTimeout(function() {location.reload();}, 1000);
-	}	
-}
+
 function pressyes(){
-	if(customArray.email_alert != ''){
-		var alerts = $.parseJSON(customArray.email_alert);
-		if(alerts.is_alert > 0){ // when send alerts is active
-				var rate_1 =ratedObj[0];
-				var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-				var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-				var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-				var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-				var rate_6 =(typeof(ratedObj[5]) !== 'undefined' ? ratedObj[5] : 0);
-				var rate_7 =(typeof(ratedObj[6]) !== 'undefined' ? ratedObj[6] : 0);
-			if(alerts.alertType > 0){ //when individual rating was selected
-				
-				if(alerts.indiRate > 0){ //2 and below
-					if((rate_1 <= 2 && rate_1 > 0)  || (rate_2 <= 2 && rate_2 > 0) || (rate_3 <= 2 && rate_3 > 0) || (rate_4 <= 2 && rate_4 > 0) || (rate_5 <= 2 && rate_5 > 0) || (rate_6 <= 2 && rate_6 > 0) || (rate_7 <= 2 && rate_7 > 0)){
-						setTimeout(function() {alertEmail()}, 300);
-					}else
-						hadpoorexp();
-						//hadpoorexp();
-				}else{
-					if((rate_1 == 1 && rate_1 > 0)  || (rate_2 == 1 && rate_2 > 0) || (rate_3 == 1 && rate_3 > 0) || (rate_4 == 1 && rate_4 > 0) || (rate_5 == 1 && rate_5 > 0) || (rate_6 == 1 && rate_6 > 0) || (rate_7 == 1 && rate_7 > 0)){
-						setTimeout(function() {alertEmail()}, 300);
-					}else
-						hadpoorexp();
-						//hadpoorexp();
-						
-				}
-			}else{ //when average was selected
-				if(alertaverate <= alerts.average){ // 5 < 1
-					setTimeout(function() {alertEmail()}, 300);
-				}else
-					hadpoorexp();
-			}
-			//var p = 'placeId='+placeId+'&rated1='+rate_1+'&rated2='+rate_2+'&rated3='+rate_3+'&rated4='+rate_4+'&rated5='+rate_5+'&rated6='+rate_6+'&rated7='+rate_7+'&aveRate='+aveRated.toFixed(1)+'&comment='+ratecomment+'&case=1&source=';
-		}else
-			hadpoorexp();
-	}else
-		hadpoorexp();
+	hadpoorexp();
 }
 
+<<<<<<< HEAD
 function ratevalue(rate,page){
     ratedObj.push(rate);
 	if(item2Rate.length > 1 && page == 2){
@@ -421,8 +229,6 @@ function ratevalue(rate,page){
 function setdefault(){
 	ratedObj = [],ratecomment='';urlphotoshared='';photo_url='';get_img='';
 	sharedphoto=0;isphototakedone=0;takeaphoto=0;photo_saved=0;userCurEmail='';
-	//$( ".imgrate1" ).attr('src', blankstar);$( ".imgrate2" ).attr('src', blankstar);$( ".imgrate3" ).attr('src', blankstar);$( ".imgrate4" ).attr('src', blankstar);$( ".imgrate5" ).attr('src', blankstar);
-	//rate(2);
 }
 function saverate(){
     var rate_1 =ratedObj[0];
@@ -453,15 +259,11 @@ $(document).on('pageshow','#sharephoto', function() {
 });
 
 function createTempSharedPage(){
-	//loginFb();
-	if(customArray.isselfie == 1)
-		$('.top-button-selfie').hide(); //
-	//$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url=images/profile/1448/877462291.jpg&comment='+ratecomment+'&ave='+alertaverate,success:function(link){
+	$('.top-button-selfie').hide(); //
 	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto+'&comment='+ratecomment+'&ave='+alertaverate,success:function(link){
 		hideLoader();
 		sharedurl = link;
 		setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "framelinkshared.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 500);
-		//$.fancybox({'type': 'iframe','scrolling':'no','closeEffect':'fade','closeClick':false,'overlayColor': '#000','href' :'user/ukw0cjn-'+placeId,'overlayOpacity': 0.5});
 	}});
 }
 $(document).on('pageinit','#sharedlinkpage', function(e) {
@@ -508,6 +310,7 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 	if(item2Rate.length == 1)
 		e.preventDefault();
 });
+<<<<<<< HEAD
 $(document).on('pageinit','#sharephoto', function() {
 	saveToServer(); // ADD RATING TEXT TO IMAGE AND SAVE
     
@@ -583,108 +386,6 @@ $(document).on('pageinit','#sharephoto', function() {
 		}	
 });
 
-$(document).on('pageinit','#takephoto', function() {
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	setdefault();
-	$('#takephoto .take-no').html(defaultButtonText.photo[0]);
-	$('#takephoto .take-yes').html(defaultButtonText.photo[1]);
-	$('#takephoto .titleheader').html(decodequote(defaultTextMessage.takePhoto));
-	$('#photoId').val(customArray.placeId);
-	fromtakephotopage = 2;
-	//if(countertake < 1){
-		pagephoto();	
-		$( window ).resize(function() { // when window resize
-			pagephoto();
-		});
-		$('#takephoto .take-no').click(function(e){ 
-			showLoader();
-			setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
-			return false;
-			e.preventDefault();
-		});
-		$('#upload').click(function(e){}); // when upload button change fb	photo
-		$('#takephoto .take-yes').click(function(e){ 
-			//$('#filephoto').click();
-			showCamera('#camera-modal');
-			e.preventDefault();
-		});
-		$('#frmtakephoto').on('change',function(e){ // save fb photo
-			takeaphoto = 1;
-			$('#frmtakephoto').ajaxSubmit({beforeSubmit:  beforeSubmit,success: showResponse,resetForm: true });
-			e.preventDefault();
-		});	
-		function showResponse(responseText, statusText, xhr, $form)  { 
-			isphototakedone = 1;
-			urlphotoshared=responseText;
-		}
-		function beforeSubmit(){
-				//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-				if (window.File){
-					   var fsize = $('#filephoto')[0].files[0].size; //get file size
-					   var ftype = $('#filephoto')[0].files[0].type; // get file type
-						switch(ftype){
-							case 'image/png':
-							case 'image/gif':
-							case 'image/jpeg':
-							case 'image/jpg':
-							case 'image/bmp':
-							case 'image/pjpeg':
-								sharedphoto=1;
-								showLoader();
-								messageaftertakeselfie();
-							break;
-							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');
-							hideLoader();						
-							return false;
-						}
-				}else{
-				   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-				   return false;
-				}
-			}
-		countertake = 1;	
-	//}
-		function pagephoto(){
-			if(window.innerWidth <= 600){
-				$('#takephoto .cam-img').css({'padding-top':'1em'});
-				$("#takephoto .cam-img").attr('width', '170').attr('height', '173');
-				$("#takephoto .take-logo").attr('width', '80').attr('height', '30');
-				$('#takephoto .taketop').css({'padding-top':'1em'});
-				$('#takephoto .take-powered').css({'padding':'0.5em 0 0.2em 0'});
-				$('#takephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#takephoto .takewrap').css({'margin':'0 auto'});
-				$('#takephoto  p.titleheader').css({'font-size':'1em'});
-				$('#takephoto .take-powered p').css({'font-size':'0.7em'});
-				$('#takephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}else if(window.innerWidth > 600 && window.innerWidth <= 1024){ //7 inches
-				$('#takephoto .cam-img').css({'padding-top':'1.5em'});
-				$("#takephoto .cam-img").attr('width', '190').attr('height', '193');
-				$("#takephoto .take-logo").attr('width', '100').attr('height', '37');
-				$('#takephoto .taketop').css({'padding-top':'2em'});
-				$('#takephoto .take-powered').css({'padding':'1em 0 0.2em 0'});
-				$('#takephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#takephoto .takewrap').css({'margin':'0 auto'});
-				$('#takephoto  p.titleheader').css({'font-size':'1.2em'});
-				$('#takephoto .take-powered p').css({'font-size':'0.8em'});
-				$('#takephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}else if(window.innerWidth > 1024){
-				$('#takephoto .cam-img').css({'padding-top':'1.5em'});
-				$("#takephoto .cam-img").attr('width', '200').attr('height', '203');
-				$("#takephoto .take-logo").attr('width', '131').attr('height', '49');
-				$('#takephoto .taketop').css({'padding-top':'4em'});
-				//$('#takephoto .take-cam-wrap').css({'padding-top':'2em'});
-				$('#takephoto .take-powered').css({'padding-top':'1em'});
-				$('#takephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#takephoto .takewrap').css({'margin':'0 auto'});
-				$('#takephoto  p.titleheader').css({'font-size':'1.5625em'});
-				$('#takephoto .take-powered p').css({'font-size':'1em'});
-				$('#takephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}
-		}
-});
 function alertEmail2(){
 	$.box_Dialog((typeof(defaultTextMessage.badEmailB) != 'undefined' ? decodequote(defaultTextMessage.badEmailB) : decodequote(defaultTextMessage2.badEmailB)), {
 		'type':     'question',
@@ -716,67 +417,42 @@ function fbisfollow(){
 						setdefault();
 						sendEmail2Client2(1);
 					}});
-				 //alertNextUser();
+				 //sendEmail2Client();
 				}, 300);
 				
 		}},{caption: (typeof(defaultButtonText.follow) != 'undefined' ? defaultButtonText.follow[0] : defaultButtonText2.follow[0] ),callback:function(){setTimeout(function() {
 				//saverate();
 				setdefault();
-				 alertNextUser();
+				 sendEmail2Client(0);
 			}, 500);}}]
 	  });
   }, 300);
 }
-function pressyes2(){
-	if(customArray.email_alert != ''){
-		var alerts = $.parseJSON(customArray.email_alert);
-		if(alerts.is_alert > 0){ // when send alerts is active
-				var rate_1 =ratedObj[0];
-				var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-				var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-				var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-				var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-				var rate_6 =(typeof(ratedObj[5]) !== 'undefined' ? ratedObj[5] : 0);
-				var rate_7 =(typeof(ratedObj[6]) !== 'undefined' ? ratedObj[6] : 0);
-			if(alerts.alertType > 0){ //when individual rating was selected
-				
-				if(alerts.indiRate > 0){ //2 and below
-					if((rate_1 <= 2 && rate_1 > 0)  || (rate_2 <= 2 && rate_2 > 0) || (rate_3 <= 2 && rate_3 > 0) || (rate_4 <= 2 && rate_4 > 0) || (rate_5 <= 2 && rate_5 > 0) || (rate_6 <= 2 && rate_6 > 0) || (rate_7 <= 2 && rate_7 > 0)){
-						setTimeout(function() {alertEmail2()}, 300);
-					}else
-						fbisfollow();
-				}else{
-					if((rate_1 == 1 && rate_1 > 0)  || (rate_2 == 1 && rate_2 > 0) || (rate_3 == 1 && rate_3 > 0) || (rate_4 == 1 && rate_4 > 0) || (rate_5 == 1 && rate_5 > 0) || (rate_6 == 1 && rate_6 > 0) || (rate_7 == 1 && rate_7 > 0)){
-						setTimeout(function() {alertEmail2()}, 300);
-					}else
-						fbisfollow();
-				}
-			}else{ //when average was selected
-				if(alertaverate <= alerts.average){ // 5 < 1
-					setTimeout(function() {alertEmail2()}, 300);
-				}else
-					fbisfollow();
-			}
-			//var p = 'placeId='+placeId+'&rated1='+rate_1+'&rated2='+rate_2+'&rated3='+rate_3+'&rated4='+rate_4+'&rated5='+rate_5+'&rated6='+rate_6+'&rated7='+rate_7+'&aveRate='+aveRated.toFixed(1)+'&comment='+ratecomment+'&case=1&source=';
-		}else
-			fbisfollow();
-	}else
-		fbisfollow();
+function pressyes2(){	
+	fbisfollow();
 }
 function loginFb(){
 	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
 		clearInterval(timeInverval);
 		refresh_handler();
 	}
-	var niceid = sharedurl.split('_')
-	FB.ui({
-	  method: 'share',
-	  href: domainpath+'user/'+niceid[0]
-	}, function(response){
-	  if (response && !response.error_code) {
-	  	postFb();
-	  } else {
-	  		var niceid = sharedurl.split('_');
+	// FB.logout(function(response) {});
+	 FB.login(function(response) {
+	   if (response.authResponse) {
+	   		
+	   		$.box_Dialog((typeof(defaultTextMessage.sharedB) != 'undefined' ? String(decodequote(defaultTextMessage.sharedB)) : String(decodequote(defaultTextMessage2.sharedB))), {
+				'type':     'question',
+				'title':    '<span class="color-white">'+(typeof(defaultTextMessage.sharedT) != 'undefined' ? String(decodequote(defaultTextMessage.sharedT)) : String(decodequote(defaultTextMessage2.sharedT)))+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: (typeof(defaultButtonText.btnshare) != 'undefined' ? defaultButtonText.btnshare[0] : defaultButtonText2.btnshare[0] ),callback:function (){
+						shareFb();
+				}}]
+	  		});
+	   }
+	   else {
+			var niceid = sharedurl.split('_');
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
 			$.box_Dialog((typeof(defaultTextMessage.followB) != 'undefined' ? String(decodequote(defaultTextMessage.followB)) : String(decodequote(defaultTextMessage2.followB))), {
 				'type':     'question',
@@ -790,12 +466,11 @@ function loginFb(){
 					}, 300);
 			}},{caption:(typeof(defaultButtonText.follow) != 'undefined' ? defaultButtonText.follow[0] : defaultButtonText2.follow[0] ),callback:function(){setTimeout(function() {
 					saverate();
-					 alertNextUser();
+					 sendEmail2Client(0);
 				}, 300);}}]
-			});	
-	  }
-	});
-	 
+			});		
+	   } 
+	 },{scope: 'email'});
 }
 
 function shareFb()
@@ -822,7 +497,7 @@ function shareFb()
 					}, 300);
 			}},{caption:(typeof(defaultButtonText.follow) != 'undefined' ? defaultButtonText.follow[0] : defaultButtonText2.follow[0] ),callback:function(){setTimeout(function() {
 					saverate();
-					 alertNextUser();
+					 sendEmail2Client(0);
 				}, 300);}}]
 			});		
 		  // $.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
@@ -832,49 +507,14 @@ function shareFb()
 
 function postFb()
 {
-	  //	alert('saved!!!');
-	//alert(FB.getAuthResponse());
-	//if(FB.getAuthResponse() && photo_saved == 1)
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
 			
 			console.log(response);
 			//FB.api('/me/friends',  function(friendlist) {
-				var rate_1 =(typeof(ratedObj[0]) != 'undefined' ? ratedObj[0] : 0);;
-				var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-				var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-				var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-				var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-				var rate_6 =(typeof(ratedObj[5]) !== 'undefined' ? ratedObj[5] : 0);
-				var rate_7 =(typeof(ratedObj[6]) !== 'undefined' ? ratedObj[6] : 0);
-				var totalRated = rate_1 + rate_2 + rate_3 + rate_4 + rate_5 + rate_6 + rate_7;
+				var rate_1=0,rate_2 =0,rate_3 =0,rate_4 =0,rate_5 =0,rate_6 =0,rate_7 =0;
 				var aveRated = 0.0;
-				if(customArray.isselfie == 0)
-					aveRated = totalRated / item2Rate.length ;
-				/*
-				var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-				var nicename = customArray.nicename;
-				var preview = '';
-				if(customArray.fbpost != ""){
-					preview = String(customArray.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,aveRated.toFixed(1)).replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'http://camrally.com/'+customArray.nicename+'.html').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo);
-						var t = String(customArray.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'5').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'http://camrally.com/'+customArray.nicename+'.html').replace(/<address>/,address);
-				}else{
-					var defaultstr = '<comment>. <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>.';
-					preview = String(defaultstr).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,aveRated.toFixed(1)).replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'http://camrally.com/'+customArray.nicename+'.html').replace(/<address>/,address);
-					//preview = 'I rate '+customArray.businessName+' '+aveRated.toFixed(1)+' out of 5. '+	  ratecomment+' Go to: http://camrally.com/'+nicename+'.html - Addr: '+ address +'. Tel: '+customArray.contactNo+'.';
-				}
-				if($.trim(ratecomment) === ''){
-					preview = String(preview).replace('<comment>. ','');
-					preview = String(preview).replace(/<comment>/,'');
-				}else
-					preview = String(preview).replace(/<comment>/,ratecomment);
-					
-				if($.trim(customArray.contactNo) === ''){
-					preview = String(preview).replace(', <tel>','');
-					preview = String(preview).replace(/<tel>/,'');
-				}else
-					preview = String(preview).replace(/<tel>/,customArray.contactNo);	 */
 				userCurEmail = (typeof(response.email) != 'undefined' ? response.email : '');
 				if(isphototakedone < 0 && takeaphoto > 0){ // take the camera? && check if the photo temporary done uploaded
 					setTimeout(function() {
@@ -902,8 +542,6 @@ function postFb()
 					} 
 					var p = 'tempPhoto='+photo_url+'&placeId='+placeId+'&rated1='+rate_1+'&rated2='+rate_2+'&rated3='+rate_3+'&rated4='+rate_4+'&rated5='+rate_5+'&rated6='+rate_6+'&rated7='+rate_7+'&aveRate='+aveRated.toFixed(1)+'&comment='+ratecomment+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&totalFriends=0&photo_url='+urlphotoshared+'&case=2&param='+isTakeSelfie+'&label='+hadlabel+'&socialopt='+customArray.optsocialpost+'&source=fb&data=&sharedId='+sharedurl; 
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
-							
-
 							var ids = lastId.split('_');
 							lastidbusiness = ids[1];
 							//last_Id = ids[0];
@@ -923,72 +561,23 @@ function postFb()
 		});
 	}
 }
-var logger = function()
-{
-    var oldConsoleLog = null;
-    var pub = {};
-
-    pub.enableLogger =  function enableLogger() 
-	{
-		if(oldConsoleLog == null)
-			return;
-
-		window['console']['log'] = oldConsoleLog;
-	};
-
-    pub.disableLogger = function disableLogger()
-	{
-		oldConsoleLog = console.log;
-		window['console']['log'] = function() {};
-	};
-
-    return pub;
-}();
 
 
-$(document).ready(function(){
-	window.fbAsyncInit = function() {
-    // init the FB JS SDK
-	   FB.init({
-		  appId      : 682746285089153,                        // App ID from the app dashboard
-		  status     : true,                                 // Check Facebook Login status
-		  xfbml      : true                                  // Look for social plugins on the page
-		});
-		// Additional initialization code such as adding Event Listeners goes here
-  };
-  // Load the SDK asynchronously
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/all.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk')); 
-   nicename = getUrlVar('p');
-   isTakeSelfie = getUrlVar('s');
-   hadlabel = getUrlVar('label');   
+
+$(document).ready(function(){ 
    $('.fancybox').fancybox();
    
    if(istest == true){
-		domainpath = 'http://camrally.com/';
-		//domainpath = 'http://localhost.camrally.com/repoorig/repo/';
-		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790; fbPhotoPathShare= 'http://camrally.com/staging/';
+		//domainpath = 'http://camrally.com/';
+		domainpath = 'http://localhost/dinocam/newrepo/app/';
+		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790;
 	}else{
 		domainpath = 'http://camrally.com/';
-		fbPhotoPathShare= 'http://camrally.com/app/';
 	}
-
 });
 
-$(document).on('pagehide','#sharephoto', function() {$(this).remove();});
-$(document).on('pagehide','#takephoto', function() {$(this).remove();});
 $(document).on('pagehide','#rateone', function() {$(this).remove();});
-$(document).on('pagehide','#ratetwo', function() {$(this).remove();});
-$(document).on('pagehide','#ratethree', function() {$(this).remove();});
-$(document).on('pagehide','#ratefour', function() {$(this).remove();});
-$(document).on('pagehide','#ratefive', function() {$(this).remove();});
-$(document).on('pagehide','#ratesix', function() {$(this).remove();});
-$(document).on('pagehide','#rateseven', function() {$(this).remove();});
+
 $(document).on( "pagebeforechange", function( e, data ) {
 	//alert(data.options.dataUrl)
 });
@@ -1000,22 +589,6 @@ function changetextcamerabutton(){
 		$('.snapshot .takesnap').text((typeof(defaultButtonText.cambtnoption) != 'undefined' ? decodequote(defaultButtonText.cambtnoption[1]) : decodequote(defaultButtonText2.cambtnoption[1])));
 		$('.usesnap .cancelsnap').text((typeof(defaultButtonText.cambtnoption) != 'undefined' ? decodequote(defaultButtonText.cambtnoption[2]) : decodequote(defaultButtonText2.cambtnoption[2])));
 		$('.usesnap .use').text((typeof(defaultButtonText.cambtnoption) != 'undefined' ? decodequote(defaultButtonText.cambtnoption[3]) : decodequote(defaultButtonText2.cambtnoption[3])));
-}
-
-function login(){
-	$.box_Dialog(decodequote((typeof(defaultTextMessage.optionT) != 'undefined' ? defaultTextMessage.optionT : defaultTextMessage2.optionT)), {
-		'type':     'question',
-		'title':    '<span class="color-white">'+defaultTextMessage.option+'<span>',
-		'center_buttons': true,
-		'show_close_button':false,
-		'overlay_close':false,
-		'buttons':  [{caption: defaultButtonText.option[2],callback:function(){
-			setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "takephoto.html",{ data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });return false;}, 500);
-		}},{caption:  defaultButtonText.option[1],callback:function(){
-			window.open('login.html','_blank');
-		}},{caption: defaultButtonText.option[0]}]
-	});	
-	//clearconsole();
 }
 
 function clearconsole() { 
@@ -1113,7 +686,6 @@ function getPhoto(){
 					case 'image/bmp':
 					case 'image/pjpeg':
 						sharedphoto=1;istakephoto = 1;
-						messageaftertakeselfie();
 						var reader = new FileReader();	
 						reader.onload = function(){
 							var img = new Image();
@@ -1236,19 +808,8 @@ function refresh_handler() {
 function invalidUsedBackbtn(){
 	//alert('u used back browser');
 }
-function getCookie(cname) {
-	var name = cname + "=";
-	var ca = document.cookie.split(';');
-	for(var i=0; i<ca.length; i++) {
-		var c = ca[i];
-		while (c.charAt(0)==' ') c = c.substring(1);
-		if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-	}
-	return "";
-}
-function delCookie(cname){
-	document.cookie = cname+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-}
+
+
 function getLocationData(){
 	var ispageok = false;nicename = $('#nicename').val();
 	var ios_ver = iOSversion();
@@ -1262,128 +823,24 @@ function getLocationData(){
 		hideLoader();
 		
 		if(customArray.suspend == 0){ //check if the account is suspended
-		 var toberate=[],selectedItems=[];
-		 if(customArray.item2Rate != '')
-			toberate = $.parseJSON(customArray.item2Rate);
-		 selectedItems = $.parseJSON(customArray.selectedItems);
-		  item2Rate=[];
-		if(typeof(toberate.rows) != 'undefined'){
-			if(typeof(selectedItems.rows) != 'undefined'){
-				for(var i in selectedItems.rows){
-					for(var j in toberate.rows){
-						var name = toberate.rows[j].data.split('_');
-						if(name[1] == selectedItems.rows[i].data)
-							item2Rate.push(toberate.rows[j].data);
-					}
-				}
-			}else{
-				for(var i in selectedItems){
-					for(var j in toberate.rows){
-						var name = toberate.rows[j].data.split('_');
-						if(name[1] == selectedItems[i])
-							item2Rate.push(toberate.rows[j].data);
-					}	
-				}
-			}	
-		}else{
-			for(var i in selectedItems){
-				for(var j in toberate){
-					var name = toberate[j].split('_');
-					if(name[1] == selectedItems[i])
-						item2Rate.push(decodequote(toberate[j])); 
-				}	
-			}
-		}
-		for(var i in selectedItems){
-				for(var j in questionDefault){
-					name = questionDefault[j].split('_');
-					if(name[1] == selectedItems[i])
-						item2Rate.push(questionDefault[j]);
-				}	
-			}
-		if(customArray.reviewPost != '')
-			defaultPostReview = $.parseJSON(customArray.reviewPost);
 		if(customArray.button != '')
 			defaultButtonText = $.parseJSON(customArray.button);
 		if(customArray.messageBox != '')	
 			defaultTextMessage = $.parseJSON(customArray.messageBox);
-		if(customArray.taglineselfie != '')
-			arraytagline =  $.parseJSON(customArray.taglineselfie);
 		if(customArray.nicename == "")
-			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page');
-		else if(customArray.city == '')	
-			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page ');
-		else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
-			alertErrorPage('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
+			alertErrorPage('setup incomplete','Go to Setup > Your Camrally Page');
 		else if(customArray.subscribe < 1)
 			alertErrorPage('this campaign is offline','Please change the status to online');
-		else if(customArray.settingsItem < 1)
-			alertErrorPage('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
 		else{
 			if($.inArray(customArray.state,state_Array) == -1){
-				var ratetxt = item2Rate[0].split('_');
-				$('.ratetxt').html(ratetxt[0]);
 				placeId = customArray.placeId;
 				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8'] ) == -1){
-					alertErrorPage('Unauthorized',"Please contact Tabluu support");
-				}else if(customArray.isselfie == 0){
+					alertErrorPage('Unauthorized',"Please contact Camrally support");
+				}else {
 					rate_initialize();
-					$('.isselfie').show();
 					if(ios_ver[0] == 6)
 					{
-						$.box_Dialog(('iOS 6 is not supported by Tabluu. Please use a device running on iOS 7 and above.'), {
-							'type':     'question',
-							'title':    '<span class="color-white">Unsupported Version<span>',
-							'center_buttons': true,
-							'show_close_button':false,
-							'overlay_close':false,
-							'buttons':  [{caption: 'okay',callback:function(){
-									setTimeout(function(){window.location = domainpath+nicename+'.html'},300);
-								}}]
-						});
-					}
-					else
-					{
-						changetextcamerabutton();
-						if(getUrlVar('s') != '' && (getUrlVar('s') == 1 || getUrlVar('s') == 4) && fromtakephotopage == 1){
-							$.box_Dialog((typeof(defaultTextMessage.takeselfieB) != 'undefined' ? decodequote(defaultTextMessage.takeselfieB) : decodequote(defaultTextMessage2.takeselfieB)), {
-								'type':     'question',
-								'title':    '<span class="color-white">'+(typeof(defaultTextMessage.takeselfieT) != 'undefined' ? decodequote(defaultTextMessage.takeselfieT) : decodequote(defaultTextMessage2.takeselfieT))+' <img src="emoticons/smile.png" width="20" height="20" /><span>',
-								'center_buttons': true,
-								'show_close_button':false,
-								'overlay_close':false,
-								'buttons':  [{caption: (typeof(defaultButtonText.btntake) != 'undefined' ? decodequote((defaultButtonText.btntake[0] == 'no' ? 'okay' : defaultButtonText2.btntake[0])) : decodequote(defaultButtonText2.btntake[0])),callback:function(){
-										if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-											setTimeout(function(){getSelfie();},200);
-										else
-											showCamera('#camera-modal');
-									}}]
-							});
-						}
-						if(getUrlVar('s') != '' && (getUrlVar('s') == 5 || getUrlVar('s') == 2) && fromtakephotopage == 1){
-								$.box_Dialog((typeof(defaultTextMessage.surveyselfieB) != 'undefined' ? decodequote(defaultTextMessage.surveyselfieB) : decodequote(defaultTextMessage2.surveyselfieB)), {
-									'type':     'question',
-									'title':    '<span class="color-white">'+(typeof(defaultTextMessage.surveyselfieT) != 'undefined' ? decodequote(defaultTextMessage.surveyselfieT) : decodequote(defaultTextMessage2.surveyselfieT))+' <img src="emoticons/smile.png" width="20" height="20" /><span>',
-									'center_buttons': true,
-									'show_close_button':false,
-									'overlay_close':false,
-									'buttons':  [{caption: (typeof(defaultButtonText.btnfeedback) != 'undefined' ? decodequote(defaultButtonText.btnfeedback[1]) : decodequote(defaultButtonText2.btnfeedback[1])),callback:function(){
-											if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-												setTimeout(function(){closeselfie=1;clearInterval(timeInverval);refresh_handler();getPhoto();},200);
-											else
-												showCamera('#camera-modal');
-										}},{caption: (typeof(defaultButtonText.btnfeedback) != 'undefined' ? decodequote(defaultButtonText.btnfeedback[0]) : decodequote(defaultButtonText2.btnfeedback[0])),callback:function(){closeselfie=1;clearInterval(timeInverval);refresh_handler();}}]
-								});
-							//}
-						}
-					}
-				}else{
-					rate_initialize();
-					$('.top-button-selfie').show();
-					//topoverlay();
-					if(ios_ver[0] == 6)
-					{
-						$.box_Dialog(('iOS 6 is not supported by Tabluu. Please use a device running on iOS 7 and above.'), {
+						$.box_Dialog(('iOS 6 is not supported by Camrally. Please use a device running on iOS 7 and above.'), {
 							'type':     'question',
 							'title':    '<span class="color-white">Unsupported Version<span>',
 							'center_buttons': true,
@@ -1394,7 +851,7 @@ function getLocationData(){
 								}}]
 						});
 					}else{
-						$('.btn-take-isselfie').html(typeof(defaultButtonText.btncampaign) != 'undefined' ? defaultButtonText.btncampaign[0] : defaultButtonText2.btncampaign[0]);
+						$('.btn-take-isselfie').html(customArray.btntext);
 						$('.btn-take-isselfie').unbind('click').click(function(){
 								if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
 									setTimeout(function(){getSelfie();},200);
@@ -1407,10 +864,9 @@ function getLocationData(){
 			}else
 				alertErrorPage('unauthorized',"Please subscribe.");
 		}	
-		$(".loc-login").on( 'click', function () {login()});
 		//clearconsole();
 		}else
-			alertErrorPage('account suspended',"Please contact Tabluu Support to unsuspend your account.");
+			alertErrorPage('account suspended',"Please contact Camrally Support to unsuspend your account.");
 		}	
 	}});
 }
@@ -1551,277 +1007,41 @@ function getTabluuwidget(){
 		}	
 	}});
 }
+
 function topoverlay(){
 	$('#rateone').css({marginTop:$('.top-button-selfie').height()});
 }
 $(document).on('pageinit','#rateone', function() {
 	hideLoader();	
-	//if(counter1 < 1){
-		if(typeof(ratedObj[0]) != 'undefined')
-			invalidUsedBackbtn();
-        getLocationData();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-			//topoverlay();
-		});
-		rate(2);
-	counter1 = 1;
-	//}
-});
-
-
-$(document).on('pageinit','#ratetabluuwidget', function(e) {
-    hideLoader();
-		$(".loc-login").on( 'click', function () {login()});
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-		counter2 = 1;
-	getTabluuwidget();	
-
-});
-
-$(document).on('pageinit','#ratetwo', function() {
-    hideLoader();
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[1]) != 'undefined')
+	if(typeof(ratedObj[0]) != 'undefined')
 		invalidUsedBackbtn();
-	//if(counter2 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[1].split('_');
-		$('.ratetxt').html(ratetxt[0]);
+	getLocationData();
+	$( window ).resize(function() { // when window resize
 		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(3);
-		counter2 = 1;
-  // }
-});
-
-$(document).on('pageinit','#ratethree', function() {
-	hideLoader();
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[2]) != 'undefined')
-		invalidUsedBackbtn();	
-	//if(counter3 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[2].split('_');
-		$('.ratetxt').html(ratetxt[0]);
-		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(4);
-	   counter3=1
-   //}
-});
-
-$(document).on('pageinit','#ratefour', function() {
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[3]) != 'undefined')
-		invalidUsedBackbtn();
-	hideLoader();
-	//if(counter4 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[3].split('_');
-		$('.ratetxt').html(ratetxt[0]);
-		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(5);
-	   counter4 = 1;
-   //}
-});
-
-$(document).on('pageinit','#ratefive', function() {
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[4]) != 'undefined')
-		invalidUsedBackbtn();
-	hideLoader();
-	//if(counter5 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[4].split('_');
-		$('.ratetxt').html(ratetxt[0]);
-		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(6);
-		counter5=1;
-   //}
-});
-$(document).on('pageinit','#ratesix', function() {
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[5]) != 'undefined')
-		invalidUsedBackbtn();
-	hideLoader();
-	//if(counter6 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[5].split('_');
-		$('.ratetxt').html(ratetxt[0]);
-		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(7);
-	   counter6=1;
-   //}
-});
-$(document).on('pageinit','#rateseven', function() {
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	if(typeof(ratedObj[6]) != 'undefined')
-		invalidUsedBackbtn();	
-	hideLoader();
-	//if(counter7 < 1){
-		$(".loc-login").on( 'click', function () {login()});
-		var ratetxt = item2Rate[6].split('_');
-		$('.ratetxt').html(ratetxt[0]);
-		rate_initialize();
-		$( window ).resize(function() { // when window resize
-			rate_initialize();
-		});
-	   rate(8);
-		counter7=1;
-   //}
-});
-
-function rate(page){
-	var isStarClick = 0;
-	$( '.starRate1' ).mouseenter( function(){
-		if(isStarClick < 1)
-			$( ".imgrate1" ).attr('src', colorstar);
-	}).mouseleave( function(){
-		if(isStarClick < 1)
-			$( ".imgrate1" ).attr('src', blankstar);
-	}).click(function(){
-		isStarClick=1;
-		ratevalue(1,page);
 	});
-	$( '.starRate2' ).mouseenter( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', colorstar);
-			$( ".imgrate2" ).attr('src', colorstar);
-		}
-	}).mouseleave( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', blankstar);
-			$( ".imgrate2" ).attr('src', blankstar);
-		}
-	}).click(function(){
-		isStarClick =1;
-		ratevalue(2,page);
-	});
-	$( '.starRate3' ).mouseenter( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', colorstar);
-			$( ".imgrate2" ).attr('src', colorstar);
-			$( ".imgrate3" ).attr('src', colorstar);
-		}
-	}).mouseleave( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', blankstar);
-			$( ".imgrate2" ).attr('src', blankstar);
-			$( ".imgrate3" ).attr('src', blankstar);
-		}
-	}).click(function(){
-		isStarClick = 1;
-		ratevalue(3,page);
-	});
-	$( '.starRate4' ).mouseenter( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', colorstar);
-			$( ".imgrate2" ).attr('src', colorstar);
-			$( ".imgrate3" ).attr('src', colorstar);
-			$( ".imgrate4" ).attr('src', colorstar);
-		}
-	}).mouseleave( function(){	
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', blankstar);
-			$( ".imgrate2" ).attr('src', blankstar);
-			$( ".imgrate3" ).attr('src', blankstar);
-			$( ".imgrate4" ).attr('src', blankstar);
-		}
-	}).click(function(){
-		isStarClick = 1;
-		ratevalue(4,page);
-	});
-	$( '.starRate5' ).mouseenter( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', colorstar);
-			$( ".imgrate2" ).attr('src', colorstar);
-			$( ".imgrate3" ).attr('src', colorstar);
-			$( ".imgrate4" ).attr('src', colorstar);
-			$( ".imgrate5" ).attr('src', colorstar);
-		}
-	}).mouseleave( function(){
-		if(isStarClick < 1){
-			$( ".imgrate1" ).attr('src', blankstar);
-			$( ".imgrate2" ).attr('src', blankstar);
-			$( ".imgrate3" ).attr('src', blankstar);
-			$( ".imgrate4" ).attr('src', blankstar);
-			$( ".imgrate5" ).attr('src', blankstar);
-		}
-	}).click(function(){
-		isStarClick = 1;
-		$( ".imgrate1" ).attr('src', colorstar);
-		$( ".imgrate2" ).attr('src', colorstar);
-		$( ".imgrate3" ).attr('src', colorstar);
-		$( ".imgrate4" ).attr('src', colorstar);
-		$( ".imgrate5" ).attr('src', colorstar);
-		ratevalue(5,page);
-	});
-}
+});
 
 function rate_initialize(){
     var img = new Image(), logoUrl ='',logo='',bgback='';
 	if(customArray.logo != '')
 		logo = $.parseJSON(customArray.logo);
 	else
-		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}');
+		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"images/desktop_default.png"}');
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
-	businessname = decodequote(customArray.businessName);
-    if(businessname.length > 25)
-        businessname = businessname.substr(0,25) + '...';
-    if(customArray.ratingText != '')
-		defaultrating = $.parseJSON(customArray.ratingText);
- 
-	$('.vpoor').html(decodequote(defaultrating.vpoor));
-	$('.poor').html(decodequote(defaultrating.poor));
-	$('.fair').html(decodequote(defaultrating.fair));
-	$('.good').html(decodequote(defaultrating.good));
-	$('.exc').html(decodequote(defaultrating.excellent));
-    var address = decodequote(customArray.businessName) +', '+ decodequote(customArray.address) +', '+ decodequote(customArray.city) +', '+decodequote(customArray.country);
-	$('.addressname').html(address);
+	
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
-		$( '.rate' ).css({'background':(bgback.bckimage != '' ? 'url('+bgback.bckimage+') 0 0 no-repeat' : '')});
-		$('.rate').css({backgroundSize: "cover"});
+		var bgSize = $(window).height()-$('.top-button-selfie').height();
+		$( '.rate' ).css('background-image',(bgback.bckimage != '' ? 'url('+bgback.bckimage+')' : ''));
+		$('.rate').css('background-size', 'auto ' + bgSize + 'px');
+		$('.rate').css('background-repeat', 'no-repeat');
+		$('.rate').css({backgroundPosition: 'center top'});
 	}	
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
 	//alert(bgback.bckimage)
-	if(bgback.bckimage == '' || typeof(bgback.bckimage) == 'undefined')
+	//if(bgback.bckimage == '' || typeof(bgback.bckimage) == 'undefined')
 		$( '.rate' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#DBEBF1')});
-		
+	
     if( window.innerWidth <=325){ //iphone
         logoUrl  = logo.pLogo;
 		img.src = logoUrl;
@@ -1916,7 +1136,6 @@ function rate_initialize(){
           $( ".loc-logo" ).attr('src', logoUrl);
     }
 }
-
 // IMAGE PROCESSING
 var overlayHeight = 0;
 var overlayY = 0;
@@ -2114,11 +1333,11 @@ function setCanvasSelfie(img_type)
 	var imgLogoHeight = 12;
 	var overlayHeight = 0;
 	var overlayY = 0;
-	var eventName = arraytagline.txtoccation;
-	var companyName = arraytagline.txtinfodate;
+	var eventName = customArray.businessName;
+	var companyName = customArray.brand;
 	var logoText = "Powered by"
-	var firstLine = arraytagline.tagline1;
-	var secondLine = arraytagline.tagline2;
+	var firstLine = customArray.tag1;
+	var secondLine = customArray.tag2;
 	var logourl = "images/tabluu-logo-mono-xxsmall.png";
 	var eventNameFont = 11;
 	var companyNameFont = 4;
@@ -2128,7 +1347,10 @@ function setCanvasSelfie(img_type)
 	var eventNameHeight = 0;
 	var dashLineHeight = 0;
 	var compImageHeight = 0;
-	var taglineHeight = 0;
+	var taglineHeightTop = 0;
+	var taglineHeightBot = 0;
+	var taglineWidth = 0;
+	var taglineOverlayWidth = 0;
 	var logoImageHeight = 0;
 	var logoTextHeight = 0;
 
@@ -2145,15 +1367,18 @@ function setCanvasSelfie(img_type)
 	var totalTaglineWidth = 0;
 	var widthOffsetRating = 0;
 	var widthTaglineOffset = 10;
-	var eventNameDenom = 2.5;
+	var eventNameDenom = 2;
 	var eventNameNom = 0;
 
 	var getNewFont = [];
+
+
     width = get_img.width;
-   height = get_img.height;
+   	height = get_img.height;
+
+	rel = height / width;
 	if(width > 800 || height > 800)
 	{
-		rel = height / width;
 		width = 800;
 		height = width*rel;
 		if (height > 800) {
@@ -2175,6 +1400,7 @@ function setCanvasSelfie(img_type)
 	getNewFont = setCanvasSelfieTest(width, height,"eventNameFont", 0, 0, 0);
 	eventNameFont = getNewFont[0];
 	taglineFont = getNewFont[1];
+	taglineWidth = getNewFont[2];
 
 	companyNameFont = getSize(canvas, companyNameFont);
 	getNewFont = setCanvasSelfieTest(width, height,"companyNameFont", 0, 0, 0);
@@ -2182,6 +1408,7 @@ function setCanvasSelfie(img_type)
 	if(taglineFont > getNewFont[1])
 	{
 		taglineFont = getNewFont[1];
+		taglineWidth = getNewFont[2];
 	}
 
 	imgLogoWidth = getSize(canvas, imgLogoWidth);
@@ -2238,34 +1465,41 @@ function setCanvasSelfie(img_type)
 
 	if(eventNameWidth > compWidth)
 	{
-		totalTaglineWidth = eventNameWidth+widthTaglineOffset;
+		totalTaglineWidth = (((width-(widthOffset+eventNameWidth+widthTaglineOffset))-taglineWidth)/2)+(widthOffset+eventNameWidth+widthTaglineOffset);
+		taglineOverlayWidth = widthOffset+eventNameWidth+widthTaglineOffset;
 	}
 	else
 	{
-		totalTaglineWidth = compWidth+widthTaglineOffset;
+		totalTaglineWidth = (((width-(widthOffset+compWidth+widthTaglineOffset))-taglineWidth)/2)+(widthOffset+compWidth+widthTaglineOffset);
+		taglineOverlayWidth = widthOffset+compWidth+widthTaglineOffset;
 	}
 
 	// DRAW DARKER OVERLAY ON CANVAS
 	context.fillStyle = "rgba(0, 0 , 0, 0.3)";
-	context.fillRect(totalTaglineWidth-5, overlayY, width, overlayHeight);
+	context.fillRect(taglineOverlayWidth, overlayY, width, overlayHeight);
 
 	// SET TEXT COLOR FOR TAGLINE
 	context.fillStyle = "#FFFFFF";
-	
-	taglineHeight = (((overlayHeight - eventNameNom)/eventNameDenom)+overlayY)+(taglineFont*1.5);
+
+	taglineHeightTop = (((overlayHeight - eventNameNom)/eventNameDenom)+overlayY)+(taglineFont*1.5);
+	taglineHeightBot = (((overlayHeight - eventNameNom)/eventNameDenom)+overlayY)+(taglineFont*3);
+	if(firstLine == '' || secondLine == '' || firstLine == ' ' || secondLine == ' ')
+	{
+		taglineHeightTop = (((overlayHeight - taglineFont)/2)+overlayY)+taglineFont;
+		taglineHeightBot = (((overlayHeight - taglineFont)/2)+overlayY)+taglineFont;
+	}
 
 	// FIRST LINE
 	context.font = taglineFont + "pt myriadproit";
-	context.fillText(firstLine,totalTaglineWidth,taglineHeight);
+	context.fillText(firstLine,totalTaglineWidth,taglineHeightTop);
 	firstWidth =context.measureText(firstLine).width;
 	// FIRST LINE END
 
 	// SECOND LINE
 	context.font = taglineFont + "pt myriadproit";
-	context.fillText(secondLine,totalTaglineWidth,taglineHeight+(taglineFont*1.5));
+	context.fillText(secondLine,totalTaglineWidth,taglineHeightBot);
 	secondWidth =context.measureText(secondLine).width;
 	// SECOND LINE END
-
 
 	if(width >= 300 && width <= 500)
 	{
@@ -2297,11 +1531,10 @@ function setCanvasSelfieTest(widthTest, heightTest, type, bfont, afont, tfont)
 	var canvasTest = document.getElementById('canvas-image-test');
 	var contextTest = canvasTest.getContext('2d');
 	
-	var eventNameTest = arraytagline.txtoccation;
-	var companyNameTest = arraytagline.txtinfodate;
-	var firstLineTest = arraytagline.tagline1;
-	var secondLineTest = arraytagline.tagline2;
-	
+	var eventNameTest = customArray.businessName;
+	var companyNameTest = customArray.brand;
+	var firstLineTest = customArray.tag1;
+	var secondLineTest = customArray.tag2;
 	var eventNameFontTest = 11;
 	var companyNameFontTest = 4;
 	var taglineFontTest = 6;
@@ -2394,14 +1627,13 @@ function setCanvasSelfieTest(widthTest, heightTest, type, bfont, afont, tfont)
 			if(totalCompWidthTest >= totalEventNameWidthTest)
 			{
 				// SET X AXIS OF TEXT BASED ON FONTSIZE
-				widthOffsetTest = ((widthTest - (totalCompWidthTest))/30);
+				widthOffsetTest = ((widthTest - totalCompWidthTest)/3);
 			}
 			else
 			{
 				// SET X AXIS OF TEXT BASED ON FONTSIZE
-				widthOffsetTest = ((widthTest - (eventNameWidthTest))/30);
+				widthOffsetTest = ((widthTest - totalEventNameWidthTest)/3);
 			}
-			console.log(widthTest, eventNameWidthTest)
 			return widthOffsetTest;
 		break;
 		case "eventNameFont":
@@ -2422,7 +1654,7 @@ function setCanvasSelfieTest(widthTest, heightTest, type, bfont, afont, tfont)
 
 				totalEventNameWidthTest = eventNameWidthTest + getLineWidth + widthTaglineOffsetTest;
 			}
-			return [eventNameFontTest, taglineFontTest];
+			return [eventNameFontTest, taglineFontTest, getLineWidth];
 		break;
 		case "companyNameFont":
 			totalCompWidthTest = compWidthTest + getLineWidth + widthTaglineOffsetTest;
@@ -2442,7 +1674,7 @@ function setCanvasSelfieTest(widthTest, heightTest, type, bfont, afont, tfont)
 
 				totalCompWidthTest = compWidthTest + getLineWidth + widthTaglineOffsetTest;
 			}
-			return [companyNameFontTest, taglineFontTest];
+			return [companyNameFontTest, taglineFontTest, getLineWidth];
 		break;
 
 	}

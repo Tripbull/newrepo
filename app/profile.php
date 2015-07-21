@@ -30,7 +30,7 @@ foreach($time_zones as $zones){
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="left-content fl">
-							<div class="left-header">Tabluu Page</div>			
+							<div class="left-header">Camrally Page Info</div>			
 							<ul class="profile-left-menu2" data-role="listview">
 								<li ><a href="#">Profile<span class="listview-arrow-default"></span></a></li>
 							</ul>							
@@ -39,28 +39,7 @@ foreach($time_zones as $zones){
 							<div class="right-header"></div>
 							<section class="pro-section hide">
 								<form id="frmpro" action="#" method="post" enctype="multipart/form-data" >
-									<select name="select-category" id="select-category">
-											<option value="" selected="selected">Select a Category</option>
-											<option value="Accomodation">Accomodation</option>
-											<option value="Arts & Entertainment">Arts & Entertainment</option>
-											<option value="Auto Sales, Rental & Repair">Auto Sales, Rental & Repair</option>
-											<option value="Beauty">Beauty</option>
-											<option value="Child Care">Child Care</option>
-											<option value="Health & Fitness">Health & Fitness</option>
-											<option value="Home Services">Home Services</option>
-											<option value="Massage">Massage</option>
-											<option value="Personal Training">Personal Training</option>
-											<option value="Photography">Photography</option>
-											<option value="Real Estate">Real Estate</option>
-											<option value="Restaurant, Cafe & Food and Beverage">Restaurant, Cafe & Food and Beverage</option>
-											<option value="Travel">Travel</option>
-											<option value="Wedding Planning">Wedding Planning</option>
-											<option value="Online">Internet related</option>
-											<option value="Others">Others</option>
-									</select>
-								<input type="text" data-clear-btn="true" name="txtname" id="txtname" value="" placeholder="business name or website">
-								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtlabel" id="txtlabel" value="" placeholder="label (optional)">
+								<input type="text" data-clear-btn="true" name="txtorg" id="txtorg" value="" placeholder="name of individual or organisation">
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="true" name="txtadd" id="txtadd" value="" placeholder="address">
 								<label for="number-1"></label>
@@ -68,7 +47,7 @@ foreach($time_zones as $zones){
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="true" name="txtcountry" id="txtcountry" value="" placeholder="country">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtzip" id="txtzip" value="" placeholder="ZIP / Postal code">
+								<input type="text" data-clear-btn="true" name="txtzip" id="txtzip" value="" placeholder="zip or postal code">
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="true" name="txtproemail" id="txtproemail" value="" placeholder="email address">
 								<label for="number-1"></label>
