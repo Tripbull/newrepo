@@ -150,7 +150,6 @@ function pressyes(){
 	hadpoorexp();
 }
 
-<<<<<<< HEAD
 function ratevalue(rate,page){
     ratedObj.push(rate);
 	if(item2Rate.length > 1 && page == 2){
@@ -310,7 +309,6 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 	if(item2Rate.length == 1)
 		e.preventDefault();
 });
-<<<<<<< HEAD
 $(document).on('pageinit','#sharephoto', function() {
 	saveToServer(); // ADD RATING TEXT TO IMAGE AND SAVE
     
