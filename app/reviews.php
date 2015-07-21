@@ -21,9 +21,9 @@
 						<div class="left-content fl">
 							<div class="left-header">Reviews</div>			
 							<ul class="reviews-left-menu" data-role="listview">
-								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Shared<span class="listview-arrow-default listview-arrow-active"></span></a></li>
-								<li ><a href="#" class="qrcode">Not Shared<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#">Featured<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">All<span class="listview-arrow-default listview-arrow-active"></span></a></li>
+								<li ><a href="#" class="qrcode">Featured<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#">Hidden<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -91,7 +91,7 @@
 								</div>-->
 							</section>
 							<section class="reviews-notshared hide">
-								<div id="notshared"></div>
+								<div id="feature"></div>
 								<!--<div class="divwrap" style="margin-top:10px;">
 									<table cellspacing="0">
 											<tr>
@@ -135,7 +135,7 @@
 								</div>	-->									
 							</section>
 							<section class="reviews-featured hide">									
-								<div id="feature"></div>										
+								<div id="notshared"></div>										
 							</section>
 						</div>
 					</div>	
