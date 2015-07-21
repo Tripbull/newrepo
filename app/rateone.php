@@ -43,6 +43,8 @@ $connect->db_disconnect();
 	<script type="text/javascript" src="js/webcam.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 	<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+	<script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>
+
 </head>
 <body>
 	<!--
@@ -51,6 +53,7 @@ $connect->db_disconnect();
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>
+		<div style="position:absolute;font-family:myriadproit;">.</div>
 		<canvas id="canvas-image" style="position:absolute;"></canvas>
 		<canvas id="canvas-image-test" style="position:absolute;"></canvas>
 		<canvas id="canvas-resize" style="position:absolute;"></canvas>
@@ -121,8 +124,10 @@ $connect->db_disconnect();
 						</div>
 					</div>
 				</div>
-			</div><!-- /content -->
+			</div>
 		</div>
 	</div>
+</div><!-- /content -->
+</div>
 </body>
 </html>

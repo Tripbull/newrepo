@@ -5,8 +5,8 @@ var defaultPostReview = {posted:1,percent:3.0},ratecomment='',timeInverval='',cl
 var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',excellent:'Excellent'};
 var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],btncampaign:['Your Selfie Now!'],btncapture:['okay'],follow:['no','yes'],badEmail:['no','yes'],allow:['cancel','submit'],btntake:['okay'],btnfeedback:['no','yes'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
 var defaultButtonText = {logout:['okay'],btnshare:['okay'],btncampaign:['Your Selfie Now!'],follow:['no','yes'],comment:['proceed'],share:['don\'t share','share'],photo:['no','yes'],option:['cancel','login','reset'],badEmail:['no','yes'],allow:['cancel','submit'],cambtnoption:['cancel','snap','discard','use']};
-var defaultTextMessage2 = {sharedT:"You're logged in to",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of Facebook after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.',optionT:'Login OR select &quot;reset&quot; to take a new photo'};
-var defaultTextMessage = {sharedT:"You're logged in to",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of Facebook after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takePhoto:'Take a new photo?',average:'Your average rating:',thank:'Thank you!',option:'Choose an option…',optionT:'Login OR select &quot;reset&quot; to take a new photo',comment:'Please comment...',share:'Share this page?',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.'},resizeTimeout;
+var defaultTextMessage2 = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.',optionT:'Login OR select &quot;reset&quot; to take a new photo'};
+var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takePhoto:'Take a new photo?',average:'Your average rating:',thank:'Thank you!',option:'Choose an option…',optionT:'Login OR select &quot;reset&quot; to take a new photo',comment:'Please comment...',share:'Share this page?',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.'},resizeTimeout;
 var counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0,counter5 = 0,counter6 = 0,counter7 = 0,countertake=0,countershare=0;
 var questionDefault = ['How would you rate our staff based on how welcoming and friendly they were towards you?_Service Friendliness','Do you feel that you were provided service in a timely manner?_Service Timeliness','How would you rate the attentiveness of our service?_Service Attentiveness','How would you rate our overall service?_Overall Service','Was this experience worth the amount you paid?_Value for Money','Please rate our location._Location','Please rate our facilities._Facilities','How comfortable was your stay?_Comfort','How would you rate our property in terms of cleanliness?_Cleanliness','How would you rate the overall quality of your meal?_Quality of Meal','How would you rate the overall taste of your meal?_Taste of Meal','Do you feel that there were enough options for you to choose?_Variety','How likely are you to recommend us to your friends and loved ones?_Likelihood to Recommend','How likely are you to visit us again?_Likelihood to Visit Again','How valuable is our web service to you?_Value Proposition','For the value provided, how attractive is our pricing?_Price Attractiveness','How likely are you to recommend this website to your friends?_Recommended'];
 //live mode chargify ids
@@ -271,7 +271,7 @@ function showpolicy(){
 	}); 
 }
 function decodequote(str){
-	return String(str).replace(/<double>/g,'"').replace('<privacy_policy_link>','<a href="privacy_policy.php?name='+customArray.businessName+'" class="fancybox fancybox.iframe">Privacy Policy</a>').replace(/<brand>/,businessname).replace(/<comma>/g,',').replace(/{_}/g,"'").replace(/<quote>/g,"'").replace(/{}/g,'"');
+	return String(str).replace(/<double>/g,'"').replace('<privacy_policy_link>','<a href="privacy_policy.php?name='+customArray.businessName+'" class="fancybox fancybox.iframe">Privacy Policy</a>').replace(/<brand>/,businessname).replace(/<comma>/g,',').replace(/{_}/g,"'").replace(/<quote>/g,"'").replace(/{}/g,'"').replace('<social_media>','Facebook');
 }
 
 function hadpoorexp(){
@@ -402,14 +402,14 @@ function ratevalue(rate,page){
 						if(customArray.optsocialpost < 1){
 							if(istakephoto > 0){
 								istakephoto = 0;
-								setRating();
+								saveToServer();
 							}else{
 								sharedlinkphoto = customArray.fbImg;
 								urlphotoshared = customArray.fbImg;
 								createTempSharedPage();
 							}	
 						}else
-							setRating();
+							saveToServer();
 					}else{
 						setTimeout(function(){hadpoorexp2();},300);
 					}
@@ -509,7 +509,7 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 		e.preventDefault();
 });
 $(document).on('pageinit','#sharephoto', function() {
-	setRating(); // ADD RATING TEXT TO IMAGE AND SAVE
+	saveToServer(); // ADD RATING TEXT TO IMAGE AND SAVE
     
 	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
 		clearInterval(timeInverval);
@@ -1026,7 +1026,7 @@ function clearconsole() {
 }
 function messageaftertakeselfie(){
    if(customArray.isselfie == 1)
-		setTimeout(function() {setRating();},1000);
+		setTimeout(function() {saveToServer();},1800);
 	else{	
 		setTimeout(function(){
 			$.box_Dialog(decodequote((typeof(defaultTextMessage.captureB) != 'undefined' ? defaultTextMessage.captureB : defaultTextMessage2.captureB)), {
@@ -1207,10 +1207,7 @@ function showCamera(IDparam){
         sharedphoto=1;istakephoto = 1;
 		Webcam.snap(function() {
 	        get_img = canvas;
-			if(customArray.isselfie == 0)
-				setCanvas('shared');
-			else
-				setCanvasSelfie('shared');
+			setCanvasSelfie('shared');
 			Webcam.reset();
     	}, canvas);
 
@@ -1379,12 +1376,6 @@ function getLocationData(){
 								});
 							//}
 						}
-						var img = new Image();
-						img.onload = function() {
-							get_img = img;
-							setCanvas('profile');
-						};
-						img.src = customArray.webImg;
 					}
 				}else{
 					rate_initialize();
@@ -1499,12 +1490,6 @@ function getTabluuwidget(){
 				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Tabluu support");
 				}else{
-					var img = new Image();
-					img.onload = function() {
-						get_img = img;
-						setCanvas('profile');
-					};
-					img.src = customArray.webImg;
 					$('.isselfie').show();
 					if(item2Rate.length > 1){
 						var ratetxt = item2Rate[1].split('_');
@@ -1938,300 +1923,9 @@ var overlayY = 0;
 var widthOffsetRating = 0;
 var widthOffset = 0;
 
-function setCanvas(img_type)
-{
-	photo_url = img_type;
-   
-	var canvas = document.getElementById('canvas-image');
-	var context = canvas.getContext('2d');
-
-	context.clearRect(0, 0, canvas.width, canvas.height);
-
-	var imgAdd = new Image();
-	var imgNum = new Image();
-	var imgDate = new Image();
-	var imgLogo = new Image();
-	var width = 1000;
-	var height = 0;
-	var rel = 0;
-	var imgAddWidth = 4;
-	var imgAddHeight = 4;
-	var imgNumWidth = 4;
-	var imgNumHeight = 4;
-	var imgDateWidth = 4;
-	var imgDateHeight = 4;
-	var imgLogoWidth = 35;
-	var imgLogoHeight = 12;
-	var imgData = {};
-
-	var brandName = '';
-	var maxRating = 'out of 5';
-	var ratingText = 'Rating';
-	var address = '';
-	var number = '';
-	var date = getDate();
-	var logoText = "Powered by"
-	var logourl = "images/tabluu-logo-mono-xxsmall.png";
-
-	var brandNameFont = 11;
-	var maxRatingFont = 5;
-	var ratingTextFont = 5;
-	var addressFont = 4;
-	var detailsFont = 4;
-	var logoTextFont = 3;	
-
-	var brandNameHeight = 0;
-	var maxRatingHeight = 0;
-	var ratingTextHeight = 0;
-	var dashLineHeight = 0;
-	var addImageHeight = 0;
-	var numImageHeight = 0;
-	var dateImageHeight = 0;
-	var logoImageHeight = 0;
-	var logoTextHeight = 0;
-
-	var brandNameWidth = 0;
-	var ratingWidth = 41;
-	var maxRatingWidth = 0;
-	var ratingTextWidth = 0;
-	var addWidth = 0;
-	var numWidth = 0;
-	var dateWidth = 0;
-	var logoWidth = 0;
-	
-	var dashWidth = 1;
-	var dashInterval = 3;
-	var dashLineHeightOffset = 2;
-	var widthOffsetAdd = 2;
-	var numDateOffset = 13;
-	var totalAddWidth = 0;
-	var brandNameDenom = 2.5;
-	var brandNameNom = 0;
-
-	$.ajax({
-		type: "POST",
-		url: "setData.php",
-		data: 'opt=getImgData&placeId='+placeId,
-		success: function(data) {
-
-	      	imgData = $.parseJSON(data);
-
-			brandName = imgData.businessName;
-			address = imgData.address + ", " + imgData.city + " " + imgData.country + " " + imgData.zip;
-			number = imgData.contactNo;
-			width = get_img.width;
-			height = get_img.height;
-
-			rel = height / width;
-			if(width > 800 || height > 800)
-			{
-				width = 800;
-				height = width*rel;
-				if (height > 800) {
-					height = 800;
-					width = height/rel;
-				}
-			}
-
-			// SET CANVAS WIDTH AND HEIGHT
-			canvas.setAttribute('width', width);
-			canvas.setAttribute('height', height);
-
-			// DRAW IMAGE ON CANVAS
-			context.drawImage(get_img, 0, 0, width, height);
-
-			// SET FONT SIZE BASED ON CANVAS WIDTH
-			brandNameFont = getSize(canvas, brandNameFont);
-			brandNameFont = setCanvasTest(imgData, width, height, brandNameFont,"brandNameFont", 0, 0);
-			maxRatingFont = getSize(canvas, maxRatingFont);
-			ratingTextFont = getSize(canvas, ratingTextFont);
-			addressFont = getSize(canvas, addressFont);
-			addressFont = setCanvasTest(imgData, width, height, addressFont,"addressFont", 0, 0);
-			detailsFont = getSize(canvas, detailsFont);
-			imgAddWidth = getSize(canvas, imgAddWidth);
-			imgAddHeight = getSize(canvas, imgAddHeight);
-			imgNumWidth = getSize(canvas, imgNumWidth);
-			imgNumHeight = getSize(canvas, imgNumHeight);
-			imgDateWidth = getSize(canvas, imgDateWidth);
-			imgDateHeight = getSize(canvas, imgDateHeight);
-			imgLogoWidth = getSize(canvas, imgLogoWidth);
-			imgLogoHeight = getSize(canvas, imgLogoHeight);
-			logoTextFont = getSize(canvas, logoTextFont);
-
-			// SET RATING WIDTH BASE ON CANVAS WIDTH
-			ratingWidth = getSize(canvas, ratingWidth);
-
-			// SET OFFSET BASED ON CANVAS WIDTH
-			widthOffset = setCanvasTest(imgData, width, height, imgAddWidth, "offset", brandNameFont, addressFont);
-			widthOffsetAdd = getSize(canvas, widthOffsetAdd);
-			numDateOffset = getSize(canvas, numDateOffset);
-			dashLineHeightOffset = getSize(canvas, dashLineHeightOffset);
-			dashWidth = getSize(canvas, dashWidth);
-			dashInterval = getSize(canvas, dashInterval);
-
-			// SET Y AXIS OF TEXT BASED ON FONTSIZE
-			brandNameNom = brandNameFont+dashWidth+dashLineHeightOffset+(imgAddHeight*1.3)+(imgNumHeight*1.7);
-
-			// OVERLAY Y AXIS AND OVERLAY HEIGHT
-			overlayHeight = brandNameNom + (ratingWidth/2) * rel;
-			overlayY = height - overlayHeight;
-
-			// DRAW OVERLAY ON CANVAS
-			context.fillStyle = "rgba(0, 0 , 0, 0.5)";
-			context.fillRect(0, overlayY, width, overlayHeight);
-
-			// SET Y AXIS OF TEXT BASED ON FONTSIZE
-			brandNameHeight = (((overlayHeight - brandNameNom)/brandNameDenom)+overlayY)+brandNameFont;
-			maxRatingHeight = (((overlayHeight - maxRatingFont)/2.5)+overlayY)+maxRatingFont;
-			ratingTextHeight = maxRatingHeight+ratingTextFont+(ratingTextFont*0.5);
-			dashLineHeight = brandNameHeight+dashLineHeightOffset;
-
-			// SET TEXT COLOR
-			context.fillStyle = "#FFFFFF";
-
-			// BRAND NAME
-			context.font = brandNameFont + "pt myriadpro";
-			context.fillText(brandName,widthOffset,brandNameHeight);
-			brandNameWidth =context.measureText(brandName).width;
-
-			context.setLineDash([dashWidth, dashInterval]);
-			context.beginPath();
-			context.moveTo(widthOffset,dashLineHeight);
-			context.lineTo(brandNameWidth+widthOffset, dashLineHeight);
-			context.strokeStyle = "#FFFFFF";
-			context.stroke();
-			imgAdd.onload = function() {
-
-				addImageHeight = brandNameHeight+(imgAddHeight*1.3);
-
-				context.drawImage(imgAdd, widthOffset, addImageHeight, imgAddWidth, imgAddHeight);
-
-				// ADDRESS
-				context.font = addressFont + "pt Lato-Light";
-				context.fillText(address,imgAddWidth+widthOffset+widthOffsetAdd,addImageHeight+detailsFont);
-				addWidth =context.measureText(address).width;
-				totalAddWidth = addWidth + imgAddWidth + widthOffsetAdd;
-
-				if(totalAddWidth > brandNameWidth)
-				{
-					widthOffsetRating = totalAddWidth+widthOffset;
-				}
-				else
-				{
-					widthOffsetRating = brandNameWidth+widthOffset;
-				}
-
-				// MAX RATING
-				context.font = maxRatingFont + "pt Lato-Light";
-				context.fillText(maxRating,widthOffsetRating+ratingWidth+widthOffset+widthOffsetAdd,maxRatingHeight);
-				maxRatingWidth =context.measureText(maxRating).width;
-
-				// RATING TEXT
-				context.font = ratingTextFont + "pt Lato-Light";
-				context.fillText(ratingText,widthOffsetRating+ratingWidth+widthOffset+widthOffsetAdd,ratingTextHeight);
-				ratingTextWidth =context.measureText(ratingText).width;
-
-				if(typeof(number) != 'undefined' && number != '')
-				{
-					imgNum.onload = function() {
-
-						numImageHeight = addImageHeight+(imgNumHeight*1.7);
-
-						context.drawImage(imgNum, widthOffset, numImageHeight, imgNumWidth, imgNumHeight);
-
-						// NUMBER
-						context.font = detailsFont + "pt Lato-Light";
-						context.fillText(number,imgNumWidth+widthOffset+widthOffsetAdd,numImageHeight+detailsFont);
-						numWidth =context.measureText(number).width;
-
-						imgDate.onload = function() {
-
-							dateImageHeight = addImageHeight+(imgDateHeight*1.7);
-
-							context.drawImage(imgDate, widthOffset+imgNumWidth+numWidth+numDateOffset, dateImageHeight, imgDateWidth, imgDateHeight);
-
-							// DATE
-							context.font = detailsFont + "pt Lato-Light";
-							context.fillText(date,imgDateWidth+imgNumWidth+numWidth+widthOffset+widthOffsetAdd+numDateOffset,dateImageHeight+detailsFont);
-							dateWidth =context.measureText(date).width;
-						};
-						imgDate.src = 'images/calendar-o_ffffff_32.png';
-					};
-					imgNum.src = 'images/phone_ffffff_32.png';
-				}
-				else
-				{
-					imgDate.onload = function() {
-
-						dateImageHeight = addImageHeight+imgDateHeight+(imgDateHeight*0.7);
-
-						context.drawImage(imgDate, widthOffset, dateImageHeight, imgDateWidth, imgDateHeight);
-
-						// DATE
-						context.font = detailsFont + "pt Lato-Light";
-						context.fillText(date,imgDateWidth+widthOffset+widthOffsetAdd,dateImageHeight+detailsFont);
-						dateWidth =context.measureText(date).width;
-					};
-					imgDate.src = 'images/calendar-o_ffffff_32.png';
-				}
-			};
-			imgAdd.src = 'images/location-arrow_ffffff_32.png';
-          
-			if(width >= 300 && width <= 500)
-			{
-				logourl = "images/tabluu-logo-mono-xsmall.png";
-			}
-			else if(width > 500)
-			{
-				logourl = "images/tabluu-logo-mono-small.png";
-			}
-             
-			imgLogo.onload = function() {
-
-				logoTextHeight = height*0.05;
-				
-				// POWERED BY
-				context.font = logoTextFont + "pt Lato-Light";
-				context.fillText(logoText,width*0.88,logoTextHeight);
-				logoWidth =context.measureText(logoText).width;
-
-				logoImageHeight = (height*0.04)+logoTextFont;
-
-				context.drawImage(imgLogo, width*0.84, logoImageHeight, imgLogoWidth, imgLogoHeight);
-			};
-			imgLogo.src = logourl; 
-		}
-  	});
-}
-function setRating()
+function saveToServer()
 {
 	var canvas = document.getElementById('canvas-image');
-	var context = canvas.getContext('2d');
-	if(customArray.isselfie == 0){
-		var rate_1 =ratedObj[0];
-		var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-		var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-		var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-		var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-		var rate_6 =(typeof(ratedObj[5]) !== 'undefined' ? ratedObj[5] : 0);
-		var rate_7 =(typeof(ratedObj[6]) !== 'undefined' ? ratedObj[6] : 0);
-		var totalRated = rate_1 + rate_2 + rate_3 + rate_4 + rate_5 + rate_6 + rate_7;
-		var aveRated = totalRated / item2Rate.length ;
-
-		var rating = aveRated.toFixed(1);
-		var ratingFont = 22;
-		var ratingHeight = 0;
-		
-		ratingFont = getSize(canvas, ratingFont);
-		ratingHeight = (((overlayHeight - ratingFont)/2)+overlayY)+ratingFont;
-		context.font = ratingFont + "pt Lato-Light";
-		context.fillText(rating,widthOffsetRating+widthOffset,ratingHeight);
-    }
-	saveToServer(canvas);
-}
-	
-function saveToServer(canvas)
-{
 	var dataUrl = canvas.toDataURL('image/jpg', 0.1);
     showLoader();
 	$.ajax({
@@ -2239,6 +1933,50 @@ function saveToServer(canvas)
 		url: "saveimage.php",
 		data: {"placeId" : placeId, "dataUrl" : dataUrl},
 		success: function(data) {
+			sharedlinkphoto = data; 
+			saveThumbnail(canvas);
+			//postFb();
+		}
+	});
+}
+
+function saveThumbnail(canvas)
+{
+	var canvasThumb = document.getElementById('canvas-resize');
+	var contextThumb = canvasThumb.getContext('2d');
+	var width;
+	var height;
+
+	contextThumb.clearRect(0, 0, canvasThumb.width, canvasThumb.height);
+
+	width = canvas.width;
+	height = canvas.height;
+
+	var rel = height / width;
+	if(width > 400 || height > 400)
+	{
+		width = 400;
+		height = width*rel;
+		if (height > 400) {
+			height = 400;
+			width = height/rel;
+		}
+	}
+
+	// SET CANVAS WIDTH AND HEIGHT
+	canvasThumb.setAttribute('width', width);
+	canvasThumb.setAttribute('height', height);
+
+	contextThumb.drawImage(canvas, 0, 0, width, height);
+
+	var dataUrl = canvasThumb.toDataURL('image/jpg');
+
+	$.ajax({
+      	type: "POST",
+     	url: "saveimage.php",
+  		data: {"dataUrl" : dataUrl},
+		success: function(data) {
+
 			if(photo_url == "profile")
 			{
 				photo_url = data;
@@ -2247,153 +1985,10 @@ function saveToServer(canvas)
 			{
 				urlphotoshared = data;
 			}
-			sharedlinkphoto = data; 
 			createTempSharedPage();
 			photo_saved = 1;
-			//postFb();
 		}
-	});
-}
-
-function setCanvasTest(imgData, widthTest, heightTest, value, type, bfont, afont)
-{
-	var canvasTest = document.getElementById('canvas-image-test');
-	var contextTest = canvasTest.getContext('2d');
-
-	contextTest.clearRect(0, 0, canvasTest.width, canvasTest.height);
-
-	var overlayHeightTest = 0;
-	var overlayYTest = 0;
-
-	var brandNameTest = imgData.businessName;
-	var aveRatedTest = 0;
-	var ratingTest = aveRatedTest.toFixed(1);
-	var maxRatingTest = "out of 5";
-	var ratingTextTest = "Rating";
-	var addressTest = imgData.address + ", " + imgData.city + " " + imgData.country + " " + imgData.zip;
-
-	var brandNameFontTest = 11;
-	var ratingFontTest = 22;
-	var maxRatingFontTest = 5;
-	var ratingTextFontTest = 5;
-	var addressFontTest = 4;
-
-	var brandNameWidthTest = 0;
-	var ratingWidthTest = 0;
-	var maxRatingWidthTest = 0;
-	var ratingTextWidthTest = 0;
-	var addressWidthTest = 0;
-	
-	var widthOffsetTest = 0;
-	var totalAddWidthTest = 0;
-	var widthOffsetAddTest = 2;
-	var totalBrandNameWidthTest = 0;
-	var totalAddressWidthTest = 0;
-
-
-	widthOffsetAddTest = getSize(canvasTest, widthOffsetAddTest);
-
-	// SET CANVAS WIDTH AND HEIGHT
-	canvasTest.setAttribute('width', widthTest);
-	canvasTest.setAttribute('height', heightTest);
-
-	// SET FONT SIZE BASED ON CANVAS WIDTH
-	if(bfont > 0)
-	{
-		brandNameFontTest = bfont;
-	}
-	else
-	{
-		brandNameFontTest = getSize(canvasTest, brandNameFontTest);
-	}
-	ratingFontTest = getSize(canvasTest, ratingFontTest);
-	maxRatingFontTest = getSize(canvasTest, maxRatingFontTest);
-	ratingTextFontTest = getSize(canvasTest, ratingTextFontTest);
-
-	if(afont > 0)
-	{
-		addressFontTest = afont;
-	}
-	else
-	{
-		addressFontTest = getSize(canvasTest, addressFontTest);
-	}
-
-	// BRAND NAME
-	contextTest.font = brandNameFontTest + "pt myriadpro";
-	contextTest.fillText(brandNameTest,0,0);
-	brandNameWidthTest = contextTest.measureText(brandNameTest).width;
-
-	// RATING
-	contextTest.font = ratingFontTest + "pt Lato-Light";
-	contextTest.fillText(ratingTest,0,0);
-	ratingWidthTest = contextTest.measureText(ratingTest).width;
-
-	// MAX RATING
-	contextTest.font = maxRatingFontTest + "pt Lato-Light";
-	contextTest.fillText(maxRatingTest,0,0);
-	maxRatingWidthTest = contextTest.measureText(maxRatingTest).width;
-
-	// RATING TEXT
-	contextTest.font = ratingTextFontTest + "pt Lato-Light";
-	contextTest.fillText(ratingTextTest,0,0);
-	ratingTextWidthTest = contextTest.measureText(ratingTextTest).width;
-
-	// ADDRESS
-	contextTest.font = addressFontTest + "pt Lato-Light";
-	contextTest.fillText(addressTest,0,0);
-	addressWidthTest =contextTest.measureText(addressTest).width;
-
-	switch(type)
-	{
-		case "offset": 
-			totalAddWidthTest = addressWidthTest + value + widthOffsetAddTest;
-
-			if(totalAddWidthTest >= brandNameWidthTest)
-			{
-				// SET X AXIS OF TEXT BASED ON FONTSIZE
-				widthOffsetTest = ((widthTest - (totalAddWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest))/3);
-			}
-			else
-			{
-				// SET X AXIS OF TEXT BASED ON FONTSIZE
-				widthOffsetTest = ((widthTest - (brandNameWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest))/3);
-			}
-			return widthOffsetTest;
-		break;
-		case "brandNameFont":
-			totalBrandNameWidthTest = brandNameWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest+(widthTest*0.05);
-
-			while(totalBrandNameWidthTest >= widthTest)
-			{
-				contextTest.clearRect(0, 0, canvasTest.width, canvasTest.height);
-				brandNameFontTest = brandNameFontTest - 1;
-				contextTest.font = brandNameFontTest + "pt myriadpro";
-				contextTest.fillText(brandNameTest,0,0);
-				brandNameWidthTest = contextTest.measureText(brandNameTest).width;
-
-				totalBrandNameWidthTest = brandNameWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest+(widthTest*0.05);
-			}
-			return brandNameFontTest;
-		break;
-		case "addressFont":
-
-			totalAddressWidthTest = addressWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest+(widthTest*0.05);
-
-			while(totalAddressWidthTest >= widthTest)
-			{
-				contextTest.clearRect(0, 0, canvasTest.width, canvasTest.height);
-				addressFontTest = addressFontTest - 1;
-				contextTest.font = addressFontTest + "pt Lato-Light";
-				contextTest.fillText(addressTest,0,0);
-				addressWidthTest = contextTest.measureText(addressTest).width;
-
-				totalAddressWidthTest = addressWidthTest+ratingWidthTest+maxRatingWidthTest+widthOffsetAddTest+(widthTest*0.05);
-			}
-			return addressFontTest;
-		break;
-
-	}
+  	});
 }
 
 function getSize(canvas, value) {
@@ -2500,11 +2095,7 @@ function rotateImage(canvasResize1, img)
 	contextResize.drawImage(canvasResize1, x, y);
 
     get_img = canvasResize;
-	if(customArray.isselfie == 0)
-		setCanvas('shared');
-	else{
-		setCanvasSelfie('shared');
-	}	
+	setCanvasSelfie('shared');
 }
 
 // image processing end
@@ -2560,13 +2151,13 @@ function setCanvasSelfie(img_type)
 	var getNewFont = [];
     width = get_img.width;
    height = get_img.height;
-	if(width > 450 || height > 450)
+	if(width > 800 || height > 800)
 	{
 		rel = height / width;
-		width = 450;
+		width = 800;
 		height = width*rel;
-		if (height > 450) {
-			height = 450;
+		if (height > 800) {
+			height = 800;
 			width = height/rel;
 		}
 	}
