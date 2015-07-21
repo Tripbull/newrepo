@@ -3,10 +3,11 @@ var customArray = [],item2Rate=[],ratedObj= [],nicename,isTakeSelfie='',alertave
 var count=0,sharedphoto=0,isphototakedone=0,takeaphoto=0,urlphotoshared,businessname='',txtname='',txtphone='',txtemail='',sharedlinkphoto='',sharedurl='',userCurEmail='';
 var defaultPostReview = {posted:1,percent:3.0},ratecomment='',timeInverval='',closeselfie=0,username='',hadlabel='',istakephoto = 0;
 var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',excellent:'Excellent'};
-var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],badEmail:['no','yes'],cambtnoption:['cancel','snap','discard','use']}
-var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],share:['don\'t share','share'],badEmail:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
-var defaultTextMessage2 = {sharedT:"You're logged in to",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You\'ll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <brand> to contact you.',shareB:'Please use the <double>share<double> button to recommend <brand>. By sharing you agree with Camrally\'s <privacy_policy_link>',captureT:'Your photo is captured'};
-var defaultTextMessage = {sharedT:"You're logged in to",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You\'ll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <brand> to contact you.',share:'Share this page?',shareB:'Please use the <double>share<double> button to recommend <brand>. By sharing you agree with Camrally\'s <privacy_policy_link>'},resizeTimeout;
+var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],btncampaign:['Your Selfie Now!'],btncapture:['okay'],follow:['no','yes'],badEmail:['no','yes'],allow:['cancel','submit'],btntake:['okay'],btnfeedback:['no','yes'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
+var defaultButtonText = {logout:['okay'],btnshare:['okay'],btncampaign:['Your Selfie Now!'],follow:['no','yes'],comment:['proceed'],share:['don\'t share','share'],photo:['no','yes'],option:['cancel','login','reset'],badEmail:['no','yes'],allow:['cancel','submit'],cambtnoption:['cancel','snap','discard','use']};
+var defaultTextMessage2 = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.',optionT:'Login OR select &quot;reset&quot; to take a new photo'};
+var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Be a fan of <brand>?',followB:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takePhoto:'Take a new photo?',average:'Your average rating:',thank:'Thank you!',option:'Choose an option…',optionT:'Login OR select &quot;reset&quot; to take a new photo',comment:'Please comment...',share:'Share this page?',badEmailT:'We\'re sorry for your poor experience!',badEmailB:'Do you wish to leave your contact details so that we may get in touch with you?',detailsEmailT:'Please enter your contact details...',detailsEmailB:'Additional info such as room or table number.',allow:'Press the <double>yes<double> button to agree with Tabluu\'s <privacy_policy_link> & allow <brand> to contact you.',takeselfieB:'This won\'t work unless you snap a photo. You can either do your awesome selfie pose or take a photo of interesting things around you.',takeselfieT:'Take a selfie!',surveyselfieT:'Take a photo?',surveyselfieB:'Ask your customers to say "yeahhh!" for the camera!',shareB:'Please use the "share" button to recommend <brand>. By sharing you agree with Tabluu\'s <privacy_policy_link>',commentB:'What do you like the most? Is there any area that needs improvement?',captureT:'Your photo is captured',captureB:'This photo will be used to create your review page of the merchant later.'},resizeTimeout;
+
 var counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0,counter5 = 0,counter6 = 0,counter7 = 0,countertake=0,countershare=0;
 //live mode chargify ids
 var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619;
@@ -151,6 +152,81 @@ function pressyes(){
 	hadpoorexp();
 }
 
+function ratevalue(rate,page){
+    ratedObj.push(rate);
+	if(item2Rate.length > 1 && page == 2){
+		showLoader();
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratetwo.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratetwo.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
+	}else if(item2Rate.length > 2 && page == 3){
+	   showLoader();
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratethree.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+		//showLoader();
+		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratethree.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
+	}else if(item2Rate.length > 3 && page == 4){
+		showLoader();
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefour.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefour.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
+	}else if(item2Rate.length > 4 && page == 5){
+		showLoader();
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefive.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefive.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
+	}else if(item2Rate.length > 5 && page == 6){
+		showLoader();
+		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratesix.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
+		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratesix.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
+	}else if(item2Rate.length > 6 && page == 7){
+		showLoader();
+		setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateseven.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
+	}else{
+		if(getUrlVar('s') != '' && getUrlVar('s') == 2){
+			clearInterval(timeInverval);
+			refresh_handler();
+		}
+		var val = new Array();
+		val['1']='1.0';val['1.25']='1.25';val['1.5']='1.5';val['1.75']='1.75';val['2']='2.0';val['2.25']='2.25';val['2.5']='2.5';val['2.75']='2.75';val['3']='3.0';val['3.25']='3.25';val['3.5']='3.5';val['3.75']='3.75';val['4']='4.0';val['4.25']='4.25';val['4.5']='4.5';val['4.75']='4.75';
+		var val2 = ['1.0','1.25','1.5','1.75','2.0','2.25','2.5','2.75','3.0','3.25','3.5','3.75','4.0','4.25','4.5','4.75'];
+		var percent = val[defaultPostReview.percent];
+		if(typeof(val[defaultPostReview.percent]) == 'undefined')
+			percent = val2[defaultPostReview.percent];
+		var rate_1 = ratedObj[0];
+		var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
+		var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
+		var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
+		var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
+		var rate_6 =(typeof(ratedObj[5]) != 'undefined' ? ratedObj[5] : 0);
+		var rate_7 =(typeof(ratedObj[6]) != 'undefined' ? ratedObj[6] : 0);
+		var totalRated = rate_1 + rate_2 + rate_3 + rate_4 + rate_5 + rate_6 + rate_7;
+		var aveRated = totalRated / item2Rate.length ;
+		alertaverate = aveRated;
+			$.box_Dialog('<p style="padding:5px 0px;text-align:left;font-size:14px;">'+defaultTextMessage.average+' '+ aveRated.toFixed(1) + '/5 </p>'+'<textarea class="comment-txt" placeholder="'+decodequote((typeof(defaultTextMessage.commentB) != 'undefined' ? defaultTextMessage.commentB : defaultTextMessage2.commentB))+'" style="width:100% !important;height:7em !important;margin:0 auto !important;font-size:0.8em;resize: none;overflow:hidden"></textarea>', { 
+				'type':     'question',
+				'title':    '<span class="color-white">'+defaultTextMessage.comment+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: defaultButtonText.comment[0],callback:function(){
+					ratecomment = $('.comment-txt').val();
+					if(defaultPostReview.posted > 0 && aveRated >= percent){
+						if(customArray.optsocialpost < 1){
+							if(istakephoto > 0){
+								istakephoto = 0;
+								saveToServer();
+							}else{
+								sharedlinkphoto = customArray.fbImg;
+								urlphotoshared = customArray.fbImg;
+								createTempSharedPage();
+							}	
+						}else
+							saveToServer();
+					}else{
+						setTimeout(function(){hadpoorexp2();},300);
+					}
+				}}]
+			});
+			setTimeout(function(){$('.comment-txt').focus()},400);
+	}
+}
 function setdefault(){
 	ratedObj = [],ratecomment='';urlphotoshared='';photo_url='';get_img='';
 	sharedphoto=0;isphototakedone=0;takeaphoto=0;photo_saved=0;userCurEmail='';
@@ -234,6 +310,80 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
     });
 	if(item2Rate.length == 1)
 		e.preventDefault();
+});
+$(document).on('pageinit','#sharephoto', function() {
+	saveToServer(); // ADD RATING TEXT TO IMAGE AND SAVE
+    
+	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
+		clearInterval(timeInverval);
+		refresh_handler();
+	}
+	$('#sharephoto .take-no').html(defaultButtonText.share[0]);
+	$('#sharephoto .take-yes').html(defaultButtonText.share[1]);
+	$('#sharephoto .titleheader').html(decodequote(defaultTextMessage.share));
+	fromtakephotopage = 1;
+	//if(countershare < 1){
+		sharephoto();
+		$( window ).resize(function() { // when window resize
+			sharephoto();
+		});
+		$('#sharephoto .take-no').click(function(e){
+		  // showLoader();
+		   pressyes();
+		   e.preventDefault();
+		});
+		$('#sharephoto .take-yes').click(function(e){ 
+			showLoader();
+			loginFb();
+			e.preventDefault();
+		});
+		$('.share_privacy').html(decodequote((typeof(defaultTextMessage.shareB) != 'undefined' ? defaultTextMessage.shareB : defaultTextMessage2.shareB)));
+		$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
+			'type':     'question',
+			'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
+			'center_buttons': true,
+			'show_close_button':false,
+			'overlay_close':false,
+			'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0]))}]
+		});		
+		countershare = 1;	
+	//}
+		function sharephoto(){
+			if(window.innerWidth <= 600){
+				$('#sharephoto .cam-img').css({'padding-top':'1em'});
+				$("#sharephoto .cam-img").attr('width', '170').attr('height', '173');
+				$("#sharephoto .take-logo").attr('width', '80').attr('height', '30');
+				$('#sharephoto .taketop').css({'padding-top':'1em'});
+				$('#sharephoto .take-powered').css({'padding':'0.5em 0 0.2em 0'});
+				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
+				$('#sharephoto .takewrap').css({'margin':'0 auto'});
+				$('#sharephoto  p.titleheader').css({'font-size':'1em'});
+				$('#sharephoto .take-powered p').css({'font-size':'0.7em'});
+				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
+			}else if(window.innerWidth > 600 && window.innerWidth <= 1024){ //7 inches
+				$('#sharephoto .cam-img').css({'padding-top':'1.5em'});
+				$("#sharephoto .cam-img").attr('width', '190').attr('height', '193');
+				$("#sharephoto .take-logo").attr('width', '100').attr('height', '37');
+				$('#sharephoto .taketop').css({'padding-top':'2em'});
+				$('#sharephoto .take-powered').css({'padding':'1em 0 0.2em 0'});
+				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
+				$('#sharephoto .takewrap').css({'margin':'0 auto'});
+				$('#sharephoto  p.titleheader').css({'font-size':'1.2em'});
+				$('#sharephoto .take-powered p').css({'font-size':'0.8em'});
+				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
+			}else if(window.innerWidth > 1024){
+				$('#sharephoto .cam-img').css({'padding-top':'1.5em'});
+				$("#sharephoto .cam-img").attr('width', '200').attr('height', '203');
+				$("#sharephoto .take-logo").attr('width', '131').attr('height', '49');
+				$('#sharephoto .taketop').css({'padding-top':'4em'});
+				$('#sharephoto .take-powered').css({'padding-top':'1em'});
+				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
+				$('#sharephoto .takewrap').css({'margin':'0 auto'});
+				$('#sharephoto  p.titleheader').css({'font-size':'1.5625em'});
+				$('#sharephoto .take-powered p').css({'font-size':'1em'});
+				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
+			}
+		}	
 });
 
 function alertEmail2(){
@@ -448,7 +598,23 @@ function clearconsole() {
   }
 }
 function messageaftertakeselfie(){
-	setTimeout(function() {setRating();},1500);
+   if(customArray.isselfie == 1)
+		setTimeout(function() {saveToServer();},1800);
+	else{	
+		setTimeout(function(){
+			$.box_Dialog(decodequote((typeof(defaultTextMessage.captureB) != 'undefined' ? defaultTextMessage.captureB : defaultTextMessage2.captureB)), {
+				'type':     'question',
+				'title':    '<span class="color-white">'+decodequote((typeof(defaultTextMessage.captureT) != 'undefined' ? defaultTextMessage.captureT : defaultTextMessage2.captureT))+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: (typeof(defaultButtonText.btncapture) != 'undefined' ? decodequote(defaultButtonText.btncapture[0]) : decodequote(defaultButtonText2.btncapture[0])),callback:function(){
+					setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
+					
+				}}]
+			});
+		},300);
+	}
 }
 function getSelfie(){
 		$('#selfieId').val(customArray.placeId);
@@ -705,6 +871,143 @@ function getLocationData(){
 	}});
 }
 
+function getTabluuwidget(){
+	var ispageok = false;nicename = $('#nicename').val();
+	var ios_ver = iOSversion();
+	showLoader();
+	$.ajax({type: "POST",url:"getData.php",async: true,cache: false,data:'nice='+nicename+'&opt=getrate',success:function(result){
+		if(typeof(result) == 'false')
+			alertErrorPage('error',"Rating page not found");
+		else{
+		customArray =  $.parseJSON(result);
+		hideLoader();
+		
+		if(customArray.suspend == 0){ //check if the account is suspended
+		 var toberate=[],selectedItems=[];
+		 if(customArray.item2Rate != '')
+			toberate = $.parseJSON(customArray.item2Rate);
+		 selectedItems = $.parseJSON(customArray.selectedItems);
+		  item2Rate=[];
+		if(typeof(toberate.rows) != 'undefined'){
+			if(typeof(selectedItems.rows) != 'undefined'){
+				for(var i in selectedItems.rows){
+					for(var j in toberate.rows){
+						var name = toberate.rows[j].data.split('_');
+						if(name[1] == selectedItems.rows[i].data)
+							item2Rate.push(toberate.rows[j].data);
+					}
+				}
+			}else{
+				for(var i in selectedItems){
+					for(var j in toberate.rows){
+						var name = toberate.rows[j].data.split('_');
+						if(name[1] == selectedItems[i])
+							item2Rate.push(toberate.rows[j].data);
+					}	
+				}
+			}	
+		}else{
+			for(var i in selectedItems){
+				for(var j in toberate){
+					var name = toberate[j].split('_');
+					if(name[1] == selectedItems[i])
+						item2Rate.push(decodequote(toberate[j])); 
+				}	
+			}
+		}
+		for(var i in selectedItems){
+				for(var j in questionDefault){
+					name = questionDefault[j].split('_');
+					if(name[1] == selectedItems[i])
+						item2Rate.push(questionDefault[j]);
+				}	
+			}
+		if(customArray.reviewPost != '')
+			defaultPostReview = $.parseJSON(customArray.reviewPost);
+		if(customArray.button != '')
+			defaultButtonText = $.parseJSON(customArray.button);
+		if(customArray.messageBox != '')	
+			defaultTextMessage = $.parseJSON(customArray.messageBox);
+		if(customArray.taglineselfie != '')
+			arraytagline =  $.parseJSON(customArray.taglineselfie);
+		if(customArray.nicename == "")
+			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page');
+		else if(customArray.city == '')	
+			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page ');
+		else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
+			alertErrorPage('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
+		else if(customArray.subscribe < 1)
+			alertErrorPage('this campaign is offline','Please change the status to online');
+		else if(customArray.settingsItem < 1)
+			alertErrorPage('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
+		else{
+			if($.inArray(customArray.state,state_Array) == -1){
+				placeId = customArray.placeId;
+				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8'] ) == -1){
+					alertErrorPage('Unauthorized',"Please contact Tabluu support");
+				}else{
+					$('.isselfie').show();
+					if(item2Rate.length > 1){
+						var ratetxt = item2Rate[1].split('_');
+						$('.ratetxt').html(ratetxt[0]);
+						rate_initialize();
+						if(ios_ver[0] == 6)
+						{
+							$.box_Dialog(('iOS 6 is not supported by Tabluu. Please use a device running on iOS 7 and above.'), {
+								'type':     'question',
+								'title':    '<span class="color-white">Unsupported Version<span>',
+								'center_buttons': true,
+								'show_close_button':false,
+								'overlay_close':false,
+								'buttons':  [{caption: 'okay',callback:function(){
+										setTimeout(function(){window.location = domainpath+nicename+'.html'},300);
+									}}]
+							});
+						}
+						else
+						{
+							//changetextcamerabutton();
+							if(tabluurated < 1){
+								$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+'&s=3'});
+							}else
+								ratedObj.push(parseInt(tabluurated));
+							 rate(3);	
+						}
+					}else{
+						showLoader();
+					    var ratetxt = item2Rate[0].split('_');
+						$('.ratetxt').html(ratetxt[0]);
+						rate_initialize();
+						var imgcolor1 = blankstar,imgcolor2 = blankstar,imgcolor3 = blankstar,imgcolor4 = blankstar,imgcolor5 = blankstar;
+						if(tabluurated >= 1)
+							imgcolor1 = colorstar;
+						if(tabluurated >= 2)
+							imgcolor2 = colorstar;
+						if(tabluurated >= 3)
+							imgcolor3 = colorstar;
+						if(tabluurated >= 4)
+							imgcolor4 = colorstar;
+						if(tabluurated >= 5)
+							imgcolor5 = colorstar;
+							$( ".imgrate1" ).attr('src', imgcolor1);
+							$( ".imgrate2" ).attr('src', imgcolor2);
+							$( ".imgrate3" ).attr('src', imgcolor3);
+							$( ".imgrate4" ).attr('src', imgcolor4);
+							$( ".imgrate5" ).attr('src', imgcolor5);
+						setTimeout(function(){ratevalue(parseInt(tabluurated),8)},5000);
+					}
+				}
+			}else
+				alertErrorPage('unauthorized',"Please subscribe.");
+		}	
+		$(".loc-login").on( 'click', function () {login()});
+		//clearconsole();
+		}else
+			alertErrorPage('account suspended',"Please contact Tabluu Support to unsuspend your account.");
+		}	
+	}});
+}
+
 function topoverlay(){
 	$('#rateone').css({marginTop:$('.top-button-selfie').height()});
 }
@@ -839,15 +1142,9 @@ var overlayY = 0;
 var widthOffsetRating = 0;
 var widthOffset = 0;
 
-function setRating()
+function saveToServer()
 {
 	var canvas = document.getElementById('canvas-image');
-	var context = canvas.getContext('2d');
-	saveToServer(canvas);
-}
-	
-function saveToServer(canvas)
-{
 	var dataUrl = canvas.toDataURL('image/jpg', 0.1);
     showLoader();
 	$.ajax({
@@ -912,7 +1209,6 @@ function saveThumbnail(canvas)
 		}
   	});
 }
-
 
 function getSize(canvas, value) {
     var ratio = value / 200;   // calc ratio
