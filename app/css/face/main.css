@@ -2226,6 +2226,7 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 .vdesktop{display:block;}
 .color-button {color: #fff;display: block;background:#31aee3;font-size: 12px;height: auto;padding:7px 0;width:90%;text-decoration:none;margin:0 auto;}
 .color-button:hover {text-decoration:none;color: #fff;}
+.btn-take-isselfie{padding:5px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
 /* mobile css */
 @media screen and (max-width: 600px){ 
 	.vdesktop{display:none;}

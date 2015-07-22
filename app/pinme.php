@@ -127,7 +127,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			?>
 			 <div style="float:right;padding-right:10px;">
 				<div style="clear:both;text-align:right;">
-					<div style="color: #777;padding:2px 0;font-size:18px;"><a style="text-decoration:none;color: #00AEEF;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
+					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
+					<div class="clear" style="padding-top:5px"></div>
 					<span style="font-weight:normal;text-decoration:none;color: #00AEEF;font-size:14px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
 				</div>
 			</div>

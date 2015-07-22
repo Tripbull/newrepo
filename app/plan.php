@@ -20,7 +20,7 @@
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="left-content fl">
-							<div class="left-header">Subscription</div>			
+							<div class="left-header">Subscriptions</div>			
 							<ul class="plan-left-menu" data-role="listview">
 								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Plan &amp; Campaign<span class="listview-arrow-default listview-arrow-active"></span></a></li>
 								<li><a href="#">Transactions<span class="listview-arrow-default"></span></a></li>

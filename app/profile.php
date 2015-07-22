@@ -30,7 +30,7 @@ foreach($time_zones as $zones){
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="left-content fl">
-							<div class="left-header">Camrally Page Info</div>			
+							<div class="left-header">Camrally Page</div>			
 							<ul class="profile-left-menu2" data-role="listview">
 								<li ><a href="#">Profile<span class="listview-arrow-default"></span></a></li>
 							</ul>							

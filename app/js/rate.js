@@ -152,81 +152,6 @@ function pressyes(){
 	hadpoorexp();
 }
 
-function ratevalue(rate,page){
-    ratedObj.push(rate);
-	if(item2Rate.length > 1 && page == 2){
-		showLoader();
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratetwo.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratetwo.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
-	}else if(item2Rate.length > 2 && page == 3){
-	   showLoader();
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratethree.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		//showLoader();
-		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratethree.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
-	}else if(item2Rate.length > 3 && page == 4){
-		showLoader();
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefour.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefour.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
-	}else if(item2Rate.length > 4 && page == 5){
-		showLoader();
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefive.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratefive.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
-	}else if(item2Rate.length > 5 && page == 6){
-		showLoader();
-		$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratesix.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });
-		//setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "ratesix.html",{ transition: "flip",data: 'p='+nicename });hideLoader();}, 100);
-	}else if(item2Rate.length > 6 && page == 7){
-		showLoader();
-		setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateseven.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
-	}else{
-		if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-			clearInterval(timeInverval);
-			refresh_handler();
-		}
-		var val = new Array();
-		val['1']='1.0';val['1.25']='1.25';val['1.5']='1.5';val['1.75']='1.75';val['2']='2.0';val['2.25']='2.25';val['2.5']='2.5';val['2.75']='2.75';val['3']='3.0';val['3.25']='3.25';val['3.5']='3.5';val['3.75']='3.75';val['4']='4.0';val['4.25']='4.25';val['4.5']='4.5';val['4.75']='4.75';
-		var val2 = ['1.0','1.25','1.5','1.75','2.0','2.25','2.5','2.75','3.0','3.25','3.5','3.75','4.0','4.25','4.5','4.75'];
-		var percent = val[defaultPostReview.percent];
-		if(typeof(val[defaultPostReview.percent]) == 'undefined')
-			percent = val2[defaultPostReview.percent];
-		var rate_1 = ratedObj[0];
-		var rate_2 =(typeof(ratedObj[1]) != 'undefined' ? ratedObj[1] : 0);
-		var rate_3 =(typeof(ratedObj[2]) != 'undefined' ? ratedObj[2] : 0);
-		var rate_4 =(typeof(ratedObj[3]) != 'undefined' ? ratedObj[3] : 0);
-		var rate_5 =(typeof(ratedObj[4]) != 'undefined' ? ratedObj[4] : 0);
-		var rate_6 =(typeof(ratedObj[5]) != 'undefined' ? ratedObj[5] : 0);
-		var rate_7 =(typeof(ratedObj[6]) != 'undefined' ? ratedObj[6] : 0);
-		var totalRated = rate_1 + rate_2 + rate_3 + rate_4 + rate_5 + rate_6 + rate_7;
-		var aveRated = totalRated / item2Rate.length ;
-		alertaverate = aveRated;
-			$.box_Dialog('<p style="padding:5px 0px;text-align:left;font-size:14px;">'+defaultTextMessage.average+' '+ aveRated.toFixed(1) + '/5 </p>'+'<textarea class="comment-txt" placeholder="'+decodequote((typeof(defaultTextMessage.commentB) != 'undefined' ? defaultTextMessage.commentB : defaultTextMessage2.commentB))+'" style="width:100% !important;height:7em !important;margin:0 auto !important;font-size:0.8em;resize: none;overflow:hidden"></textarea>', { 
-				'type':     'question',
-				'title':    '<span class="color-white">'+defaultTextMessage.comment+'<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: defaultButtonText.comment[0],callback:function(){
-					ratecomment = $('.comment-txt').val();
-					if(defaultPostReview.posted > 0 && aveRated >= percent){
-						if(customArray.optsocialpost < 1){
-							if(istakephoto > 0){
-								istakephoto = 0;
-								saveToServer();
-							}else{
-								sharedlinkphoto = customArray.fbImg;
-								urlphotoshared = customArray.fbImg;
-								createTempSharedPage();
-							}	
-						}else
-							saveToServer();
-					}else{
-						setTimeout(function(){hadpoorexp2();},300);
-					}
-				}}]
-			});
-			setTimeout(function(){$('.comment-txt').focus()},400);
-	}
-}
 function setdefault(){
 	ratedObj = [],ratecomment='';urlphotoshared='';photo_url='';get_img='';
 	sharedphoto=0;isphototakedone=0;takeaphoto=0;photo_saved=0;userCurEmail='';
@@ -255,9 +180,7 @@ function photoshare(isfb){
 $(document).bind('mobileinit', function(){
      $.mobile.metaViewportContent = 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no';
 });
-$(document).on('pageshow','#sharephoto', function() {
-	window.history.forward(1);
-});
+
 
 function createTempSharedPage(){
 	$('.top-button-selfie').hide(); //
@@ -311,80 +234,7 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 	if(item2Rate.length == 1)
 		e.preventDefault();
 });
-$(document).on('pageinit','#sharephoto', function() {
-	saveToServer(); // ADD RATING TEXT TO IMAGE AND SAVE
-    
-	if(getUrlVar('s') != '' && getUrlVar('s') == 2){
-		clearInterval(timeInverval);
-		refresh_handler();
-	}
-	$('#sharephoto .take-no').html(defaultButtonText.share[0]);
-	$('#sharephoto .take-yes').html(defaultButtonText.share[1]);
-	$('#sharephoto .titleheader').html(decodequote(defaultTextMessage.share));
-	fromtakephotopage = 1;
-	//if(countershare < 1){
-		sharephoto();
-		$( window ).resize(function() { // when window resize
-			sharephoto();
-		});
-		$('#sharephoto .take-no').click(function(e){
-		  // showLoader();
-		   pressyes();
-		   e.preventDefault();
-		});
-		$('#sharephoto .take-yes').click(function(e){ 
-			showLoader();
-			loginFb();
-			e.preventDefault();
-		});
-		$('.share_privacy').html(decodequote((typeof(defaultTextMessage.shareB) != 'undefined' ? defaultTextMessage.shareB : defaultTextMessage2.shareB)));
-		$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
-			'type':     'question',
-			'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
-			'center_buttons': true,
-			'show_close_button':false,
-			'overlay_close':false,
-			'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0]))}]
-		});		
-		countershare = 1;	
-	//}
-		function sharephoto(){
-			if(window.innerWidth <= 600){
-				$('#sharephoto .cam-img').css({'padding-top':'1em'});
-				$("#sharephoto .cam-img").attr('width', '170').attr('height', '173');
-				$("#sharephoto .take-logo").attr('width', '80').attr('height', '30');
-				$('#sharephoto .taketop').css({'padding-top':'1em'});
-				$('#sharephoto .take-powered').css({'padding':'0.5em 0 0.2em 0'});
-				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#sharephoto .takewrap').css({'margin':'0 auto'});
-				$('#sharephoto  p.titleheader').css({'font-size':'1em'});
-				$('#sharephoto .take-powered p').css({'font-size':'0.7em'});
-				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}else if(window.innerWidth > 600 && window.innerWidth <= 1024){ //7 inches
-				$('#sharephoto .cam-img').css({'padding-top':'1.5em'});
-				$("#sharephoto .cam-img").attr('width', '190').attr('height', '193');
-				$("#sharephoto .take-logo").attr('width', '100').attr('height', '37');
-				$('#sharephoto .taketop').css({'padding-top':'2em'});
-				$('#sharephoto .take-powered').css({'padding':'1em 0 0.2em 0'});
-				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#sharephoto .takewrap').css({'margin':'0 auto'});
-				$('#sharephoto  p.titleheader').css({'font-size':'1.2em'});
-				$('#sharephoto .take-powered p').css({'font-size':'0.8em'});
-				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}else if(window.innerWidth > 1024){
-				$('#sharephoto .cam-img').css({'padding-top':'1.5em'});
-				$("#sharephoto .cam-img").attr('width', '200').attr('height', '203');
-				$("#sharephoto .take-logo").attr('width', '131').attr('height', '49');
-				$('#sharephoto .taketop').css({'padding-top':'4em'});
-				$('#sharephoto .take-powered').css({'padding-top':'1em'});
-				$('#sharephoto .take-logo').css({'padding-top':'0.5em'});
-				$('#sharephoto .takewrap').css({'margin':'0 auto'});
-				$('#sharephoto  p.titleheader').css({'font-size':'1.5625em'});
-				$('#sharephoto .take-powered p').css({'font-size':'1em'});
-				$('#sharephoto .takebutton').css({'margin-top':'10px','padding':'5px 40px 5px 0'});
-			}
-		}	
-});
+
 
 function alertEmail2(){
 	$.box_Dialog((typeof(defaultTextMessage.badEmailB) != 'undefined' ? decodequote(defaultTextMessage.badEmailB) : decodequote(defaultTextMessage2.badEmailB)), {
@@ -483,6 +333,7 @@ function shareFb()
 	  if (response && !response.error_code) {
 	  	 postFb();
 	  } else {
+			FB.logout(function(response) {});
 	  		var niceid = sharedurl.split('_');
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
 			$.box_Dialog((typeof(defaultTextMessage.followB) != 'undefined' ? String(decodequote(defaultTextMessage.followB)) : String(decodequote(defaultTextMessage2.followB))), {
@@ -578,9 +429,7 @@ $(document).ready(function(){
 
 $(document).on('pagehide','#rateone', function() {$(this).remove();});
 
-$(document).on( "pagebeforechange", function( e, data ) {
-	//alert(data.options.dataUrl)
-});
+
 function showLoader(){loader = jQuery('<div id="overlay"> </div>');loader.appendTo(document.body);}
 function hideLoader(){$( "#overlay" ).remove();}
 
@@ -598,23 +447,7 @@ function clearconsole() {
   }
 }
 function messageaftertakeselfie(){
-   if(customArray.isselfie == 1)
-		setTimeout(function() {saveToServer();},1800);
-	else{	
-		setTimeout(function(){
-			$.box_Dialog(decodequote((typeof(defaultTextMessage.captureB) != 'undefined' ? defaultTextMessage.captureB : defaultTextMessage2.captureB)), {
-				'type':     'question',
-				'title':    '<span class="color-white">'+decodequote((typeof(defaultTextMessage.captureT) != 'undefined' ? defaultTextMessage.captureT : defaultTextMessage2.captureT))+'<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: (typeof(defaultButtonText.btncapture) != 'undefined' ? decodequote(defaultButtonText.btncapture[0]) : decodequote(defaultButtonText2.btncapture[0])),callback:function(){
-					setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
-					
-				}}]
-			});
-		},300);
-	}
+	setTimeout(function() {saveToServer();},1800);
 }
 function getSelfie(){
 		$('#selfieId').val(customArray.placeId);
@@ -834,7 +667,7 @@ function getLocationData(){
 		else{
 			if($.inArray(customArray.state,state_Array) == -1){
 				placeId = customArray.placeId;
-				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8'] ) == -1){
+				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8','b'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Camrally support");
 				}else {
 					rate_initialize();
@@ -871,142 +704,6 @@ function getLocationData(){
 	}});
 }
 
-function getTabluuwidget(){
-	var ispageok = false;nicename = $('#nicename').val();
-	var ios_ver = iOSversion();
-	showLoader();
-	$.ajax({type: "POST",url:"getData.php",async: true,cache: false,data:'nice='+nicename+'&opt=getrate',success:function(result){
-		if(typeof(result) == 'false')
-			alertErrorPage('error',"Rating page not found");
-		else{
-		customArray =  $.parseJSON(result);
-		hideLoader();
-		
-		if(customArray.suspend == 0){ //check if the account is suspended
-		 var toberate=[],selectedItems=[];
-		 if(customArray.item2Rate != '')
-			toberate = $.parseJSON(customArray.item2Rate);
-		 selectedItems = $.parseJSON(customArray.selectedItems);
-		  item2Rate=[];
-		if(typeof(toberate.rows) != 'undefined'){
-			if(typeof(selectedItems.rows) != 'undefined'){
-				for(var i in selectedItems.rows){
-					for(var j in toberate.rows){
-						var name = toberate.rows[j].data.split('_');
-						if(name[1] == selectedItems.rows[i].data)
-							item2Rate.push(toberate.rows[j].data);
-					}
-				}
-			}else{
-				for(var i in selectedItems){
-					for(var j in toberate.rows){
-						var name = toberate.rows[j].data.split('_');
-						if(name[1] == selectedItems[i])
-							item2Rate.push(toberate.rows[j].data);
-					}	
-				}
-			}	
-		}else{
-			for(var i in selectedItems){
-				for(var j in toberate){
-					var name = toberate[j].split('_');
-					if(name[1] == selectedItems[i])
-						item2Rate.push(decodequote(toberate[j])); 
-				}	
-			}
-		}
-		for(var i in selectedItems){
-				for(var j in questionDefault){
-					name = questionDefault[j].split('_');
-					if(name[1] == selectedItems[i])
-						item2Rate.push(questionDefault[j]);
-				}	
-			}
-		if(customArray.reviewPost != '')
-			defaultPostReview = $.parseJSON(customArray.reviewPost);
-		if(customArray.button != '')
-			defaultButtonText = $.parseJSON(customArray.button);
-		if(customArray.messageBox != '')	
-			defaultTextMessage = $.parseJSON(customArray.messageBox);
-		if(customArray.taglineselfie != '')
-			arraytagline =  $.parseJSON(customArray.taglineselfie);
-		if(customArray.nicename == "")
-			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page');
-		else if(customArray.city == '')	
-			alertErrorPage('setup incomplete','Go to Setup > Your Tabluu Page ');
-		else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
-			alertErrorPage('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
-		else if(customArray.subscribe < 1)
-			alertErrorPage('this campaign is offline','Please change the status to online');
-		else if(customArray.settingsItem < 1)
-			alertErrorPage('settings not locked','To lock, flick the switch "on". Setup > What Questions to Ask');
-		else{
-			if($.inArray(customArray.state,state_Array) == -1){
-				placeId = customArray.placeId;
-				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8'] ) == -1){
-					alertErrorPage('Unauthorized',"Please contact Tabluu support");
-				}else{
-					$('.isselfie').show();
-					if(item2Rate.length > 1){
-						var ratetxt = item2Rate[1].split('_');
-						$('.ratetxt').html(ratetxt[0]);
-						rate_initialize();
-						if(ios_ver[0] == 6)
-						{
-							$.box_Dialog(('iOS 6 is not supported by Tabluu. Please use a device running on iOS 7 and above.'), {
-								'type':     'question',
-								'title':    '<span class="color-white">Unsupported Version<span>',
-								'center_buttons': true,
-								'show_close_button':false,
-								'overlay_close':false,
-								'buttons':  [{caption: 'okay',callback:function(){
-										setTimeout(function(){window.location = domainpath+nicename+'.html'},300);
-									}}]
-							});
-						}
-						else
-						{
-							//changetextcamerabutton();
-							if(tabluurated < 1){
-								$( ":mobile-pagecontainer" ).pagecontainer( "change", "rateone.html",{ transition: "flip",data: 'p='+nicename+'&s=3'});
-							}else
-								ratedObj.push(parseInt(tabluurated));
-							 rate(3);	
-						}
-					}else{
-						showLoader();
-					    var ratetxt = item2Rate[0].split('_');
-						$('.ratetxt').html(ratetxt[0]);
-						rate_initialize();
-						var imgcolor1 = blankstar,imgcolor2 = blankstar,imgcolor3 = blankstar,imgcolor4 = blankstar,imgcolor5 = blankstar;
-						if(tabluurated >= 1)
-							imgcolor1 = colorstar;
-						if(tabluurated >= 2)
-							imgcolor2 = colorstar;
-						if(tabluurated >= 3)
-							imgcolor3 = colorstar;
-						if(tabluurated >= 4)
-							imgcolor4 = colorstar;
-						if(tabluurated >= 5)
-							imgcolor5 = colorstar;
-							$( ".imgrate1" ).attr('src', imgcolor1);
-							$( ".imgrate2" ).attr('src', imgcolor2);
-							$( ".imgrate3" ).attr('src', imgcolor3);
-							$( ".imgrate4" ).attr('src', imgcolor4);
-							$( ".imgrate5" ).attr('src', imgcolor5);
-						setTimeout(function(){ratevalue(parseInt(tabluurated),8)},5000);
-					}
-				}
-			}else
-				alertErrorPage('unauthorized',"Please subscribe.");
-		}	
-		$(".loc-login").on( 'click', function () {login()});
-		//clearconsole();
-		}else
-			alertErrorPage('account suspended',"Please contact Tabluu Support to unsuspend your account.");
-		}	
-	}});
-}
 
 function topoverlay(){
 	$('#rateone').css({marginTop:$('.top-button-selfie').height()});

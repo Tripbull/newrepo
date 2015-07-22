@@ -8,7 +8,7 @@ var liteID = 3356308,basicID=3356305,proID=3356306;
 var liteID=34,com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=true,domainpath='',pathfolder='';
+var istest=false,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -101,8 +101,7 @@ $(document).ready(function(){
 			showLoader();
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keypad+'&opt=getCustom',success:function(result){
 				customArray =  $.parseJSON(result);
-				placename  = customArray.businessName + ($.trim(lab) != '' ? ' ('+lab+')' : '');
-				lab = '';
+				placename  = customArray.businessName;
 				hideLoader();var j=0;
 				if(selfieonly == 1)
 					customArray.settingsItem = 1;
@@ -160,11 +159,8 @@ $(document).ready(function(){
 						locId = locArray[0].id+'|'+locArray[0].subscribe;
 						$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keypad+'&opt=getCustom',success:function(result){
 							customArray =  $.parseJSON(result);
-							placename  = customArray.businessName + ($.trim(lab) != '' ? ' ('+lab+')' : '');
-							lab = '';
+							placename  = customArray.businessName;
 							hideLoader();var j=0;
-							if(customArray.taglineselfie != '')
-								var arraytagline =  $.parseJSON(customArray.taglineselfie);
 							if(selfieonly == 1)
 								customArray.settingsItem = 1;
 							if(customArray.webImg != '')
@@ -184,19 +180,19 @@ $(document).ready(function(){
 							if(customArray.webImg8 != '')
 								j++;	
 							if(customArray.nicename == ''){
-								profilewizardsetup=1;uicwizardsetup = 1;questionwizardsetup = 0;profilewizardwebImg = 1;
-								wizardAlert(3,3,8);
+								profilewizardsetup=1;logowizard=1; 
+								wizardAlert(3,3,6);
+							}else if(customArray.logo == ''){
+								bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
+								wizardAlert(4,4,6);	
 							}else if(j == 0){
-								bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardsetup=0;
-								wizardAlert(4,4,8);
+								wizardAlert(5,5,6);
 							}else if(campaignwizard == 1){
 								vanitywizard=1;
-								wizardAlert(5,5,8);
+								wizardAlert(6,6,6);
 							}else if(vanitywizard == 1){
 								wizardcreatedlink=1;
-								wizardAlert(6,6,8);	
-							}else if(wizardcreatedlink == 1){
-								wizardAlert(7,7,8);			
+								wizardAlert(7,7,6);			
 							}else if(locArray[0].setup < 1){
 								issetup = 1;uicwizardsetup = 0;
 								wizardAlert(8,8,8);
@@ -985,7 +981,6 @@ $(document).ready(function(){
 	function wizardstep7(){
 		showLoader();
 		var placeId = locId.split('|');
-		window.open(domainpath+customArray.nicename,'_blank');
 		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
@@ -2234,7 +2229,7 @@ $(document).ready(function(){
 			
 			if(checkProfileBox()){
 				//$('<div id="overlay"> </div>').appendTo(document.body);
-				/*
+				
 				showLoader();
 				  var geocoder = new google.maps.Geocoder();
 				  var address = $('#txtname').val() +' '+ $('#txtadd').val() +', '+ $('#txtcity').val() +', '+$('#txtcountry').val();
@@ -2247,8 +2242,8 @@ $(document).ready(function(){
 					} //else 
 						//alertBox('notice','Your locaton address had no geocode'); 
 					 saveProfile();
-				  });  */
-				 saveProfile();
+				  }); 
+				 //saveProfile();
 			}
 		});		
 		
@@ -4057,8 +4052,9 @@ $(document).on('pageinit','#feedback', function () {
 		}
 		if(isdonewizard > 0){
 			wizardstep7();
+			
 			var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>'
-					 +'<p style="text-align:left">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">http://camrally.com/'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
+					 +'<p style="text-align:left">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
 			$.box_Dialog(body, {
 				'type':     'question',
 				'title':    '<span class="color-white">'+title+'<span>',
@@ -4067,6 +4063,7 @@ $(document).on('pageinit','#feedback', function () {
 				'overlay_close':false,
 				'buttons':  [{caption: 'okay',callback:function(){
 					curClick = 0;
+					window.open(domainpath+customArray.nicename,'_blank');
 					$( ":mobile-pagecontainer" ).pagecontainer( "change",'index.html',{});
 				}}]	
 			});	
@@ -4110,13 +4107,13 @@ $(document).on('pageinit','#feedback', function () {
 			$( '#feedback .right-content' ).removeClass("bgwhite");
 			$( '#feedback .right-content' ).addClass("right-bgblue");
 			if(customArray.nicename == ''){
-				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
+				alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
 				$(".feedback-weblink").show();
 			}
 		}else if(row == 0){
 			if(customArray.nicename == ''){	
-					alertBox('setup incomplete','Go to Setup > Camrally Page Info');
+					alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
 				$('#feedback #emaillink').val('http://camrally.com/'+customArray.nicename+'=e');
 				$(".tellafriend").show();
@@ -4129,7 +4126,7 @@ $(document).on('pageinit','#feedback', function () {
 			$( '#feedback .right-content' ).removeClass("bgwhite");
 			$( '#feedback .right-content' ).addClass("right-bgblue");
 			if(customArray.nicename == ''){
-				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
+				alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
 				$('#surveyopenlink').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=5');
 				$(".survey").show();
@@ -4139,7 +4136,7 @@ $(document).on('pageinit','#feedback', function () {
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			$('#photolink').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=2');
 			if(customArray.nicename == ''){	
-				alertBox('setup incomplete','Go to Setup > Camrally Page Info');
+				alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
 				//if(userArray.productId != proID && userArray.productId != pro12 && userArray.productId != pro24 && userArray.productId != enterprise12 && userArray.productId != enterprise24 && userArray.productId != enterprise)
 					//alertBox('no access','Please upgrade to pro plan & above to access this feature');
@@ -4151,7 +4148,7 @@ $(document).on('pageinit','#feedback', function () {
 	}
 	
 	function feedbackActiveMenu(){
-		$( "#feedback .left-header" ).html('Ways to Collect Posts');
+		$( "#feedback .left-header" ).html('Rally for Advocates');
 	    $( "#feedback .right-header" ).html( placename );
 		if($( window ).width() > 600){
 			$('#feedback .feedback-left-menu li').each(function (index) {
@@ -4639,7 +4636,7 @@ $(document).on('pageshow','#reviews', function () {
 	});
 	
 	function reviewActiveMenu(){
-		$( "#reviews .left-header" ).html('Manage Received Posts');
+		$( "#reviews .left-header" ).html('Manage Advocates');
 	    $( "#reviews .right-header" ).html( placename );
 		if($( window ).width() > 600){
 			$('#reviews .reviews-left-menu li').each(function (index) {
