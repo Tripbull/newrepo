@@ -726,7 +726,7 @@ function rate_initialize(){
 		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"images/desktop_default.png"}');
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
-	
+
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 		var bgSize = $(window).height()-$('.top-button-selfie').height();
 		$( '.rate' ).css('background-image',(bgback.bckimage != '' ? 'url('+bgback.bckimage+')' : ''));
