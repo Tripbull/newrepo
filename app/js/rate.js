@@ -732,7 +732,7 @@ function rate_initialize(){
 		$( '.rate' ).css('background-image',(bgback.bckimage != '' ? 'url('+bgback.bckimage+')' : ''));
 		$('.rate').css('background-size', 'auto ' + bgSize + 'px');
 		$('.rate').css('background-repeat', 'no-repeat');
-		$('.rate').css({backgroundPosition: 'center top'});
+		$('.rate').css('background-position', 'center ' + $('.top-button-selfie').height() + 'px');
 	}	
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
 	//alert(bgback.bckimage)
