@@ -33,7 +33,7 @@ $shortchar = 330;$shortchar2= 250;
 $openingAll = strip_tags(htmldecode($row->opening));
 $descAll = strip_tags(htmldecode($row->description));
 if(strlen($descAll) > $shortchar ){
-	$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc">... see more</a>';
+	$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 }else
 	$desc = strip_tags(htmldecode($row->description));
 
@@ -285,7 +285,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 						$openingAll = strip_tags(htmldecode($row->opening));
 						$descAll = strip_tags(htmldecode($row->description));
 						if(strlen($descAll) > $shortchar ){
-							$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc">... see more</a>';
+							$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 						}else
 							$desc = strip_tags(htmldecode($row->description));
 						if(strlen($openingAll) > $shortchar ){

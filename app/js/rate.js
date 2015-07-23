@@ -183,7 +183,7 @@ $(document).bind('mobileinit', function(){
 
 
 function createTempSharedPage(){
-	$('.top-button-selfie').hide(); //
+	$('.top-button-selfie').hide();
 	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto+'&comment='+ratecomment+'&ave='+alertaverate,success:function(link){
 		hideLoader();
 		sharedurl = link;
@@ -718,6 +718,31 @@ $(document).on('pageinit','#rateone', function() {
 	});
 });
 
+function campaign_poster()
+{	
+	$('.left').css('margin-top', $('.top-button-selfie').height() + 'px');
+	$('.left').css('min-width', $('.campaign-image').width() + 'px');
+	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
+	if($(window).width() < ($('.campaign-image').width()+420))
+	{
+		$('.right').css('height', '300px');
+		$('.right').css('float', 'none');
+		$('.right').css('margin-top', '0px');
+		$('.left').css('float', 'none');
+	}
+	else
+	{
+		$('.left').css('float', 'left');
+		$('.left').css('height', $('.campaign-image').height() + 'px');
+		$('.right').css('float', 'right');
+		$('.right').css('height', $('.campaign-image').height() + 'px');
+		$('.right').css('min-width', '400px');
+		var wrapperW = $('.campaign-image').width() + $('.right').width() + 1;
+		$('.camp-wrapper').css('max-width', wrapperW + 'px' );
+	}
+	$('.camp-wrapper').css('opacity', 1);
+}
+
 function rate_initialize(){
     var img = new Image(), logoUrl ='',logo='',bgback='';
 	if(customArray.logo != '')
@@ -727,17 +752,19 @@ function rate_initialize(){
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
 
+	var bgHeight = $(window).height()-$('.top-button-selfie').height();
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
-		var bgSize = $(window).height()-$('.top-button-selfie').height();
-		$( '.rate' ).css('background-image',(bgback.bckimage != '' ? 'url('+bgback.bckimage+')' : ''));
-		$('.rate').css('background-size', 'auto ' + bgSize + 'px');
-		$('.rate').css('background-repeat', 'no-repeat');
-		$('.rate').css('background-position', 'center ' + $('.top-button-selfie').height() + 'px');
+		$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
+		var campRel = $('.campaign-image').height()/$('.campaign-image').width();
+		var bgWidth = bgHeight/campRel;
+		$('.campaign-image').css('height', bgHeight + 'px');
+		$('.campaign-image').css('width', bgWidth + 'px');
 	}	
+
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
 	//alert(bgback.bckimage)
 	//if(bgback.bckimage == '' || typeof(bgback.bckimage) == 'undefined')
-		$( '.rate' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#DBEBF1')});
+		$( '.rate' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#000')});
 	
     if( window.innerWidth <=325){ //iphone
         logoUrl  = logo.pLogo;
