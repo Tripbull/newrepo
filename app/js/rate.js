@@ -793,9 +793,10 @@ function rate_initialize(){
 			{
 				$('.rate').css('background-position', 'center top');
 			}
-			console.log(bgHeight, bgWidth, camp_img.height, camp_img.width, camp_img);
 		};
 		camp_img.src = bgback.bckimage;
+
+		$('.rate').css('overflow-y', 'hidden');
 	}	
 
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
