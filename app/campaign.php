@@ -3,6 +3,14 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
+$type = $_REQUEST['s'];
+$istest = true;
+if($istest){
+   $curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}else
+	$curDomain = '../';	
+
 include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
@@ -40,82 +48,68 @@ $connect->db_disconnect();
 <body>
 	<!--
 	<div class="hide top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><img src="images/tabluu-logo-mono-xsmall.png"></div><span style="display: inline-block;margin-left: auto;margin-right: 20px;" class="btn-take-isselfie">Your Selfie Now!</span></div></div> -->
+
 	<div class="top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">powered by</p><div style="width:90px;"><img src="images/tabluu-logo-mono-small.png" style="width:100%;height:auto"></div></div><div class="wrapbtn"><span class="btn-take-isselfie">Post Your Photo!</span></div></div></div>
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>
+		<div style="position:absolute;font-family:myriadproit;">.</div>
 		<canvas id="canvas-image" style="position:absolute;"></canvas>
 		<canvas id="canvas-image-test" style="position:absolute;"></canvas>
 		<canvas id="canvas-resize" style="position:absolute;"></canvas>
 	</div>
 	<div id="fb-root"></div>
+
 	<div class="rate" id="rateone" data-dom-cache="false" data-role="page" data-prefetch="false">
+		<!-- DO NOT REMOVE<div class="camp-wrapper">
+			<div class="left">
+			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
+			</div>
+			<div class="right">
+				<div class="fb-comments" data-href="<?=//$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+			</div> 
+		</div> -->
 		<div class="content-wrap">
 			<div role="main" class="ui-content">
 				<div class="ratewrap">
 					<div class="hide isselfie">
-					<div class="rate-logo">
-						<img src="images/" alt="" class="loc-logo" />
-					</div>
-					
-					<div class="rate-question">
-						<p class="ratetxt"></p>
-					</div>
-					<div class="wrap-star">
-						<div class="rate-wrapstar">
-							<div class="rate-star starRate1">
-								<img src="images/template/blankstar.png" width="" class="imgrate1" alt="" />
-								<span class="vpoor"></span>
-							</div>
-							<div class="rate-star starRate2">
-								<img src="images/template/blankstar.png" alt="" class="imgrate2" />
-								<span class="poor"></span>
-							</div>
-							<div class="rate-star starRate3">
-								<img src="images/template/blankstar.png" alt="" class="imgrate3" />
-								<span class="fair"></span>
-							</div>
-							<div class="rate-star starRate4">
-								<img src="images/template/blankstar.png" alt="" class="imgrate4" />
-								<span class="good"></span>
-							</div>
-							<div class="rate-star starRate5">
-								<img src="images/template/blankstar.png" alt="" class="imgrate5" />
-								<span class="exc"></span>
-							</div>
-						</div>
-					</div>
-					<div class="loc-address"><p class="addressname"></p></div>
-					<div class="loc-login"><img src="images/template/logoBelowUI.png" class="ratelogo" alt="" width="103" height="30" /></div>
-					<div>
-				</div>	
-				<input type="hidden" id="nicename" name="nicename" value="<?php echo $_REQUEST['p']?>" />
-				<form id="frmtakeselfie" style="visibility:hidden;height:0px" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-					<input type="file" name="fileselfie" style="visibility:hidden;height:0px" id="fileselfie" accept="image/*" capture="camera" />
-					<input type="hidden" value="" name="selfieId" id="selfieId" />
-				</form>
-				<div class="hide">
-					<div id="data">
-						<div class="cam-frame">
-							<div id="screen"></div>
-							<canvas id="canvas" style="position:absolute;z-index:-1;" width="640" height="480"></canvas>
-							<div class="snapshotbutton">
-								<div class="snapshot hide">
-									<a href="#" data-rel="back" class="cancelsnap">cancel</a>
-									<div class="btnseparator"></div>
-									<a href="#" data-rel="back" class="takesnap">snap</a>
-								</div>
-								<div class="usesnap hide">
-									<a href="#" data-rel="back" class="cancelsnap">discard</a>
-									<div class="btnseparator"></div>
-									<a href="#" data-rel="back" class="use">use</a>
+							
+					<input type="hidden" id="nicename" name="nicename" value="<?php echo $_REQUEST['p']?>" />
+					<form id="frmtakeselfie" style="visibility:hidden;height:0px" action="setPhoto.php" method="post" enctype="multipart/form-data" >
+						<input type="file" name="fileselfie" style="visibility:hidden;height:0px" id="fileselfie" accept="image/*" capture="camera" />
+						<input type="hidden" value="" name="selfieId" id="selfieId" />
+					</form>
+					<div class="hide">
+						<div id="data">
+							<div class="cam-frame">
+								<div id="screen"></div>
+								<canvas id="canvas" style="position:absolute;z-index:-1;" width="640" height="480"></canvas>
+								<div class="snapshotbutton">
+									<div class="snapshot hide">
+										<a href="#" data-rel="back" class="cancelsnap">cancel</a>
+										<div class="btnseparator"></div>
+										<a href="#" data-rel="back" class="takesnap">snap</a>
+									</div>
+									<div class="usesnap hide">
+										<a href="#" data-rel="back" class="cancelsnap">discard</a>
+										<div class="btnseparator"></div>
+										<a href="#" data-rel="back" class="use">use</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div><!-- /content -->
+			</div>
 		</div>
-	</div>
+	</div><!-- /content -->
+</div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=682746285089153";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> 
 </body>
 </html>
