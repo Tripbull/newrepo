@@ -28,7 +28,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Camrally Page<span class="listview-arrow-default listview-arrow-active"></span></a></li>
 								<li><a href="#">Campaign Details<span class="listview-arrow-default"></span></a></li>
 								<li><a href="#">Customizations<span class="listview-arrow-default"></span></a></li>
-								<li><a href="#">Redirect Advocates<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#">Redirect Advocates After Posting<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content fr">
@@ -40,7 +40,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="panel-question hide">
-								<p class="font-17 fl">Please upload a campaign poster:</p>
+								<p class="font-17 bgrey" style="padding:10px">Please upload a campaign poster...</p>
 								 <div class="clear" style="padding-top:1em"></div>
 								<form id="frmbackground" action="setPhoto.php" method="post" enctype="multipart/form-data" >
 									<button class="ui-btn" id="uploadbackground">Upload an Image</button>
@@ -57,24 +57,23 @@ $noPhoto = 'images/template/no-photo.gif';
 									<p>2. Screen orientation.</p>
 									<p>For example, if you are using Ipad mini locked on landscape orientation, you should upload an image 1024px by 768px.</p>
 								</span>	
-								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="clear" style="padding-top:1.5em"></div>
 								<hr>
-								<div class="clear"></div>
-							    <div class="clear" style="padding-top:0.2em"></div>
-								<p class="font-17 fl">Tell us about your campaign. Add "call to action" messages &amp; links here!</p>
+							    <div class="clear" style="padding-top:1em"></div>
+								<p class="font-17 bgrey" style="padding:10px">Tell us about your campaign. Add "call to action" messages &amp; links here!</p>
 								 <div class="clear" style="padding-top:1.4em"></div>
 								<div>
 									<textarea name="bbcode_field" id="campaign-desc" style="height:400px;width:100%;max-height: 900px;"></textarea>
 								</div>
 								<div class="clear" style="padding-top:0.8em"></div>
 								<div class="btn-submit">
-									<button class="ui-btn" id="submit-desc">Update Description</button>
+									<button class="ui-btn" id="submit-desc">Update Description Section</button>
 								</div>
 								<div class="clear" style="padding-top:1em"></div>
 								<hr>
-								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="clear" style="padding-top:1em"></div>
 								<form id="frmselfies" action="#" method="post" enctype="multipart/form-data" >
-								<p class="font-17 fl">Your campaign message on all posted images:</p>
+								<p class="font-17 bgrey" style="padding:10px">Your campaign message on all posted images:</p>
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl"><i>Campaign name:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
@@ -128,11 +127,12 @@ $noPhoto = 'images/template/no-photo.gif';
 									<input type="radio" name="redirect" id="redirect-b" value="1">
 									<label for="redirect-b">Your desired landing page...</label>
 								</fieldset>	
-								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="clear"></div>
 								<div class="hide txtdesirepage">
+									<div class="clear" style="padding-top:0.5em"></div>
 									<input type="text" name="txtwebdesired" id="txtwebdesired" value="" placeholder="website url">
 								</div>
-								<div class="clear" style="padding-top:1em"></div>
+								<div class="clear" style="padding-top:0.5em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-redirect">Update</button>
 								</div>

@@ -101,7 +101,8 @@ switch($opt){
 		$query = mysql_query("INSERT INTO businessList SET userGroupId = $gId, businessName = '{$name}', subscribe={$subs},label='{$label}'");
 		if(mysql_affected_rows()){
 			 $lastId = mysql_insert_id();
-			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0");
+			 $nicename = checknicename();
+			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0, nicename='{$nicename}'");
 			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
 			 $defaultLogo ='';
 			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#DBEBF1',backgroundFont = '#3b3a26'");
@@ -110,6 +111,7 @@ switch($opt){
 			 mysql_query("INSERT INTO businessImages (placeId,path,title,description,name) VALUES($lastId,'','','','fbImg'),($lastId,'{$defaultimg}','','','webImg'),($lastId,'{$defaultimg}','','','webImg2'),($lastId,'{$defaultimg}','','','webImg3'),($lastId,'{$defaultimg}','','','webImg4'),($lastId,'{$defaultimg}','','','webImg5'),($lastId,'','','','webImg6'),($lastId,'','','','webImg7'),($lastId,'','','','webImg8')");
 			 mysql_query("INSERT INTO campaigndetails SET posterId = $lastId");
 			 mysql_query("INSERT INTO businessDescription SET descPlaceId = $lastId");
+			 
 		     echo $lastId;
 			 feedbacktable($lastId);
 		}else

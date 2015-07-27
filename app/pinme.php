@@ -98,6 +98,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			$resultFollow = mysql_query("SELECT COUNT(follow) as followTotal FROM businessCustomer_$placeId WHERE follow=1") or die(mysql_error());
 			if(mysql_num_rows($resultFollow))
 				$follow = mysql_fetch_object($resultFollow);
+			$resultimg = mysql_query("SELECT count(id) as imgtotal FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' LIMIT 8") or die(mysql_error());
+			$totalimg = mysql_fetch_object($resultimg);
 		}
 		?>
 		<?php 
@@ -129,7 +131,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 				<div style="clear:both;text-align:right;">
 					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
-					<span style="font-weight:normal;text-decoration:none;color: #00AEEF;font-size:14px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
+					<span style="font-weight:normal;text-decoration:none;color: #2f4f4f;font-size:14px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
 				</div>
 			</div>
 		<?php
@@ -196,7 +198,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		}	
 		if($row->showmap)
 			$w++;
-	//	$w++; //count for showcase or review tab	
+		$w++; //count for showcase or review tab	
 		if($w == 1)
 			$widthmenu = "width:50%";
         else if($w == 2)
@@ -216,8 +218,15 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 	<div id="nav">
 		<ul>
 			<?php
+				$hideshowcase = '';$hideavocate = '';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
-				//echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding">Showcase</div></a></li>';
+				if($rowAvg->totalAvg > $totalimg->imgtotal){
+					$hideshowcase='hide';
+					echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding showcase">Advocates</div></a></li>';
+				}else{
+					$hideavocate = 'hide';
+					echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding showcase">Showcase</div></a></li>';
+				}		
 				if($row->websiteURL)	
 					echo '<li style="'.$widthmenu.'"><a href="'.$website.'" target="_blank"><div class="menupadding">Website</div></a></li>';	
 				if($row->facebookURL)
@@ -239,8 +248,27 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 
    <div id="masoncontainer">
     <div id="sysPinsList" class="pinList center">
-		<div class="pinList center firstload"></div>
-		<div class="pinList center secondload-0"></div>
+		<div class="pinList center showcaseimg <?=$hideshowcase?>">
+		<?php
+		$result = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
+		while($row3 = mysql_fetch_object($result)){
+			$src = $row3->path;
+			?>		
+			<div class="sysPinItemContainer pin">
+				<p class="description sysPinDescr"><?php echo $row3->title ?></p>
+
+				<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
+				<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
+			</div>
+			<?php
+		}	
+			?>
+		</div>
+		<div class="pinList center advocateimg <?=$hideavocate?>">
+			<?php
+			$resultFeature =  mysql_query("SELECT b.userName, b.userId, b.source, b.labelId, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id INNER JOIN (SELECT Userid, MAX(Date) as Date FROM businessplace_$placeId WHERE feature = 1 AND source = 'fb' GROUP BY UserId) AS MAX USING (Userid, Date) ORDER BY date DESC LIMIT ") or die(mysql_error());
+			?>
+		</div>
     </div>
     </div>
 </div>
@@ -355,13 +383,6 @@ if(strlen($row->description) > $shortchar ){
 	<div id="showmoredesc" style="display: none;max-width:400px;">
 	<p><?php echo $row->description; ?></p>
 </div>
-<?php
-}
-if(strlen($row->opening) > $shortchar ){
-?>
-	<div id="showmoreopen" style="display: none;max-width:400px;">
-	<p><?php echo $row->opening; ?></p>
-	</div>
 <?php
 }
 ?>

@@ -11,7 +11,7 @@ var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"
 var counter1 = 0,counter2 = 0,counter3 = 0,counter4 = 0,counter5 = 0,counter6 = 0,counter7 = 0,countertake=0,countershare=0;
 //live mode chargify ids
 var everFree = 3356308,basicID=3356305,proID=3356306,enterprise=3356316,basic12 = 3405343,basic24 = 3405344,pro12 = 3405345,pro24 = 3405346,enterprise12 =3410620,enterprise24 =3410619;
-var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);

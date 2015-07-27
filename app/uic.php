@@ -78,7 +78,7 @@ $noPhoto = 'images/template/no-photo.gif';
 										</div>
 									</div>
 									<div class="clear" style="padding-top:0.5em"></div>
-									<p class="share">Share this page?</p>
+									<p class="share">Share your Camrally Post?</p>
 									<div class="clear" style="padding-top:1em;width:15em;">
 										<div class="fl w60">
 											<input type="text" name="txtshare1" id="txtshare1" value="no" placeholder="no">
@@ -123,7 +123,7 @@ $noPhoto = 'images/template/no-photo.gif';
 									<input type="text" data-clear-btn="true" name="txtbox10" id="txtbox10" value="You'll be logged out of <social_media> after sharing." placeholder="You'll be logged out of <social_media> after sharing.">
 									<input type="text" data-clear-btn="true" name="txtbox26" id="txtbox26" value="You're logged in to <social_media>" placeholder="You're logged in to <social_media>">
 									<input type="text" data-clear-btn="true" name="txtbox27" id="txtbox27" value="Click &quot;okay&quot; to start sharing!" placeholder="Click &quot;okay&quot; to start sharing!">
-									<input type="text" data-clear-btn="true" name="txtbox3" id="txtbox3" value="Share this page?" placeholder="Share this page?">
+									<input type="text" data-clear-btn="true" name="txtbox3" id="txtbox3" value="Share your Camrally Post?" placeholder="Share your Camrally Post?">
 									<input type="text" data-clear-btn="true" name="txtbox22" id="txtbox22" value="Please use the &quot;share&quot; button to recommend <brand>. By sharing you agree with Camrally's <privacy_policy_link>." placeholder="Please use the &quot;share&quot; button to recommend <brand>. By sharing you agree with Camrally's <privacy_policy_link>.">
 									<input type="text" data-clear-btn="true" name="txtbox11" id="txtbox11" value="Follow this campaign?" placeholder="Follow this campaign?">
 									<input type="text" data-clear-btn="true" name="txtbox12" id="txtbox12" value="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <brand> to contact you." placeholder="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <brand> to contact you.">

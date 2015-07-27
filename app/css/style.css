@@ -253,6 +253,7 @@ h3.subtitle-2{color:#00aeed;font-size:29px;padding:10px 0 20px;}
 .alertbox input:focus,.alertbox  input:hover,.alertbox textarea:focus{outline: 0;}
 .btn-submit .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
 .btn-submit .ui-btn:hover{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
+.btn-submit #delCampaign{background-color:#F02020;text-shadow:none;color:#fff;font-weight: normal;}
 .rate .content-wrap,#takephoto .content-wrap{background:none;width:90%;}
 .rate p{margin:0px;}
 .rate .rate-logo{width:100%;height:100%;;margin:0 auto;}
