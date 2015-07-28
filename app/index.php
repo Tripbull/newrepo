@@ -87,7 +87,7 @@ echo date_default_timezone_get();*/
 		<div id="dashboard" data-role="page" data-dom-cache="false" data-prefetch="false">
 			<div class="content-wrap">
 				<div data-role="header">
-					<img src="images/template/logo_home.png" class="logo fl" />
+					<img src="images/Logo/Logo_1.png" class="logo fl" width="130" height="auto" />
 					<div class="logout-wrap">
 						<img src="images/template/star.png" class="star hide" />
 						<img src="images/template/logout.png" class="logout fr iconlogout" />

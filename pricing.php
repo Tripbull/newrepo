@@ -51,7 +51,7 @@ $connect->db_disconnect();
 <div style="width:100%;min-width:287px;">		  
 <section class="plan-section text-center clear">
 	<div class="container">
-		<div class="clear" style="padding-top:40px;"></div>
+		<div class="clear title-top"></div>
 		<h4 class="plan-title pricing-header">Take advantage of our low introductory rate now!</h4>
 		
 		<div class="text-center">
@@ -77,7 +77,7 @@ $connect->db_disconnect();
           -->
         </nav> 
 		<!--
-		<div class="button-group">
+		<div class="butt10px 0 0 0on-group">
 				<a href="#" class="month-plan"> <div class="left-button button dark">Monthly</div></a>
 				<a href="#" class="year-plan"><div class="button borderleftright">1 Yearly</div></a>
 				<a href="#" class="year2-plan"><div class="right-button button">2 Yearly</div></a>
@@ -125,7 +125,7 @@ $connect->db_disconnect();
 				<li>Your Camrally page URL in this format: Camrally.com/campaignname</li>
 			</ul>	
 			</div>
-			<a href="#" id="pro-link" class="color-button color-4 inline-block">Sign up</a>	
+			<a id="pro-link" class="color-button color-4 inline-block">Sign up</a>	
 		  </div>
 		  <div class="col-sm-4 cols">
 		  	<div class="ribbon-overlay">

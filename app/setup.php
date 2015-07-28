@@ -90,7 +90,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtcamp2" id="txtcamp2" value="" placeholder="Text for row 2 (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
-								<span class="font-17 fl"><i>Your call to action message:</i></span>
+								<span class="font-17 fl"><i>Your call to action button:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo!" placeholder="Post Your Photo!">
 								<div class="clear" style="padding-top:0.5em"></div>
@@ -109,7 +109,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<span class="font-17 fl">Sample: </span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<div style="width:500px;">
-									<img src="images/campaign-sample.jpg" style="width:100%;height:auto;" />
+									<img src="images/selfiemovement.jpg" style="width:115%;height:auto;" />
 								</div>
 								<div class="clear" style="padding-top:1em"></div>
 								<div class="btn-submit">

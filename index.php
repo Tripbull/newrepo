@@ -62,11 +62,8 @@ $_SESSION['session']=$ur_session;
           <div class="clear" style="padding:1em 0;"></div>
           <div class="tblcontainer">
             <div class="row">
-              <div class="left text-right">
-                <div class="link"><a href="http://camrally.com/pricing.html">See Pricing</a></div>
-              </div>
-              <div class="right text-left">
-                <div class="link"><a href="#" class="signupbtn">Start Now!</a></div>
+              <div class="text-center">
+                <div class="link"><a href="#" class="signupbtn">I wanna change the world!</a></div>
               </div>
             </div>
           </div>
@@ -163,12 +160,9 @@ $_SESSION['session']=$ur_session;
         <div class="clear" style="padding:1em 0;"></div>
         <div class="tblcontainer">
           <div class="row">
-            <div class="left text-right">
-              <div class="link"><a href="http://camrally.com/pricing.html">See Pricing</a></div>
-            </div>
-            <div class="right text-left">
-              <div class="link"><a href="#" class="signupbtn">Start Now!</a></div>
-            </div>
+              <div class="text-center">
+                <div class="link"><a href="#" class="signupbtn">I wanna change the world!</a></div>
+              </div>
           </div>
         </div>
     </div>
@@ -317,7 +311,7 @@ $_SESSION['session']=$ur_session;
       <div class="col-sm-9">
         <h2><span><img src="images/soundicon.png" alt="icon"></span>Start running successful photo campaigns the easy way!</h2>
       </div>
-      <div class="col-sm-3"><a class="pull-right signupbtn" href="#">Start My Plan</a></div>
+      <div class="col-sm-3"><a class="pull-right signupbtn" href="#">Sign Up</a></div>
     </div>
   </div>
 </div>

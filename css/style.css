@@ -11,7 +11,7 @@
 header { width:100%; min-height:81px; float:left; background:#00aeef;min-width:287px;}
 .logo { margin-top:17px; }
 .nav-title { display:none; }
-.navbar-nav {width:620px;}
+.navbar-nav {width:530px;}
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus { color: #111; background-color: transparent;}
 .login { margin-left:20px; padding:5px 20px !important; font-size:16px !important; border:1px solid #fff; background: #6c6c6c; /* Old browsers */ background: -moz-linear-gradient(top, #6c6c6c 0%, #515151 100%); /* FF3.6+ */ background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #6c6c6c), color-stop(100%, #515151)); /* Chrome,Safari4+ */ background: -webkit-linear-gradient(top, #6c6c6c 0%, #515151 100%); /* Chrome10+,Safari5.1+ */ background: -o-linear-gradient(top, #6c6c6c 0%, #515151 100%); /* Opera 11.10+ */ background: -ms-linear-gradient(top, #6c6c6c 0%, #515151 100%); /* IE10+ */ background: linear-gradient(to bottom, #6c6c6c 0%, #515151 100%); /* W3C */ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6c6c6c', endColorstr='#515151', GradientType=0 ); /* IE6-9 */
 }
@@ -210,7 +210,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15cc44', end
 .pricing .borderleft{border-left: 2px solid #eff0f1}
 .pricing .secondcols{border-left: 2px solid #eff0f1;border-right: 2px solid #eff0f1}
 .pricing .thirdcols{border-right: 2px solid #eff0f1}
-.pricing .content-plan-menu{margin-top:10px;background-color:#fff;}
+.pricing .content-plan-menu{margin-top:10px; background-color:#eff0f1;}
 .pricing .content-plan-menu .col-sm-4{padding:0;}
 .pricing .cols{background:#fff;}
 .pricing h4.plan-title{margin:10px 0 5px 0;color: #00aeef;font-size: 42px;font-weight: bold;text-shadow: 1px 1px 0 #eff0f1;}
@@ -221,8 +221,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15cc44', end
 .pricing .plan-section ul li {list-style-image: url(../images/price-check.png);font-size: 14px;margin-bottom: 15px;text-align:left;}
 .unsubscribe h2 {color:#00aeef;font-size: 42px;font-weight: bold;margin-top: 45px;}
 .unsubscribe .color-button {color: #fff;display: block;background:#00aeef;font-size: 30px;height: 50px;line-height: 50px;width:100%;text-decoration:none;text-transform: uppercase;}
-.pricing .color-button {color: #ffffff;display: block;background:#00aeef;font-size: 30px;height: 70px;line-height: 70px;width:100%;text-decoration:none;text-transform: uppercase;}
-.pricing .contentwrap{height:545px;padding:0 15px}
+.pricing .color-button {color: #ffffff;display: block;background:#00aeef;font-size: 30px;height: 70px;line-height: 70px;width:100%;text-decoration:none;}
+.pricing .contentwrap{height:545px;padding:0 15px;}
+.pricing .contentwrap .plan-title{padding-top: 10px;}
+.pricing .title-top {padding-top:40px;}
 .pricing .plan-section2 {margin:0 auto;background:#fff;padding-top:30px;height:auto;padding-bottom:40px;text-align:center;}
 .pricing .plan-section2 ul li {list-style-image: url(../images/price-check.png);font-size: 18px;margin-bottom: 15px;text-align:left;color:#333}
 .pricing .plan-section3 {margin:0 auto;background:#00aeef;padding-top:30px;height:auto;padding-bottom:30px;text-align:center;color:#fff;}
@@ -274,17 +276,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15cc44', end
    .check-list-ul ul{padding: 20px 5px 34px 33px;}
 } 
 @media (max-width:1204px){
-	.pricing .contentwrap {height: 610px;}
+	.pricing .contentwrap {height: 630px;}
 }
 @media (max-width:875px){
-	.pricing .contentwrap {height: 680px;}
+	.pricing .contentwrap {height: 700px;}
 }
 @media (max-width:803px){
-	.pricing .contentwrap {height: 450px;}
+	.pricing .contentwrap {height: 710px;}
 	.pricing .color-button{height: 50px;line-height: 50px;}
 }
 
-@media (max-width:763px){.pricing .contentwrap {height: 420px;}}
+@media (max-width:763px){.pricing .contentwrap {height: 480px;}}
 
 @media (max-width:992px) {
 .left-width { max-width:inherit; min-width:inherit; width:100%; }
@@ -391,8 +393,13 @@ h2 { font-size:23px !important; font-family: 'OpenSansSemibold' !important; }
 .contactpage .wrapper_contactform label span {font-size: 15px !important;}
 p { font-size:13px !important; }
 .pricing p.price{font-size: 30px; !important;}
-.pricing h4{font-size:23px !important;}
+.pricing h4{font-size:26px !important;}
+.pricing .contentwrap .plan-title{font-size:30px !important;}
 .pricing .plan-section3 h4{font-size:19px !important;}
+.pricing .color-button {font-size: 23px;}
+.pricing .content-plan-menu .col-sm-4{padding:0;margin-bottom: 25px;}
+.pricing .content-plan-menu{margin-top: 0px;}
+.pricing .title-top {padding-top:20px;}
 .happy h2 br { display:none; }
 .happy a {margin-top:10px; margin-bottom:20px;}
 .users .gallery { display:none; }
@@ -451,7 +458,7 @@ footer{text-align:center;}
 }
 @media (max-width: 539px) {
 	#subiconmenu .navbar-toggle { margin-top:-80px !important; }
-	.pricing .contentwrap {height: 500px;}
+	.pricing .contentwrap {height: 550px;}
 	.qrcode-content .gallery img{width:90%; height:auto;}
 	.qrcode-content .poster{width:70%; height:auto;}
 	.cust-post h4{ font-size:20px !important;}
@@ -468,7 +475,7 @@ footer{text-align:center;}
 
 @media (max-width: 225px) {
 	#subiconmenu .navbar-toggle { margin-top:-100px !important; }
-	.pricing .contentwrap {height: 500px !important;}
+	.pricing .contentwrap {height: 550px !important;}
 }
 
 /*ribbon*/

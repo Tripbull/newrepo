@@ -57,7 +57,8 @@ $(document).ready(function(){
 	$('#enter-link').click(function(e){e.preventDefault();setuplink();});
 	*/
 	$('#basic-link').attr('href', 'app/signup.html?type=1&plan=basic');
-	$('#pro-link').attr('href', 'app/signup.html?type=1&plan=pro');
+	// $('#pro-link').attr('href', 'app/signup.html?type=1&plan=pro');
+	// $('#enter-link').attr('href', 'app/signup.html?type=1&plan=enterprise');	
   var clock = $('.worday').on('update.countdown', function(event){}).on('finish.countdown', function(event) {istimerunning = 0;});
   //switches();
   function switches() {

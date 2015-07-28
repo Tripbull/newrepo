@@ -372,7 +372,7 @@ $(document).ready(function(){
 					
 			}	
 		});
-		$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+		$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 		$("#dashboard img.logo").click(function (){  //logo click
 			if($( window ).width() <= 600){
 				$('#dashboard img.logo').attr('src','images/template/logo_home.png');
@@ -1058,10 +1058,8 @@ $(document).ready(function(){
 					uicAlertBox('incomplete information','Please select category','#select-category');	
 				else if($("#txtbrand").val() == '')
 					uicAlertBox('incomplete information','Please add your brand','#txtbrand');
-				else if($("#txtcamp1").val() == '')
+				else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
 					uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
-				else if($("#txtcamp2").val() == '')
-					uicAlertBox('incomplete information','Please add your slogan','#txtcamp2');
 				else if($("#txtbtnselfie").val() == '')
 					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
 				else if(customArray.backgroundImg == '')
