@@ -66,7 +66,7 @@ $connect->db_disconnect();
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
 			</div>
 			<div class="right">
-				<div class="fb-comments" data-href="<?=//$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 			</div> 
 		</div> -->
 		<div class="content-wrap">

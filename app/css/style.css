@@ -165,6 +165,11 @@ select#select-category,select#profile-timezone{font-family: "Myriad" !important;
 .tbl .left, .tbl .right {display: table-cell;}
 .tbl .left, .tbl .right {display: text-align: center;vertical-align: middle;}
 .tbl .left {width:210px}
+#profile .tbl{display: table;width:100%;margin:0 auto;}
+#profile .tbl .row1  {display: table-row;}
+#profile .tbl .left1, #profile .tbl .right1 {display: table-cell;}
+#profile .tbl .left1, #profile .tbl .right1 {display: text-align: center;vertical-align: middle;}
+#profile .tbl .left1 {width:210px}
 #uic .uic-section-logo, #uic .uic-section-img, #uic .uic-section-bg, #uic  .uic-section-fc, #uic .uic-section-tbs,#uic .uic-section-tb,#uic .uic-section-box{width:90%;margin: 0 auto;padding:1.25em 0 1.25em 0;text-align:left;}
 #uic  .thumb,#setup .thumb{cursor:pointer;width:100%;max-width: 12.5em;min-width: 12.5em;height:100%;max-height:11.8em;min-height:11.8em;border:1px solid #000;padding:5px;float: left;margin:0.62em 0 0 0.62em;}
 #uic .uic-section-bg .ui-input-text input{min-height: 2.5em !important;}
