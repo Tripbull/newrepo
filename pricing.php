@@ -16,6 +16,7 @@
 	<script type="text/javascript" src="js/star-rating.js"></script>
 	<script type="text/javascript" src="js/pricing.js"></script>
 	<link type="text/css" media="all" rel="stylesheet" href="css/dialog.css" >
+	<link rel="Shortcut Icon" href="http://camrally.com/images/Icons/ico/favicon.ico" type="image/x-icon">
 	<?php include_once("analyticstracking.php") ?>
 </head>
 <body class="pricing">

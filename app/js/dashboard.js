@@ -375,8 +375,8 @@ $(document).ready(function(){
 		$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 		$("#dashboard img.logo").click(function (){  //logo click
 			if($( window ).width() <= 600){
-				$('#dashboard img.logo').attr('src','images/template/logo_home.png');
-				$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+				$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+				$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).hide();
 				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
@@ -471,8 +471,8 @@ $(document).ready(function(){
 	}
 	$( window ).resize(function() { // when window resize
 			if($( window ).width() > 600){
-				$('#dashboard img.logo').attr('src','images/template/logo_home.png');
-				$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+				$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+				$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 			}
 			is_resize();
 			defaultMenu();
@@ -542,8 +542,8 @@ $(document).ready(function(){
 				showHideMenu(row);
 				defaultMenu();
 				if($( window ).width() <= 600){
-					$('#dashboard img.logo').attr('src','images/template/logo.png');
-					$('#dashboard img.logo').css({'margin': '1em 0 0 0.5em'});
+					$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+					$('#dashboard img.logo').css({'margin': '0.6em 0 0 0.5em'});
 					$( '.main-wrap .left-content' ).hide();
 					$( '.main-wrap .right-content' ).show();
 					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
@@ -565,8 +565,8 @@ $(document).ready(function(){
 				showHideMenu(row);
 				defaultMenu();
 				if($( window ).width() <= 600){
-					$('#dashboard img.logo').attr('src','images/template/logo.png');
-					$('#dashboard img.logo').css({'margin': '1em 0 0 0.5em'});
+					$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+					$('#dashboard img.logo').css({'margin': '0.6em 0 0 0.5em'});
 					$( '.main-wrap .left-content' ).hide();
 					$( '.main-wrap .right-content' ).show();
 					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );

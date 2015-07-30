@@ -11,7 +11,7 @@
 		<div id="feedback" data-role="page">
 			<div class="content-wrap">
 				<div data-role="header">
-					<img src="images/template/logo.png" class="logo fl" />
+					<img src="images/Logo/logo-arrow.png" class="logo fl" width="143" height="auto" />
 					<div class="logout-wrap">
 						<img src="images/template/star.png" class="star hide" />
 						<img src="images/template/logout.png" class="logout fr iconfeed" />

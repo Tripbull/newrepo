@@ -19,6 +19,7 @@ $_SESSION['session']=$ur_session;
 	<script type="text/javascript" src="js/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>	
 	<script type="text/javascript" src="js/login.js"></script>
+<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 </head>
 <body>
 		<div id="login" data-role="page" data-prefetch="false">

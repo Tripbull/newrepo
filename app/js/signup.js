@@ -15,7 +15,7 @@ $(document).ready(function(){
 	$( '.contentwrap').css( {"min-height":height.toFixed() + 'em'} );	
     $('.fancybox').fancybox({});
     $(".page-login").click(function () {  // show login page
-		//window.location= "login.html";	
+		window.location= "login.html";	
 	});	
 
 	$("#newpwdConfirm").keypress(function(e) {

