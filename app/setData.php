@@ -105,7 +105,7 @@ switch($opt){
 			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0, nicename='{$nicename}'");
 			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
 			 $defaultLogo ='';
-			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#DBEBF1',backgroundFont = '#3b3a26'");
+			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#7F7F7F',backgroundFont = '#3b3a26'");
 			// mysql_query("INSERT INTO businessImages SET placeId = $lastId,name`fbImg` =  'images/desktop_default.png',`webImg` =  'images/desktop_default.png',`webImg2` =  'images/desktop_default.png'");
 			$defaultimg = '';//'images/default-image.png';
 			 mysql_query("INSERT INTO businessImages (placeId,path,title,description,name) VALUES($lastId,'','','','fbImg'),($lastId,'{$defaultimg}','','','webImg'),($lastId,'{$defaultimg}','','','webImg2'),($lastId,'{$defaultimg}','','','webImg3'),($lastId,'{$defaultimg}','','','webImg4'),($lastId,'{$defaultimg}','','','webImg5'),($lastId,'','','','webImg6'),($lastId,'','','','webImg7'),($lastId,'','','','webImg8')");
@@ -689,7 +689,7 @@ switch($opt){
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET button= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==7){
-		   $obj = array('logoutT' => encodequote($_REQUEST['txtbox9']),'logoutB' => encodequote($_REQUEST['txtbox10']),'followT' => encodequote($_REQUEST['txtbox11']),'followB' => encodequote($_REQUEST['txtbox12']), 'shareB' => encodequote($_REQUEST['txtbox22']), 'sharedT' => encodequote($_REQUEST['txtbox26']), 'sharedB' => encodequote($_REQUEST['txtbox27']));
+		   $obj = array('logoutT' => encodequote($_REQUEST['txtbox9']),'logoutB' => encodequote($_REQUEST['txtbox10']),'followT' => encodequote($_REQUEST['txtbox11']),'followB' => encodequote($_REQUEST['txtbox12']), 'share' => encodequote($_REQUEST['txtbox3']), 'shareB' => encodequote($_REQUEST['txtbox22']), 'sharedT' => encodequote($_REQUEST['txtbox26']), 'sharedB' => encodequote($_REQUEST['txtbox27']));
 			$json = array2json($obj);
 			$sql = "UPDATE businessCustom SET messageBox= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==8){

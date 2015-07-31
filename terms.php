@@ -8,6 +8,7 @@
 	<link href="css/style.css" rel="stylesheet" media="all">
 	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
+	<link rel="Shortcut Icon" href="http://camrally.com/images/Icons/ico/favicon.ico" type="image/x-icon">
 	<?php include_once("analyticstracking.php") ?>
 </head>
 <body class="termspage">

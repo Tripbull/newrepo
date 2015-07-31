@@ -26,7 +26,7 @@ if(isset($_REQUEST['type']) && isset($_REQUEST['plan'])){
 	<script type="text/javascript" src="js/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>	
 	<script type="text/javascript" src="js/signup.js"></script>
-<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 </head>
 <body>
 <div id="sign" data-role="page" data-prefetch="true">

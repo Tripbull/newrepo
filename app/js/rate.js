@@ -793,15 +793,16 @@ function rate_initialize(){
 			{
 				$('.rate').css('background-position', 'center top');
 			}
-			console.log(bgHeight, bgWidth, camp_img.height, camp_img.width, camp_img);
 		};
 		camp_img.src = bgback.bckimage;
+
+		$('.rate').css('overflow-y', 'hidden');
 	}	
 
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
 	//alert(bgback.bckimage)
 	//if(bgback.bckimage == '' || typeof(bgback.bckimage) == 'undefined')
-		$( '.rate' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#000')});
+		$( '.rate' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#7f7f7f')});
 	
     if( window.innerWidth <=325){ //iphone
         logoUrl  = logo.pLogo;
@@ -1090,8 +1091,8 @@ function setCanvasSelfie(img_type)
 	var width = 1000;
 	var height = 0;
 	var rel = 0;
-	var imgLogoWidth = 35;
-	var imgLogoHeight = 12;
+	var imgLogoWidth = 38;
+	var imgLogoHeight = 14;
 	var overlayHeight = 0;
 	var overlayY = 0;
 	var eventName = customArray.businessName;
@@ -1099,7 +1100,7 @@ function setCanvasSelfie(img_type)
 	var logoText = "Powered by"
 	var firstLine = customArray.tag1;
 	var secondLine = customArray.tag2;
-	var logourl = "images/tabluu-logo-mono-xxsmall.png";
+	var logourl = "images/Logo/Logo_white_1xxsmall.png";
 	var eventNameFont = 11;
 	var companyNameFont = 4;
 	var taglineFont = 5;
@@ -1127,7 +1128,7 @@ function setCanvasSelfie(img_type)
 	var widthOffset = 0;
 	var totalTaglineWidth = 0;
 	var widthOffsetRating = 0;
-	var widthTaglineOffset = 10;
+	var widthTaglineOffset = 8;
 	var eventNameDenom = 2;
 	var eventNameNom = 0;
 
@@ -1264,25 +1265,25 @@ function setCanvasSelfie(img_type)
 
 	if(width >= 300 && width <= 500)
 	{
-		logourl = "images/tabluu-logo-mono-xsmall.png";
+		logourl = "images/Logo/Logo_white_1xsmall.png";
 	}
 	else if(width > 500)
 	{
-		logourl = "images/tabluu-logo-mono-small.png";
+		logourl = "images/Logo/Logo_white_1small.png";
 	}
 
 	imgLogo.onload = function() {
 
-		logoTextHeight = height*0.05;
+		logoTextHeight = height*0.045;
 		
 		// POWERED BY
 		context.font = logoTextFont + "pt Lato-Light";
-		context.fillText(logoText,width*0.88,logoTextHeight);
+		context.fillText(logoText,width*0.834,logoTextHeight);
 		logoWidth =context.measureText(logoText).width;
 
-		logoImageHeight = (height*0.04)+logoTextFont;
+		logoImageHeight = (height*0.035)+logoTextFont;
 
-		context.drawImage(imgLogo, width*0.84, logoImageHeight, imgLogoWidth, imgLogoHeight);
+		context.drawImage(imgLogo, width*0.794, logoImageHeight, imgLogoWidth, imgLogoHeight);
 	};
 	imgLogo.src = logourl;
 }
@@ -1306,7 +1307,7 @@ function setCanvasSelfieTest(widthTest, heightTest, type, bfont, afont, tfont)
 	var secondWidthTest = 0;
 	
 	var widthOffsetTest = 0;
-	var widthTaglineOffsetTest = 10;
+	var widthTaglineOffsetTest = 8;
 	var totalCompWidthTest = 0;
 	var totalEventNameWidthTest = 0;
 	var getLineWidth = 0;

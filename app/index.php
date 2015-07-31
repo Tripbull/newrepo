@@ -81,13 +81,13 @@ echo date_default_timezone_get();*/
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="js/dashboard.js"></script>
 	<script type="text/javascript" src="js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-	<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
+	<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 </head>
 <body>
 		<div id="dashboard" data-role="page" data-dom-cache="false" data-prefetch="false">
 			<div class="content-wrap">
 				<div data-role="header">
-					<img src="images/template/logo_home.png" class="logo fl" />
+					<img src="images/Logo/Logo_1-small.png" class="logo fl" width="120" height="auto" />
 					<div class="logout-wrap">
 						<img src="images/template/star.png" class="star hide" />
 						<img src="images/template/logout.png" class="logout fr iconlogout" />

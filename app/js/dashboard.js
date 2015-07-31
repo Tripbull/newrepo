@@ -372,11 +372,11 @@ $(document).ready(function(){
 					
 			}	
 		});
-		$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+		$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 		$("#dashboard img.logo").click(function (){  //logo click
 			if($( window ).width() <= 600){
-				$('#dashboard img.logo').attr('src','images/template/logo_home.png');
-				$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+				$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+				$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).hide();
 				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
@@ -485,8 +485,8 @@ $(document).ready(function(){
 	}
 	$( window ).resize(function() { // when window resize
 			if($( window ).width() > 600){
-				$('#dashboard img.logo').attr('src','images/template/logo_home.png');
-				$('#dashboard img.logo').css({'margin': '1em 0 0 1.6em'});
+				$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+				$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 			}
 			is_resize();
 			defaultMenu();
@@ -559,8 +559,8 @@ $(document).ready(function(){
 				showHideMenu(row);
 				defaultMenu();
 				if($( window ).width() <= 600){
-					$('#dashboard img.logo').attr('src','images/template/logo.png');
-					$('#dashboard img.logo').css({'margin': '1em 0 0 0.5em'});
+					$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+					$('#dashboard img.logo').css({'margin': '0.6em 0 0 0.5em'});
 					$( '.main-wrap .left-content' ).hide();
 					$( '.main-wrap .right-content' ).show();
 					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
@@ -582,8 +582,8 @@ $(document).ready(function(){
 				showHideMenu(row);
 				defaultMenu();
 				if($( window ).width() <= 600){
-					$('#dashboard img.logo').attr('src','images/template/logo.png');
-					$('#dashboard img.logo').css({'margin': '1em 0 0 0.5em'});
+					$('#dashboard img.logo').attr('src','images/Logo/Logo_1-small.png');
+					$('#dashboard img.logo').css({'margin': '0.6em 0 0 0.5em'});
 					$( '.main-wrap .left-content' ).hide();
 					$( '.main-wrap .right-content' ).show();
 					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
@@ -1075,10 +1075,8 @@ $(document).ready(function(){
 					uicAlertBox('incomplete information','Please select category','#select-category');	
 				else if($("#txtbrand").val() == '')
 					uicAlertBox('incomplete information','Please add your brand','#txtbrand');
-				else if($("#txtcamp1").val() == '')
+				else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
 					uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
-				else if($("#txtcamp2").val() == '')
-					uicAlertBox('incomplete information','Please add your slogan','#txtcamp2');
 				else if($("#txtbtnselfie").val() == '')
 					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
 				else if(customArray.backgroundImg == '')
@@ -3930,7 +3928,7 @@ $(document).on('pageinit','#onspot', function () {
 			//$('#surveyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=5');
 			$(".onspot-section-survey").show();
 		}else if(row == 1){
-			$('#anyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=3');
+			$('#anyopenlink').val(pathfolder+'campaign.html?p='+customArray.nicename+'&s=3');
 			$(".onspot-section-anywhere").show();
 		}
 		onspotActiveMenu();
