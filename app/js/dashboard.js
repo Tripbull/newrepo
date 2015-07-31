@@ -3892,7 +3892,7 @@ $(document).on('pageinit','#onspot', function () {
 			//$('#surveyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=5');
 			$(".onspot-section-survey").show();
 		}else if(row == 1){
-			$('#anyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=3');
+			$('#anyopenlink').val(pathfolder+'campaign.html?p='+customArray.nicename+'&s=3');
 			$(".onspot-section-anywhere").show();
 		}
 		onspotActiveMenu();
