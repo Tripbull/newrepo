@@ -30,7 +30,6 @@ function htmldecode($str){
 	return str_replace("|five","#",$str);
 }
 $shortchar = 330;$shortchar2= 250;
-$openingAll = strip_tags(htmldecode($row->opening));
 $descAll = strip_tags(htmldecode($row->description));
 if(strlen($descAll) > $shortchar ){
 	$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
@@ -69,10 +68,11 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 </head>
 <body>
 <div id="overlay" class="hide"></div>
+<div class="morebtn loadmorefeaturebtn hide">Load more...</div>
+<div class="morebtn loadmorebtn hide">Load more...</div>
 <div class="vdesktop">
 <input type="hidden" name="placeid" id="placeid" value="<?php echo $placeId ?>" />
 <input type="hidden" name="path" id="path" value="<?php echo $path ?>" />
-<div id="loadme"></div>
 
 <?php require_once('browser_detection.php'); ?>
 
@@ -82,12 +82,6 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
         <div class="d-logo"><a href="/" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
     </div>		
 </div>
-<?php 
-   if($browser['browser'] =="IE" )
-        echo '<input type="hidden" value="15" name="blimit" id="blimit" />';
-   else
-		echo '<input type="hidden" value="15" name="blimit" id="blimit" />';
-?>
 <div class="ColumnContainer">
 <!--CONTENT STARTS HERE-->
 <div id="wrapheader">
@@ -101,15 +95,13 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			$resultimg = mysql_query("SELECT count(id) as imgtotal FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' LIMIT 8") or die(mysql_error());
 			$totalimg = mysql_fetch_object($resultimg);
 		}
-		?>
-		<?php 
 		$logo = json_decode($row->logo);
 		?>
 		<div class="left">
 			<div style="text-align:center;"><img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? $path.'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 			<?php
 			if($hadTable)
-				echo '<div class="follow">'.$follow->followTotal .' follow</div>';
+				echo '<div class="follow">'.$follow->followTotal .' followers</div>';
 			?>
 			</div>
 		</div>
@@ -131,7 +123,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 				<div style="clear:both;text-align:right;">
 					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
-					<span style="font-weight:normal;text-decoration:none;color: #2f4f4f;font-size:14px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
+					<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
 				</div>
 			</div>
 		<?php
@@ -220,13 +212,16 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 			<?php
 				$hideshowcase = '';$hideavocate = '';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
-				if($rowAvg->totalAvg > $totalimg->imgtotal){
+				if($rowAvg->totalAvg > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';
-					echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding showcase">Advocates</div></a></li>';
-				}else{
+					$class = 'li-showcase';
+					$textadvo = 'Showcase';
+				}else{ //shows the product images
 					$hideavocate = 'hide';
-					echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding showcase">Showcase</div></a></li>';
-				}		
+					$class = 'li-advocate';
+					$textadvo = 'Advocates';
+				}
+				echo '<li id="li-showhide" class="'.$class.'" style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding textadvo">'. $textadvo .'</div></a></li>';
 				if($row->websiteURL)	
 					echo '<li style="'.$widthmenu.'"><a href="'.$website.'" target="_blank"><div class="menupadding">Website</div></a></li>';	
 				if($row->facebookURL)
@@ -247,7 +242,8 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
     <div class="clear"></div>
 
    <div id="masoncontainer">
-    <div id="sysPinsList" class="pinList center">
+   <!-- product images -->
+    <div id="campin-showimage" class="pinList center">
 		<div class="pinList center showcaseimg <?=$hideshowcase?>">
 		<?php
 		$result = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
@@ -264,16 +260,40 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 		}	
 			?>
 		</div>
+	</div>
+   <!-- end product code -->
+   <!-- advocates images -->   
+	<div id="campin-advocate" class="pinList center">
 		<div class="pinList center advocateimg <?=$hideavocate?>">
 			<?php
-			$resultFeature =  mysql_query("SELECT b.userName, b.userId, b.source, b.labelId, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id INNER JOIN (SELECT Userid, MAX(Date) as Date FROM businessplace_$placeId WHERE feature = 1 AND source = 'fb' GROUP BY UserId) AS MAX USING (Userid, Date) ORDER BY date DESC LIMIT ") or die(mysql_error());
+			$offset=0;$limit=50;
+			$timezone = mysql_fetch_object(mysql_query("SELECT u.timezone FROM businessList as l LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId WHERE l.id = $placeId LIMIT 1"));
+			$timezone = $timezone->timezone;
+			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = 1 AND source = 'fb' ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$numberOfRowsfeature = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
+			$totalPagesfeature = ceil($numberOfRowsfeature / $limit);
+			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
+			echo '<input type="hidden" value="'.$totalPagesfeature.'" name="totalfeature" id="totalfeature" />';
+			while($rowrate = mysql_fetch_object($resultFeature)){
+				include('reviewshtml.php');
+			}
+			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = 0 AND source = 'fb' ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
+			$totalPages = ceil($numberOfRows / $limit);
+			echo '<input type="hidden" value="'.$numberOfRows.'" name="numberofRows" id="numberofRows" />';
+			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
+				if($numberOfRowsfeature <= 20){
+					while($rowrate = mysql_fetch_object($resultFeature)){
+						include('reviewshtml.php');
+					}
+				}
 			?>
 		</div>
     </div>
+	<!-- end advocate code -->
     </div>
 </div>
-<a class="Button WhiteButton Indicator" href="#" id="ScrollToTop" style="display: none;"><strong>Top</strong><span></span></a>
-    
+
 <!--CONTENT ENDS HERE-->
 </div>
 <div class="vmobile">
@@ -316,10 +336,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 							$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 						}else
 							$desc = strip_tags(htmldecode($row->description));
-						if(strlen($openingAll) > $shortchar ){
-							$opening = mb_strcut($openingAll,0,$shortchar) . ' <a class="fancybox" href="#showmoreopen">... see more</a>';
-						}else
-							$opening = strip_tags(htmldecode($row->opening))
+						
 						?>
 						<div class="m_desc">
 							<?php

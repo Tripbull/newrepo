@@ -216,18 +216,19 @@ foreach($time_zones as $zones){
 								</p>
 								<div class="clear" style="padding:1.5em 10px 0 10px;">
 								<p class="font-16 fl">Your default Camrally URL:&nbsp;</p>
-								<p class="font-16 fl vanity-default-link" style="text-decoration:none;font-weight: normal;font-size: 16px;color:blue">        camrally.com/09z9wxb.html</p>
+								<p class="font-16 fl vanity-default-link" style="text-decoration:none;font-weight: normal;font-size: 16px;color:blue">camrally.com/09z9wxb.html</p>
 								<!--<div class="clear" style="padding-top:1em"></div>
 								<p class="van-link-default font-16" style="font-weight: normal;color:#38c">http://camrally.com/</p> -->
-								<div class="clear" style="padding-top:1.5em"></div>
 							    <div class="tbl">
 									<div class="row1">
 										<div class="left1">
 											<div class="font-16">Your custom Camrally URL: </div>
 										</div>
 										<div class="right1">
-											<input type="text" data-clear-btn="true" name="vanity-str" id="vanity-str" value="" placeholder="CustomName">
-											<div style="position:relative;left:0;top:-29px;width:50px;color:#38c;padding-left:5px">camrally.com/</div>
+												<div class="lite-plan hide" style="position:relative;left:300px;top:35px;width:30px;color:#38c;">.html</div>
+											<div class="width-lite">
+											<input type="text" data-clear-btn="false" name="vanity-str" id="vanity-str" value="" placeholder="campaignname"></div>
+											<div style="position:relative;left:0;top:-29px;width:50px;color:#38c;padding-left:5px">camrally.com/</div>			
 										</div>
 									</div>
 								</div>

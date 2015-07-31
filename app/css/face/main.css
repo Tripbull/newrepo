@@ -159,7 +159,7 @@ textarea:focus, input:focus {background-color: #fff; box-shadow: inset 0 1px 1px
 }
 .pin .ImgLink img {width: 192px; border:1px solid red;}
 .pin .video {position: absolute; z-index: 1; top: 50%; left: 50%; width: 50px; height: 50px; margin: -25px 0 0 -25px;}
-.pin .description {display: block;line-height: 1.35em;color: #333; font-size: 15px;overflow: hidden; text-align:left; font-weight:bold;}
+.pin .description {display: block;line-height: 1.35em;color: #333; font-size: 15px;overflow: hidden; text-align:left; font-weight:bold;text-overflow: ellipsis;white-space: nowrap;width:170px;}
 .convo {margin: 0 -15px; padding: 10px 15px; background-color: #f2f0f0;}
 .convo:after {clear: both; display: block; height: 0; content: " "; visibility: hidden;}
 .convo p {margin: 0 0 0 36px; overflow: hidden;}
@@ -2227,10 +2227,11 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 .color-button {color: #fff;display: block;background:#31aee3;font-size: 12px;height: auto;padding:7px 0;width:90%;text-decoration:none;margin:0 auto;}
 .color-button:hover {text-decoration:none;color: #fff;}
 .btn-take-isselfie{padding:10px 15px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
+.morebtn{position: fixed;bottom:0px;right:0;width: 100%;background-color: #fff;height:auto;overflow:hidden;padding:10px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;}
 /* mobile css */
 @media screen and (max-width: 600px){ 
-	.vdesktop{display:none;}
-	.vmobile{display:block;}
+	/*vdesktop{display:none;}*/
+	.vmobile{display:none;}
 	.main_wrapper{min-height:240px;text-align:center;}
 	.grey_hr{background-color:#f0f0f0;border-bottom:1px solid #bfbfbf;border-top:1px solid #bfbfbf;height:11px;width:100%}
 	.hidden{display:none}

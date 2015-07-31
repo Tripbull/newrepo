@@ -387,15 +387,9 @@ switch($opt){
 		$lname = mysql_real_escape_string($_REQUEST['lname']);
 		$email = mysql_real_escape_string($_REQUEST['email']);
 		$pwd = mysql_real_escape_string($_REQUEST['pwd']);
-		$groupId = trim($_REQUEST['groupId']);
-		if($groupId){
-			$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";	
-			mysql_query($sql) or die(mysql_error());
-			$lastId = mysql_insert_id();
-			$cookie = new cookie();
-			$cookie->setCookie( $lastId );
-		}else{
-				$date = date('Y-m-d H:i:s');$plan = $connect->basicID;
+		$date = date('Y-m-d H:i:s');
+			/*
+				$plan = $connect->basicID;
 				if($_SESSION['type'] == 1){ //monthly
 					if($_SESSION['plan'] == 'basic'){
 						$plan = $connect->basicID;
@@ -426,17 +420,21 @@ switch($opt){
 					if($_SESSION['plan'] == 'enterprise'){
 						$plan = $connect->enterprise24;
 					}
-				}
-				$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='notactive',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
+				} */
+				$plan = 3720054;
+				$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='active',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
 				$groupId = mysql_insert_id();
 				echo json_encode(array('type'=>$plan,'groupId'=>$groupId));
 				$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";
 				mysql_query($sql) or die(mysql_error());
-				$time = time();
-				$name =$fname.' '.$lname; //optional
-				$join_date = round(time()/60)*60;
-				mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
-		}
+				$id = mysql_insert_id();
+				$cookie = new cookie();
+				$cookie->setCookie( $id );
+				//$time = time();
+				//$name =$fname.' '.$lname; //optional
+				//$join_date = round(time()/60)*60;
+				//mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
+		
 	break;
 	case 'wizardsetupdone':
 		$placeid = $_REQUEST['placeId'];

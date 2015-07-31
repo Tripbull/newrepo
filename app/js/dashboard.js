@@ -3,12 +3,12 @@ var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,doma
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],txtdescription='',txtimg='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
-var liteID = 3356308,basicID=3356305,proID=3356306;
+var liteID = 3720054,basicID=3716169,proID=3716170;
 //live component chargify ids
-var liteID=34,com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
+var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=false,domainpath='',pathfolder='';
+var istest=true,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -22,10 +22,10 @@ $(document).ready(function(){
 	$('.fancybox').fancybox();
 	if(istest == true){
 			//test mode chargify ids
-		basicID=3361656,basic12 = 3602785,basic24 = 3602788,liteID = 3710751; 
+		basicID=3361656,basic12 = 3602785,basic24 = 3602788,liteID = 3720054; 
 		//test component chargify ids
-		com_basicID=27367,com_basic12 = 69598,liteID = 69599,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
-		chargifydomain = 'https://tripbull.chargify.com';
+		com_basicID=27367,com_basic12 = 69598,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
+		chargifydomain = 'https://camrally.chargify.com';
 		domainpath = '';pathfolder = 'http://camrally.com/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
@@ -121,7 +121,7 @@ $(document).ready(function(){
 					j++;
 				if(customArray.webImg8 != '')
 					j++;	
-				if(customArray.city == ''){
+				if(customArray.organization == ''){
 					profilewizardsetup=1;logowizard=1; 
 					wizardAlert(3,1,6);
 				}else if(customArray.logo == ''){
@@ -179,7 +179,7 @@ $(document).ready(function(){
 								j++;
 							if(customArray.webImg8 != '')
 								j++;	
-							if(customArray.city == ''){
+							if(customArray.organization == ''){
 								profilewizardsetup=1;logowizard=1; 
 								wizardAlert(3,3,6);
 							}else if(customArray.logo == ''){
@@ -249,7 +249,7 @@ $(document).ready(function(){
 						j++;
 					if(customArray.webImg8 != '')
 						j++;
-					if(customArray.city == '')	
+					if(customArray.organization == '')	
 						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
 					else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
 						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
@@ -290,7 +290,7 @@ $(document).ready(function(){
 						j++;
 					if(customArray.webImg8 != '')
 						j++;
-					if(customArray.city == '')	
+					if(customArray.organization == '')	
 						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
 					else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
 						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
@@ -468,7 +468,8 @@ $(document).ready(function(){
 	}
 	function _setBusinessName2(label){
 	
-		var subs=0,curActive = parseInt(userArray.addLoc) + 1;
+		var subs=1;//change it to 0
+		var curActive = parseInt(userArray.addLoc) + 1;
 		if( parseInt(curActive) >= parseInt(activeLocLength) )
 			subs = 1;
 		setData({opt:'setLoc',userId:userArray.id,name:locname,subs:subs,label:encodequote(label)});
@@ -501,9 +502,11 @@ $(document).ready(function(){
 		$('.right-menu-help').hide();$('.right-menu-admin').hide();$('.right-menu-send').hide();$('.right-menu-plan').hide();$('.right-menu-loc').hide();$('.right-menu-settings').hide();
 		//if(row == 0){
 			//$('.right-menu-help').show();
-		if(row == 0){
+		if(row == 1){
+			if(userArray.productId == liteID)
+				diabledTab('.right-menu-admin .right-menu',[0,1]);
 			$('.right-menu-admin').show();
-		}else if(row == 1){
+		}else if(row == 0){
 			$('.right-menu-settings').show();	
 		//}else if(row == 3){
 			//$('.right-menu-send').show();
@@ -518,8 +521,9 @@ $(document).ready(function(){
 					locArray[index].vlink = newvanitylink;
 					newvanitylink= '';
 				}		
+				var endhtml = (userArray.productId == liteID ? '.html' : '');
 				if(locArray[index].vlink != '')
-					$('#visit-tabluu-page a').attr('href',domainpath+locArray[index].vlink);
+					$('#visit-tabluu-page a').attr('href',domainpath+locArray[index].vlink+endhtml);
 				else
 					$('#visit-tabluu-page a').attr('href',domainpath+locArray[index].nicename+'.html');
 				$('#visit-tabluu-page').show();
@@ -529,7 +533,7 @@ $(document).ready(function(){
 	}
 	function DashMenu(){
 		/*locDefault = '<li ><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Help<span class="listview-arrow-default listview-arrow-active"></span></a></li><li><a href="#">User Admin<span class="listview-arrow-default"></span></a></li><li ><a href="#">Global Settings<span class="listview-arrow-default"></span></a></li><li ><a href="#">Send Emails<span class="listview-arrow-default"></span></a></li><li ><a href="#">Subscriptions<span class="listview-arrow-default"></span></a></li>'; */
-		locDefault = '<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">User Admin<span class="listview-arrow-default"></span></a></li><li ><a href="#">Global Settings<span class="listview-arrow-default"></span></a></li><li ><a href="#">Subscriptions<span class="listview-arrow-default"></span></a></li>';
+		locDefault = '<li ><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Global Settings<span class="listview-arrow-default"></span></a></li><li><a href="#">User Admin<span class="listview-arrow-default"></span></a></li><li ><a href="#">Subscriptions<span class="listview-arrow-default"></span></a></li>';
 		if(locArray.length){ // had location already
 			activeLocLength=1;arraylabel=[];
 			for(var i in locArray){
@@ -924,7 +928,7 @@ $(document).ready(function(){
 				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
 				leftMenu();
 			}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-				curClick=1;defaultSetup=0;
+				curClick=0;defaultSetup=0;
 				$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });
 			}
 			e.preventDefault();
@@ -1258,7 +1262,8 @@ $(document).ready(function(){
 		if(customArray.webImg8 != '')
 			j++;
 		//if(customArray.city != '' && j > 2){
-		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
+		var endhtml = (userArray.productId == liteID ? '.html' : '');
+		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link+endhtml);
 		if(customArray.city != ''){
 			if(customArray.nicename == "")
 				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
@@ -1498,8 +1503,12 @@ $(document).ready(function(){
 		
 	}); 
 	$(document).on('pageshow','#setup', function () {
-		if(newvanitylink != "")
-			$('.link-visit-page').attr('href',domainpath+newvanitylink);
+		if(newvanitylink != ""){
+			var endhtml = (userArray.productId == liteID ? '.html' : '');
+			$('.link-visit-page').attr('href',domainpath+newvanitylink+endhtml);
+		}	
+		if(userArray.productId == liteID)
+			diabledTab('.setup-left-menu',[3]);
 		$('#submit-desc').click(function(e){ //save description
 			showLoader();
 			var str = strencode($('#campaign-desc').sceditor('instance').val());
@@ -1564,7 +1573,8 @@ $(document).ready(function(){
 		if(customArray.webImg8 != '')
 			j++;
 		//if(customArray.city != '' && j > 1){
-		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
+		var endhtml = (userArray.productId == liteID ? '.html' : '');
+		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link+endhtml);
 		/*if(customArray.city != ''){
 			if(customArray.nicename == "")
 				createPage2();
@@ -1643,10 +1653,11 @@ $(document).ready(function(){
 				$('.pro-section').show();
 			}else if(row == 1){
 				$('.open-section').show();	
-			}else if(row == 2){
+			}else if(row == 2){	
 				if(userArray.productId == liteID){
-					alertBox('no access','Please upgrade to basic plan & above to access this feature');
-				}else{		
+					$('.lite-plan').show();
+					$('.width-lite').css({width:'85%'});
+				}
 				showLoader();
 					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink',success:function(data){
 						hideLoader();
@@ -1661,7 +1672,6 @@ $(document).ready(function(){
 						}	
 						$('.pro-vanity').show();
 					}});
-				}
 			
 			}else if(row == 3){
 				showLoader();
@@ -1801,7 +1811,8 @@ $(document).ready(function(){
 				else{
 					$('#vanity-reset').show();
 					$('#vanity-str').val(data);newvanitylink = data;
-					$('.link-visit-page').attr('href',domainpath+data); 
+					var endhtml = (userArray.productId == liteID ? '.html' : '');
+					$('.link-visit-page').attr('href',domainpath+data+endhtml); 
 					if(vanitywizard == 1){
 						vanitywizard=0;wizardsetup();
 					}else	
@@ -1819,10 +1830,10 @@ $(document).ready(function(){
 				{caption: 'yes', callback: function() {
 					var places = locId.split('|');
 					showLoader();var vanitystr = $('#vanity-str').val();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case=2',success:function(data){
+					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case=2',success:function(data){ 
 						hideLoader();
-						$('#vanity-str').val('');$('#vanity-reset').hide();
-						//$('.van-link-default').html('<a href="'+domainpath+customArray.nicename+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+customArray.nicename+'.html</a>');
+						$('#vanity-str').val('');$('#vanity-reset').hide();newvanitylink='';
+						$('.link-visit-page').attr('href',customArray.nicename+'.html'); 
 						$('.van-link-default').html('http://camrally.com/');
 						setTimeout(function(){alertBox('successful!','Your Custom Camrally URL has been reset.');},300);
 					}});
@@ -1966,7 +1977,8 @@ $(document).ready(function(){
 		$( "input" ).focus(function() {
 			isfocus = 1;
 		});
-		//diabledbox('#frmpro',[1,2,3]);
+		if(userArray.productId == liteID)
+			diabledbox('#frmpro',[1,2,3,4,6,7,8,9,10,11,12]);
 		$('.star').show();
 		var places = locId.split('|'),n=0;
 		$( ".right-header" ).html( placename );	
@@ -2195,24 +2207,27 @@ $(document).ready(function(){
 			if(txtName == ''){
 				alertBox('incomplete information','Please input a business name');
 				r=false;        
-			}else if(txtAdd == ''){
-				alertBox('incomplete information','Please input an address');
-				r=false;
-			}else if(txtCity == ''){
-				alertBox('incomplete information','Please input a city');
-				r=false;        
-			}else if(txtCountry == ''){
-				alertBox('incomplete information','Please input a country');
-				r=false;        
-			}else if(txtZip == ''){
-				alertBox('incomplete information','Please input a ZIP / Postal code');
-				r=false;        
-			}else if(!regex.test(email)){
-				alertBox('invalid email address','Please enter a valid email address');
-				r=false;        
-			}else if(txtcustombutton == '' && txtcustombuttonurl != ''){
-				alertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)');
-				r=false;        
+			}
+			if(userArray.productId != liteID){
+				if(txtAdd == ''){
+					alertBox('incomplete information','Please input an address');
+					r=false;
+				}else if(txtCity == ''){
+					alertBox('incomplete information','Please input a city');
+					r=false;        
+				}else if(txtCountry == ''){
+					alertBox('incomplete information','Please input a country');
+					r=false;        
+				}else if(txtZip == ''){
+					alertBox('incomplete information','Please input a ZIP / Postal code');
+					r=false;        
+				}else if(!regex.test(email)){
+					alertBox('invalid email address','Please enter a valid email address');
+					r=false;        
+				}else if(txtcustombutton == '' && txtcustombuttonurl != ''){
+					alertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)');
+					r=false;        
+				}
 			}
 			return r;
 		}	
@@ -2232,10 +2247,17 @@ $(document).ready(function(){
 					'center_buttons': true,
 					'show_close_button':false,
 					'overlay_close':false,
-					'buttons':  [{caption: 'okay',callback:function(){setTimeout(function() {createProfileMenu2();}, 300);}}]
+					'buttons':  [{caption: 'okay',callback:function(){
+						setTimeout(function() {
+							if(profilewizardsetup == 1){
+								profilewizardsetup = 0;wizardsetup();
+							}
+							createProfileMenu2();		
+						}, 300);}
+					}]
 				});	
 			}});	
-		}		
+		}
 		$('#submit-pro').click(function(e){ // save profile location
 			e.preventDefault();
 			
@@ -3410,7 +3432,7 @@ $(document).on('pageinit','#admin', function () {
 			$( '.main-wrap .right-content' ).hide();
 			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
 		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick=0;
+			curClick=1;
 			$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });	
 		}
 		e.preventDefault();
@@ -3423,6 +3445,8 @@ $(document).on('pageshow','#admin', function () {
 	$( "input" ).focus(function() {
 		isfocus = 1;
 	});	
+	if(userArray.productId == liteID)
+		diabledTab('.admin-left-menu',[0,1]);
 	$('.star').show();
     var listuser= [],locDefault=''; 
 	var height = ($( window ).height() / 16) - 5;
@@ -4057,9 +4081,9 @@ $(document).on('pageinit','#feedback', function () {
 		hideLoader();
 		arrayDataURL =  $.parseJSON(result);
 		var title = 'Setup Wizard - Step 6 / 6',nicelink='';
-		if(liteID == userArray.productId)
-			nicelink = customArray.nicename+'.html'; 
-		else if(basicID == userArray.productId || proID == userArray.productId){
+		if(liteID == userArray.productId){
+			nicelink = newvanitylink+'.html'; 
+		}else if(basicID == userArray.productId || proID == userArray.productId){
 			nicelink = newvanitylink;
 		}
 		if(isdonewizard > 0){
@@ -4075,7 +4099,8 @@ $(document).on('pageinit','#feedback', function () {
 				'overlay_close':false,
 				'buttons':  [{caption: 'okay',callback:function(){
 					curClick = 0;
-					window.open(domainpath+customArray.nicename,'_blank');
+					var endhtml = (userArray.productId == liteID ? '.html' : '');
+					window.open(domainpath+nicelink,'_blank');
 					$( ":mobile-pagecontainer" ).pagecontainer( "change",'index.html',{});
 				}}]	
 			});	
