@@ -82,7 +82,7 @@ if($width > 820)
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
-			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
+			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/Logo/Logo_2-small.png" /></a></div>
 		</div>
 	</div>
 </div>

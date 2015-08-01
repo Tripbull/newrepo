@@ -286,7 +286,7 @@ function loginFb(){
 		clearInterval(timeInverval);
 		refresh_handler();
 	}
-	// FB.logout(function(response) {});
+	 FB.logout(function(response) {});
 	 FB.login(function(response) {
 	   if (response.authResponse) {
 	   		
@@ -361,7 +361,12 @@ function postFb()
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
-			
+			var p = 'tempPhoto='+photo_url+'&placeId='+placeId+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&totalFriends=0&photo_url='+sharedlinkphoto+'&param='+isTakeSelfie+'&source=fb&data=&sharedId='+sharedurl; 
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
+				FB.logout(function(response) {});
+				setTimeout(function(){pressyes2();},300);
+			}});
+			/*
 			console.log(response);
 			//FB.api('/me/friends',  function(friendlist) {
 				var rate_1=0,rate_2 =0,rate_3 =0,rate_4 =0,rate_5 =0,rate_6 =0,rate_7 =0;
@@ -381,7 +386,7 @@ function postFb()
 								$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=photoshare&'+p,success:function(lastId){
 									setdefault();
 								}});
-								FB.logout(function(response) {});	
+								//FB.logout(function(response) {});	
 								setTimeout(function(){pressyes2();},300);
 							}
 						});			
@@ -403,12 +408,12 @@ function postFb()
 							$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=photoshare&'+p,success:function(lastId){
 								setdefault();
 							}});
-							FB.logout(function(response) {});	
+							//FB.logout(function(response) {});	
 							setTimeout(function(){pressyes2();},300);
 
 						}
 					});
-				}
+				} */
 		});
 	}
 }
@@ -416,11 +421,29 @@ function postFb()
 
 
 $(document).ready(function(){ 
+   	window.fbAsyncInit = function() {
+    // init the FB JS SDK
+	   FB.init({
+		  appId      : 682746285089153,                        // App ID from the app dashboard
+		  status     : true,                                 // Check Facebook Login status
+		  xfbml      : true                                  // Look for social plugins on the page
+		});
+		// Additional initialization code such as adding Event Listeners goes here
+  };
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk')); 
+   nicename = getUrlVar('p');
+   isTakeSelfie = getUrlVar('s');  
    $('.fancybox').fancybox();
-   
    if(istest == true){
 		//domainpath = 'http://camrally.com/';
-		domainpath = 'http://localhost/dinocam/newrepo/app/';
+		domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
 		everFree = 3602345,basicID=3361656,basic12 = 3602785,basic24 = 3602788,proID=3361672,pro12 = 3602786,pro24 = 3602789,enterprise=3602346,enterprise12 =3602787,enterprise24 = 3602790;
 	}else{
 		domainpath = 'http://camrally.com/';

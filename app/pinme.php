@@ -79,7 +79,7 @@ echo '<title>'. $row->businessName .', '.$row->address.' '.$row->city.', '.$row-
 <a name="top"></a>
 <div class="header">
     <div class="HeaderContainer">
-        <div class="d-logo"><a href="/" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/white-logo-tabluu-page.png" /></a></div>
+        <div class="d-logo"><a href="/" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/Logo/Logo_2-small.png" /></a></div>
     </div>		
 </div>
 <div class="ColumnContainer">

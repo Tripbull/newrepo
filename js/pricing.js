@@ -124,14 +124,14 @@ $(document).ready(function(){
 		$('.pro-price').html(pro);
 		$('.enter-price').html(enterprise);
 		$('.txtmontly').html(textmonthly);
-		/*$('#basic-link').attr('href', 'http://tabluu.chargify.com/h/3356305/subscriptions/new');
-		$('#pro-link').attr('href', 'http://tabluu.chargify.com/h/3356306/subscriptions/new');
-		$('#enter-link').attr('href', 'http://tabluu.chargify.com/h/3356316/subscriptions/new'); */
-		
+		$('#basic-link').attr('href', 'app/signup.html');
+		$('#pro-link').attr('href', 'app/signup.html');
+		$('#enter-link').attr('href', 'app/signup.html'); 
+		/*
 		$('#basic-link').attr('href', 'app/signup.html?type=1&plan=basic');
 		$('#pro-link').attr('href', 'app/signup.html?type=1&plan=pro');
 		$('#enter-link').attr('href', 'app/signup.html?type=1&plan=enterprise'); 
-
+         */
 	});
 	$( ".year-plan" ).click(function(e) {
 		e.preventDefault();

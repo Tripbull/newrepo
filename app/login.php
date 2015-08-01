@@ -24,7 +24,7 @@ $_SESSION['session']=$ur_session;
 <body>
 		<div id="login" data-role="page" data-prefetch="false">
 
-			<div class="content-wrap">
+			<div class="content-wrap2">
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="contentwrap">

@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-﻿<?php
-session_start();
-=======
-﻿<?php session_start();
->>>>>>> fcc1772d9c39f756226e5d8dcab3fc6ef91c39ca
+<?php session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 ?>

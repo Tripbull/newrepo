@@ -403,10 +403,10 @@ $(document).ready(function(){
 					defaulAlertBox('confirm','please confirm','Make this campaign offline?',3);	
 				}else{
 					var subs=0,curActive = parseInt(userArray.addLoc) + 1;
-					if( parseInt(curActive) >= parseInt(activeLocLength) ){
+					//if( parseInt(curActive) >= parseInt(activeLocLength) ){
 						defaulAlertBox('confirm','please confirm','Make this campaign online?',2);
-					}else
-						defaulAlertBox('confirm','insufficent campaign subscriptions','Please subscribe to more campaigns...',4);
+					//}else
+						//defaulAlertBox('confirm','insufficent campaign subscriptions','Please subscribe to more campaigns...',4);
 				}
 			}else
 				defaulAlertBox('alert','invalid request','Please contact your administrator(s) for this request.',1);
