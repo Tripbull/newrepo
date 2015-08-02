@@ -3,19 +3,28 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
+$type = $_REQUEST['s'];
+$istest = true;
+if($istest){
+   $curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}else
+	$curDomain = '../';	
+	
 include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
-$sql = "SELECT p.profilePlaceId,cam.brand, cam.tag1, cam.tag2,l.businessName FROM businessProfile AS p LEFT JOIN businessList AS l ON l.id = p.profilePlaceId LEFT JOIN campaigndetails AS cam ON cam.posterId = p.profilePlaceId WHERE p.nicename =  '$nice' LIMIT 1";
+$sql = "SELECT p.profilePlaceId, p.businessName, p.nicename, p.category, p.address, p.city, p.country, p.zip, p.contactNo FROM businessProfile AS p WHERE p.nicename =  '$nice' LIMIT 1";
 $result = mysql_query($sql);
 $row = mysql_fetch_object($result);
-$businessTitle = $row->businessName .' - '.$row->tag1.' '.$row->tag2;
+$address = $row->businessName .', '. $row->address .', '. $row->city .', '.$row->country;
+$_SESSION['address']=$address;
 $connect->db_disconnect();
 ?>
 <!DOCTYPE html>
 <html> 
 <head>
-	<title><?php echo $businessTitle ?></title>
+	<title>Please rate <?php echo $address ?></title>
     <meta name="robots" content="index, follow"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
@@ -24,20 +33,27 @@ $connect->db_disconnect();
 	<![endif]-->
 	<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
 	<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
+	<link type="text/css" rel="stylesheet" href="css/dialogcomment.css" type="text/css">
+	<link type="text/css" rel="stylesheet" href="css/magnific-popup.css"/>
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link href="css/fbshared.css" media="screen" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 	<script type="text/javascript" src="js/scriptcam.js"></script>
+	<script type="text/javascript" src="js/jquery.form.min.js"></script>
+	<script type="text/javascript" src="js/json3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.md5.js"></script>
 	<script type="text/javascript" src="js/dialog.js"></script>
+	<script type="text/javascript" src="js/dialogcomment.js"></script>
+	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
 	<script type="text/javascript" src="js/rate.js"></script>
 	<script type="text/javascript" src="js/rateone.js"></script>
 	<script type="text/javascript" src="js/webcam.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 	<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
 	<script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>
-
 </head>
 <body>
 	<!--
@@ -52,14 +68,13 @@ $connect->db_disconnect();
 		<canvas id="canvas-resize" style="position:absolute;"></canvas>
 	</div>
 	<div id="fb-root"></div>
-
 	<div class="rate" id="rateone" data-dom-cache="false" data-role="page" data-prefetch="false">
 		<div class="camp-wrapper">
 			<div class="left">
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
 			</div>
 			<div class="right">
-				<div class="fb-comments" data-href="<?=//$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				<div class="fb-comments" data-href="<?=$curDomain.'app/rateone.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 			</div> 
 		</div>
 		<div class="content-wrap">

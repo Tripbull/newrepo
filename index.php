@@ -1,4 +1,4 @@
-﻿<?php session_start();
+<?php session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 ?>

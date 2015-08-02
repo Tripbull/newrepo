@@ -24,7 +24,7 @@ $_SESSION['session']=$ur_session;
 <body>
 		<div id="login" data-role="page" data-prefetch="false">
 
-			<div class="content-wrap">
+			<div class="content-wrap2">
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="contentwrap">
@@ -78,7 +78,7 @@ $_SESSION['session']=$ur_session;
 						</div>
 					</div>			
 				</div><!-- /content -->
-				<div data-role="footer"><div class="create-accnt">Create a Tabluu account</div></div><!-- /footer -->
+				<div data-role="footer"><div class="create-accnt">Create a Camrally account</div></div><!-- /footer -->
 			</div>
 			
   </div>
