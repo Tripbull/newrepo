@@ -220,7 +220,7 @@ select#select-category,select#profile-timezone{font-family: "Myriad" !important;
 #login {background-color:#D9D9D9;}
 #login  .content-wrap{background:#EFF0F1;font-weight:bold;}
 #login .contentwrap{width:100%;max-width:21.25em;margin:0 auto;height:100%;min-height:18.75em;text-align:center;}
-#login .contentwrap .logo-login{background:url(../images/Logo/Logo_1-small.png) 0 0/100% no-repeat;width:230px;height:80px;margin:0 auto;margin-top:2em;}
+#login .contentwrap .logo-login{background:url(../images/Logo/Logo_1-medium.png) 0 0/100% no-repeat;width:230px;height:80px;margin:0 auto;margin-top:2em;}
 #login .contentwrap .ui-input-text, #login #popup-prob-login .ui-input-text{margin:0 auto !important;}
 #login .contentwrap  input, #login #popup-prob-login input{min-height: 2.5em !important;}
 #login .contentwrap .ui-focus, #login #popup-prob-login .ui-focus{box-shadow:none !important;}
@@ -236,7 +236,7 @@ select#select-category,select#profile-timezone{font-family: "Myriad" !important;
 #sign {background-color:#D9D9D9;}
 #sign .content-wrap{background:#EFF0F1;}
 #sign .contentwrap{width:100%;max-width:21.25em;margin:0 auto;height:100%;min-height:18.75em;text-align:center;}
-#sign .contentwrap .logo-sign{background:url(../images/Logo/Logo_1-small.png) 0 0/100% no-repeat;width:230px;height:80px;margin:0 auto;margin-top:2em;}
+#sign .contentwrap .logo-sign{background:url(../images/Logo/Logo_1-medium.png) 0 0/100% no-repeat;width:230px;height:80px;margin:0 auto;margin-top:2em;}
 #sign .contentwrap .ui-input-text{margin:0 auto !important;}
 #sign .contentwrap  #newpwd input, #sign .contentwrap  #newpwdConfirm input {color:red;min-height: 2.5em !important;}
 #sign .contentwrap .ui-focus{box-shadow:none !important;}
