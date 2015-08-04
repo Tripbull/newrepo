@@ -29,7 +29,7 @@ $(document).ready(function(){
 		domainpath = '';pathfolder = 'http://camrally.com/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
-		chargifydomain = 'https://tabluu.chargify.com';
+		chargifydomain = 'https://camrally.chargify.com';
 		pathfolder = 'http://camrally.com/app/';
 	}
 });
@@ -341,7 +341,10 @@ $(document).ready(function(){
 		$('#dashboard #startgetting').click(function(){showrate();});
 		$('.plan-page').on('click', ' > li', function () {
 		   curClick = $(this).index();
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
+		   if(userArray.productId == liteID)
+				alertBox('no access','Please upgrade to basic plan & above to access this feature');
+			else
+				$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
 		});
 		$('.right-menu').on('click', ' > li', function () {
 		   curClick = $(this).index();
@@ -1653,9 +1656,9 @@ $(document).ready(function(){
 				$('.open-section').show();	
 			}else if(row == 2){	
 				if(userArray.productId == liteID){
-					$('.lite-plan').show();
-					$('.width-lite').css({width:'85%'});
-				}
+					$('.html-liteplan').show();
+				}else
+					$('.html-liteplan').hide();
 				showLoader();
 					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink',success:function(data){
 						hideLoader();
@@ -2592,10 +2595,10 @@ $(document).ready(function(){
 			}
 			$('.uic-section-logo').hide();$('.uic-section-img').hide();$('.uic-section-bg').hide();$('.uic-section-fc').hide();$('.uic-section-tbs').hide();$('.uic-section-tb').hide();$('.uic-section-box').hide();
 			if(row == 0){
-				if(userArray.productId == liteID)
-					 alertBox('no access','Please upgrade to basic plan & above to access this feature');
-				else
-					$('.uic-section-bg').show();
+				//if(userArray.productId == liteID)
+					// alertBox('no access','Please upgrade to basic plan & above to access this feature');
+				//else
+				$('.uic-section-bg').show();
 			}else if(row == 1){
 				$('.uic-section-tb').show();
 			}else if(row == 2){
@@ -2670,7 +2673,11 @@ $(document).ready(function(){
 			if(typeof(messArray.followB) != 'undefined')
 				$('#txtbox12').val(decodequote(messArray.followB));
 			if(typeof(messArray.shareB) != 'undefined')
-				$('#txtbox22').val(decodequote(messArray.shareB));						
+				$('#txtbox22').val(decodequote(messArray.shareB));
+			if(typeof(messArray.sharedT) != 'undefined')
+				$('#txtbox26').val(decodequote(messArray.sharedT));
+			if(typeof(messArray.sharedB) != 'undefined')
+				$('#txtbox27').val(decodequote(messArray.sharedB));		
 			setmessageBox();
 		}//else
 			//$('.follow-loc').html('Be a fan of '+customArray.businessName+'?');
@@ -2738,13 +2745,13 @@ $(document).ready(function(){
 		$('#submit-box').click(function(e){
 			e.preventDefault();
 			var found = true,lessthan = '<',greaterthan='>';
-			if($('#txtbox12').val().search(/<brand>/i) == '-1'){
+			if($('#txtbox12').val().search(/<campaigner>/i) == '-1'){
 				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
+				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;campaigner&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
 			}else if($('#txtbox12').val().search('<privacy_policy_link>') == '-1'){
 				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
+				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;campaigner&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
 			}else if($('#txtbox22').val().search('<privacy_policy_link>') == '-1'){
 				found = false;
@@ -5271,17 +5278,17 @@ $(document).on('pageshow','#fbpost', function () {
 	/* code for setup-cust-post */
 	if(customArray.fbpost != ''){
 		try {arrayfbpost = $.parseJSON(customArray.fbpost);}
-		catch(err) {arrayfbpost = {fbpost:customArray.fbpost,postdesc:'My review of <brand>'}}
+		catch(err) {arrayfbpost = {fbpost:customArray.fbpost,postdesc:'My review of <campaigner>'}}
 	}else{
-		arrayfbpost = {fbpost:'<comment> <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>',postdesc:'My review of <brand>'}
+		arrayfbpost = {fbpost:'<comment> <campaigner> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>',postdesc:'My review of <campaigner>'}
 	}
 		
 	var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-	var preview = String(arrayfbpost.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+	var preview = String(arrayfbpost.fbpost).replace(/<campaigner>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
 	$('.preview').html(preview);
 	$('#txtFBPost').val(decodequote(arrayfbpost.fbpost));
 
-	var preview = String(arrayfbpost.postdesc).replace(/<brand>/g,customArray.businessName);
+	var preview = String(arrayfbpost.postdesc).replace(/<campaigner>/g,customArray.businessName);
 	$('.preview2').html(preview);
 	$('#postdesc').val(decodequote(arrayfbpost.postdesc));
 	
@@ -5290,21 +5297,21 @@ $(document).on('pageshow','#fbpost', function () {
 		places = locId.split('|');
 		var found= true;
 		
-		if($('#txtFBPost').val().search(/<brand>/i) == '-1'){
+		if($('#txtFBPost').val().search(/<campaigner>/i) == '-1'){
 			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt",, "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
+			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt",, "&lt;campaigner&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
 		}else if($('#txtFBPost').val().search(/<tabluu_url>/i) == '-1'){
 			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
+			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;campaigner&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
 		}else if($('#txtFBPost').val().search(/<comment>/i) == '-1'){
 			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');	
+			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;campaigner&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');	
 		}
 		if(found){
 			showLoader();
 			var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-			var preview = String($('#txtFBPost').val()).replace(/<brand>/,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
-			var preview2 = String($('#postdesc').val()).replace(/<brand>/,customArray.businessName);
+			var preview = String($('#txtFBPost').val()).replace(/<campaigner>/,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+			var preview2 = String($('#postdesc').val()).replace(/<campaigner>/,customArray.businessName);
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=fblink&'+$('#frmpost2social').serialize(),success:function(lastId){
 				hideLoader();
 				customArray.fbpost = {fbpost:$('#txtFBPost').val(),postdesc:$('#postdesc').val()}
@@ -5318,11 +5325,11 @@ $(document).on('pageshow','#fbpost', function () {
 		e.preventDefault();
 		places = locId.split('|');
 		$('<div id="overlay"> </div>').appendTo(document.body);
-		var defaultstr = '<comment> <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>.';
-		var defaultstr2 = 'My review of <brand>';
+		var defaultstr = '<comment> <campaigner> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>.';
+		var defaultstr2 = 'My review of <campaigner>';
 		var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-		var preview2 = String(defaultstr2).replace(/<brand>/g,customArray.businessName);
-		var preview = String(defaultstr).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
+		var preview2 = String(defaultstr2).replace(/<campaigner>/g,customArray.businessName);
+		var preview = String(defaultstr).replace(/<campaigner>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
 		$('#txtFBPost').val(defaultstr);
 		$('.preview').html(preview);
 		$('#postdesc').val(defaultstr2);

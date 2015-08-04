@@ -222,10 +222,9 @@ foreach($time_zones as $zones){
 							    <div class="tbl">
 									<div class="row1">
 										<div class="left1">
-											<div class="font-16">Your custom Camrally URL: </div>
+											<div class="font-16">Your custom Camrally URL <span class="hide html-liteplan">(with .html at the end)</span>: </div>
 										</div>
-										<div class="right1">
-												<div class="lite-plan hide" style="position:relative;left:300px;top:35px;width:30px;color:#38c;">.html</div>
+										<div class="right1">							
 											<div class="width-lite">
 											<input type="text" data-clear-btn="false" name="vanity-str" id="vanity-str" value="" placeholder="campaignname"></div>
 											<div style="position:relative;left:0;top:-29px;width:50px;color:#38c;padding-left:5px">camrally.com/</div>			

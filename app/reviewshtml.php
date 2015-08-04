@@ -27,8 +27,8 @@ if($rowrate->hideimg > 0 && $rowrate->hideimg != null)
     }?>	
 	<div style="text-align:center;">
 		<?php
-		if($rowrate->source == 'fb' && $rowrate->link != '' && $rowrate->isshared == 1)
-			echo '<a href="'.$path.'user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/></a>';
+		if(($rowrate->source == 'fb' || $rowrate->source == '')  && $rowrate->link != '')
+			echo '<a href="user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/></a>';
 		else
 			echo '<img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/>';
 		?>

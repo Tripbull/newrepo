@@ -2174,7 +2174,7 @@ a.CommentUrlDecorate:hover {
 /* Robert css*/
 body{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",arial,sans-serif;}
 .title-name,.desctext,.addtext,.MerchantPinMe,.pinmesnipsuser,.RateCount,.MerchantHead,.menuwrap,.follow,.masonryImage,#nav{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",arial,sans-serif;}
-.title-name{color: #444;font-size: 28px;font-weight: bold;margin-top: 1px;max-width: 380px;overflow: hidden;text-overflow: ellipsis;}
+.title-name{color: #777;font-size: 28px;font-weight: bold;margin-top: 1px;max-width: 380px;overflow: hidden;text-overflow: ellipsis;}
 .desctext,.opentext{font-size: 14px;clear:both;line-height: 22px;margin: 0;padding: 0;color:#9a9a9a;}
 .desctext,#showmoreopen,#showmoredesc{font-size: 14px;}
 #showmoreopen,#showmoredesc,.desctext a,.opentext a{color:#9a9a9a;}
@@ -2226,7 +2226,7 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 .vdesktop{display:block;}
 .color-button {color: #fff;display: block;background:#31aee3;font-size: 12px;height: auto;padding:7px 0;width:90%;text-decoration:none;margin:0 auto;}
 .color-button:hover {text-decoration:none;color: #fff;}
-.btn-take-isselfie{padding:10px 15px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
+.btn-take-isselfie{padding:7px 15px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
 .morebtn{position: fixed;bottom:0px;right:0;width: 100%;background-color: #fff;height:auto;overflow:hidden;padding:10px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;}
 /* mobile css */
 @media screen and (max-width: 600px){ 

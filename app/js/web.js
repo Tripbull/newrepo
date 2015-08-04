@@ -15,7 +15,7 @@ $(document).ready(function() {
 	{
 		e.preventDefault();
 		if($(this).hasClass( "li-advocate" )){
-			$('.textadvo').html('Showcase');
+			$('.textadvo').html('Campaign Images');
 			$(this).removeClass( "li-advocate" );
 			$(this).addClass( "li-showcase" );
 			$('.showcaseimg').hide();
@@ -39,11 +39,10 @@ $(document).ready(function() {
 	$(".loadmorebtn").click(function(e){ //code for advocates not feature
 		if(pageincre < pagesonadvocates){
 			$( "#overlay" ).show();
-			alert('not feature '+ pageincre +'<='+ pagesonadvocates)
 			var offset = pageincre * d_limit;
 			pageincre++;
 			$.ajax({
-				url: 'loadadvocate.php',	
+				url: 'app/loadadvocate.php',	
 				type: 'POST',
 				data: {offset:offset,limit:d_limit,placeId:$('#placeid').val(),feature:0},
 				success:function(object){
@@ -61,10 +60,10 @@ $(document).ready(function() {
 	$(".loadmorefeaturebtn").click(function(e){ //code for advocates feature
 		if(pagefeatincre < pagefeature){
 			$( "#overlay" ).show();
-			alert('feature '+pagefeatincre +'<='+ pagefeature)
+			//alert('feature '+pagefeatincre +'<='+ pagefeature)
 			var offset = pagefeatincre * d_limit;pagefeatincre++;
 			$.ajax({
-				url: 'loadadvocate.php',	
+				url: 'app/loadadvocate.php',	
 				type: 'POST',
 				data: {offset:offset,limit:d_limit,placeId:$('#placeid').val(),feature:1},
 				success:function(object){

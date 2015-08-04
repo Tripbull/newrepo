@@ -532,19 +532,25 @@ switch($opt){
 		$row = mysql_fetch_array($bresult);
 		echo json_encode($row);
 	break;
-	case 'ratesave':
+	case 'savecampaign':
+		 $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url =$_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d H:i:s');$email = $_REQUEST['email'];$source = $_REQUEST['source'];$param = $_REQUEST['param'];$sharedId = explode("_",$_REQUEST['sharedId']);
+		$table = 'sharedlink_'.$id;	
+			
+		$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
+		$last_Id = mysql_insert_id();
+		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = 0,isshared=1 WHERE id = {$sharedId[1]}") or die(mysql_error());
 
-				 $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url =$_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d H:i:s');$email = $_REQUEST['email'];$source = $_REQUEST['source'];$param = $_REQUEST['param'];
-				$data = $_REQUEST['data'];$totalFriends = $_REQUEST['totalFriends'];$label = $_REQUEST['label'];$textimg_height = 80;$tranparent = 85;
-				$tempPhoto = $_REQUEST['tempPhoto'];$sharedId = explode("_",$_REQUEST['sharedId']);
-				$table = 'sharedlink_'.$id;	
-					
-				$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'",labelId="'.$label.'"') or die(mysql_error());
-				$last_Id = mysql_insert_id();
-				$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source=1,userId="'.$userId.'",name="'.$userName.'",totalFriends='.$totalFriends.',email="'.$email.'",placeId='.$id.',data=""') or die(mysql_error());
-				$lastId = mysql_insert_id();
-				mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = {$userId},isshared=1 WHERE id = {$sharedId[1]}");
-				echo $last_Id.'_'.$lastId; 
+	break;
+	case 'ratesave':
+		 $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url =$_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d H:i:s');$email = $_REQUEST['email'];$source = $_REQUEST['source'];$param = $_REQUEST['param'];$data = $_REQUEST['data'];$sharedId = explode("_",$_REQUEST['sharedId']);
+		$table = 'sharedlink_'.$id;	
+			
+		$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
+		$last_Id = mysql_insert_id();
+		$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source=1,userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
+		$lastId = mysql_insert_id();
+		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = {$userId},isshared=1 WHERE id = {$sharedId[1]}");
+		echo $last_Id.'_'.$lastId; 
 	break;
 	case 'photoshare':
 		$rated1 = $_REQUEST['rated1'];$rated2 = $_REQUEST['rated2'];$rated3 = $_REQUEST['rated3'];$rated4 = $_REQUEST['rated4'];$rated5 = $_REQUEST['rated5'];$rated6 = $_REQUEST['rated6'];$rated7 = $_REQUEST['rated7'];$aveRated = $_REQUEST['aveRate'];$comment = $_REQUEST['comment']; $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url = $_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d h:i:s');$email = $_REQUEST['email'];
