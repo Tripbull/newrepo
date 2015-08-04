@@ -39,6 +39,7 @@ if(strlen($_REQUEST['p']) > 6){
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.qrcode-0.7.0.min.js"></script>
+	<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 	<script type="text/javascript">
 		var updateQrCode = function () {
 			var options = {

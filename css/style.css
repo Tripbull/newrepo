@@ -27,7 +27,7 @@ header { width:100%; min-height:81px; float:left; background:#00aeef;min-width:2
 .banner-text { width:57%; float:left; }
 .banner-text h2 { font-size:35px; color:#333333; margin:35px 0px 30px; font-family: 'OpenSansSemibold'; text-align:center; line-height:40px; }
 .banner-text p { font-size:19.15px; color:#6d6d6d; margin:0px; text-align:center; line-height:22px; }
-.cust-post h4{margin:10px 0 5px 0;color: #00aeef;font-size: 35px;font-weight: bold;text-shadow: 1px 1px 0 #eff0f1;text-align: center;}
+.cust-post h4{color: #00aeef;font-size: 35px;font-weight: bold;text-shadow: 1px 1px 0 #eff0f1;text-align: center;margin:10px auto 0 auto;}
 .banner-text p span { font-size:17.15px;}
 /*#bx-pager{padding-top:15px;}*/
 .happy h2 { font-size:33.28px; color:#00aeef; margin:0px; font-family: 'OpenSansBold'; text-align:left !important; }
@@ -62,10 +62,10 @@ header { width:100%; min-height:81px; float:left; background:#00aeef;min-width:2
 .cust-post ul li.nostyle{list-style-type:none;padding-bottom:10px;}
 .cust-post ul li{font-size: 16px; margin-top: 15px;}
 .cust-post ul li {list-style-image: url(../images/price-check.png);}
-.check-list-ul ul{padding: 35px 5px 60px 33px;background-color: rgba(152, 220, 246, 0.31);width:92%;}
-.cam-fail {padding: 5px;width: 52%;background-color: rgba(152, 220, 246, 0.31); margin: 0 auto;}
-.cam-stop {padding: 10px;background-color: rgba(152, 220, 246, 0.31); width: 60%; margin: 0 auto;}
-.cam-selfie {padding: 15px;background-color: rgba(152, 220, 246, 0.31); width: 70%; margin: 0 auto;}
+.check-list-ul ul{padding: 35px 5px 60px 33px;background-color: #DCEEF4;width:92%;}
+.cam-fail {padding: 5px;width: 52%;background-color: #DCEEF4; margin: 0 auto;}
+.cam-stop {padding: 10px;background-color: #DCEEF4; width: 60%; margin: 0 auto;}
+.cam-selfie {padding: 15px;background-color: #DCEEF4; width: 70%; margin: 0 auto;}
 .cam-stop ul {padding-left: 31px}
 .feedback { width:100%; float:left; background:#00aeef; border-top:2px solid #55d1ff; border-bottom:2px solid #55d1ff;padding-bottom:10px; }
 .feedback h2 { font-size:33.28px; color:#fff; margin:50px 0px 30px; font-family: 'OpenSansBold'; text-align:center; text-transform:uppercase; text-shadow:1px 0px 1px #333; }
@@ -98,7 +98,7 @@ header { width:100%; min-height:81px; float:left; background:#00aeef;min-width:2
 }
 .plan a:hover { background:#00a2ed; text-decoration:none; }
 footer { width:100%; float:left; background:#1f2025; padding:32px 0px; border-bottom:2px solid #000; }
-footer p { font-size:12px; color:#bcbec0; margin:0px 0px 10px 5px; }
+footer p { font-size:12px !important; color:#bcbec0 !important; margin:0px 0px 10px 5px !important; padding: 0 !important;}
 footer ul { margin:0px; padding:0px; color:#fff; font-size:12px; }
 footer ul li { margin:0px 5px; padding:0px; list-style-type;
 display:inline-block; }

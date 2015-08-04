@@ -770,7 +770,7 @@ function rate_initialize(){
 
 		var camp_img = new Image();
 		camp_img.onload = function() {
-			if(camp_img.width > camp_img.height)
+			if(camp_img.width >= camp_img.height)
 			{
 				bgHeight = 'auto';
 				bgWidth = $(window).width() + 'px';
