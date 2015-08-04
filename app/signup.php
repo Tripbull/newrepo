@@ -30,7 +30,7 @@ if(isset($_REQUEST['type']) && isset($_REQUEST['plan'])){
 </head>
 <body>
 <div id="sign" data-role="page" data-prefetch="true">
-	<div class="content-wrap2">
+	<div class="content-wrap">
 		<div role="main" class="ui-content">
 			<div class="main-wrap">
 				<div class="contentwrap">

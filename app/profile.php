@@ -56,19 +56,18 @@ foreach($time_zones as $zones){
                                 </select>
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="true" name="txtpho" id="txtpho" value="" placeholder="telephone (optional)">
-								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtweb" id="txtweb" value="" placeholder="website url (optional)">
                                 <label for="number-1"></label>
 								<input type="text" data-clear-btn="true" name="txtfb" id="txtfb" value="" placeholder="facebook page url (optional)">
+								<label for="number-1"></label>
+								<input type="text" data-clear-btn="true" name="txtweb" id="txtweb" value="" placeholder="website url (optional)">
 									<label for="number-1"></label>
 									<input type="text" data-clear-btn="true" name="txtlink" id="txtlink" value="" placeholder="linkedIn url (optional)">
 									<label for="number-1"></label>
 									<input type="text" data-clear-btn="true" name="txttwit" id="txttwit" value="" placeholder="twitter url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="true" name="txtbooknowlabel" id="txtbooknowlabel" value="Post Your Selfie!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
-									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Post a Photo!, etc.)</label>
+									<input type="text" data-clear-btn="true" name="txtbooknowlabel" id="txtbooknowlabel" value="Post Your Photo!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
+									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Take a advocates!, etc.)</label>
 									<input type="text" data-clear-btn="true" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url">
-									<label for="number-1" style="font-size:12px;padding-top:2px">(custom button url)</label>
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-pro">Submit</button>
 								</div>
@@ -212,13 +211,14 @@ foreach($time_zones as $zones){
 							<section class="pro-vanity hide">
 								<div class="clear" style="padding-top:0.2em"></div>
 								<p class="font-16 fl bgrey" style="width:97%;padding:10px">
-									You can change your URL to an easy to remember custom link.
+									Using your current subscription, you can change your URL to an easy to remember custom link your customers will not forget.
 								</p>
 								<div class="clear" style="padding:1.5em 10px 0 10px;">
 								<p class="font-16 fl">Your default Camrally URL:&nbsp;</p>
-								<p class="font-16 fl vanity-default-link" style="text-decoration:none;font-weight: normal;font-size: 16px;color:blue">camrally.com/09z9wxb.html</p>
+								<p class="font-16 fl vanity-default-link" style="text-decoration:none;font-weight: normal;font-size: 16px;color:blue">        camrally.com/09z9wxb.html</p>
 								<!--<div class="clear" style="padding-top:1em"></div>
 								<p class="van-link-default font-16" style="font-weight: normal;color:#38c">http://camrally.com/</p> -->
+								<div class="clear" style="padding-top:1.5em"></div>
 							    <div class="tbl">
 									<div class="row1">
 										<div class="left1">
@@ -232,10 +232,21 @@ foreach($time_zones as $zones){
 									</div>
 								</div>
 								</div>
+								<div class="clear" style="padding-top:0.5em"></div>
+								<p class="font-16 fl bgrey" style="width:97%;padding:20px 10px">
+									<i>
+									Examples:<br/>  
+										bestcafe (flagship site)<br/>
+										bestcafenewyork<br/>
+										bestcafe singapore<br/>
+										</i>
+								</p>
+
+								<div class="clear" style="padding-top:1.5em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="vanity-update">Update</button>
 								</div>
-								<div class="clear" style="padding-top:0.5em"></div>
+								<div class="clear" style="padding-top:1em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="vanity-reset">Reset</button>
 								</div>

@@ -23,8 +23,8 @@
 							<div class="left-header">Collect Response</div>			
 							<ul class="feedback-left-menu" data-role="listview">
 								<li><a href="#">Email Invitations<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#" class="qrcode">QR Code & Mini Link<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Spot Response (Mobile Devices)<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#" class="qrcode">QR Code & Mini Link<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Photo Booth (Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
@@ -39,7 +39,7 @@
 									<button class="ui-btn" id="emaillinkopen">Open</button>
 								</div>
 							</section>	
-							<section class="feedback-weblink bgwhite hide pad-left-right">
+							<section class="feedback-weblink hide pad-left-right">
 								<p>Please choose a QR Code size...</p>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<fieldset data-role="controlgroup" data-corners="false" id="qr-size3">

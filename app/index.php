@@ -63,7 +63,6 @@ echo date_default_timezone_get();*/
 	<link rel="stylesheet" href="./minified/themes/square.min.css" type="text/css" media="all" />
 	<link type="text/css" rel="stylesheet" href="css/colorpicker.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.datepicker.css" />
-	<link type="text/css" rel="stylesheet" href="css/magnific-orig.css"/>
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script type="text/javascript" src="js/jquery.masonry.min.js"></script>

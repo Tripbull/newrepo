@@ -101,8 +101,7 @@ switch($opt){
 		$query = mysql_query("INSERT INTO businessList SET userGroupId = $gId, businessName = '{$name}', subscribe={$subs},label='{$label}'");
 		if(mysql_affected_rows()){
 			 $lastId = mysql_insert_id();
-			 $nicename = checknicename();
-			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0, nicename='{$nicename}'");
+			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0");
 			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
 			 $defaultLogo ='';
 			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#7F7F7F',backgroundFont = '#3b3a26'");
@@ -111,7 +110,6 @@ switch($opt){
 			 mysql_query("INSERT INTO businessImages (placeId,path,title,description,name) VALUES($lastId,'','','','fbImg'),($lastId,'{$defaultimg}','','','webImg'),($lastId,'{$defaultimg}','','','webImg2'),($lastId,'{$defaultimg}','','','webImg3'),($lastId,'{$defaultimg}','','','webImg4'),($lastId,'{$defaultimg}','','','webImg5'),($lastId,'','','','webImg6'),($lastId,'','','','webImg7'),($lastId,'','','','webImg8')");
 			 mysql_query("INSERT INTO campaigndetails SET posterId = $lastId");
 			 mysql_query("INSERT INTO businessDescription SET descPlaceId = $lastId");
-			 
 		     echo $lastId;
 			 feedbacktable($lastId);
 		}else
@@ -387,9 +385,15 @@ switch($opt){
 		$lname = mysql_real_escape_string($_REQUEST['lname']);
 		$email = mysql_real_escape_string($_REQUEST['email']);
 		$pwd = mysql_real_escape_string($_REQUEST['pwd']);
-		$date = date('Y-m-d H:i:s');
-			/*
-				$plan = $connect->basicID;
+		$groupId = trim($_REQUEST['groupId']);
+		if($groupId){
+			$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";	
+			mysql_query($sql) or die(mysql_error());
+			$lastId = mysql_insert_id();
+			$cookie = new cookie();
+			$cookie->setCookie( $lastId );
+		}else{
+				$date = date('Y-m-d H:i:s');$plan = $connect->basicID;
 				if($_SESSION['type'] == 1){ //monthly
 					if($_SESSION['plan'] == 'basic'){
 						$plan = $connect->basicID;
@@ -420,21 +424,17 @@ switch($opt){
 					if($_SESSION['plan'] == 'enterprise'){
 						$plan = $connect->enterprise24;
 					}
-				} */
-				$plan = 3720054;
-				$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='active',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
+				}
+				$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='notactive',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
 				$groupId = mysql_insert_id();
 				echo json_encode(array('type'=>$plan,'groupId'=>$groupId));
 				$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";
 				mysql_query($sql) or die(mysql_error());
-				$id = mysql_insert_id();
-				$cookie = new cookie();
-				$cookie->setCookie( $id );
-				//$time = time();
-				//$name =$fname.' '.$lname; //optional
-				//$join_date = round(time()/60)*60;
-				//mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
-		
+				$time = time();
+				$name =$fname.' '.$lname; //optional
+				$join_date = round(time()/60)*60;
+				mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
+		}
 	break;
 	case 'wizardsetupdone':
 		$placeid = $_REQUEST['placeId'];
@@ -539,7 +539,6 @@ switch($opt){
 		$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
 		$last_Id = mysql_insert_id();
 		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = 0,isshared=1 WHERE id = {$sharedId[1]}") or die(mysql_error());
-
 	break;
 	case 'ratesave':
 		 $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url =$_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d H:i:s');$email = $_REQUEST['email'];$source = $_REQUEST['source'];$param = $_REQUEST['param'];$data = $_REQUEST['data'];$sharedId = explode("_",$_REQUEST['sharedId']);

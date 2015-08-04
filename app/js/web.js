@@ -15,7 +15,7 @@ $(document).ready(function() {
 	{
 		e.preventDefault();
 		if($(this).hasClass( "li-advocate" )){
-			$('.textadvo').html('Campaign Images');
+			$('.textadvo').html('Showcase');
 			$(this).removeClass( "li-advocate" );
 			$(this).addClass( "li-showcase" );
 			$('.showcaseimg').hide();

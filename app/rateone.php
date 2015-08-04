@@ -49,6 +49,7 @@ $connect->db_disconnect();
 	<script type="text/javascript" src="js/dialogcomment.js"></script>
 	<script type="text/javascript" src="js/jquery.magnific-popup.js"></script>
 	<script type="text/javascript" src="js/rate.js"></script>
+	<script type="text/javascript" src="js/rateone.js"></script>
 	<script type="text/javascript" src="js/webcam.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 	<link rel="Shortcut Icon" href="http://camrally.com/blog/wp-content/themes/Tabluu%20Theme%20V1/images/favicon.ico" type="image/x-icon">
@@ -67,14 +68,13 @@ $connect->db_disconnect();
 		<canvas id="canvas-resize" style="position:absolute;"></canvas>
 	</div>
 	<div id="fb-root"></div>
-	
 	<div class="rate" id="rateone" data-dom-cache="false" data-role="page" data-prefetch="false">
 		<div class="camp-wrapper">
 			<div class="left">
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
 			</div>
 			<div class="right">
-				<div class="fb-comments" data-href="<?php //$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				<div class="fb-comments" data-href="<?=$curDomain.'app/rateone.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 			</div> 
 		</div>
 		<div class="content-wrap">

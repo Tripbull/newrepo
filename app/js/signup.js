@@ -3,7 +3,14 @@ $(document).bind('mobileinit', function(){
 	 $('input[type="text"]').textinput({ preventFocusZoom: true });
 });
 $(document).ready(function(){
-	
+	var istest = true,chargifydomain='',enterprise12='';
+    if(istest == true){
+		chargifydomain = 'http://tripbull.chargify.com';
+		enterprise12=3602787;
+	}else{
+		chargifydomain = 'http://tabluu.chargify.com';
+		enterprise12=3410620;
+	}	
 	var height = ($( window ).height() / 16) - 5;
 	$( '.contentwrap').css( {"min-height":height.toFixed() + 'em'} );	
     $('.fancybox').fancybox({});
@@ -42,9 +49,12 @@ $(document).ready(function(){
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=signup&fname='+$('#fname').val()+'&lname='+$('#lname').val()+'&email='+$('#email').val()+'&pwd='+$.md5($('#newpwd').val())+'&groupId='+$('#groupId').val(),success:function(result){
 						$('#overlay').remove();
 						var data =  $.parseJSON(result);
+						//if(data.type > 1){
+							window.location = chargifydomain+'/h/'+data.type+'/subscriptions/new?first_name='+$('#fname').val()+'&last_name='+$('#lname').val()+'&reference='+data.groupId; // redirect
+						//}else{
 							//alertBox('success','Successfully signed up!');
-						window.location= "index.html";
-						
+							//window.location= "index.html";
+						//}
 					}});
 				}	
 			}});

@@ -12,7 +12,7 @@ class db{
 	public $aws_secret_key = AWS_KEY;
     public $freever = '';
 	public $istest = true;
-	public $liteID = '';public $basicID='';public $proID='';public $enterprise='';public $basic12 ='';public $basic24 = '';
+	public $enterprise12 = '';public $basicID='';public $proID='';public $enterprise='';public $basic12 ='';public $basic24 = '';
 	public $pro12 = '';public $pro24 = '';public $enterprise24 ='';
 	public $proplusID =3356316;
     public $chargifydomain = '';
@@ -20,12 +20,18 @@ class db{
 	public $path = '';
    function __construct() {
 		if($this->istest){
-			$this->liteID = 3720054;$this->basicID=3716169;$this->proID=3716170;
-			$this->chargifydomain = 'camrally';
+			$this->freever = 3602345;
+			$this->enterprise12 = 3602787; 
+			$this->basicID=3361656;$this->proID=3361672;$this->enterprise=3602346;$this->basic12 = 3602785;$this->basic24 = 3602788;
+			$this->pro12 = 3602786;$this->pro24 = 3602789;$this->enterprise24 =3602790;
+			$this->chargifydomain = 'tripbull';
 			$this->path = '';
 		}else{
-			$this->liteID = 3720054;$this->basicID=3716169;$this->proID=3716170;
-			$this->chargifydomain = 'camrally';
+			$this->freever = 3356308;
+			$this->enterprise12 = 3410620; 
+			$this->basicID=3356305;$this->proID=3356306;$this->enterprise=3356316;$this->basic12 = 3405343;$this->basic24 = 3405344;
+			$this->pro12 = 3405345;$this->pro24 = 3405346;$this->enterprise24 =3410619;
+			$this->chargifydomain = 'tabluu';
 			$this->path = 'app/'; 
 		}
    }

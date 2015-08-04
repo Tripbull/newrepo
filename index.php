@@ -169,7 +169,7 @@ $_SESSION['session']=$ur_session;
 </div>  
 </div>
 
-<div class="qrcode-wrap">
+<div class="qrcode-wrap" style="background-color:#1DAFEC;">
 <div class="clear" style="padding:1em 0;"></div>
 <div class="container">
   <div class="qrcode-content">

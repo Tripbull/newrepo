@@ -7,6 +7,7 @@ var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],btncapture:['okay'],
 var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:['no','yes'],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
+
 var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
@@ -240,7 +241,6 @@ function loginFb(){
 		clearInterval(timeInverval);
 		refresh_handler();
 	}
-	 //FB.logout(function(response) {});
 	 FB.login(function(response) {
 	   if (response.authResponse) {
 	   		
@@ -351,6 +351,7 @@ $(document).ready(function(){
    nicename = getUrlVar('p');
    isTakeSelfie = getUrlVar('s');  
    $('.fancybox').fancybox();
+   
    if(istest == true){
 		//domainpath = 'http://camrally.com/';
 		domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';

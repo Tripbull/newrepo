@@ -9,6 +9,6 @@ $timezone = $timezone->timezone;
 $resultFeature =  mysql_query("SELECT b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = {$feature} ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 while($rowrate = mysql_fetch_object($resultFeature)){
 	include('reviewshtml.php');
-}
+} 
 $connect->db_disconnect();
 ?>
