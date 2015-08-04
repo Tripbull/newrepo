@@ -27,6 +27,7 @@ $con =  new fucn();
 $imgrotate = new fucn();
 //echo '<!--<p>'"SELECT s.id,s.source,s.link,s.label,p.nicename,v.link as vlink,g.productId,g.state FROM businessProfile AS p LEFT JOIN businessvanitylink AS v ON v.placeId = p.profilePlaceId LEFT JOIN businessList AS l ON l.id = p.profilePlaceId LEFT JOIN businessUserGroup AS g ON g.gId = l.userGroupId LEFT JOIN businessshorturl as s ON s.placeId = p.profilePlaceId WHERE s.link = '{$link}' OR v.link = '{$link}' OR p.nicename = '{$link}'".'</p>-->';
 $result = mysql_query("SELECT s.id,s.source,s.link,s.label,p.nicename,v.link as vlink,g.productId,g.state FROM businessProfile AS p LEFT JOIN businessvanitylink AS v ON v.placeId = p.profilePlaceId LEFT JOIN businessList AS l ON l.id = p.profilePlaceId LEFT JOIN businessUserGroup AS g ON g.gId = l.userGroupId LEFT JOIN businessshorturl as s ON s.placeId = p.profilePlaceId WHERE s.link = '{$link}' OR v.link = '{$link}' OR p.nicename = '{$link}'") or die(mysql_error());
+
 //$row = mysql_fetch_object($result);
 //print_r($row);
 //die();
@@ -38,29 +39,30 @@ if(mysql_num_rows($result)){
 		die();
 	}else{
 		if($row->link == $link){
-			if(trim($row->label) != '')
-				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source.'&label='.$row->id; //urlencode 
-			else
-				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
+			echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
 			//header("HTTP/1.1 301 Moved Permanently");
 			header("Location: {$goingto}");
 			die();
 		}else if($row->vlink == $link){
-			if($row->productId == $connect->basicID || $row->productId == $connect->basic24 || $row->productId == $connect->basic12 || $row->productId == $connect->freever){
-				//$goingto = 'http://camrally.com/'.$row->nicename.'.html';
+			if($row->productId == $connect->liteID && !strpos($_SERVER['REQUEST_URI'], 'html')){
 				header("HTTP/1.1 301 Moved Permanently");
-				$goingto = 'http://camrally.com/'.$row->nicename.'.html'; 
+				$goingto = 'http://camrally.com/'.$row->vlink.'.html'; 
 				header("Location: {$goingto}");
 				die();
 			}else{
-				//header("HTTP/1.1 301 Moved Permanently");
-				$nice = $row->nicename;
-				include_once('pinme.php');
-				die();
+				if(($row->productId == $connect->basicID || $row->productId == $connect->proID) && strpos($_SERVER['REQUEST_URI'], 'html')){
+					header("HTTP/1.1 301 Moved Permanently");
+					$goingto = 'http://camrally.com/'.$row->vlink; 
+					header("Location: {$goingto}");
+					die();
+				}else{
+					$nice = $row->nicename;
+					include_once('pinme.php');
+					die();
+				}
 			}
 		}else if($row->nicename == $link){
-			//header("HTTP/1.1 301 Moved Permanently");
-			if(trim($row->vlink) != '' && $row->productId != $connect->basicID && $row->productId != $connect->basic24 && $row->productId != $connect->basic12 && $row->productId != $connect->freever){
+			if(trim($row->vlink) != '' && ($row->productId == $connect->basicID || $row->productId == $connect->proID) ){
 					header("HTTP/1.1 301 Moved Permanently");
 					$goingto = 'http://camrally.com/'.$row->vlink;
 					header("Location: {$goingto}");

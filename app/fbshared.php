@@ -60,16 +60,17 @@ if($istest){
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="camrally.com" />
 <meta property="og:url" content="<?=$curDomain.'user/'.$nice?>" />
-<meta property="og:image" content="<?=$curDomain.$srcimg;?>" />
-<meta property="og:image:url" content="<?=$curDomain.$srcimg;?>" />
+<meta property="og:image" content="<?=$curDomain.'app/'.$srcimg;?>" />
+<meta property="og:image:url" content="<?=$curDomain.'app/'.$srcimg;?>" />
 <meta property="og:image:width" content="<?=$width?>" />
 <meta property="og:image:height" content="<?=$height?>" />
-<meta property="fb:app_id" content="682746285089153" />
+<meta property="fb:app_id" content="148972192103323" />
 <link href="<?=$path?>css/fbshared.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="<?=$path?>js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="<?=$path?>js/fbshared.js"></script>
 <script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
+<link rel="Shortcut Icon" href="<?=$path?>images/Logo/ico/Icon_2.ico" type="image/x-icon">
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
 <body>
@@ -123,7 +124,7 @@ if($width > 820)
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=682746285089153";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script> 
 </body>

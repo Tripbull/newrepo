@@ -63,7 +63,6 @@ echo date_default_timezone_get();*/
 	<link rel="stylesheet" href="./minified/themes/square.min.css" type="text/css" media="all" />
 	<link type="text/css" rel="stylesheet" href="css/colorpicker.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.datepicker.css" />
-	<link type="text/css" rel="stylesheet" href="css/magnific-orig.css"/>
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
 	<script type="text/javascript" src="js/jquery.masonry.min.js"></script>
@@ -98,10 +97,8 @@ echo date_default_timezone_get();*/
 						<div class="left-content fl">
 							<div class="left-header">Dashboard</div>			
 							<ul class="left-menu" data-defaults="true" data-role="listview">
-								<!--<li ><a href="#" >Help<span class="listview-arrow-default"></span></a></li>-->
-								<li ><a href="#">User Admin<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Global Settings<span class="listview-arrow-default"></span></a></li>
-								<!--<li ><a href="#">Send Emails<span class="listview-arrow-default"></span></a></li>-->
+								<li ><a href="#">User Admin<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Subscription<span class="listview-arrow-default"></span></a></li>
 							</ul>	
 							<ul class="addnew-loc" data-role="listview">
@@ -112,10 +109,7 @@ echo date_default_timezone_get();*/
 						<div class="right-content right-bgblue fr">
 							<div class="right-header"></div>
 							<section class="right-menu-help hide">
-								<ul class="right-menu" data-role="listview">
-									<!--<li><a href="http://camrally.com/blog/getting-started-with-tabluu" target="_blank">Remove getting started<span class="listview-arrow-default"></span></a></li>-->
-									<li ><a href="http://camrally.com/blog/tabluu-general/how-do-i-setup-tabluu-2" target="_blank">Setting Up Tabluu<span class="listview-arrow-default"></span></a></li><li ><a href="http://camrally.com/blog/tabluu-general/some-examples-to-get-you-started" target="_blank">Examples<span class="listview-arrow-default"></span></a></li>					
-								</ul>
+							
 							</section>
 							<section class="right-menu-admin hide">
 								<ul class="right-menu" data-role="listview"><li ><a href="admin.html" data-prefetch="true">Add New User<span class="listview-arrow-default"></span></a></li><li ><a href="admin.html" data-prefetch="true">Manage Users<span class="listview-arrow-default"></span></a></li><li ><a href="admin.html" data-prefetch="true">Profile & Password<span class="listview-arrow-default"></span></a></li></ul>
@@ -124,13 +118,13 @@ echo date_default_timezone_get();*/
 								<ul class="right-menu" data-role="listview"><li><a href="settings.html" data-prefetch="true">Time Zone<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="right-menu-send hide">
-								<!--<ul class="right-menu" data-role="listview"><li ><a href="sendemail.html" data-prefetch="true">Send Emails<span class="listview-arrow-default"></span></a></li></ul>-->
+								
 							</section>	
 							<section class="right-menu-plan hide">
 								<ul class="plan-page" data-role="listview"><li ><a href="#" data-prefetch="true">Plan &amp; Campaign<span class="listview-arrow-default"></span></a></li><li ><a href="#" data-prefetch="true">Transactions<span class="listview-arrow-default"></span></a></li><li ><a href="#" data-prefetch="true">Activity<span class="listview-arrow-default"></span></a></li></ul>
 							</section>	
 							<section class="right-menu-loc hide">
-								<ul class="right-menu-loc" data-role="listview"><li id="visit-tabluu-page"><a href="#" target="_blank" class="link-visit-page" data-prefetch="false">Your Camrally Page<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="collectFeedback" data-prefetch="false">Rally for Advocates<span class="listview-arrow-default"></span></a></li><li><a href="#" id="manageFeedback" data-prefetch="true">Manage Advocates<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="setup-custom" data-prefetch="false">Setup<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="change-icon" data-prefetch="false">Change Status<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="del-place" data-prefetch="false">Delete<span class="listview-arrow-default"></span></a></li></ul>
+								<ul class="right-menu-loc" data-role="listview"><li ><a href="#" id="setup-custom" data-prefetch="false">Setup<span class="listview-arrow-default"></span></a></li><li id="visit-tabluu-page"><a href="#" target="_blank" class="link-visit-page" data-prefetch="false">Your Camrally Page<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="collectFeedback" data-prefetch="false">Rally for Advocates<span class="listview-arrow-default"></span></a></li><li><a href="#" id="manageFeedback" data-prefetch="true">Manage Advocates<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="change-icon" data-prefetch="false">Change Status<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="del-place" data-prefetch="false">Delete<span class="listview-arrow-default"></span></a></li></ul>
 							</section>								
 						</div>
 					</div>					
