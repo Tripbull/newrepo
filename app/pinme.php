@@ -266,7 +266,7 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
 			echo '<input type="hidden" value="'.$totalPagesfeature.'" name="totalfeature" id="totalfeature" />';
 			while($rowrate = mysql_fetch_object($resultFeature)){
-				if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+				if($rowrate->hideimg < 1)
 				{
 					include('reviewshtml.php');
 				}
@@ -278,7 +278,7 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
 					while($rowrate = mysql_fetch_object($notresultFeature)){
-						if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+						if($rowrate->hideimg < 1)
 						{
 							include('reviewshtml.php');
 						}
@@ -370,20 +370,22 @@ echo '<title>'. $businessTitle . '</title>';
 						</div>
 					  <div class="" style="">
 					  <?php
-					  echo '<div class="clear" style="padding:5px 0"></div>';	
-					if($connect->liteID != $row->productId){
-					if($booksite){
-						echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
-						echo '<div class="clear" style="padding:5px 0"></div>';
-					}
-					}
+					  echo '<div class="clear" style="padding:5px 0"></div>';
+					echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
+							echo '<div class="clear" style="padding:5px 0"></div>';
+						
 					if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
 					}if($row->showmap){
 						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
-                    }					
+                    }if($connect->liteID != $row->productId){
+						if($booksite){
+							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
+							echo '<div class="clear" style="padding:5px 0"></div>';
+						}
+					}					
 					?>
 					  </div>    
 				</div>
@@ -411,14 +413,17 @@ echo '<title>'. $businessTitle . '</title>';
 					<?php
 						if(mysql_num_rows($resultFeature))
 							mysql_data_seek($resultFeature, 0);
-						while($rowrate = mysql_fetch_object($resultFeature))
-							include('m_reviewshtml.php');
-						
+						while($rowrate = mysql_fetch_object($resultFeature)){
+							if($rowrate->hideimg < 1)
+								include('m_reviewshtml.php');
+						}
 						if($numberOfRowsfeature <= 20){
 							if(mysql_num_rows($notresultFeature))
 								mysql_data_seek($notresultFeature, 0);
-							while($rowrate = mysql_fetch_object($notresultFeature))
-								include('m_reviewshtml.php');
+							while($rowrate = mysql_fetch_object($notresultFeature)){
+								if($rowrate->hideimg < 1)
+									include('m_reviewshtml.php');
+							}	
 						}
 					?>
 				</div>
