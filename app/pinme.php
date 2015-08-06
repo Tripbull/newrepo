@@ -121,7 +121,7 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</span></div>
+			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 			
@@ -268,7 +268,8 @@ echo '<title>'. $businessTitle . '</title>';
 			while($rowrate = mysql_fetch_object($resultFeature)){
 				if($rowrate->hideimg < 1)
 				{
-					include('reviewshtml.php');
+					if($rowrate->link != null)
+						include('reviewshtml.php');
 				}
 			}
 			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
@@ -278,9 +279,10 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
 					while($rowrate = mysql_fetch_object($notresultFeature)){
-						if($rowrate->hideimg < 1)
+						if($rowrate->hideimg < 1 )
 						{
-							include('reviewshtml.php');
+							if($rowrate->link != null)
+								include('reviewshtml.php');
 						}
 					}
 				}
@@ -414,15 +416,19 @@ echo '<title>'. $businessTitle . '</title>';
 						if(mysql_num_rows($resultFeature))
 							mysql_data_seek($resultFeature, 0);
 						while($rowrate = mysql_fetch_object($resultFeature)){
-							if($rowrate->hideimg < 1)
-								include('m_reviewshtml.php');
+							if($rowrate->hideimg < 1){
+								if($rowrate->link != null)
+									include('m_reviewshtml.php');
+							}	
 						}
 						if($numberOfRowsfeature <= 20){
 							if(mysql_num_rows($notresultFeature))
 								mysql_data_seek($notresultFeature, 0);
 							while($rowrate = mysql_fetch_object($notresultFeature)){
-								if($rowrate->hideimg < 1)
-									include('m_reviewshtml.php');
+								if($rowrate->hideimg < 1){
+									if($rowrate->link != null)
+										include('m_reviewshtml.php');
+								}	
 							}	
 						}
 					?>

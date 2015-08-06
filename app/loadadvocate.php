@@ -12,9 +12,10 @@ else
 	$feature = 1;
 $resultFeature =  mysql_query("SELECT b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE {$feature} ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 while($rowrate = mysql_fetch_object($resultFeature)){
-	if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+	if($rowrate->hideimg < 1)
 	{
-		include('reviewshtml.php');
+		if($rowrate->link != null)
+			include('reviewshtml.php');
 	}
 } 
 $connect->db_disconnect();

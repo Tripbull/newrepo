@@ -476,7 +476,6 @@ function getPhoto(){
 }
 
 function showCamera(IDparam){
-  
 	//note: whatpage if 1 from rateone else 2 from takephoto
 	var canvas = document.getElementById('canvas'),
 		context = canvas.getContext('2d');
