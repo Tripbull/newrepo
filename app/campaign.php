@@ -49,7 +49,7 @@ $connect->db_disconnect();
 	<!--
 	<div class="hide top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><img src="images/tabluu-logo-mono-xsmall.png"></div><span style="display: inline-block;margin-left: auto;margin-right: 20px;" class="btn-take-isselfie">Your Selfie Now!</span></div></div> -->
 
-	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie">Post Your Photo!</span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie">Post Your Photo or Selfie!</span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>
@@ -61,6 +61,14 @@ $connect->db_disconnect();
 	<div id="fb-root"></div>
 
 	<div class="rate" id="rateone" data-dom-cache="false" data-role="page" data-prefetch="false">
+		<div class="camp-wrapper">
+			<div class="left">
+			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
+			</div>
+			<div class="right">
+				<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+			</div> 
+		</div>
 		<div class="content-wrap">
 			<div role="main" class="ui-content">
 				<div class="ratewrap">
@@ -96,5 +104,12 @@ $connect->db_disconnect();
 		</div>
 	</div><!-- /content -->
 </div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=682746285089153";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> 
 </body>
 </html>
