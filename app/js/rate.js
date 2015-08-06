@@ -55,13 +55,13 @@ function sendEmail2Client(cases){
 	showLoader();
 	//$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&opt=sendEmail2Client&cases='+cases+'&name='+username,success:function(lastId){
 		setTimeout(function() {
-		if(customArray.redirect > 0){
-			var str = customArray.websiteURL;
-			var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
-			window.location = redirectpage;
-		}else{
-			window.location = domainpath+nicename+'.html';
-		}
+			if(customArray.redirect > 0){
+				var str = customArray.websiteURL;
+				var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
+				window.location = redirectpage;
+			}else{
+				window.location = domainpath+nicename+'.html';
+			}
 		},300);
 	//}}); 
 }
@@ -185,13 +185,13 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 							'overlay_close':false,
 							'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
 								showLoader();
-								setTimeout(function(){loginFb();},300);
+								loginFb();
 							}}]
 						});
 					},500);
 				}else{
 					showLoader();
-					setTimeout(function(){loginFb();},300);
+					loginFb();
 				} 
 			}},{caption: defaultButtonText.share[0],callback:function(){setTimeout(function(){
 				var niceid = sharedurl.split('_');

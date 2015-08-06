@@ -416,6 +416,7 @@ h3.subtitle-2{color:#00aeed;font-size:29px;padding:10px 0 20px;}
 .cam-frame{width:auto;height:auto;min-width:100px;margin:10px auto 0;text-align:center;}
 .cam-frame .cam-title {-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;}
 p.ratetxt{margin: 0 auto;width:70%;}
+.top-button-selfie img,.top-button-selfie .btn-take-isselfie,.top-button-selfie p{pointer-events: none;-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}
 .cam-frame .cam-title{font-size: 15px;font-weight:normal;
   color: #F6F5F5;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);

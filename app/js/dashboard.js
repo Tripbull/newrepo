@@ -8,7 +8,7 @@ var liteID = 3720054,basicID=3716169,proID=3716170;
 var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=false,domainpath='',pathfolder='';
+var istest=true,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -250,13 +250,13 @@ $(document).ready(function(){
 					if(customArray.webImg8 != '')
 						j++;
 					if(customArray.organization == '')	
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
-					else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
-						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
+						alertBox('setup incomplete','Go to Setup > Camrally Page ');
+					//else if(customArray.fbImg == '' && customArray.optsocialpost < 1)
+						//alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > Default Image for Facebook Posts ');
 					//else if(j < 2)
 					//	alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
-					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
+					//else if(customArray.nicename == "")
+						//alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
 					else
@@ -291,13 +291,13 @@ $(document).ready(function(){
 					if(customArray.webImg8 != '')
 						j++;
 					if(customArray.organization == '')	
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page ');
-					else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
-						alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
+						alertBox('setup incomplete','Go to Setup > Camrally Page ');
+					//else if($.trim(customArray.fbImg) == '' && customArray.optsocialpost < 1)
+						//alertBox('setup incomplete','Go to Setup > Customers\' Social Media Posts > What to Post to Social Media? ');
 					//else if(j < 2)
 						//alertBox('setup incomplete','Go to Setup > Your Tabluu (Business) Page ');						
-					else if(customArray.nicename == "")
-						alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
+					//else if(customArray.nicename == "")
+						//alertBox('setup incomplete','Go to Setup > Your Camrally Page > Create Your Camrally Page');
 					else if(customArray.subscribe < 1)
 						alertBox('this campaign is offline','Please change the status to online');
 					else
@@ -365,15 +365,15 @@ $(document).ready(function(){
 		});
 		$('#manageFeedback').click(function(){
 			curClick = 0;
-			if(userArray.productId == liteID)
-				alertBox('no access','Please upgrade to basic plan & above to access this feature');
-			else{
+			//if(userArray.productId == liteID)
+				//alertBox('no access','Please upgrade to basic plan & above to access this feature');
+			//else{
 				if($.inArray(userArray.state,state_Array) == -1)
 					$( ":mobile-pagecontainer" ).pagecontainer( "change", "reviews.html",{ });
 				else
 					alertBox('no access','Please subscribe.');
 					
-			}	
+			//}	
 		});
 		$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 		$("#dashboard img.logo").click(function (){  //logo click
@@ -947,8 +947,8 @@ $(document).ready(function(){
 		if($( window ).width() > 600){
 			$( '.main-wrap .left-content' ).show();
 			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-			$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
+			$( '.main-wrap .left-content' ).css( {"max-width":'30%'} );
+			$( '.main-wrap .right-content' ).css( {"max-width":'70%'} );
 		}else{
 			if(isfocus < 1){
 				$( '.main-wrap .left-content' ).show();
@@ -1490,8 +1490,8 @@ $(document).ready(function(){
 			/*if($( window ).width() > 600){
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).show();		
-				$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-				$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
+				$( '.main-wrap .left-content' ).css( {"max-width":'30%'} );
+				$( '.main-wrap .right-content' ).css( {"max-width":'70%'} );
 			}else{
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).hide();
@@ -1735,8 +1735,8 @@ $(document).ready(function(){
 			/*if($( window ).width() > 600){
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).show();		
-				$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-				$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
+				$( '.main-wrap .left-content' ).css( {"max-width":'30%'} );
+				$( '.main-wrap .right-content' ).css( {"max-width":'70%'} );
 			}else{
 				$( '.main-wrap .left-content' ).show();
 				$( '.main-wrap .right-content' ).hide();
@@ -2673,7 +2673,11 @@ $(document).ready(function(){
 			if(typeof(messArray.followB) != 'undefined')
 				$('#txtbox12').val(decodequote(messArray.followB));
 			if(typeof(messArray.shareB) != 'undefined')
-				$('#txtbox22').val(decodequote(messArray.shareB));						
+				$('#txtbox22').val(decodequote(messArray.shareB));
+			if(typeof(messArray.sharedT) != 'undefined')
+				$('#txtbox26').val(decodequote(messArray.sharedT));
+			if(typeof(messArray.sharedB) != 'undefined')
+				$('#txtbox27').val(decodequote(messArray.sharedB));		
 			setmessageBox();
 		}//else
 			//$('.follow-loc').html('Be a fan of '+customArray.businessName+'?');
@@ -2741,13 +2745,13 @@ $(document).ready(function(){
 		$('#submit-box').click(function(e){
 			e.preventDefault();
 			var found = true,lessthan = '<',greaterthan='>';
-			if($('#txtbox12').val().search(/<brand>/i) == '-1'){
+			if($('#txtbox12').val().search(/<campaigner>/i) == '-1'){
 				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
+				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;campaigner&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
 			}else if($('#txtbox12').val().search('<privacy_policy_link>') == '-1'){
 				found = false;
-				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;brand&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
+				uicAlertBox('incorrect entry / entries','Please ensure that "&lt;campaigner&gt" and "&lt;privacy_policy_link&gt" are used or entered correctly.','#txtbox12');
 				$('#txtbox12').focus();
 			}else if($('#txtbox22').val().search('<privacy_policy_link>') == '-1'){
 				found = false;
@@ -2805,20 +2809,6 @@ $(document).ready(function(){
 		
 		var height = ($( window ).height() / 16) - 5;
 		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-			/*if($( window ).width() > 600){
-				$( '.main-wrap .left-content' ).show();
-				$( '.main-wrap .right-content' ).show();		
-				$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-				$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-			}else{
-				if(screen.width > 600){
-					alert(screen.width);
-					$( '.main-wrap .left-content' ).show();
-					$( '.main-wrap .right-content' ).hide();
-					$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-				}
-			} */
-			//is_resize();	
 			$( ".right-header" ).html( placename );	
 			defaultMenuUIC();
 		});
@@ -2836,34 +2826,6 @@ function encodequote(str){
 function decodequote(str){
 	return String(str).replace(/<double>/g,'"').replace(/<comma>/g,',').replace(/<quote>/g,"'").replace(/{}/g,'"').replace(/{_}/g,"'");
 }
-$(document).on('pageinit','#send-email', function () {
-	$('.iconsend').click(function(e){
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function(){ 
-			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-					hideLoader();
-					window.location = 'index.php'
-				}});		
-			}},{caption: 'cancel'}]
-			});
-		}, 500);//to prevent the events fire twice
-		e.preventDefault();
-	});
-	$("img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick=3;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });
-		}
-		e.preventDefault();
-	});	
-	$('#send-email .star').click(function(){goHome();});
-});
 
 
 $(document).on('pageinit','#plan', function () {
@@ -3625,17 +3587,6 @@ $(document).on('pageshow','#admin', function () {
    	$( window ).resize(function() { // when window resize
 		var height = ($( window ).height() / 16) - 5;
 		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-		/*if($( window ).width() > 600){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).show();		
-			$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-			$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-		}else{
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		//is_resize();
-		}	*/
 		defaultMenuAdmin();
 	});
 });
@@ -3860,122 +3811,12 @@ $(document).on('pageshow','#manage', function () { // Profile script start here
 	}
    	$( window ).resize(function() { // when window resize
 		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );		
-		/*if($( window ).width() > 600){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).show();		
-			$( '.main-wrap .left-content' ).css( {"max-width":'40%'} );
-			$( '.main-wrap .right-content' ).css( {"max-width":'60%'} );
-		}else{
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}	*/
-		//is_resize();
+		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
 		defaultMenuManage();
 	});
 });
-//==================================================== survey =============================================== 
-//	Date created: January, 08 2015
-
-$(document).on('pageinit','#onspot', function () {
-	var iframeisload=0;
-	$('.icononspot').click(function(e){
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function(){ 
-			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-					hideLoader();
-					window.location = 'index.php'
-				}});		
-			}},{caption: 'cancel'}]
-			});
-		}, 500);//to prevent the events fire twice
-		e.preventDefault();	
-	});
-	$("#onspot img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-			$('#onspot .onspot-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick = 0;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "feedback.html",{ });
-		}
-		e.preventDefault();
-	});
-	$('#onspot .star').click(function(){goHome();});
-	$('.onspot-left-menu').on('click', ' > li', function () {
-		var row = $(this).index();
-		curClick = row;
-		onspotbackMenu(row);
-	});
-	$('#anyopen').click(function(e){
-		e.preventDefault();
-		feedbackpage(3);
-		//window.open('rateone.html?p='+customArray.nicename+'&s=3','_blank');
-	});
-});
 
 	
-	function onspotbackMenu(row){
-		var placeId = locId.split('|');
-		$(".onspot-section-anywhere").hide();$(".onspot-section-survey").hide();
-		$( '#onspot .right-content' ).addClass("bgwhite");
-		if(row == 0){
-			//$('#surveyopenlink').val(pathfolder+'rateone.html?p='+customArray.nicename+'&s=5');
-			$(".onspot-section-survey").show();
-		}else if(row == 1){
-			$('#anyopenlink').val(pathfolder+'campaign.html?p='+customArray.nicename+'&s=3');
-			$(".onspot-section-anywhere").show();
-		}
-		onspotActiveMenu();
-	}
-	function onspotActiveMenu(){
-		if($( window ).width() > 600){
-			$('#onspot .onspot-left-menu li').each(function (index) {
-				if(index == curClick){
-					$(this).find( "a" ).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).find( "a" ).removeClass('ui-btn-active'); 
-					$(this).find( "span" ).removeClass("listview-arrow-active");
-				}
-			});	
-		}else{
-			$('#onspot .onspot-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}	
-	}
-$(document).on('pageshow','#onspot', function () { 
-	var height = ($( window ).height() / 16) - 5;
-	$('.star').show();
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-	$('#onspot .ui-content').css({"background-color":'#E6E7E8'})
-	$( "#onspot .left-header" ).html('Tablet "On the Spot" Feedback');
-	$( "#onspot .right-header" ).html( placename );
-	showLoader();
-	var placeId = locId.split('|');
-	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
-		hideLoader();
-		customArray =  $.parseJSON(result);
-		onspotbackMenu(curClick);	
-		if(customArray.isselfie == 1){
-			diabledTab('.onspot-left-menu',[1]);
-		}
-	}});
-	
-});	
 
 //==================================================== Collect Feedback / Reviews =============================================== 
 //	Date created: July, 25 2014
@@ -4027,7 +3868,7 @@ $(document).on('pageinit','#feedback', function () {
 	});
 	$('#emaillinkopen').click(function(e){
 		e.preventDefault();
-		window.open(domainpath+customArray.nicename+'=e','_blank');
+		window.open(domainpath+customArray.nicename+'=1','_blank');
 	});
 	$('#website-widget-update').click(function(e){
 		e.preventDefault();
@@ -4159,11 +4000,22 @@ $(document).on('pageinit','#feedback', function () {
 			}
 		}else if(row == 0){
 			if(customArray.nicename == ''){	
-					alertBox('setup incomplete','Go to Setup > Camrally Page');
+				alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
-				//$('#feedback #emaillink').val('http://camrally.com/'+customArray.nicename+'=e');
-				$(".tellafriend").show();
-				
+				if(nice1 == ''){
+					places = locId.split('|');
+					showLoader();
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getshorturl',async: true,success:function(result){
+						hideLoader();
+						arrayDataURL =  $.parseJSON(result);
+						nice1 = domainpath+arrayDataURL.source_1.link;
+						$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+						$(".tellafriend").show();
+					}});
+				}else{
+					$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+					$(".tellafriend").show();
+				}
 			}	
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			
@@ -4225,11 +4077,12 @@ $(document).on('pageshow','#feedback', function () {
 	showLoader();
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
-		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
+		hideLoader();
+		/*$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
 			arrayDataURL =  $.parseJSON(result);
 			hideLoader();
 			$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_e.link);
-		}});
+		}});*/
 		showFeedbackMenu(curClick);
 	 }});	
 		
@@ -4298,9 +4151,12 @@ $(document).on('pageshow','#reviews', function () {
 		for(var i in feedbackArray){
 		t = t + '<div class="divwrap" style="padding-top:5px;margin-top:10px;">'
 			+'<div class="wrapProfileImg">'
-				+'<div class="iconProfile">'
-					+'<div class="wrapImg fbImg'+counter+'"><img src="https://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
-					+'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
+				+'<div class="iconProfile">';
+				   if(feedbackArray[i].fbId != '')
+					t = t +'<div class="wrapImg fbImg'+counter+'"><img src="https://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>';
+					else 
+					t = t +'<div class="wrapImg fbImg'+counter+'"><img src="http://camrally.com/app/images/profileDefault.png" /></div>';
+					t = t +'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
 				+'</div>'
 				+'<div class="imgSelfie">'
 					+'<div class="wrapImg2 selfImg'+counter+'"><img src="'+feedbackArray[i].url+'" /></div>'
@@ -4308,91 +4164,12 @@ $(document).on('pageshow','#reviews', function () {
 			+'</div>'
 		+'</div>'
 		+'<div class="clear"></div>'
-		if(isselfie == 0){
-		t= t +'<div class="divwrap">'
-			+'<table cellspacing="0">'
-				+'<tr>'
-					+'<th class="areas noborderleft padLeft-5 c1">Areas</th>'
-					+'<th class="score c1">Score</th>'
-					+'<th class="date c1">Date</th>'
-				+'</tr>';
-				for(var j in reviewQuestion){
-					var rated=0;
-					if(j == 0)
-						rated = feedbackArray[i].rated1;
-					else if(j == 1)
-						rated = feedbackArray[i].rated2;
-					else if(j == 2)
-						rated = feedbackArray[i].rated3;
-					else if(j == 3)
-						rated = feedbackArray[i].rated4;
-					else if(j == 4)
-						rated = feedbackArray[i].rated5;
-					else if(j == 5)
-						rated = feedbackArray[i].rated6;
-					else if(j == 6)
-						rated = feedbackArray[i].rated7;		
-				t = t + '<tr>'
-					+'<td class="noborderleft padLeft-5"><p style="">'+reviewQuestion[j]+'</p></td>'
-					+'<td class="padLeft-5">'+rated+'</td>';
-					if(j < 1 ){
-						var created = feedbackArray[i].created.split('-');
-						var day = created[2].split(' ');
-						t = t +'<td rowspan="'+(reviewQuestion.length < 2 ? 2 : 1)+'" style="vertical-align: top">'
-							+'<div style="padding:5px 5px 0px 5px;white-space:nowrap;display: table-cell;vertical-align: middle;">'+day[0]+' '+month[parseInt(created[1])]+' '+created[0]+'</p></div>'
-							if(reviewQuestion.length < 2){
-								t = t +'<table cellspacing="0" class="manage"><tr><th class="score c1">Manage</th></tr></table>'
-								+'<div style="padding-top:5px;"><fieldset id="removePhoto" data-role="controlgroup" data-iconpos="left" data-corners="false"><div class="ui-controlgroup-controls"><div class="ui-checkbox"><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="feature-'+feedbackArray[i].id+'">Feature</label><input id="feature-'+feedbackArray[i].id+'" type="checkbox" name="feature-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].feature == 1 ? 'checked="checked"' : '')+'><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="hideImg-'+feedbackArray[i].id+'">Hide</label><input id="hideImg-'+feedbackArray[i].id+'" type="checkbox" name="hideImg-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].hideimg == 1 ? 'checked="checked"' : '')+'></div></div></fieldset></div>'
-							}
-							+'</td>';
-					}
-					if(j == 1){
-						t = t +'<td rowspan="1" class="c1" style="background-color:#c7e6f5;text-align:left;padding:10px 0 8px 5px;" style="vertical-align: top">Manage</td>';
-					}
-					if(j == 2){
-						t = t +'<td rowspan="'+reviewQuestion.length+'" style="vertical-align: middle">'
-						+'<div style="padding-top:5px;"><fieldset id="removePhoto" data-role="controlgroup" data-iconpos="left" data-corners="false"><div class="ui-controlgroup-controls"><div class="ui-checkbox"><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="feature-'+feedbackArray[i].id+'">Feature</label><input id="feature-'+feedbackArray[i].id+'" type="checkbox" name="feature-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].feature == 1 ? 'checked="checked"' : '')+'><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="hideImg-'+feedbackArray[i].id+'">Hide</label><input id="hideImg-'+feedbackArray[i].id+'" type="checkbox" name="hideImg-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].hideimg == 1 ? 'checked="checked"' : '')+'></div></div></fieldset></div>'
-						+'</td>';
-					}
-				+'</tr>';
-				}
-				t= t +'<tr><td class="noborderleft padLeft-5"><strong>Average</strong></td>'
-						+ '<td class="padLeft-5"><strong>'+feedbackArray[i].aveRate+'</strong></td>'
-						if(reviewQuestion.length == 2){
-							t = t +'<td rowspan="1" style="vertical-align: middle">'
-							+'<div style="padding-top:5px;"><fieldset id="removePhoto" data-role="controlgroup" data-iconpos="left" data-corners="false"><div class="ui-controlgroup-controls"><div class="ui-checkbox"><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="feature-'+feedbackArray[i].id+'">Feature</label><input id="feature-'+feedbackArray[i].id+'" type="checkbox" name="feature-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].feature == 1 ? 'checked="checked"' : '')+'><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="hideImg-'+feedbackArray[i].id+'">Hide</label><input id="hideImg-'+feedbackArray[i].id+'" type="checkbox" name="hideImg-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].hideimg == 1 ? 'checked="checked"' : '')+'></div></div></fieldset></div>'
-							+'</td>';
-						}
-						+'</tr>'	
-			t= t +'</table>'
-		+'</div>'
-		+'<div class="divwrap" style="padding-bottom:10px;">'
-			+'<div class="c1 bottomborder comment" style="padding:5px;background-color:#c7e6f5;">Comment</div>'
-			+'<p class="padLeft-5 comment">'+feedbackArray[i].comment+'</p>'
-		+'</div>';
-		}else{
 			t= t +'<div class="divwrap">'
 			+'<table cellspacing="0">'
 				+'<tr>'
 					+'<th class="areas noborderleft padLeft-5 c1">Manage</th>'
 					+'<th class="date c1">Date</th>'
-				+'</tr>';
-				for(var j in reviewQuestion){
-					var rated=0;
-					if(j == 0)
-						rated = feedbackArray[i].rated1;
-					else if(j == 1)
-						rated = feedbackArray[i].rated2;
-					else if(j == 2)
-						rated = feedbackArray[i].rated3;
-					else if(j == 3)
-						rated = feedbackArray[i].rated4;
-					else if(j == 4)
-						rated = feedbackArray[i].rated5;
-					else if(j == 5)
-						rated = feedbackArray[i].rated6;
-					else if(j == 6)
-						rated = feedbackArray[i].rated7;		
+				+'</tr>';		
 					t = t + '<tr>'
 					t = t +'<td rowspan="'+reviewQuestion.length+'" style="vertical-align: middle">'
 						+'<div style="padding-top:5px;"><fieldset id="removePhoto" data-role="controlgroup" data-iconpos="left" data-corners="false"><div class="ui-controlgroup-controls"><div class="ui-checkbox"><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="feature-'+feedbackArray[i].id+'">Feature</label><input id="feature-'+feedbackArray[i].id+'" type="checkbox" name="feature-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].feature == 1 ? 'checked="checked"' : '')+'><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="hideImg-'+feedbackArray[i].id+'">Hide</label><input id="hideImg-'+feedbackArray[i].id+'" type="checkbox" name="hideImg-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].hideimg == 1 ? 'checked="checked"' : '')+'></div></div></fieldset></div>'
@@ -4403,21 +4180,27 @@ $(document).on('pageshow','#reviews', function () {
 							+'<div style="padding:5px 5px 0px 5px;white-space:nowrap;display: table-cell;vertical-align: middle;">'+day[0]+' '+month[parseInt(created[1])]+' '+created[0]+'</p></div>'
 							+'</td>';
 					+'</tr>';
-					}
+			//}
 				t= t +'</table>'
 			+'</div>'
 			+'<div class="divwrap" style="padding-bottom:10px;">'
 			+'</div>';
-			}
+			//}
 		}
 		t= t+'<div class="nextpage'+page+'"></div>';
 		if(tabSelect == 0){
 			page++;
 			$('#feature').html('');
 			$('#shared').html(t);
-		}else if(tabSelect == 2){
+			$('#shared').html(t);
+		}else if(tabSelect == 1){
 			$('#shared').html('');
 			$('#feature').html(t);
+			$('#feature').html(t);
+		}else if(tabSelect == 2){
+			//$('#shared').html('');
+			$('#notshared').html(t);
+			$('#notshared').html(t);
 		}else if(tabSelect == 3){ // next page load
 			$('.nextpage'+(page < 1 ? 0 : page-1)).html(t);
 			page++;
@@ -4444,127 +4227,7 @@ $(document).on('pageshow','#reviews', function () {
 		resizePhoto('.fbImg'+counter,150,150);
 		resizePhoto('.selfImg'+counter,300,300);
 	}
-		function showHTMLNOTSharedselfie(){
-		var t = '';counter++;
-		for(var i in feedbackArray){
-		t = t + '<div class="divwrap" style="padding-top:5px;margin-top:10px;">'
-			+'<div class="wrapProfileImg">'
-				+'<div class="iconProfile">'
-					+'<div class="wrapImg fbImg'+counter+'"><img src="https://graph.facebook.com/'+feedbackArray[i].fbId+'/picture?type=large" /></div>'
-					+'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
-				+'</div>'
-				+'<div class="imgSelfie">'
-					+'<div class="wrapImg2 selfImg'+counter+'"><img src="'+feedbackArray[i].url+'" /></div>'
-				+'</div>'
-			+'</div>'
-		+'</div>'
-		+'<div class="clear"></div>'
-			t= t +'<div class="divwrap">'
-			+'<table cellspacing="0">'
-				+'<tr>'
-					+'<th class="date c1">Date</th>'
-				+'</tr>';
-				for(var j in reviewQuestion){
-					var rated=0;
-					if(j == 0)
-						rated = feedbackArray[i].rated1;
-					else if(j == 1)
-						rated = feedbackArray[i].rated2;
-					else if(j == 2)
-						rated = feedbackArray[i].rated3;
-					else if(j == 3)
-						rated = feedbackArray[i].rated4;
-					else if(j == 4)
-						rated = feedbackArray[i].rated5;
-					else if(j == 5)
-						rated = feedbackArray[i].rated6;
-					else if(j == 6)
-						rated = feedbackArray[i].rated7;		
-					t = t + '<tr>'
-						var created = feedbackArray[i].created.split('-');
-						var day = created[2].split(' ');
-						t = t +'<td rowspan="'+(reviewQuestion.length < 2 ? 2 : 1)+'" style="vertical-align: middle">'
-							+'<div style="padding:5px 5px 0px 5px;white-space:nowrap;display: table-cell;vertical-align: middle;">'+day[0]+' '+month[parseInt(created[1])]+' '+created[0]+'</p></div>'
-							+'</td>';
-					+'</tr>';
-					}
-				t= t +'</table>'
-			+'</div>'
-			+'<div class="divwrap" style="padding-bottom:10px;">'
-			+'</div>';
-			
-		}
-		t= t+'<div class="nextpage'+page+'"></div>';
-		if(tabSelect == 3){ // next page load
-			$('.nextpage'+(page < 1 ? 0 : page-1)).html(t);
-			page++;
-		}else{
-			page++;
-			$('#notshared').html(t);
-		}
-		
-		resizePhoto('.fbImg'+counter,150,150);
-		resizePhoto('.selfImg'+counter,300,300);
-	}
-	function showHTMLNotShared(){
-		var t = '';
-		for(var i in feedbackArray){
-		t = t +'<div class="divwrap" style="margin-top:10px;">'
-			+'<table cellspacing="0">'
-				+'<tr>'
-					+'<th class="noborderleft padLeft-5 c1">Areas</th>'
-					+'<th class="score c1">Score</th>'
-					+'<th class="date c1">Date</th>'
-				+'</tr>';
-				for(var j in reviewQuestion){
-					var rated=0;
-					if(j == 0)
-						rated = feedbackArray[i].rated1;
-					else if(j == 1)
-						rated = feedbackArray[i].rated2;
-					else if(j == 2)
-						rated = feedbackArray[i].rated3;
-					else if(j == 3)
-						rated = feedbackArray[i].rated4;
-					else if(j == 4)
-						rated = feedbackArray[i].rated5;
-					else if(j == 5)
-						rated = feedbackArray[i].rated6;
-					else if(j == 6)
-						rated = feedbackArray[i].rated7;		
-				t = t + '<tr>'
-					+'<td class="noborderleft padLeft-5">'+reviewQuestion[j]+'</td>'
-					+ '<td class="center">'+rated+'</td>';
-					if(j < 1 ){
-						var created = feedbackArray[i].created.split('-');
-						var day = created[2].split(' ');
-						var totalquestion = parseInt(reviewQuestion.length) + 1;
-						t = t +'<td class="center" rowspan="'+totalquestion+'" style="vertical- align:middle;">'
-							+'<div style="padding:5px;"><p>'+day[0]+' '+month[parseInt(created[1])]+' '+created[0]+'</p>'
-							+'</div>'
-						+'</td>';
-					}
-				+'</tr>';
-				}
-				t= t +'<tr><td class="noborderleft padLeft-5"><strong>Average</strong></td>'
-						+ '<td class="center"><strong>'+feedbackArray[i].aveRate+'</strong></td></tr>'
-			t= t +'</table>'
-		+'</div>'
-		+'<div class="divwrap" style="padding-bottom:10px;background-color:#EFF0F1">'
-			+'<div class="c1 bottomborder" style="padding:5px;background-color:#c7e6f5;">Comment</div>'
-			+'<p class="padLeft-5">'+feedbackArray[i].comment+'</p>'
-		+'</div>';
-		}
-		t= t+'<div class="nextpage'+page+'"></div>';		
-		if(tabSelect == 3){ // next page load
-			$('.nextpage'+(page < 1 ? 0 : page-1)).html(t);
-			page++;
-		}else{
-			page++;
-			$('#notshared').html(t);
-		}		
-	}
-	
+
 	reviewQuestion = [];
 	function getQuestion(){
 		var placeId = locId.split('|');
@@ -4588,12 +4251,8 @@ $(document).on('pageshow','#reviews', function () {
 				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=1&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
 					feedbackArray = $.parseJSON(result);
 					hideLoader();
-					if(result != 0){
-						if(isselfie == 1)
-							showHTMLNOTSharedselfie();
-						else
-							showHTMLNotShared();
-					}		
+					if(result != 0)
+						showHTMLShared();	
 				}});
 			}else if(curClick == 2){
 				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=2&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
@@ -4615,15 +4274,8 @@ $(document).on('pageshow','#reviews', function () {
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
 					alertBox('Please take note',"No post available.");
-				else{
-					if(reviewQuestion.length < 1){
-						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
-							reviewQuestion = $.parseJSON(result);
-							showHTMLShared();
-						}});
-					}else
-						showHTMLShared();
-				}
+				else
+					showHTMLShared();
 				hideLoader();	
 			}});
 			$(".reviews-shared").show();
@@ -4634,43 +4286,20 @@ $(document).on('pageshow','#reviews', function () {
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
 					alertBox('Please take note',"No post available.");
-				else{
-					if(reviewQuestion.length < 1){
-						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
-							reviewQuestion = $.parseJSON(result);
-							if(isselfie == 1)
-								showHTMLNOTSharedselfie();
-							else
-								showHTMLNotShared();
-						}});
-					}else{
-						if(isselfie == 1)
-							showHTMLNOTSharedselfie();
-						else
-							showHTMLNotShared();
-					}	
-				}
+				else
+					showHTMLShared();
 				hideLoader();
 			}});
 			$(".reviews-notshared").show();
 		}if(row == 2){
-			//if(reviewQuestion.length < 1)
-				//getQuestion();
 			showLoader();
 			page=0;start = 0;offset=limit;counter=0;
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getFeedback&case=2&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
 				feedbackArray = $.parseJSON(result);
 				if(result == 0)
 					alertBox('Please take note',"No post available.");
-				else{
-					if(reviewQuestion.length < 1){
-						$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
-							reviewQuestion = $.parseJSON(result);
-							showHTMLShared();
-						}});
-					}else
-						showHTMLShared();
-				}
+				else
+					showHTMLShared();
 				hideLoader();
 			}});
 			$(".reviews-featured").show();
@@ -4737,701 +4366,13 @@ function resizePhoto(classes,mWidth,mHeight){
 	});
 	});
 }
-//==================================================== Reviews Widget =============================================== 
-//	Date created: Nov, 5 2014
 
-$(document).on('pageinit','#widget', function () {
-	$('.iconwidget').click(function(e){
-		clearTimeout(resizeTimeout);
-			resizeTimeout = setTimeout(function(){ 
-				$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-					showLoader();
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-						hideLoader();
-						window.location = 'index.php'
-					}});		
-				}},{caption: 'cancel'}]
-				});
-			}, 500);//to prevent the events fire twice
-		e.preventDefault();	
-	});
-	$("#widget img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick = setupclickmenu;defaultSetup=0;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });
-		}
-		e.preventDefault();
-	});
-	$('#widget .star').click(function(){goHome();});
-});
-
-$(document).on('pageshow','#widget', function () { 
-	var height = ($( window ).height() / 16) - 5;
-	var placeId = locId.split('|'),resizeTimeout,widgetArray= [],reviewProduct= [];
-	curClick = 0,limit=2,reviewAvg=[],reviewQuestion=[],reviewWidget=[];
-	var start = 0,offset=limit,page=0,emptyArray=0;
-	widgetActiveMenu();
-	$('.star').show();
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-	 $( "#widget .left-header" ).html('Review / Selfie Widget');
-	  $( "#widget .right-header" ).html( placename );
-	
-    function getWidgetReview(){
-		page=0;start = 0;offset=limit;counter=0;
-		showLoader();
-		$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getWedgetFeedback&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
-			reviewWidget = $.parseJSON(result);
-			if(reviewWidget.length < 1){
-				alertBox('note',"You don't have any review or selfie that are shared on the social media yet.");
-				hideLoader();
-			}else{
-				if(reviewAvg.length < 1){
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getReviewtAverage&placeId='+placeId[0],success:function(result){
-						reviewAvg = $.parseJSON(result);
-						createReview();
-					}});
-				}
-				if(reviewQuestion.length < 1){
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getQuestion&case=0&placeId='+placeId[0],success:function(result){
-						reviewQuestion = $.parseJSON(result);
-						contenloop(reviewWidget,reviewQuestion);
-						hideLoader();
-					}});
-				}
-			}
-		}});
-	}
-	showWidgetMenu(curClick);
-	function showWidgetMenu(row){
-		var placeId = locId.split('|');
-		$('.thirdwidget').hide();
-		if(row == 0){
-			showLoader();
-			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getReviewProduct',success:function(result){
-				reviewProduct =  $.parseJSON(result);
-				if(reviewProduct.nicename == '')
-					alertBox('setup incomplete','Go to Setup > Your Camrally Page');
-				else if(reviewProduct.productId != proID && reviewProduct.productId != enterprise && reviewProduct.productId != pro12 && reviewProduct.productId != pro24 && reviewProduct.productId != enterprise12 && reviewProduct.productId != enterprise24)
-					alertBox('no access','Please upgrade to pro plan & above to access this widget');
-				else{
-					$('.thirdwidget').show();
-					$('.script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="script-tabluu" src= "http://camrally.com/app/widget/widget.min.js?pubId='+reviewProduct.nicename+'"&gt;&lt;/script&gt;</div>');
-					getWidgetReview();
-				}
-				hideLoader();
-			}});
-		}
-	}
-	function removeClass(){
-		if($('.comment-container').width() > 400){
-			$('.wrap-widget').css({'font-size':'16px'});
-			if($('.rate-wrap div').hasClass('m-rate-wrap-avatar')){
-				$('.rate-wrap div.m-rate-wrap-avatar').addClass('rate-wrap-avatar');
-				$('.rate-wrap div.rate-wrap-avatar').removeClass('m-rate-wrap-avatar');
-			}
-			if($('.rate-wrap div').hasClass('m-rate-avatar')){
-				$('.rate-wrap div.m-rate-avatar').addClass('rate-avatar');
-				$('.rate-wrap div.rate-avatar').removeClass('m-rate-avatar');
-			}	
-			if($('.comment-container div').hasClass('m-rate-wrap-comment')){
-				$('.comment-container div.m-rate-wrap-comment').addClass('rate-wrap-comment');
-				$('.comment-container div.rate-wrap-comment').removeClass('m-rate-wrap-comment');
-			}
-		}else{
-			$('.wrap-widget').css({'font-size':'14px'});
-			if($('.rate-wrap div').hasClass('rate-wrap-avatar')){
-				$('.rate-wrap div.rate-wrap-avatar').addClass('m-rate-wrap-avatar');
-				$('.rate-wrap div.m-rate-wrap-avatar').removeClass('rate-wrap-avatar');
-			}
-			if($('.rate-wrap div').hasClass('rate-avatar')){
-				$('.rate-wrap div.rate-avatar').addClass('m-rate-avatar');
-				$('.rate-wrap div.m-rate-avatar').removeClass('rate-avatar');
-			}	
-			if($('.comment-container div').hasClass('rate-wrap-comment')){
-				$('.comment-container div.rate-wrap-comment').addClass('m-rate-wrap-comment');
-				$('.comment-container div.m-rate-wrap-comment').removeClass('rate-wrap-comment');
-			}		
-		}
-		
-	}
-	function contenloop(arrayreviews,arrayquestion){
-		var div = '';
-		
-		for (var i in arrayreviews){
-			div = div + '<div class="pin">'
-				+'<p class="fblink">'
-					+'<a href="https://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a>'
-				+'</p>'
-				+'<div class="text-center"><img alt="fb profile" src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'https://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" class="pinImage"></div>';
-				if(isselfie == 0){
-					div = div +'<div class="wrap-iconstar">'
-						+'<div class="my-rating">'
-							+'My rating: '+arrayreviews[i].aveRate+'/5'
-						+'</div>'
-						+'<div class="staricon">'
-							+'<span class="stargrey2"><span class="staryellow2" style="'+arrayreviews[i].style+'"></span></span>'
-						+'</div>'
-					+'</div>'
-						+'<p class="p-rating">';
-						for(var j in arrayquestion){
-							var rated=0,comma='.';
-							if(j < (arrayquestion.length - 1))
-								comma = ',';
-							if(j == 0)
-								rated = arrayreviews[i].rated1;
-							else if(j == 1)
-								rated = arrayreviews[i].rated2;
-							else if(j == 2)
-								rated = arrayreviews[i].rated3;
-							else if(j == 3)
-								rated = arrayreviews[i].rated4;
-							else if(j == 4)
-								rated = arrayreviews[i].rated5;
-							else if(j == 5)
-								rated = arrayreviews[i].rated6;
-							else if(j == 6)
-								rated = arrayreviews[i].rated7;
-							div = div  +'<span>'+arrayquestion[j]+': '+rated+'/5'+comma+'</span> ';
-						}	
-						div = div +'</p>'
-						+'<p class="comment">'+arrayreviews[i].comment+'</p>';
-				}else
-					div = div +'<div style="padding-bottom:10px;"></div>';
-				div = div +'</div>';
-			}
-			
-			$('.comment-container').append(div);
-	}
-	/*
-	function contenloop_orig(arrayreviews,arrayquestion){
-		var div = '';
-		for (var i in arrayreviews){
-			div = div +'<div class="rate-wrap">'
-				+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-wrap-avatar' : 'm-rate-wrap-avatar')+'">'
-					+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-avatar' : 'm-rate-avatar')+'">'
-						+'<img src="'+(parseInt(arrayreviews[i].hideimg) < 1 ? 'https://graph.facebook.com/'+arrayreviews[i].fbId+'/picture?type=large' : 'images/fbDefault.png')+'" />'
-						+'<div class="name-profile"><a href="https://www.facebook.com/'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a></div>'
-					+'</div>'
-				+'</div>'
-				+'<div class="'+(($(".comment-container").width() > 400) ? 'rate-wrap-comment' : 'm-rate-wrap-comment')+'">'
-					 +'<div class="star-icon">'
-						+'<span class="stargrey2"><span class="staryellow2" style="'+arrayreviews[i].style+'"></span></span>'
-					  +'</div>'
-						+'<div class="view-icon">'
-							+'<div class="wrap-view-img">'
-								+'<img alt="view image" src="images/viewIcon.png">'
-							+'</div>'
-						+'</div>'
-					 +'<div class="wrap-tag">';
-					 for(var j in arrayquestion){
-						var rated=0,comma='';
-						if(j < (arrayquestion.length - 1))
-							comma = ',';
-						if(j == 0)
-							rated = arrayreviews[i].rated1;
-						else if(j == 1)
-							rated = arrayreviews[i].rated2;
-						else if(j == 2)
-							rated = arrayreviews[i].rated3;
-						else if(j == 3)
-							rated = arrayreviews[i].rated4;
-						else if(j == 4)
-							rated = arrayreviews[i].rated5;
-						else if(j == 5)
-							rated = arrayreviews[i].rated6;
-						else if(j == 6)
-							rated = arrayreviews[i].rated7;
-						div = div  +'<span>'+arrayquestion[j]+': <b>'+rated+'/5</b>'+comma+'</span>';
-					}
-					div = div  +'</div>';
-					if(arrayreviews[i].comment != ''){
-					div = div  +'<div class="comment">'
-							+'<p>'+arrayreviews[i].comment+'</p>'
-						+'</div>';
-					}
-				div = div  +'</div>'
-			+'</div>';
-		}
-		$('.comment-container').append(div);
-	} */
-	function createReview(){
-	/*
-		var div = '<div class="wrap-rate-header">'
-			+'<div class="wrap-rate-logo">'
-				+'<div class="rate-logo"><img src="images/template/logo_home.png" /></div>'
-			+'</div>'
-			+'<div class="rate-reviews">';
-				//+'<div class="staricon">'
-					//+'<span class="stargrey2"><span class="staryellow2" style="'+reviewAvg.style+'"></span></span>'
-				//+'</div><div style="clear:both;"></div>'
-				if(isselfie == 0){
-					div = div + '<p style="color:#777">'+reviewAvg.totalavg+' out of 5</p>';
-					div = div +'<p><span><a href="baseshared.php?id='+placeId[0]+'" class="fancybox fancybox.iframe sharedlink" style="#00AEEF">'+reviewAvg.totalrev+(isselfie == 0 ? ' reviews' : ' selfies')+'</a></span></p>'
-				}else{
-					div = div +'<p><span style="#00AEEF">'+reviewAvg.totalrev+(isselfie == 0 ? ' selfies' : ' selfies')+'</span></p>'
-				}
-			+'</div>'
-			+'</div>'
-		+'</div>'
-		+'<div class="comment-container">'
-		
-		+ '</div>';
-		$('.wrap-widget').html(div);  */
-		var div = '<div class="wrap-rate-header">'
-			+'<div class="wrap-rate-logo">'
-				+'<div class="rate-logo"><img src="images/template/logo_home.png" /></div>'
-			+'</div>'
-			+'<div class="rate-reviews">';
-                if(isselfie == 0){
-				div = div +'<p style="color:#777">'+reviewAvg.totalavg+' out of 5</p>'
-				+'<p><span><a href="baseshared.php?id='+placeId[0]+'" class="fancybox fancybox.iframe sharedlink">'+reviewAvg.totalrev+' reviews</a></span></p>';
-				}else
-					div = div +'<p><span style="color: #38c;">'+reviewAvg.totalrev+' selfies'+'</span></p>';
-			div = div +'</div>'
-			+'</div>'
-		+'</div>'
-		+'<div class="comment-container">'
-		
-		+ '</div>';
-		$('.wrap-widget').html(div);
-	}
-	
-	$(window).scroll(function() {
-		if($(window).scrollTop() >= $(document).height() - $(window).height()) {
-			start = offset + start;
-			if(emptyArray < 1){
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=getWedgetFeedback&placeId='+placeId[0]+'&start='+start+'&offset='+offset,success:function(result){
-					reviewWidget = $.parseJSON(result);
-					if(reviewWidget.length > 0)
-						contenloop(reviewWidget,reviewQuestion);
-					else
-						emptyArray = 1;
-					hideLoader();
-				}});
-			}	
-		}
-	});
-	
-	$( window ).resize(function() { // when window resize
-		//alert($('.comment-container').height() + ' '+ $('.comment-container').width())
-		//clearTimeout(resizeTimeout);
-		//resizeTimeout = setTimeout(function(){removeClass();}, 500);//to prevent the events fire twice
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-		widgetActiveMenu();	
-	});
-
-	function widgetActiveMenu(){
-		if($( window ).width() > 600){
-			$('#widget .widget-left-menu li').each(function (index) {
-				if(index == curClick){
-					$(this).find( "a" ).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).find( "a" ).removeClass('ui-btn-active'); 
-					$(this).find( "span" ).removeClass("listview-arrow-active");				
-				}
-			});	
-		}else{
-			$('#widget .widget-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}	
-	}
-});
-//==================================================== newly created tab from setup Customers Facebook Posts  =============================================== 
-//	Date created: November, 22 2014
 function limitText(limitField, limitNum) {
 	if (limitField.value.length > limitNum) {
 		limitField.value = limitField.value.substring(0, limitNum);
 	}
 }
-$(document).on('pageinit','#fbpost', function () {
-	$('.iconfbpost').click(function(e){
-		clearTimeout(resizeTimeout);
-		resizeTimeout = setTimeout(function(){ 
-			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
-				showLoader();
-				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
-					hideLoader();
-					window.location = 'index.php'
-				}});		
-			}},{caption: 'cancel'}]
-			});
-		}, 500);//to prevent the events fire twice
-		e.preventDefault();	
-	});
-	 $("#fbpost img.logo").click(function (e){  //logo click
-		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
-			$( '.main-wrap .left-content' ).show();
-			$( '.main-wrap .right-content' ).hide();
-			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
-		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-			curClick=0;defaultSetup=3;
-			$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{ });
-		}
-		e.preventDefault();
-	});	
-	
-	$('#txtoccation,#txtcamp1,#txtcamp2,#txtinfodate').keyup(function(e){     
-		limitText(this,40);
-    });
 
-	$('#fbpost #btncampaign').keyup(function(e){     
-		limitText(this,22);
-    });
-
-	$('#fbpost .star').click(function(){goHome();});
-
-	/*
-	$('#optPost').click(function(){
-		if($("#optPost :radio:checked").val() > 0){
-			alert('show')
-			$('.ownimg').show();
-		}else{
-			alert('show')
-			$('.ownimg').hide();
-		}	
-	}) */
-	$("input[type='radio']").bind( "click", function(event, ui) {
-		   if($("#optPost :radio:checked").val() == 1){
-				$('.ownimg').hide();
-				$('.selfie-2').hide();
-			}else if($("#optPost :radio:checked").val() == 0){
-				$('.ownimg').show();
-				$('.selfie-2').hide();
-			}else if($("#optPost :radio:checked").val() == 2){
-				$('.selfie-2').show();
-				$('.ownimg').hide();
-				var arraytagline =  $.parseJSON(customArray.taglineselfie);
-				$("#txtoccation").val(arraytagline.txtoccation);$("#txtinfodate").val(arraytagline.txtinfodate);$("#txtcamp1").val(arraytagline.tagline1);$("#txtcamp2").val(arraytagline.tagline2);
-			}
-	});
-	
-});
-
-$(document).on('pageshow','#fbpost', function () { 
-	var height = ($( window ).height() / 16) - 5;
-	var placeId = locId.split('|');
-	$('.star').show();
-	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-	$('#fbpost .ui-content').css({"background-color":'#E6E7E8'});
-	showFbpostMenu(curClick);
-	var clas = 'ui-state-disabled';
-	if(postwizard == 1){
-		diabledTab('.fbpost-left-menu',[1,2]);
-	}else{
-		//$('.fbpost-left-menu li').each(function (index) {
-		//	$(this).removeClass(clas);
-		//});	
-        if(customArray.isselfie == 1)
-			diabledTab('.fbpost-left-menu',[1,2]);		
-	}
-	
-	function showFbpostMenu(row){
-		$(".panel-fbpost").hide();$(".panel-post").hide();$(".setup-cust-post").hide();
-		if(row == 0){
-			showLoader();
-			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getImages&',async: false,success:function(result){
-				hideLoader(); 
-				if(result != 0){
-					imagesArray =  $.parseJSON(result);
-				}
-				$('.panel-fbpost').show(); 
-			}});
-			/*
-			var clas = 'ui-state-disabled';
-			$('#optPost .ui-controlgroup-controls div').each(function (index) {
-				if(customArray.isselfie == 1 && (index == 0 || index == 2))
-					$(this).addClass(clas);
-				else if(customArray.isselfie == 0 && index == 1)
-					$(this).addClass(clas);
-			});	*/
-			$('#optPost input[value="'+customArray.optsocialpost+'"]').attr('checked',true).checkboxradio('refresh');
-			if(customArray.optsocialpost == 1){
-				$('.ownimg').hide();
-				$('.selfie-2').hide();
-			}else if(customArray.optsocialpost == 0){
-				$('.ownimg').show();
-				$('.selfie-2').hide();
-			}else if(customArray.optsocialpost == 2){
-				$('.selfie-2').show();
-				$('.ownimg').hide();
-				var arraytagline =  $.parseJSON(customArray.taglineselfie);
-				$("#txtoccation").val(arraytagline.txtoccation);$("#txtinfodate").val(arraytagline.txtinfodate);$("#txtcamp1").val(arraytagline.tagline1);$("#txtcamp2").val(arraytagline.tagline2);
-			}
-		}else if(row == 1){
-			$(".panel-post").show();
-		}else if(row == 2){
-			if(userArray.productId != proID && userArray.productId != enterprise && userArray.productId != pro12 && userArray.productId != pro24 && userArray.productId != enterprise12 && userArray.productId != enterprise24)
-				 alertBox('no access','Please upgrade to pro plan & above to access this feature');
-			else
-				$('.setup-cust-post').show();
-		}
-		fbpostActiveMenu();
-	}
-
-
-	// default facebook post image script
-		$('#placeidfb').val(places[0]);
-		$('#fbthumb').attr('src', noPhoto);
-		if(customArray.fbImg != ''){
-			$('#fbthumb').attr('src', customArray.fbImg);
-			$('#frmfb').css({display:'none'});	
-		}else{
-			$('#fbthumb').attr('src', 'images/template/no-photo.gif');
-			$('#frmfb').css({display:'inline'});
-		}	
-		
-		$("#fbthumb").click(function (){
-			if(customArray.fbImg != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
-						showLoader();
-						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delImg&id='+imagesArray.fbImg.id,success:function(lastId){
-							hideLoader();
-							if(lastId > 0){
-								customArray.fbImg = '';$('#frmfb').css({display:'inline'});	
-								$('#fbthumb').attr('src', noPhoto);
-							}else
-								alertBox('error detected','Please try again');
-						}});
-					}},{caption: 'no'}]
-				});	
-			}	
-		});
-
-	   $('#upload').click(function(e){e.preventDefault();$('#idfb').val(imagesArray.fbImg.id);$('#filefb').click();}); 
-		$('#filefb').on('change',function(){ // save fb photo
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			$('#frmfb').ajaxSubmit({beforeSubmit:  beforeSubmitfb,success: showResponse,resetForm: true });
-		});
-		
-		function showResponse(responseText, statusText, xhr, $form)  { 
-		   if(responseText == 'less'){
-				hideLoader();
-				$('#fbthumb').attr('src', noPhoto);
-				alertBox('incorrect image size','Please upload image with min width 600px & min height 200px');
-			}else{	
-				$('#overlay').remove();$('#frmfb').css({display:'none'});			
-				$('#fbthumb').attr('src', responseText);
-				customArray.fbImg = responseText;
-			}
-		}
-
-		function beforeSubmitfb(){
-			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			if (window.File){
-				   var fsize = $('#filefb')[0].files[0].size; //get file size
-				   var ftype = $('#filefb')[0].files[0].type; // get file type
-						   //Allowed file size is less than 5 MB (1000000 = 1 mb)
-				   if(parseFloat(fsize)>1000000){
-						alertBox(bytesToSize(fsize)+' too big file!','Please ensure that image size is less than 1mb');
-						$('#overlay').remove();
-						return false;
-				   }else{
-						switch(ftype){
-							case 'image/png':
-							case 'image/gif':
-							case 'image/jpeg':
-							case 'image/jpg':
-							case 'image/bmp':
-							case 'image/pjpeg':
-							$('#fbthumb').attr('src', loadingPhoto);
-							break;
-							default: alertBox('unsupported file type','Please upload only gif, png, bmp, jpg, jpeg file types');
-							$('#overlay').remove();							
-							return false;
-						}
-				  }
-			}else{
-			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-			   $('#overlay').remove();
-			   return false;
-			}
-		}	
-	//end default facebook post image script
-	
-	/* code for panel-post */
-	if(customArray.reviewPost != ''){
-		var reviewPost = $.parseJSON(customArray.reviewPost);
-		$('#sharefb input[value="'+reviewPost.posted+'"]').attr('checked',true).checkboxradio('refresh');
-		val = new Array();
-		val['1']='1.0';val['1.25']='1.25';val['1.5']='1.5';val['1.75']='1.75';val['2']='2.0';val['2.25']='2.25';val['2.75']='2.75';val['3']='3.0';val['3.25']='3.25';val['3.5']='3.5';val['3.75']='3.75';val['4']='4.0';val['4.25']='4.25';val['4.5']='4.5';val['4.75']='4.75';
-		val2 = ['1.0','1.25','1.5','1.75','2.0','2.25','2.5','2.75','3.0','3.25','3.5','3.75','4.0','4.25','4.5','4.75'];
-		var percent = val[reviewPost.percent];
-		if(typeof(val[reviewPost.percent]) == 'undefined')
-			percent = val2[reviewPost.percent];
-		$('#sharelimit input[value="'+percent+'"]').attr('checked',true).checkboxradio('refresh');
-	}else{
-		$('#sharefb input[value="1"]').attr('checked',true).checkboxradio('refresh');	
-		$('#sharelimit input[value="3.0"]').attr('checked',true).checkboxradio('refresh');			
-	}
-	 $('#submit-postfb').click(function () {
-			showLoader();
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=10&posted='+$("#sharefb :radio:checked").val()+'&percent='+$("#sharelimit :radio:checked").val(),success:function(lastId){
-				hideLoader();
-				customArray.reviewPost = lastId;
-				alertBox('update','successfully updated');
-			}});
-		});
-	/* end of code for panel-post */	
-	
-	/* code for setup-cust-post */
-	if(customArray.fbpost != ''){
-		try {arrayfbpost = $.parseJSON(customArray.fbpost);}
-		catch(err) {arrayfbpost = {fbpost:customArray.fbpost,postdesc:'My review of <brand>'}}
-	}else{
-		arrayfbpost = {fbpost:'<comment> <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>',postdesc:'My review of <brand>'}
-	}
-		
-	var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-	var preview = String(arrayfbpost.fbpost).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
-	$('.preview').html(preview);
-	$('#txtFBPost').val(decodequote(arrayfbpost.fbpost));
-
-	var preview = String(arrayfbpost.postdesc).replace(/<brand>/g,customArray.businessName);
-	$('.preview2').html(preview);
-	$('#postdesc').val(decodequote(arrayfbpost.postdesc));
-	
-	$("#fblinkupdate").click(function (e){ 
-		e.preventDefault();
-		places = locId.split('|');
-		var found= true;
-		
-		if($('#txtFBPost').val().search(/<brand>/i) == '-1'){
-			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt",, "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
-		}else if($('#txtFBPost').val().search(/<tabluu_url>/i) == '-1'){
-			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');
-		}else if($('#txtFBPost').val().search(/<comment>/i) == '-1'){
-			found = false;
-			alertBox('incorrect entry / entries','Please ensure that "&lt;comment&gt", "&lt;brand&gt" and "&lt;tabluu_url&gt" are used or entered correctly.');	
-		}
-		if(found){
-			showLoader();
-			var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-			var preview = String($('#txtFBPost').val()).replace(/<brand>/,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
-			var preview2 = String($('#postdesc').val()).replace(/<brand>/,customArray.businessName);
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=fblink&'+$('#frmpost2social').serialize(),success:function(lastId){
-				hideLoader();
-				customArray.fbpost = {fbpost:$('#txtFBPost').val(),postdesc:$('#postdesc').val()}
-				$('.preview').html(preview);
-				$('.preview2').html(preview2);
-			}});
-		}
-	});
-	
-	$("#fblinkreset").click(function (e){
-		e.preventDefault();
-		places = locId.split('|');
-		$('<div id="overlay"> </div>').appendTo(document.body);
-		var defaultstr = '<comment> <brand> gets a <rating> out of <max_rating> rating from me. <tabluu_url> <address>, <tel>.';
-		var defaultstr2 = 'My review of <brand>';
-		var address = customArray.address +', '+ customArray.city +', '+customArray.country;
-		var preview2 = String(defaultstr2).replace(/<brand>/g,customArray.businessName);
-		var preview = String(defaultstr).replace(/<brand>/g,customArray.businessName).replace(/<rating>/,'4.3').replace(/<max_rating>/,'5').replace(/<tabluu_url>/,'<span style="text-decoration:underline;color:blue;">http://camrally.com/'+customArray.nicename+'.html</span>').replace(/<address>/,address).replace(/<tel>/,customArray.contactNo).replace(/<comment>/,'Awesome!');
-		$('#txtFBPost').val(defaultstr);
-		$('.preview').html(preview);
-		$('#postdesc').val(defaultstr2);
-		$('.preview2').html(preview2);
-		$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=fblink&'+$('#frmpost2social').serialize(),success:function(lastId){
-			$("#overlay").remove();
-			customArray.fbpost = {fbpost:defaultstr,postdesc:defaultstr2};
-		}});
-	});
-	/* end of code for setup-cust-post */
-	$('.fbpost-left-menu').on('click', ' > li', function () {
-		curClick = $(this).index();  
-		showFbpostMenu(curClick);
-		fbpostActiveMenu();
-		if($( window ).width() > 600){
-			$(this).find( "a" ).addClass('ui-btn-active'); 
-			$(this).find( "span" ).addClass("listview-arrow-active");
-		}else{
-			$('.fbpost-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-		}	
-	});	
-	$( window ).resize(function() { // when window resize
-		var height = ($( window ).height() / 16) - 5;
-		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-		fbpostActiveMenu();	
-	});
-	function fbpostActiveMenu(){
-		//$( "#fbpost .left-header" ).html('Customers? Facebook Posts');
-		$( "#fbpost .right-header" ).html( placename );
-		if($( window ).width() > 600){
-			$('#fbpost .fbpost-left-menu li').each(function (index) {
-				if(index == curClick){
-					$(this).find( "a" ).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).find( "a" ).removeClass('ui-btn-active'); 
-					$(this).find( "span" ).removeClass("listview-arrow-active");				
-				}
-			});	
-		}else{
-		//alert('ste')//&& !$('.left-content').is(":visible")
-			$('#fbpost .fbpost-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}	
-	}
-});
-
-	function showFbpostMenu(row){
-		$(".panel-social-add").hide();$(".panel-social-select").hide();$(".panel-social-manual").hide();
-		if(row == 0){
-			 $(".panel-social-add").show();  
-		}else if(row == 1){
-			$(".panel-social-select").show();
-		}else if(row == 2){
-			$(".panel-social-manual").show();
-		}
-		socialActiveMenu();
-	}
-	function socialActiveMenu(){
-		//$( "#fbpost .left-header" ).html('Customers? Facebook Posts');
-		$( "#social .right-header" ).html( placename );
-		if($( window ).width() > 600){
-			$('#social .social-left-menu li').each(function (index) {
-				if(index == curClick){
-					$(this).find( "a" ).addClass('ui-btn-active'); 
-					$(this).find( "span" ).addClass("listview-arrow-active");
-				}else{
-					$(this).find( "a" ).removeClass('ui-btn-active'); 
-					$(this).find( "span" ).removeClass("listview-arrow-active");				
-				}
-			});	
-		}else{
-			$('#social .social-left-menu li a').each(function (index) {
-				$(this).removeClass("ui-btn-active");
-				$(this).find( "span" ).removeClass("listview-arrow-active");
-			});
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}	
-	}
 function diabledTab(classes,tabs){
 	clas = 'ui-state-disabled';
 	$(classes + ' li').each(function (index) {

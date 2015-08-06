@@ -690,33 +690,17 @@ switch($opt){
 		$hadtable = mysql_num_rows(mysql_query("SHOW TABLES LIKE 'businessplace_$placeId'"));
 		$feedarray = array();
 		if($hadtable){
-			if($case == 0){
-				$sql = "SELECT * FROM businessplace_$placeId WHERE source = 'fb' ORDER BY date DESC LIMIT $start,$offset";
-			}if($case == 1)
-				$sql = "SELECT * FROM businessplace_$placeId WHERE source <> 'fb' ORDER BY date DESC LIMIT $start,$offset";
-			if($case == 2){
-				$addhidefield = mysql_query("SHOW COLUMNS FROM `businessplace_$placeId` LIKE 'hideimg'") or die(mysql_error());
-				if(mysql_num_rows($addhidefield) < 1)
-					mysql_query("ALTER TABLE `businessplace_$placeId` ADD `hideimg` TINYINT NOT NULL") or die(mysql_error());
-				$addfeafield = mysql_query("SHOW COLUMNS FROM `businessplace_$placeId` LIKE 'feature'") or die(mysql_error());
-				if(mysql_num_rows($addfeafield) < 1) 
-					mysql_query("ALTER TABLE `businessplace_$placeId` ADD `feature` TINYINT NOT NULL") or die(mysql_error());
+			if($case == 0)
+				$sql = "SELECT * FROM businessplace_$placeId WHERE 1 ORDER BY date DESC LIMIT $start,$offset";
+			if($case == 1)
 				$sql = "SELECT * FROM businessplace_$placeId WHERE feature = 1 ORDER BY date DESC LIMIT $start,$offset";
-			}		
+		    if($case == 2)
+				$sql = "SELECT * FROM businessplace_$placeId WHERE hideimg = 1 ORDER BY date DESC LIMIT $start,$offset";
 			$result =  mysql_query($sql);
 			if(mysql_num_rows($result)){
 				$i=0;
 				while($row = mysql_fetch_object($result)){
 				 	$feedarray[$i]['id'] = $row->id;
-					$feedarray[$i]['rated1'] = $row->rated1;
-					$feedarray[$i]['rated2'] = $row->rated2;
-					$feedarray[$i]['rated3'] = $row->rated3;
-					$feedarray[$i]['rated4'] = $row->rated4;
-					$feedarray[$i]['rated5'] = $row->rated5;
-					$feedarray[$i]['rated6'] = $row->rated6;
-					$feedarray[$i]['rated7'] = $row->rated7;
-					$feedarray[$i]['aveRate'] = $row->aveRate;
-					$feedarray[$i]['comment'] = $row->comment;
 					$feedarray[$i]['name'] = $row->userName;
 					$feedarray[$i]['fbId'] = $row->userId;
 					$feedarray[$i]['url'] = $row->photo_url;

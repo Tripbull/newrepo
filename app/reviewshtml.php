@@ -1,19 +1,11 @@
 <?php
 	$fbname = '';
-	//if($rowrate->photo_url != '' && strstr($rowrate->photo_url,"shared")){
-		$fbsrc =  $src = (file_exists($rowrate->photo_url) ? $path.$rowrate->photo_url : $path.$rowrate->photo_url);
-		if($rowrate->userId){
-			$fbname = mb_convert_case($rowrate->userName,MB_CASE_TITLE, "UTF-8");
-		}	
-	/*
-	}else if($rowrate->userId){
-		$fbsrc =  "http://graph.facebook.com/$rowrate->userId/picture?type=large";
+	$fbsrc =  $src = (file_exists($rowrate->photo_url) ? $path.$rowrate->photo_url : $path.$rowrate->photo_url);
+	if($rowrate->userId){
 		$fbname = mb_convert_case($rowrate->userName,MB_CASE_TITLE, "UTF-8");
-	}else
-		$fbsrc =  $path."images/profileDefault.png";
-   */
-if($rowrate->hideimg > 0 && $rowrate->hideimg != null)
-	$fbsrc =  $path."images/profileDefault.png";
+	}	
+//if($rowrate->hideimg > 0 && $rowrate->hideimg != null)
+	//$fbsrc =  $path."images/profileDefault.png";
 ?>		
 <div class="sysPinItemContainer pin">
 	<?php
