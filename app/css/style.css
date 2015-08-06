@@ -110,6 +110,7 @@ input, select, textarea, button, .ui-btn { font-family: 'Myriad';font-size: 1em;
 .color-gold{color:#fff;/*color:#d6bc5c;*/margin-top:10px;}
 .color-grey{color:#b4bfcd !important;}
 .bgrey{background-color:#e7eaec}
+.darkgrey{color:#777 !important}
 .font-12{font-size:0.75em !important; }
 .font-15{font-size:0.9em !important;}
 .font-17{font-size:1.1em !important;}

@@ -105,34 +105,36 @@ echo '<title>'. $businessTitle . '</title>';
 		<div class="left">
 			<div style="text-align:center;"><img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? $path.'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 			<?php
-			if($hadTable)
-				echo '<div class="follow">'.$follow->followTotal .' followers</div>';
+			if($hadTable){
+				//echo '<div class="follow">'.$follow->followTotal .' followers</div>';
+				$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE userID <> '' ORDER BY id DESC");
+				if(mysql_num_rows($resultAve)){
+				$rowAvg = mysql_fetch_object($resultAve);
+				if($row->booknow){
+					$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+				}else{
+					$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+				}
+				}	
+			}
 			?>
 			</div>
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="title-name FLeft"> <?php echo $row->businessName?> </div>
+			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #777;font-size:12px;"><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</span></div>
 			 <?php 
 		if($hadTable){
-			$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE userID <> '' ORDER BY id DESC");
-			if(mysql_num_rows($resultAve)){
-			$rowAvg = mysql_fetch_object($resultAve);
-			if($row->booknow){
-				$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
-			}else{
-				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
-			}
+			
 			?>
 			 <div style="float:right;padding-right:10px;">
 				<div style="clear:both;text-align:right;">
 					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
-					<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php echo $rowAvg->totalAvg .' advocates' ?></span>
+					<!--<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php//echo $rowAvg->totalAvg .' advocates' ?></span> -->
 				</div>
 			</div>
 		<?php
-			}
 		}
 		?>
 		</div>
@@ -167,7 +169,8 @@ echo '<title>'. $businessTitle . '</title>';
 			<div class="textDesc">
 				<?php
 				echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '');
-				echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
+				if($connect->liteID != $row->productId)
+					echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
 			  ?>
 			</div>
 		</div>

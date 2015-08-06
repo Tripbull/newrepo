@@ -101,12 +101,10 @@ switch($opt){
 		$query = mysql_query("INSERT INTO businessList SET userGroupId = $gId, businessName = '{$name}', subscribe={$subs},label='{$label}'");
 		if(mysql_affected_rows()){
 			 $lastId = mysql_insert_id();
-			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId, showmap=0");
-			 //$defaultLogo = '{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"http://camrally.com/images/desktop_default.png"}';	
-			 $defaultLogo ='';
+			 $val = checknicename();	
+			 mysql_query("INSERT INTO businessProfile SET profilePlaceId = $lastId,nicename='$val', showmap=0");
+			 $defaultLogo ='';$defaultimg='';
 			 mysql_query("INSERT INTO businessCustom SET customPlaceId = $lastId, logo = '$defaultLogo',backgroundcolor = '#7F7F7F',backgroundFont = '#3b3a26'");
-			// mysql_query("INSERT INTO businessImages SET placeId = $lastId,name`fbImg` =  'images/desktop_default.png',`webImg` =  'images/desktop_default.png',`webImg2` =  'images/desktop_default.png'");
-			$defaultimg = '';//'images/default-image.png';
 			 mysql_query("INSERT INTO businessImages (placeId,path,title,description,name) VALUES($lastId,'','','','fbImg'),($lastId,'{$defaultimg}','','','webImg'),($lastId,'{$defaultimg}','','','webImg2'),($lastId,'{$defaultimg}','','','webImg3'),($lastId,'{$defaultimg}','','','webImg4'),($lastId,'{$defaultimg}','','','webImg5'),($lastId,'','','','webImg6'),($lastId,'','','','webImg7'),($lastId,'','','','webImg8')");
 			 mysql_query("INSERT INTO campaigndetails SET posterId = $lastId");
 			 mysql_query("INSERT INTO businessDescription SET descPlaceId = $lastId");
@@ -385,56 +383,19 @@ switch($opt){
 		$lname = mysql_real_escape_string($_REQUEST['lname']);
 		$email = mysql_real_escape_string($_REQUEST['email']);
 		$pwd = mysql_real_escape_string($_REQUEST['pwd']);
-		$groupId = trim($_REQUEST['groupId']);
-		if($groupId){
-			$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";	
-			mysql_query($sql) or die(mysql_error());
-			$lastId = mysql_insert_id();
-			$cookie = new cookie();
-			$cookie->setCookie( $lastId );
-		}else{
-				$date = date('Y-m-d H:i:s');$plan = $connect->basicID;
-				if($_SESSION['type'] == 1){ //monthly
-					if($_SESSION['plan'] == 'basic'){
-						$plan = $connect->basicID;
-					}
-					if($_SESSION['plan'] == 'pro'){
-						$plan = $connect->proID;
-					}
-					if($_SESSION['plan'] == 'enterprise'){
-						$plan = $connect->enterprise;
-					}
-				}else if($_SESSION['type'] == 2){ // 1 yearly
-					if($_SESSION['plan'] == 'basic'){
-						$plan = $connect->basic12;
-					}
-					if($_SESSION['plan'] == 'pro'){
-						$plan = $connect->pro12;
-					}
-					if($_SESSION['plan'] == 'enterprise'){
-						$plan = $connect->enterprise12;
-					}
-				}else if($_SESSION['type'] == 3){ // 2 yearly
-					if($_SESSION['plan'] == 'basic'){
-						$plan = $connect->basic24;
-					}
-					if($_SESSION['plan'] == 'pro'){
-						$plan = $connect->pro24;
-					}
-					if($_SESSION['plan'] == 'enterprise'){
-						$plan = $connect->enterprise24;
-					}
-				}
-				$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='notactive',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
-				$groupId = mysql_insert_id();
-				echo json_encode(array('type'=>$plan,'groupId'=>$groupId));
-				$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";
-				mysql_query($sql) or die(mysql_error());
-				$time = time();
-				$name =$fname.' '.$lname; //optional
-				$join_date = round(time()/60)*60;
-				mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
-		}
+		$date = date('Y-m-d H:i:s');$plan = $connect->liteID;
+		$result = mysql_query("INSERT INTO businessUserGroup SET productId=". $plan .", email='$email',state='active',addLoc=0,created='$date',type=0,expiration=''") or die(mysql_error());
+		$groupId = mysql_insert_id();
+		echo json_encode(array('type'=>$plan,'groupId'=>$groupId));
+		$sql = "INSERT INTO businessUsers SET userGroupId=$groupId,fname='$fname',lname='$lname',pwd='".$pwd."',email='$email'";
+		mysql_query($sql) or die(mysql_error());
+		$lastid = mysql_insert_id();
+		$cookie = new cookie();
+		$cookie->setCookie( $lastid );
+				//$time = time();
+				//$name =$fname.' '.$lname; //optional
+				//$join_date = round(time()/60)*60;
+				//mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
 	break;
 	case 'wizardsetupdone':
 		$placeid = $_REQUEST['placeId'];

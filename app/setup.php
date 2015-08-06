@@ -75,21 +75,21 @@ $noPhoto = 'images/template/no-photo.gif';
 								<form id="frmselfies" action="#" method="post" enctype="multipart/form-data" >
 								<p class="font-17 bgrey" style="padding:10px">Your campaign message on all posted images:</p>
 								<div class="clear" style="padding-top:1em"></div>
-								<span class="font-17 fl"><i>Campaign name:</i></span>
+								<span class="font-17 fl darkgrey"><i>Campaign name:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="namecampaign" id="namecampaign" value="" placeholder="Text (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
-								<span class="font-17 fl"><i>Presented by:</i></span>
+								<span class="font-17 fl darkgrey"><i>Presented by:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtbrand" id="txtbrand" value="" placeholder="Text (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
-								<span class="font-17 fl"><i>Add your slogan:</i> </span>
+								<span class="font-17 fl darkgrey"><i>Add your slogan:</i> </span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtcamp1" id="txtcamp1" value="" placeholder="Text for row 1 (max 40 chars)">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtcamp2" id="txtcamp2" value="" placeholder="Text for row 2 (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
-								<span class="font-17 fl"><i>Your call to action button:</i></span>
+								<span class="font-17 fl darkgrey"><i>Your call to action button:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<input type="text" data-clear-btn="true" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo or Selfie!" placeholder="Post Your Photo or Selfie!">
 								<div class="clear" style="padding-top:0.5em"></div>

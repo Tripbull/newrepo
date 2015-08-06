@@ -352,42 +352,39 @@ switch($opt){
 	break;
 	case 'getshorturl':
 		$placeId = $_REQUEST['placeId'];$imagesArray = array();$issetselfie = false;$issetnoselfie = false;$iscreated = array();
-		$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId}") or die(mysql_error());
+		$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId} AND source = '1'") or die(mysql_error());
 		if(mysql_num_rows($result)){
-			while($row = mysql_fetch_object($result)){
-				array_push($iscreated,$row->source);
-			}
-			if(!in_array(1, $iscreated)){
-				$link = checkshortULR();
-				$query = mysql_query("INSERT INTO businessshorturl SET link = '{$link}',placeId = {$placeId}, source = 1, label=''");
-			}
-			if(!in_array(0, $iscreated)){
-				$link = checkshortULR();
-				$query = mysql_query("INSERT INTO businessshorturl SET link = '{$link}',placeId = {$placeId}, source = 0, label=''");
-			}
-			$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId}") or die(mysql_error());
-			while($row = mysql_fetch_object($result)){
-				array_push($iscreated,$row->source);
-				$imagesArray['source_'.$row->source]['id'] = $row->id;
-				$imagesArray['source_'.$row->source]['link'] = $row->link;
-				$imagesArray['source_'.$row->source]['source'] = $row->source;
-				$imagesArray['source_'.$row->source]['label'] = $row->label;
-			}
+			$row = mysql_fetch_object($result);
+			$imagesArray['source_1']['link'] = $row->link;
+			$imagesArray['source_1']['source'] =1;
+			$imagesArray['source_1']['label'] = '';
 			echo json_encode($imagesArray);
 		}else{
 			$link = checkshortULR();
 			$query = mysql_query("INSERT INTO businessshorturl SET link = '{$link}',placeId = {$placeId}, source = 1, label=''");
-			$link1 = checkshortULR();
-			$query = mysql_query("INSERT INTO businessshorturl SET link = '{$link1}',placeId = {$placeId}, source = 0, label=''");
 			$imagesArray['source_1']['link'] = $link;
 			$imagesArray['source_1']['source'] =1;
 			$imagesArray['source_1']['label'] = '';
-			$imagesArray['source_0']['link'] = $link1;
-			$imagesArray['source_0']['source'] =0;
-			$imagesArray['source_0']['label'] = '';
 			echo json_encode($imagesArray);
 		}
-			
+	break;
+	case 'getshorturlemail':
+		$placeId = $_REQUEST['placeId'];$imagesArray = array();$issetselfie = false;$issetnoselfie = false;$iscreated = array();
+		$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId} AND source = 'e'") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			$imagesArray['source_e']['link'] = $row->link;
+			$imagesArray['source_e']['source'] ='e';
+			$imagesArray['source_e']['label'] = '';
+			echo json_encode($imagesArray);
+		}else{
+			$link = checkshortULR();
+			$query = mysql_query("INSERT INTO businessshorturl SET link = '{$link}',placeId = {$placeId}, source = 'e', label=''");
+			$imagesArray['source_e']['link'] = $link;
+			$imagesArray['source_e']['source'] ='e';
+			$imagesArray['source_e']['label'] = '';
+			echo json_encode($imagesArray);
+		}
 	break;
 	case 'getCustom': 
 		$placeId = $_REQUEST['key'];

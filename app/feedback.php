@@ -23,9 +23,9 @@
 							<div class="left-header">Collect Response</div>			
 							<ul class="feedback-left-menu" data-role="listview">
 								<li><a href="#">Email Invitations<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#" class="qrcode">QR Code & Mini Link<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#">Spot Response (Mobile Devices)<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#">Photo Booth (Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#" class="qrcode">QR Code<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#">Spot Response (Your Own Mobile Devices)<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#">Photo Booth (Your Own Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -58,14 +58,7 @@
 								<div class="btn-submit">
 									<button class="ui-btn" id="qr-generate3">Generate QR Code</button>
 								</div>		
-								<div class="clear" style="padding-top:1em"></div>
-								<p>Mini Link:</p>
-								<div class="clear" style="padding-top:1em"></div>	
-								<input type="text" name="shortlink3" id="shortlink3" value="" >
-								<div class="clear" style="padding-top:1em"></div>	
-								<div class="btn-submit">
-									<button class="ui-btn" id="submit-shortlink3">Mini Web Link</button>
-								</div>											
+									
 							</section>
 							<section class="feedback-photo hide">	
 								<p>Link:</p>
