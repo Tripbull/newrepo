@@ -654,7 +654,7 @@ $(document).on('pageinit','#rateone', function() {
 function campaign_poster()
 {	
 	//CAMPAIGN POSTER DO NOT REMOVE
-    var bgHeight = '', bgWidth='', campHeight='', campWidth='', campRel='';
+    var bgHeight = '', bgWidth='', campHeight='', campWidth='', campRel='', totalHeight='', commentHeight='';
 	campRel = $('.campaign-image').height()/$('.campaign-image').width();
 	bgHeight = $(window).height()-$('.top-button-selfie').height();
 	bgWidth = bgHeight/campRel;
@@ -683,11 +683,6 @@ function campaign_poster()
 	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
 	if($(window).width() < ($('.left').width()+350))
 	{
-		$('.right').css('height', '300px');
-		$('.right').css('float', 'none');
-		$('.right').css('margin-top', '0px');
-		$('.right').css('max-width', $(window).width() + 'px');
-
 		if(bgWidth >= bgHeight)
 		{
 			campHeight = 'auto';
@@ -698,11 +693,25 @@ function campaign_poster()
 			campHeight = ($(window).height()-$('.top-button-selfie').height()) + 'px';
 			campWidth = $(window).width() + 'px';
 		}
-
+		
 		$('.left').css('float', 'none');
 		$('.left').css('width', campWidth);
 		$('.left').css('height', campHeight);
 		$('.left').css('min-width', campWidth);
+
+		commentHeight = $(window).height()-($('.left').height()+$('.top-button-selfie').height());
+		if(commentHeight > 300)
+		{
+			totalHeight = commentHeight;
+		}
+		else
+		{
+			totalHeight = 300;
+		}
+		$('.right').css('height', totalHeight + 'px');
+		$('.right').css('float', 'none');
+		$('.right').css('margin-top', '0px');
+		$('.right').css('max-width', $(window).width() + 'px');
 	}
 	else
 	{
