@@ -260,7 +260,10 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
 			echo '<input type="hidden" value="'.$totalPagesfeature.'" name="totalfeature" id="totalfeature" />';
 			while($rowrate = mysql_fetch_object($resultFeature)){
-				include('reviewshtml.php');
+				if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+				{
+					include('reviewshtml.php');
+				}
 			}
 			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = 0 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
@@ -269,7 +272,10 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
 					while($rowrate = mysql_fetch_object($resultFeature)){
-						include('reviewshtml.php');
+						if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+						{
+							include('reviewshtml.php');
+						}
 					}
 				}
 			?>
