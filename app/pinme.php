@@ -266,7 +266,10 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
 			echo '<input type="hidden" value="'.$totalPagesfeature.'" name="totalfeature" id="totalfeature" />';
 			while($rowrate = mysql_fetch_object($resultFeature)){
-				include('reviewshtml.php');
+				if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+				{
+					include('reviewshtml.php');
+				}
 			}
 			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
@@ -275,7 +278,10 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
 					while($rowrate = mysql_fetch_object($notresultFeature)){
-						include('reviewshtml.php');
+						if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+						{
+							include('reviewshtml.php');
+						}
 					}
 				}
 			?>
@@ -365,10 +371,13 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';	
+					if($connect->liteID != $row->productId){
 					if($booksite){
 						echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
-					}if($row->contactNo){
+					}
+					}
+					if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
 					}if($row->showmap){

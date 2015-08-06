@@ -654,6 +654,28 @@ $(document).on('pageinit','#rateone', function() {
 
 function campaign_poster()
 {	
+	//CAMPAIGN POSTER DO NOT REMOVE
+    var bgHeight = '', bgWidth='', campHeight='', campWidth='', campRel='';
+	bgHeight = $(window).height()-$('.top-button-selfie').height();
+	campRel = $('.campaign-image').height()/$('.campaign-image').width();
+	bgWidth = bgHeight/campRel;
+	$('.left').css('height', bgHeight + 'px');
+	$('.left').css('width', bgWidth + 'px');
+
+	if(bgWidth >= bgHeight)
+	{
+		campHeight = 'auto';
+		campWidth = '100%';
+	}
+	else
+	{
+		campHeight = '100%';
+		campWidth = 'auto';
+	}
+	$('.campaign-image').css('height', campHeight);
+	$('.campaign-image').css('width', campWidth);
+	//CAMPAIGN POSTER END
+
 	$('.left').css('margin-top', $('.top-button-selfie').height() + 'px');
 	$('.left').css('min-width', $('.campaign-image').width() + 'px');
 	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
@@ -662,19 +684,28 @@ function campaign_poster()
 		$('.right').css('height', '300px');
 		$('.right').css('float', 'none');
 		$('.right').css('margin-top', '0px');
+		$('.right').css('max-width', $(window).width() + 'px');
+
 		$('.left').css('float', 'none');
-		$('.left').css('margin-right', '15px;');
+		$('.left').css('width', $(window).width() + 'px');
+		$('.left').css('min-width', $(window).width() + 'px');
+		$('.left').css('height', 'auto');
+
+		$('.campaign-image').css('height', 'auto');
+		$('.campaign-image').css('width', '100%');
 	}
 	else
 	{
 		$('.left').css('float', 'left');
 		$('.left').css('height', $('.campaign-image').height() + 'px');
+		$('.left').css('margin-right', '0px');
+
 		$('.right').css('float', 'right');
 		$('.right').css('height', $('.campaign-image').height() + 'px');
 		$('.right').css('min-width', '400px');
+
 		var wrapperW = $('.campaign-image').width() + $('.right').width() + 1;
 		$('.camp-wrapper').css('max-width', wrapperW + 'px' );
-		$('.right').css('margin-right', '15px;');
 	}
 	$('.camp-wrapper').css('opacity', 1);
 }
@@ -688,49 +719,40 @@ function rate_initialize(){
 		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"images/desktop_default.png"}');
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
-
-	//CAMPAIGN POSTER DO NOT REMOVE
-	// var bgHeight = $(window).height()-$('.top-button-selfie').height();
-	// if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
-	// 	$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
-	// 	var campRel = $('.campaign-image').height()/$('.campaign-image').width();
-	// 	var bgWidth = bgHeight/campRel;
-	// 	$('.campaign-image').css('height', bgHeight + 'px');
-	// 	$('.campaign-image').css('width', bgWidth + 'px');
-	// }	
-	//CAMPAIGN POSTER END
 	
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 
-		var camp_img = new Image();
-		camp_img.onload = function() {
-			if(camp_img.width >= camp_img.height)
-			{
-				bgHeight = 'auto';
-				bgWidth = $(window).width() + 'px';
-			}
-			else
-			{
-				bgHeight = $(window).height()-$('.top-button-selfie').height() + 'px';
-				bgWidth = 'auto';
-			}
-
-			$('.rate').css('background-image',(bgback.bckimage != '' ? 'url('+ bgback.bckimage + ')' : ''));
-			$('.rate').css('background-size', bgWidth + ' ' + bgHeight);
-			$('.rate').css('background-repeat', 'no-repeat');
-			$('.rate').css('margin-top', $('.top-button-selfie').height() + 'px');
-			if(camp_img.height < ($(window).height()-$('.top-button-selfie').height()))
-			{
-				$('.rate').css('background-position', 'center center');
-			}
-			else
-			{
-				$('.rate').css('background-position', 'center top');
-			}
-		};
-		camp_img.src = bgback.bckimage;
-
+		$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
 		$('.rate').css('overflow-y', 'hidden');
+
+		// var camp_img = new Image();
+		// camp_img.onload = function() {
+		// 	if(camp_img.width >= camp_img.height)
+		// 	{
+		// 		bgHeight = 'auto';
+		// 		bgWidth = $(window).width() + 'px';
+		// 	}
+		// 	else
+		// 	{
+		// 		bgHeight = $(window).height()-$('.top-button-selfie').height() + 'px';
+		// 		bgWidth = 'auto';
+		// 	}
+
+		// 	$('.rate').css('background-image',(bgback.bckimage != '' ? 'url('+ bgback.bckimage + ')' : ''));
+		// 	$('.rate').css('background-size', bgWidth + ' ' + bgHeight);
+		// 	$('.rate').css('background-repeat', 'no-repeat');
+		// 	$('.rate').css('margin-top', $('.top-button-selfie').height() + 'px');
+		// 	if(camp_img.height < ($(window).height()-$('.top-button-selfie').height()))
+		// 	{
+		// 		$('.rate').css('background-position', 'center center');
+		// 	}
+		// 	else
+		// 	{
+		// 		$('.rate').css('background-position', 'center top');
+		// 	}
+		// };
+		// camp_img.src = bgback.bckimage;
+
 	}	
 
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});

@@ -3,7 +3,7 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
-//$type = $_REQUEST['s'];
+$type = $_REQUEST['s'];
 $istest = true;
 if($istest){
    $curDomain = 'http://camrally.com/';
@@ -46,10 +46,11 @@ $connect->db_disconnect();
 	<script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>
 </head>
 <body>
-	<!--
-	<div class="hide top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><img src="images/tabluu-logo-mono-xsmall.png"></div><span style="display: inline-block;margin-left: auto;margin-right: 20px;" class="btn-take-isselfie">Your Selfie Now!</span></div></div> -->
 
+<!--
 	<div class="top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1-small.png" style="width:85%;height:auto"></div></div><div class="wrapbtn"><span class="btn-take-isselfie">Post Your Photo or Selfie!</span></div></div></div>
+ -->
+	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie">Post Your Photo or Selfie!</span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>

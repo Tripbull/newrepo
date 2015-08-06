@@ -1,14 +1,53 @@
-$(document).ready(function() {
+var fontWidth = 0;
 
-	$('.widthDiv').css('font-size', $('.title1').css('font-size'));
-	wordwrap('title1');
-	wordwrap('title2');
-	wordwrap('title3');
-	wordwrap('title4');
-	wordwrap('title5');
+$('.widthDiv').css('font-size', $('.title1').css('font-size'));
+fontWidth = txtWidth('W', 'width');
+wordwrap('title1');
+wordwrap('title2');
+wordwrap('title3');
+wordwrap('title4');
+wordwrap('title5');
+
+function wordwrap(questionContainer) {
+	$('.' + questionContainer).css('width', 'auto');
+	var str = $('.' + questionContainer).html();
+	var containerWidth = $('.' + questionContainer).width();
+	var textWidth = txtWidth(str, 'width');
+	var textHeight = txtWidth(str, 'height');
+	var lines = Math.ceil(textWidth/$('.' + questionContainer).width());
+	var senHeight = textHeight*lines;
+	var widthDiff = textWidth - containerWidth;
+	if(lines > 1)
+	{
+		$('.' + questionContainer).width(textWidth/lines);
+
+		while($('.' + questionContainer).height() > senHeight)
+		{
+			$('.' + questionContainer).width($('.' + questionContainer).width()+fontWidth);
+		}
+	}
+
+}
+
+function txtWidth(str, type){
+	$('.widthDiv').html(str);
+	var width = $('.widthDiv').width();
+	var height = $('.widthDiv').height();
+	if(type == 'width')
+	{
+	  	return width;
+	}
+	else
+	{
+	  	return height;
+	}
+}
+
+$(document).ready(function() {
 
 	$( window ).resize(function() { // when window resize
 		$('.widthDiv').css('font-size', $('.title1').css('font-size'));
+		fontWidth = txtWidth('W', 'width');
 		wordwrap('title1');
 		wordwrap('title2');
 		wordwrap('title3');
@@ -148,39 +187,3 @@ $(document).ready(function() {
 	});
 }
  }); 
-
-	function wordwrap(questionContainer) {
-		$('.' + questionContainer).css('width', 'auto');
-		var str = $('.' + questionContainer).html();
-		var containerWidth = $('.' + questionContainer).width();
-		var textWidth = txtWidth(str, 'width');
-		var textHeight = txtWidth(str, 'height');
-		var lines = Math.ceil(textWidth/$('.' + questionContainer).width());
-		var senHeight = textHeight*lines;
-		var widthDiff = textWidth - containerWidth;
-		if(widthDiff > 2)
-		{
-			$('.' + questionContainer).width(textWidth/lines);
-			console.log(textWidth, lines);
-
-			while($('.' + questionContainer).height() > senHeight)
-			{
-				$('.' + questionContainer).width($('.' + questionContainer).width()+10);
-			}
-		}
-
-	}
-	
-	function txtWidth(str, type){
-		$('.widthDiv').html(str);
-		var width = $('.widthDiv').width();
-		var height = $('.widthDiv').height();
-		if(type == 'width')
-		{
-		  	return width;
-		}
-		else
-		{
-		  	return height;
-		}
-	}
