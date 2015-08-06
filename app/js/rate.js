@@ -8,7 +8,7 @@ var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],c
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -618,7 +618,7 @@ function getLocationData(){
 								}}]
 						});
 					}else{
-						$('.btn-take-isselfie').html(customArray.btntext);
+						$('.wraptext').html(customArray.btntext);
 						$('.btn-take-isselfie').unbind('click').click(function(){
 								if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
 									setTimeout(function(){getSelfie();},200);
@@ -656,9 +656,10 @@ function campaign_poster()
 {	
 	//CAMPAIGN POSTER DO NOT REMOVE
     var bgHeight = '', bgWidth='', campHeight='', campWidth='', campRel='';
-	bgHeight = $(window).height()-$('.top-button-selfie').height();
 	campRel = $('.campaign-image').height()/$('.campaign-image').width();
+	bgHeight = $(window).height()-$('.top-button-selfie').height();
 	bgWidth = bgHeight/campRel;
+
 	$('.left').css('height', bgHeight + 'px');
 	$('.left').css('width', bgWidth + 'px');
 
@@ -672,37 +673,46 @@ function campaign_poster()
 		campHeight = '100%';
 		campWidth = 'auto';
 	}
+
 	$('.campaign-image').css('height', campHeight);
 	$('.campaign-image').css('width', campWidth);
 	//CAMPAIGN POSTER END
 
 	$('.left').css('margin-top', $('.top-button-selfie').height() + 'px');
 	$('.left').css('min-width', $('.campaign-image').width() + 'px');
+	$('.left').css('max-width', $('.campaign-image').width() + 'px');
 	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
-	if($(window).width() < ($('.campaign-image').width()+420))
+	if($(window).width() < ($('.left').width()+350))
 	{
 		$('.right').css('height', '300px');
 		$('.right').css('float', 'none');
 		$('.right').css('margin-top', '0px');
 		$('.right').css('max-width', $(window).width() + 'px');
 
-		$('.left').css('float', 'none');
-		$('.left').css('width', $(window).width() + 'px');
-		$('.left').css('min-width', $(window).width() + 'px');
-		$('.left').css('height', 'auto');
+		if(bgWidth >= bgHeight)
+		{
+			campHeight = 'auto';
+			campWidth = $(window).width() + 'px';
+		}
+		else
+		{
+			campHeight = ($(window).height()-$('.top-button-selfie').height()) + 'px';
+			campWidth = $(window).width() + 'px';
+		}
 
-		$('.campaign-image').css('height', 'auto');
-		$('.campaign-image').css('width', '100%');
+		$('.left').css('float', 'none');
+		$('.left').css('width', campWidth);
+		$('.left').css('height', campHeight);
+		$('.left').css('min-width', campWidth);
 	}
 	else
 	{
 		$('.left').css('float', 'left');
-		$('.left').css('height', $('.campaign-image').height() + 'px');
 		$('.left').css('margin-right', '0px');
 
 		$('.right').css('float', 'right');
-		$('.right').css('height', $('.campaign-image').height() + 'px');
-		$('.right').css('min-width', '400px');
+		$('.right').css('height', $('.left').height() + 'px');
+		$('.right').css('min-width', '350px');
 
 		var wrapperW = $('.campaign-image').width() + $('.right').width() + 1;
 		$('.camp-wrapper').css('max-width', wrapperW + 'px' );
