@@ -54,7 +54,9 @@
     border-bottom-color: #FFF;
 	font-size: 15px;
 }
-
+.ZebraDialog .ZebraDialog_Body p {
+    margin-top:0px;
+}
 .ZebraDialog .ZebraDialog_ButtonsOuter {
     background: #f7f7f7;
     padding: 10px 5px 20px 10px;

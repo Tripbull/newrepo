@@ -211,7 +211,7 @@ foreach($time_zones as $zones){
 							<section class="pro-vanity hide">
 								<div class="clear" style="padding-top:0.2em"></div>
 								<p class="font-16 fl bgrey" style="width:97%;padding:10px">
-									Using your current subscription, you can change your URL to an easy to remember custom link your customers will not forget.
+									Please customise your Camrally Page link.
 								</p>
 								<div class="clear" style="padding:1.5em 10px 0 10px;">
 								<p class="font-16 fl">Your default Camrally URL:&nbsp;</p>
@@ -232,16 +232,6 @@ foreach($time_zones as $zones){
 									</div>
 								</div>
 								</div>
-								<div class="clear" style="padding-top:0.5em"></div>
-								<p class="font-16 fl bgrey" style="width:97%;padding:20px 10px">
-									<i>
-									Examples:<br/>  
-										bestcafe (flagship site)<br/>
-										bestcafenewyork<br/>
-										bestcafe singapore<br/>
-										</i>
-								</p>
-
 								<div class="clear" style="padding-top:1.5em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="vanity-update">Update</button>

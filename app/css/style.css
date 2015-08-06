@@ -124,7 +124,8 @@ p{margin-top:0.5em;}
 .ui-flipswitch.ui-flipswitch-active{padding-left: 3em;background-color:#00AEEF !important;border-color:#fff;}
 .top-button-selfie{color:#fff;position: fixed;top:0;left:0;width: 100%;min-width:300px;background-color: #000;height:auto;min-height: 60px;z-index:10;/*background: url(../js/source/fancybox_overlay.png) repeat scroll 0 0 rgba(0, 0, 0, 0.1);*/}
 .wrapbtn {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin-left: 10px;}
-.btn-take-isselfie{padding:5px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 8px 15px 8px 15px;
+.top-button-selfie img,.top-button-selfie p,.wraptext{pointer-events: none;-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}
+.btn-take-isselfie{cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 10px 15px 8px
 }
 
 #dashboard,#setup,#settings #profile,#uic,#send-email,#plan,#statistic,#admin,#manage,#weblink,#feedback,#reviews,#widget,#fbpost {background-color:#D9D9D9;}

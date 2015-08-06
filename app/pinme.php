@@ -1,8 +1,9 @@
 <?php
-$sql = "SELECT p.profilePlaceId, l.businessName, p.category,p.nicename, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email, d.description, c.item2Rate,c.selectedItems,c.reviewPost,c.logo FROM businessProfile AS p
+$sql = "SELECT p.profilePlaceId, l.businessName, p.category,p.nicename, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email,cam.btntext, d.description, c.item2Rate,c.selectedItems,c.reviewPost,c.logo FROM businessProfile AS p
 LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
 LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId
+LEFT JOIN campaigndetails AS cam ON cam.posterId = l.id
 LEFT JOIN businessCustom AS c ON c.customPlaceId = l.id
 WHERE p.nicename =  '$nice'
 LIMIT 1";
@@ -12,7 +13,6 @@ $row = mysql_fetch_object($result1);
 $placeId = $row->profilePlaceId;
 $photoDomain = '';//'http://camrally.com/';
 $path = $connect->path;
-
 if($connect->liteID == $row->productId)
 	$businessTitle = $row->businessName . ' @ Camrally';
 else
@@ -73,8 +73,6 @@ echo '<title>'. $businessTitle . '</title>';
 </head>
 <body>
 <div id="overlay" class="hide"></div>
-<div class="morebtn loadmorefeaturebtn hide">Load more...</div>
-<div class="morebtn loadmorebtn hide">Load more...</div>
 <div class="vdesktop">
 <input type="hidden" name="placeid" id="placeid" value="<?php echo $placeId ?>" />
 <input type="hidden" name="path" id="path" value="<?php echo $path ?>" />
@@ -104,17 +102,18 @@ echo '<title>'. $businessTitle . '</title>';
 		?>
 		<div class="left">
 			<div style="text-align:center;"><img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? $path.'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
+			<div class="follow"></div>
 			<?php
 			if($hadTable){
 				//echo '<div class="follow">'.$follow->followTotal .' followers</div>';
-				$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE userID <> '' ORDER BY id DESC");
+				$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE 1 ORDER BY id DESC");
 				if(mysql_num_rows($resultAve)){
-				$rowAvg = mysql_fetch_object($resultAve);
-				if($row->booknow){
-					$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
-				}else{
-					$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
-				}
+					$rowAvg = mysql_fetch_object($resultAve);
+					if($row->booknow){
+						$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+					}else{
+						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+					}
 				}	
 			}
 			?>
@@ -122,14 +121,14 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #777;font-size:12px;"><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</span></div>
+			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</span></div>
 			 <?php 
 		if($hadTable){
 			
 			?>
 			 <div style="float:right;padding-right:10px;">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
+					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
 					<!--<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php//echo $rowAvg->totalAvg .' advocates' ?></span> -->
 				</div>
@@ -179,10 +178,12 @@ echo '<title>'. $businessTitle . '</title>';
 	<?php
 	$w=0;
 	$widthmenu = "width:100%";
-		if($row->booknow){$w++;
-			$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
-		}else{$w++;
-			$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+		if($connect->liteID != $row->productId){
+			if($row->booknow){$w++;
+				$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+			}else{$w++;
+				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+			}
 		}
 		if($row->websiteURL){$w++;
 			$website = (strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL);
@@ -240,9 +241,10 @@ echo '<title>'. $businessTitle . '</title>';
 					echo '<li style="'.$widthmenu.'"><a href="'.$twitter.'" target="_blank"><div class="menupadding">Twitter</div></a></li>';	
 				if($row->showmap)
 					echo '<li style="'.$widthmenu.'"><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="fancybox fancybox.iframe"><div class="menupadding">Map</div></a></li>';	
-
+				if($connect->liteID != $row->productId){
 				if($booksite)
 					echo '<li style="'.$widthmenu.'"><a href="'.$booksite.'" target="_blank"><div class="menupadding">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</div></a></li>';
+				}	
 			?>
 		</ul>
 	</div>
@@ -251,7 +253,8 @@ echo '<title>'. $businessTitle . '</title>';
 
    <div id="masoncontainer">
    <!-- advocates images -->   
-	<div id="campin-advocate" class="advocateimg pinList center <?=$hideavocate?>">
+	<div class="advocateimg  <?=$hideavocate?>">
+	<div id="campin-advocate" class="pinList center">
 		<div class="pinList center">
 			<?php
 			$offset=0;$limit=50;
@@ -263,19 +266,19 @@ echo '<title>'. $businessTitle . '</title>';
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
 			echo '<input type="hidden" value="'.$totalPagesfeature.'" name="totalfeature" id="totalfeature" />';
 			while($rowrate = mysql_fetch_object($resultFeature)){
-				if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+				if($rowrate->hideimg < 1)
 				{
 					include('reviewshtml.php');
 				}
 			}
-			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = 0 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
 			$totalPages = ceil($numberOfRows / $limit);
 			echo '<input type="hidden" value="'.$numberOfRows.'" name="numberofRows" id="numberofRows" />';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
-					while($rowrate = mysql_fetch_object($resultFeature)){
-						if($rowrate->hideimg < 1 && $rowrate->hideimg != null)
+					while($rowrate = mysql_fetch_object($notresultFeature)){
+						if($rowrate->hideimg < 1)
 						{
 							include('reviewshtml.php');
 						}
@@ -284,14 +287,23 @@ echo '<title>'. $businessTitle . '</title>';
 			?>
 		</div>
     </div>
+
+		<div class="morebtn clear loadmorefeaturebtn hide">Load more...</div>
+		<div class="morebtn clear loadmorebtn hide">Load more...</div>
+		<div class="clear" style="padding:15px 0"></div>
+	</div>
 	<!-- end advocate code -->
 	  <!-- product images -->
     <div id="campin-showimage" class="showcaseimg pinList center <?=$hideshowcase?>">
 		<div class="pinList center">
 		<?php
-		$result = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
-		while($row3 = mysql_fetch_object($result)){
-			$src = $path.$row3->path;
+		$array_product = array();$j=0;
+		$resultproduct = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
+		while($row3 = mysql_fetch_object($resultproduct)){
+			//$src = $path.$row3->path;
+			//$array_product[$j]['src'] = $src;
+			//$array_product[$j]['title'] = $row3->title;
+			//$array_product[$j++]['description'] = $row3->description;			
 			?>		
 			<div class="sysPinItemContainer pin">
 				<p class="description sysPinDescr"><?php echo $row3->title ?></p>
@@ -314,12 +326,12 @@ echo '<title>'. $businessTitle . '</title>';
 	<div class="main_wrapper">
         <a name="top"></a>    
         <div class="header">
-            <div class="logo"><a href="/"><img src="<?=$path?>images/white-logo-tabluu-page.png" > </a></div>
+            <div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_2-small.png" > </a></div>
 			<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>
 		</div>	 
 		<div id="topmenu">
 			<ul>
-				<li class="borderright" id="showcase"><a href="#">Showcase</a></li>
+				<li class="borderright" id="showcase"><a href="#">Campaign Images</a></li>
 				<li class="activeMenu" id="top-reviews"><a href="#">Advocates</a></li>
 			</ul>
 		</div>    
@@ -328,7 +340,7 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div style="padding:10px 0;width:176px:height:176px;">
 					  <img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? 'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 					  </div>
-					  <div class="clear btitle">
+					  <div class="clear btitle" style="color: #777;">
 					  <?php echo $row->businessName ?>
 					  </div>
 					  <?php
@@ -336,7 +348,7 @@ echo '<title>'. $businessTitle . '</title>';
 						?>
 						 <div style="margin-top:5px;">
 						 
-						   <span style="font-weight:normal;color:#00AEEF;text-decoration:none;font-size:14px"><?php echo $rowAvg->totalAvg .' advocates'?></span>
+						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</i></span>
 						 </div>
 						 <?php
 						}
@@ -344,46 +356,77 @@ echo '<title>'. $businessTitle . '</title>';
 					</div>
 						<?php
 						$shortchar = 200;
-						$openingAll = strip_tags(htmldecode($row->opening));
 						$descAll = strip_tags(htmldecode($row->description));
 						if(strlen($descAll) > $shortchar ){
 							$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 						}else
 							$desc = strip_tags(htmldecode($row->description));
-						
 						?>
 						<div class="m_desc">
 							<?php
-							echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '') . (trim($opening) != '' ? '<p class="opentext">'.$opening.'</p>' : '');
-							echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
-							$n= 0;
-							if($booksite)
-								$n = $n + 93;
-							if($row->showmap)
-								$n = $n + 93;
-							if($row->contactNo)
-								$n = $n + 93;	
+							if($connect->liteID != $row->productId)
+								echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
 						?>
 						</div>
 					  <div class="" style="">
 					  <?php
-					  echo '<div class="clear" style="padding:5px 0"></div>';	
-					if($booksite){
-						echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
-						echo '<div class="clear" style="padding:5px 0"></div>';
-					}if($row->contactNo){
+					  echo '<div class="clear" style="padding:5px 0"></div>';
+					echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
+							echo '<div class="clear" style="padding:5px 0"></div>';
+						
+					if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
 					}if($row->showmap){
 						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
-                    }					
+                    }if($connect->liteID != $row->productId){
+						if($booksite){
+							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
+							echo '<div class="clear" style="padding:5px 0"></div>';
+						}
+					}					
 					?>
 					  </div>    
 				</div>
 			</div>	
-                <div id="m_productImages" style="margin-top:5px;"></div>
-            	<div id="m_reviews" style="margin-top:5px;"></div>
+                <div id="m_productImages" class="hide" style="margin-top:5px;" >
+					<div class="pinList center">
+					<?php
+						if(mysql_num_rows($resultproduct))
+							mysql_data_seek($resultproduct, 0);
+						while($row3 = mysql_fetch_object($resultproduct)){
+						$src = $path.$row3->path;	
+						?>		
+						<div class="sysPinItemContainer pin">
+							<p class="description sysPinDescr"><?php echo $row3->title ?></p>
+
+							<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
+							<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
+						</div>
+					<?php
+					}
+					?>
+				</div>
+				</div>
+            	<div id="m_reviews" style="margin-top:5px;">
+					<?php
+						if(mysql_num_rows($resultFeature))
+							mysql_data_seek($resultFeature, 0);
+						while($rowrate = mysql_fetch_object($resultFeature)){
+							if($rowrate->hideimg < 1)
+								include('m_reviewshtml.php');
+						}
+						if($numberOfRowsfeature <= 20){
+							if(mysql_num_rows($notresultFeature))
+								mysql_data_seek($notresultFeature, 0);
+							while($rowrate = mysql_fetch_object($notresultFeature)){
+								if($rowrate->hideimg < 1)
+									include('m_reviewshtml.php');
+							}	
+						}
+					?>
+				</div>
 				<div style="height:5px"></div>
         </div>
   <!--CONTENT ENDS HERE-->     

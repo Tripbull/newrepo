@@ -8,7 +8,7 @@ var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],c
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -55,13 +55,13 @@ function sendEmail2Client(cases){
 	showLoader();
 	//$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId+'&opt=sendEmail2Client&cases='+cases+'&name='+username,success:function(lastId){
 		setTimeout(function() {
-		if(customArray.redirect > 0){
-			var str = customArray.websiteURL;
-			var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
-			window.location = redirectpage;
-		}else{
-			window.location = domainpath+nicename+'.html';
-		}
+			if(customArray.redirect > 0){
+				var str = customArray.websiteURL;
+				var redirectpage = (str.indexOf("http") == -1 ? 'http://'+customArray.websiteURL : customArray.websiteURL);
+				window.location = redirectpage;
+			}else{
+				window.location = domainpath+nicename+'.html';
+			}
 		},300);
 	//}}); 
 }
@@ -185,13 +185,13 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 							'overlay_close':false,
 							'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
 								showLoader();
-								setTimeout(function(){loginFb();},300);
+								loginFb();
 							}}]
 						});
 					},500);
 				}else{
 					showLoader();
-					setTimeout(function(){loginFb();},300);
+					loginFb();
 				} 
 			}},{caption: defaultButtonText.share[0],callback:function(){setTimeout(function(){
 				var niceid = sharedurl.split('_');
@@ -618,7 +618,7 @@ function getLocationData(){
 								}}]
 						});
 					}else{
-						$('.btn-take-isselfie').html(customArray.btntext);
+						$('.wraptext').html(customArray.btntext);
 						$('.btn-take-isselfie').unbind('click').click(function(){
 								if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
 									setTimeout(function(){getSelfie();},200);

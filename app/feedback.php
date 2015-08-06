@@ -22,7 +22,7 @@
 						<div class="left-content fl">
 							<div class="left-header">Collect Response</div>			
 							<ul class="feedback-left-menu" data-role="listview">
-								<li><a href="#">Email Invitations<span class="listview-arrow-default"></span></a></li>
+								<li><a href="#">Mini Link<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#" class="qrcode">QR Code<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Spot Response (Your Own Mobile Devices)<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Photo Booth (Your Own Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
