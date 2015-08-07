@@ -639,9 +639,9 @@ switch($opt){
 	break;	
 	case 'createTable':
 		$id = $_REQUEST['placeId'];
-		mysql_query("DROP TABLE IF EXISTS businessplace_$id");
-		mysql_query("DROP TABLE IF EXISTS sharedlink_$id");
-		feedbacktable($id);
+		mysql_query("TRUNCATE TABLE businessplace_$id");
+		mysql_query("TRUNCATE TABLE sharedlink_$id");
+		//feedbacktable($id);
 	break;
 	case 'updatetimezone':   //Joan Villamor Timezone
 		$id = $_REQUEST['groupId'];
@@ -744,7 +744,6 @@ function feedbacktable($id){
 		  `source` varchar(5) NOT NULL,
 		  `feedsource` varchar(2) NOT NULL,
 		  `photo_url` varchar(200) NOT NULL,
-		  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `hideimg` tinyint(4) NOT NULL,
 		  `feature` tinyint(4) NOT NULL,
 		  `date` datetime NOT NULL,
@@ -767,8 +766,6 @@ function feedbacktable($id){
 		  `link` varchar(50) NOT NULL,
 		  `pathimg` varchar(200) NOT NULL,
 		  `isshared` tinyint(4) NOT NULL DEFAULT '0',
-		  `ave` double NOT NULL,
-		  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `datecreated` datetime NOT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		$sql4 = "ALTER TABLE `sharedlink_$id` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";

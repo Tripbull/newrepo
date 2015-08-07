@@ -62,7 +62,7 @@ $noPhoto = 'images/template/no-photo.gif';
 							    <div class="clear" style="padding-top:1em"></div>
 								<p class="font-17 bgrey" style="padding:10px">Tell us about your campaign. Add "call to action" messages &amp; links here!</p>
 								 <div class="clear" style="padding-top:1.4em"></div>
-								<div>
+								<div id="focushere">
 									<textarea name="bbcode_field" id="campaign-desc" style="height:400px;width:100%;max-height: 900px;"></textarea>
 								</div>
 								<div class="clear" style="padding-top:0.8em"></div>

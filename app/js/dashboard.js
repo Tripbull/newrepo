@@ -8,7 +8,7 @@ var liteID = 3720054,basicID=3716169,proID=3716170;
 var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=false,domainpath='',pathfolder='';
+var istest=true,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -39,7 +39,7 @@ $(document).ready(function(){
 		//var steps = 6;//(selfieonly == 1 ? 7 : 7);
 		if(whatsetup == 1){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please set your correct time zone.</p>';
+			var body = '<p>Please set your time zone.</p>';
 			var redirect = "settings.html";	
         }else if(whatsetup == 2){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
@@ -53,13 +53,13 @@ $(document).ready(function(){
 			var redirect = "profile.html";
 		}else if(whatsetup == 4){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please upload your profile image (for individuals) or a logo of your organization.</p>';
+			var body = '<p style="text-align:left;">Please upload your profile image (for individuals) or a logo of your organization.</p>';
 			var redirect = "profile.html";
 			curClick = 1;
         }else if(whatsetup == 5){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
 			var body = '<p style="text-align:left;">Please upload one image related to your campaign.</p>'
-						+'<p style="text-align:left;">You may return to the image section later & upload up to 8 images.</p>';
+						+'<p style="text-align:left;padding-top:7px">You may return to the image section later & upload up to 8 images.</p>';
 			var redirect = "profile.html";
 			createProfileMenu2();
         }else if(whatsetup == 6){
@@ -341,10 +341,10 @@ $(document).ready(function(){
 		$('#dashboard #startgetting').click(function(){showrate();});
 		$('.plan-page').on('click', ' > li', function () {
 		   curClick = $(this).index();
-		   if(userArray.productId == liteID)
-				alertBox('no access','Please upgrade to basic plan & above to access this feature');
-			else
-				$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
+		  // if(userArray.productId == liteID)
+			//	alertBox('no access','Please upgrade to basic plan & above to access this feature');
+			//else
+			$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
 		});
 		$('.right-menu').on('click', ' > li', function () {
 		   curClick = $(this).index();
@@ -593,7 +593,7 @@ $(document).ready(function(){
 				}
 				setupclickmenu = row;
 			});
-			$(".left-menu").listview();		
+			$(".left-menu").listview();	
 		}
 		showHideMenu(curClick);
 		defaultMenu();
@@ -601,6 +601,7 @@ $(document).ready(function(){
 			curClick=0;
 			setTimeout(function(){$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });},300);
 		}
+		diabledTab('.left-menu',[2]);
 	}
 	function defaultMenu(){
 		var height = ($( window ).height() / 16) - 5;
@@ -1053,7 +1054,7 @@ $(document).ready(function(){
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=detailscampaign&placeId='+places[0]+'&'+$('#frmselfies').serialize(),success:function(result){
 				hideLoader();
 				customArray.businessName=$("#namecampaign").val();customArray.brand=$("#txtbrand").val();customArray.tag1=$("#txtcamp1").val();customArray.tag2=$("#txtcamp2").val();customArray.btntext=$("#txtbtnselfie").val();customArray.category=$("#select-category").val();
-				$.box_Dialog('successfully updated', {
+				$.box_Dialog('Campaign details has been updated', {
 				'type': 'information',
 				'title': '<span class="color-white">update</span>',
 				'center_buttons': true,
@@ -1071,23 +1072,27 @@ $(document).ready(function(){
 		}
 		$('#setup #submit-tagline').click(function(e){
 			e.preventDefault();
-			var placeId = locId.split('|');
-				if($("#namecampaign").val() == '')
-					uicAlertBox('incomplete information','Please input occasion','#namecampaign');
-				else if($("#select-category").val() == '')
-					uicAlertBox('incomplete information','Please select category','#select-category');	
-				else if($("#txtbrand").val() == '')
-					uicAlertBox('incomplete information','Please add your brand','#txtbrand');
-				else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
-					uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
-				else if($("#txtbtnselfie").val() == '')
-					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
-				else if(customArray.backgroundImg == '')
-					uicAlertBox('incomplete information','Please upload campaign poster','#uploadbackground');		
-				else{	
-					updateTextcampaign()
-				}
+			validatedetails();
 		});
+		function validatedetails(){
+			var placeId = locId.split('|');
+			if(customArray.backgroundImg == '')
+				uicAlertBox('incomplete information','Please upload campaign poster','#uploadbackground');
+			else if(customArray.description == '')
+				uicAlertBox('incomplete information','Please add your campaign description section','#submit-desc');
+			else if($("#namecampaign").val() == '')
+				uicAlertBox('incomplete information','Please input occasion','#namecampaign');	
+			else if($("#txtbrand").val() == '')
+				uicAlertBox('incomplete information','Please add your brand','#txtbrand');
+			else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
+				uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
+			else if($("#txtbtnselfie").val() == '')
+				uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
+			else if($("#select-category").val() == '')
+				uicAlertBox('incomplete information','Please select category','#select-category');	
+			else
+				updateTextcampaign();
+		}
 		$('#placeIdbackground').val(places[0]);
 		$('#setup #delCampaign').click(function(e){
 			e.preventDefault();
@@ -1113,6 +1118,7 @@ $(document).ready(function(){
 			var logoArray = $.parseJSON(responseText);			
 			$('#backgroundthumb').attr('src', logoArray.bckimage);
 			customArray.backgroundImg = responseText;
+			validatedetails();
 		}			
 			
 		$("#backgroundthumb").click(function (){ 
@@ -1342,6 +1348,28 @@ $(document).ready(function(){
 				});
 			}	
 		}  
+		$('#submit-desc').click(function(e){ //save description
+			var str = strencode($('#campaign-desc').sceditor('instance').val());
+			if(str == '<br _moz_editor_bogus_node="TRUE" />'){
+				alertBox('incomplete information','Please add your campaign description section');
+			}else{
+				showLoader();
+				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
+					hideLoader();
+					customArray.description = str;
+					$.box_Dialog('Description section has been updated', {
+						'type':     'question',
+						'title':    '<span class="color-gold">update successful<span>',
+						'center_buttons': true,
+						'show_close_button':false,
+						'overlay_close':false,
+						'buttons':  [{caption: 'okay',callback:function(){
+							setTimeout(function() {	validatedetails();}, 300);
+						}}]
+					});	
+				}});
+			}
+		});	
 		$('#submit-average').click(function(e){
 			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var found=true,email= $('#multi-email').val().split(',');
@@ -1510,15 +1538,7 @@ $(document).ready(function(){
 		}	
 		if(userArray.productId == liteID)
 			diabledTab('.setup-left-menu',[3]);
-		$('#submit-desc').click(function(e){ //save description
-			showLoader();
-			var str = strencode($('#campaign-desc').sceditor('instance').val());
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-				hideLoader();
-				customArray.description = str;
-				alertBox('update successful','Description section has been updated');
-			}});
-		});		
+		
 	});
 	
 	var rateName=[],tagName=[],noAswer=0;
@@ -3868,6 +3888,10 @@ $(document).on('pageinit','#feedback', function () {
 	});
 	$('#emaillinkopen').click(function(e){
 		e.preventDefault();
+		window.open(domainpath+customArray.nicename+'=e','_blank');
+	});
+	$('#promotelinkopen').click(function(e){
+		e.preventDefault();
 		window.open(domainpath+customArray.nicename+'=1','_blank');
 	});
 	$('#website-widget-update').click(function(e){
@@ -3929,8 +3953,8 @@ $(document).on('pageinit','#feedback', function () {
 			//if(isdonewizard > 0){
 				wizardstep7();
 				
-				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>'
-						 +'<p style="text-align:left">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
+				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>' 
+						 +'<p style="text-align:left;padding-top:7px">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
 				$.box_Dialog(body, {
 					'type':     'question',
 					'title':    '<span class="color-white">'+title+'<span>',
@@ -4009,11 +4033,13 @@ $(document).on('pageinit','#feedback', function () {
 						hideLoader();
 						arrayDataURL =  $.parseJSON(result);
 						nice1 = domainpath+arrayDataURL.source_1.link;
-						$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+						$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
 						$(".tellafriend").show();
 					}});
+					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
 				}else{
-					$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+					$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
+					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
 					$(".tellafriend").show();
 				}
 			}	
@@ -4078,11 +4104,11 @@ $(document).on('pageshow','#feedback', function () {
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
 		hideLoader();
-		/*$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
+		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
 			arrayDataURL =  $.parseJSON(result);
 			hideLoader();
 			$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_e.link);
-		}});*/
+		}});
 		showFeedbackMenu(curClick);
 	 }});	
 		
