@@ -110,9 +110,9 @@ echo '<title>'. $businessTitle . '</title>';
 				if(mysql_num_rows($resultAve)){
 					$rowAvg = mysql_fetch_object($resultAve);
 					if($row->booknow){
-						$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+						$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
 					}else{
-						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 					}
 				}	
 			}
@@ -180,9 +180,9 @@ echo '<title>'. $businessTitle . '</title>';
 	$widthmenu = "width:100%";
 		if($connect->liteID != $row->productId){
 			if($row->booknow){$w++;
-				$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+				$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
 			}else{$w++;
-				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 			}
 		}
 		if($row->websiteURL){$w++;
@@ -281,8 +281,8 @@ echo '<title>'. $businessTitle . '</title>';
 					while($rowrate = mysql_fetch_object($notresultFeature)){
 						if($rowrate->hideimg < 1 )
 						{
-							//if($rowrate->link != null)
-								//include('reviewshtml.php');
+							if($rowrate->link != null)
+								include('reviewshtml.php');
 						}
 					}
 				}
@@ -457,8 +457,8 @@ echo '<title>'. $businessTitle . '</title>';
 <?php
 if(strlen($row->description) > $shortchar ){
 ?>
-	<div id="showmoredesc" style="display: none;max-width:400px;">
-	<p><?php echo $row->description; ?></p>
+	<div id="showmoredesc" style="display: none;width:1000px;">
+	<?php echo htmldecode($row->description); ?>
 </div>
 <?php
 }

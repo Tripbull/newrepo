@@ -2178,6 +2178,8 @@ body{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hira
 .desctext,.opentext{font-size: 14px;clear:both;line-height: 22px;margin: 0;padding: 0;color:#9a9a9a;}
 .desctext,#showmoreopen,#showmoredesc{font-size: 14px;}
 #showmoreopen,#showmoredesc,.desctext a,.opentext a{color:#9a9a9a;}
+#showmoredesc p {color: #000 !important}
+#showmoredesc a {color: #00AEEF !important}
 .desctext a:hover,.opentext a:hover{color:blue;text-decoration:underline;}
 .opentext{font-size: 13px;margin-top: 5px;}
 .addtext{font-size: 12px;clear:both;line-height: 22px;margin-top: 20px;padding: 0;color:#777;font-weight: bold;}

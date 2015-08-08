@@ -8,7 +8,7 @@ var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],c
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -156,7 +156,7 @@ $(document).bind('mobileinit', function(){
 
 function createTempSharedPage(){
 	$('.top-button-selfie').hide();
-	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto+'&comment='+ratecomment+'&ave='+alertaverate,success:function(link){
+	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto,success:function(link){
 		hideLoader();
 		sharedurl = link;
 		setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "framelinkshared.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 500);
@@ -601,7 +601,7 @@ function getLocationData(){
 			changetextcamerabutton();
 			if($.inArray(customArray.state,state_Array) == -1){
 				placeId = customArray.placeId;
-				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8','b'] ) == -1){
+				if($.inArray(getUrlVar('s'),['0','2','3','4','5','e','','6','8'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Camrally support");
 				}else {
 					rate_initialize();

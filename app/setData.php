@@ -30,29 +30,11 @@ switch($opt){
 		echo json_encode($imagesArray);
 	break;
 	case 'generatesharedurl':
-		$placeId = $_REQUEST['placeId'];$photo_url = $_REQUEST['photo_url'];$comment = $_REQUEST['comment'];$average = round($_REQUEST['ave'],1);
+		$placeId = $_REQUEST['placeId'];$photo_url = $_REQUEST['photo_url'];
 		$table = 'sharedlink_'.$placeId;
-        $hadTable = $connect->tableIsExist($table);
-		if($hadTable < 1){
-			$sql1 = " CREATE TABLE IF NOT EXISTS `{$table}` (
-			`id` int(11) NOT NULL,
-			  `feedbackId` int(11) NOT NULL,
-			  `fbId` bigint(20) NOT NULL,
-			  `link` varchar(50) NOT NULL,
-			  `pathimg` varchar(200) NOT NULL,
-			  `isshared` tinyint(4) NOT NULL DEFAULT '0',
-			  `ave` double NOT NULL,
-			  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `datecreated` datetime NOT NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-			$sql2 = "ALTER TABLE `{$table}` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";
-			mysql_query($sql1);
-			mysql_query($sql2);
-			mysql_query("ALTER TABLE `{$table}` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
-		}
 		$date = date('Y-m-d H:i:s');
 		$link = checksharedURL($table,$placeId);
-		mysql_query("INSERT INTO {$table} SET link = '{$link}',pathimg = '{$photo_url}',datecreated='{$date}',comment = '{$comment}',ave={$average}");
+		mysql_query("INSERT INTO {$table} SET link = '{$link}',pathimg = '{$photo_url}',datecreated='{$date}'");
 		$lastId = mysql_insert_id();
 		echo $link .'_'.$lastId;
 	break;

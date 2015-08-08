@@ -3,7 +3,8 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
-$type = $_REQUEST['s'];
+if(isset($_REQUEST['s']))
+	$type = $_REQUEST['s'];
 $istest = true;
 if($istest){
    $curDomain = 'http://camrally.com/';

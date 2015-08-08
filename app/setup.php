@@ -52,10 +52,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								 </div>
 								 <div class="clear" style="padding-top:0.5em"></div>
 								<span class="color-grey font-12 fl">
-									<p>For best results, upload an image based on your device's?</p>
-									<p>1. Display resolution</p>
-									<p>2. Screen orientation.</p>
-									<p>For example, if you are using Ipad mini locked on landscape orientation, you should upload an image 1024px by 768px.</p>
+									<p>Recommended width and height: 650 x 450</p>
 								</span>	
 								<div class="clear" style="padding-top:1.5em"></div>
 								<hr>

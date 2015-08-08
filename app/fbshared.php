@@ -7,7 +7,7 @@ $imgrotate = new fucn();
 $nice = strtolower($_REQUEST['link']);
 $splitID = explode('-',$nice);
 
-$sql = "SELECT s.pathimg,s.ave,s.comment, p.profilePlaceId, p.nicename, p.category, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.showmap, p.booknow,p.email as pemail, l.businessName, l.subscribe, u.productId,u.state,c.redirect,v.link,cam.brand, cam.tag1, cam.tag2 FROM businessProfile AS p
+$sql = "SELECT s.pathimg, p.profilePlaceId, p.nicename, l.businessName, l.subscribe,u.state,v.link,cam.brand, cam.tag1, cam.tag2 FROM businessProfile AS p
 LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId
 LEFT JOIN businessvanitylink AS v ON v.placeId = l.id

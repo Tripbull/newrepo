@@ -49,13 +49,13 @@ function googleTranslateElementInit() {
 </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 	<h2>Privacy Policy</h2>
 	<ul>
-		<li>You allow <?php echo $name ?> to collect your personal information such as name, photos and feedback/reviews via camrally.com.</li>
-		<li>You give your consent to <?php echo $name ?> to contact you via camrally.com.</li>
+		<li>You allow <?php echo $name ?> to collect your personal information such as name, photos and feedback/reviews via Camrally.com.</li>
+		<li>You give your consent to <?php echo $name ?> to contact you via Camrally.com.</li>
 		<li>You may "unfollow" or "unsubscribe" to opt out from <?php echo $name ?>'s email list when you receive emails from <?php echo $name ?>.</li>
-		<li>camrally.com will use a reputable third party email server to send emails to you.</li>
-		<li>You allow <?php echo $name ?> to display your name, photos & feedbck/reviews on camrally.com</li>
+		<li>Camrally.com will use a reputable third party email server to send emails to you.</li>
+		<li>You allow <?php echo $name ?> to display your name, photos & feedbck/reviews on Camrally.com</li>
 		<li>You may contact <?php echo $name ?> for the administration of your personal information.</li>
-		<li>camrally.com will protect your personal information by reasonable security safeguards.</li>
+		<li>Camrally.com will protect your personal information by reasonable security safeguards.</li>
 		<li>Your personal information may be stored at a destination outside of the country you reside in.</li>
 		<li>This Privacy Policy is governed by and interpreted in accordance with the laws of Singapore and will be subjected to the exclusive jurisdiction of the courts of Singapore.</li>		
 	</ul>

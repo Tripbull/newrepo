@@ -64,7 +64,7 @@ $(document).ready(function(){
 			createProfileMenu2();
         }else if(whatsetup == 6){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please upload your campaign poster & enter your campaign message.</p>';
+			var body = '<p style="text-align:left;">Please upload your campaign poster & enter your campaign message.</p>';
 			var redirect = "setup.html";
 			curClick = 1;
 		 }else if(whatsetup == 7){
@@ -1049,6 +1049,33 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 		places = locId.split('|');
+		
+		$('#setup #submit-tagline').click(function(e){
+			e.preventDefault();
+			validatedetails();
+		});
+		$('#setup #submit-desc').click(function(e){ //save description
+			var str = strencode($('#campaign-desc').sceditor('instance').val());
+			if(str == '<br _moz_editor_bogus_node="TRUE" />'){
+				alertBox('incomplete information','Please add your campaign description');
+			}else{
+				showLoader();
+				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
+					hideLoader();
+					customArray.description = str;
+					$.box_Dialog('Description section has been updated', {
+						'type':     'question',
+						'title':    '<span class="color-gold">update successful<span>',
+						'center_buttons': true,
+						'show_close_button':false,
+						'overlay_close':false,
+						'buttons':  [{caption: 'okay',callback:function(){
+							setTimeout(function() {	validatedetails();}, 300);
+						}}]
+					});	
+				}});
+			}
+		});	
 		function updateTextcampaign(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=detailscampaign&placeId='+places[0]+'&'+$('#frmselfies').serialize(),success:function(result){
@@ -1070,10 +1097,7 @@ $(document).ready(function(){
 				}});
 			}});
 		}
-		$('#setup #submit-tagline').click(function(e){
-			e.preventDefault();
-			validatedetails();
-		});
+		
 		function validatedetails(){
 			var placeId = locId.split('|');
 			if(customArray.backgroundImg == '')
@@ -1083,7 +1107,7 @@ $(document).ready(function(){
 			else if($("#namecampaign").val() == '')
 				uicAlertBox('incomplete information','Please input occasion','#namecampaign');	
 			else if($("#txtbrand").val() == '')
-				uicAlertBox('incomplete information','Please add your brand','#txtbrand');
+				uicAlertBox('incomplete information','Please complete "Presented by:" section.','#txtbrand');
 			else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
 				uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
 			else if($("#txtbtnselfie").val() == '')
@@ -1096,7 +1120,7 @@ $(document).ready(function(){
 		$('#placeIdbackground').val(places[0]);
 		$('#setup #delCampaign').click(function(e){
 			e.preventDefault();
-			$.box_Dialog('All feedback data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+			$.box_Dialog('All data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 			{caption: 'yes', callback: function() {
 					showLoader();
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
@@ -1348,28 +1372,7 @@ $(document).ready(function(){
 				});
 			}	
 		}  
-		$('#submit-desc').click(function(e){ //save description
-			var str = strencode($('#campaign-desc').sceditor('instance').val());
-			if(str == '<br _moz_editor_bogus_node="TRUE" />'){
-				alertBox('incomplete information','Please add your campaign description section');
-			}else{
-				showLoader();
-				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-					hideLoader();
-					customArray.description = str;
-					$.box_Dialog('Description section has been updated', {
-						'type':     'question',
-						'title':    '<span class="color-gold">update successful<span>',
-						'center_buttons': true,
-						'show_close_button':false,
-						'overlay_close':false,
-						'buttons':  [{caption: 'okay',callback:function(){
-							setTimeout(function() {	validatedetails();}, 300);
-						}}]
-					});	
-				}});
-			}
-		});	
+		
 		$('#submit-average').click(function(e){
 			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var found=true,email= $('#multi-email').val().split(',');
@@ -2027,7 +2030,7 @@ $(document).ready(function(){
 		if(str != '' && str.indexOf("campaign.html") == -1){
 			$('#txtbooknow').val(customArray.booknow);			
 		}else{
-			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=b');	
+			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
 		}
 		if(customArray.webImg != ''){
 			$('#webthumb1').attr('src', customArray.webImg);
@@ -2313,15 +2316,6 @@ $(document).ready(function(){
 				alertBox('update successful','Opening hour section has been updated');
 			}});			
 		});
-		$('#submit-desc').click(function(e){ //save description
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			var str = strencode($('#textarea-desc').sceditor('instance').val());
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-				$('#overlay').remove();
-				customArray.description = str;
-				alertBox('update successful','Description section has been updated');
-			}});			
-		});		
 		$('#flipmap').on('change',function(){ // save whin flipswitch
 			$('<div id="overlay"> </div>').appendTo(document.body);
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=flip&val='+$('#flipmap').val(),success:function(lastId){
@@ -2835,10 +2829,10 @@ $(document).ready(function(){
 	});
 	
 function strencode(str){
-	return String(str).replace(/&amp;/,"|one").replace(/&lt;/,"|two").replace(/&gt;/,"|three").replace(/&quot;/,"|four").replace(/#/,"|five");
+	return String(str).replace(/&amp;/g,"|one").replace(/&lt;/,"|two").replace(/&gt;/,"|three").replace(/&quot;/,"|four").replace(/#/,"|five");
 }
 function strdecode(str){
-	return String(str).replace(/\|one/,"&amp;").replace(/\|two/,"&lt;").replace(/\|three/,"&gt;").replace(/\|four/,"&quot;").replace(/\|five/,"#");
+	return String(str).replace(/\|one/,"&amp;").replace(/\|two/,"&lt;").replace(/\|three/,"&gt;").replace(/\|four/,"&quot;").replace(/\|five/,"#").replace(/<and>/g,"&amp;");
 }
 function encodequote(str){
 	return String(str).replace(/\|quote/,"&quot;").replace(/,/g,'<comma>').replace(/"/g,'<double>').replace(/'/g,'<quote>');
@@ -3892,7 +3886,8 @@ $(document).on('pageinit','#feedback', function () {
 	});
 	$('#promotelinkopen').click(function(e){
 		e.preventDefault();
-		window.open(domainpath+customArray.nicename+'=1','_blank');
+		window.open('campaign.html?p='+customArray.nicename,'_blank');
+		//window.open(domainpath+customArray.nicename+'=1','_blank');
 	});
 	$('#website-widget-update').click(function(e){
 		e.preventDefault();
