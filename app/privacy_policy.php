@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="google-translate-customization" content="e48924adf127f15a-0167337460b7d6d8-ge53f77009b45405c-e"></meta>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
+	<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 	<style>
 	#privacy{font-size:0.9em;padding:10px;}
 	#privacy h2{padding-left:10px;}

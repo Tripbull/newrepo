@@ -43,6 +43,23 @@ function txtWidth(str, type){
 	}
 }
 
+function openVideo()
+{
+	$('.overlay').css('display', 'block');
+	$('.ColumnContainer').css('display', 'block');
+	$('.selfieVideo').css('display', 'block');
+	$('.selfieVideo').attr('src', 'http://www.youtube.com/embed/eD8mDl_s4GQ?autoplay=1');
+	var marginTop = ($(window).height() - $('.MerchantHead').height())/2.5;
+	$('.MerchantHead').css('margin', marginTop + 'px auto 0');
+}
+function closeVideo()
+{
+	$('.overlay').css('display', 'none');
+	$('.ColumnContainer').css('display', 'none');
+	$('.selfieVideo').css('display', 'none');
+	$('.selfieVideo').attr('src', '');
+}
+
 $(document).ready(function() {
 
 	$( window ).resize(function() { // when window resize
@@ -177,13 +194,13 @@ $(document).ready(function() {
   function showLoader(){loader = jQuery('<div id="overlay"></div>');loader.appendTo(document.body);}
   function hideLoader(){$( "#overlay" ).remove();}
   function alertBox2(title,message){
-	$.box_Dialog(message, {
-		'type':     'question',
-		'title':    '<span class="color-white">'+title+'<span>',
-		'center_buttons': true,
-		'show_close_button':false,
-		'overlay_close':false,
-		'buttons':  [{caption: 'okay',callback:function(){setTimeout(function(){getEmail();},300);}}]
-	});
-}
+		$.box_Dialog(message, {
+			'type':     'question',
+			'title':    '<span class="color-white">'+title+'<span>',
+			'center_buttons': true,
+			'show_close_button':false,
+			'overlay_close':false,
+			'buttons':  [{caption: 'okay',callback:function(){setTimeout(function(){getEmail();},300);}}]
+		});
+	}
  }); 
