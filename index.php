@@ -26,8 +26,18 @@ $_SESSION['session']=$ur_session;
 <body style="overflow-x:hidden;">
 <?php require_once('browser_detection.php'); ?>
 <?php require_once('header.html'); ?>
+
+<div class="overlay"> </div>
+<div class="ColumnContainer">
+    <div class="MerchantHead">
+      <a href="#" onclick="closeVideo()"><div class="xclose"></div></a>
+      <iframe class="selfieVideo" frameborder="0" src="">
+      </iframe>
+    </div>
+  </div>
+</div>
 	
-    <div class="qrcode-wrap">
+<div class="qrcode-wrap">
   <div class="container">
       <div class="qrcode-content" style="margin-top:30px;">
         <div class="cust-post"> 
@@ -36,7 +46,7 @@ $_SESSION['session']=$ur_session;
             <div class="tblcontainer">
               <div class="row">
                 <div class="gallery">
-                  <img src="images/selfiemovement.jpg"/>
+                  <a href="#" onclick="openVideo()"><img src="images/selfiemovementvideo.jpg"/></a>
                 </div>
               </div>
             </div>
