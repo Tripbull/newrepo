@@ -3,8 +3,7 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
-if(isset($_REQUEST['s']))
-	$type = $_REQUEST['s'];
+$type = $_REQUEST['s'];
 $istest = true;
 if($istest){
    $curDomain = 'http://camrally.com/';
@@ -19,6 +18,16 @@ $sql = "SELECT p.profilePlaceId,cam.brand, cam.tag1, cam.tag2,l.businessName FRO
 $result = mysql_query($sql);
 $row = mysql_fetch_object($result);
 $businessTitle = $row->businessName .' - '.$row->tag1.' '.$row->tag2;
+$placeId = $row->profilePlaceId;
+
+$hadTable = $connect->tableIsExist('businessCustomer_'.$placeId);
+if($hadTable){
+	$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE 1 ORDER BY id DESC");
+	if(mysql_num_rows($resultAve)){
+		$rowAvg = mysql_fetch_object($resultAve);
+	}	
+}
+
 $connect->db_disconnect();
 ?>
 <!DOCTYPE html>
@@ -67,6 +76,7 @@ $connect->db_disconnect();
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
 			</div>
 			<div class="right">
+				<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank"><?=$rowAvg->totalAvg?> advocates</a></span></div>
 				<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 			</div> 
 		</div>
@@ -109,7 +119,7 @@ $connect->db_disconnect();
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=682746285089153";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script> 
 </body>
