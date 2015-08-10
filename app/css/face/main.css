@@ -2178,6 +2178,8 @@ body{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hira
 .desctext,.opentext{font-size: 14px;clear:both;line-height: 22px;margin: 0;padding: 0;color:#9a9a9a;}
 .desctext,#showmoreopen,#showmoredesc{font-size: 14px;}
 #showmoreopen,#showmoredesc,.desctext a,.opentext a{color:#9a9a9a;}
+#showmoredesc p {color: #000 !important}
+#showmoredesc a {color: #00AEEF !important}
 .desctext a:hover,.opentext a:hover{color:blue;text-decoration:underline;}
 .opentext{font-size: 13px;margin-top: 5px;}
 .addtext{font-size: 12px;clear:both;line-height: 22px;margin-top: 20px;padding: 0;color:#777;font-weight: bold;}
@@ -2209,7 +2211,7 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 #nav li:first-child a:hover {border-radius:0 0 0 6px;}
 #nav li:last-child a:hover {border-radius:0 0 6px 0;}
 .menupadding{margin-top:9px;overflow: hidden;padding: 0 5px;text-overflow: ellipsis;white-space: nowrap;width: auto;}
-#masoncontainer{width:100%;margin:0 auto;max-width:1250px;}
+#masoncontainer{width:98%;margin:0 auto;max-width:1250px;}
 .pin{max-width: 218px;float:left;margin-top: 6px;margin-bottom:7px;}
 .masonryImage{background-color:#fff;width:100%;border-radius:6px;max-width:20%;min-width:222px;padding:10px;margin-top:10px;}
 .pinImage{width:100%;max-width: 200px;border-radius:3px;}
@@ -2226,7 +2228,7 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 .vdesktop{display:block;}
 .color-button {color: #fff;display: block;background:#31aee3;font-size: 12px;height: auto;padding:7px 0;width:90%;text-decoration:none;margin:0 auto;}
 .color-button:hover {text-decoration:none;color: #fff;}
-.btn-take-isselfie{padding: 10px 15px 5px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #5890ff;background: #5890ff;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
+.btn-take-isselfie{padding: 8px 15px 5px;cursor:pointer;  box-shadow: 0px 3px 0px 0px #5890ff;background: #5890ff;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;min-width: 60px;color: #fff;}
 .morebtn{width: 100%;background-color: #5890ff;padding:7px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;font-weight:bold;color:#fff;margin-top:20px;box-shadow: 0px 3px 0px 0px #5890ff;border-radius: 3px;}
 /*.morebtn{position: fixed;bottom:0px;right:0;width: 100%;background-color: #5890ff;height:auto;overflow:hidden;padding:10px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;font-weight:bold;color:#fff;} */
 

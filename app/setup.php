@@ -52,17 +52,14 @@ $noPhoto = 'images/template/no-photo.gif';
 								 </div>
 								 <div class="clear" style="padding-top:0.5em"></div>
 								<span class="color-grey font-12 fl">
-									<p>For best results, upload an image based on your device's?</p>
-									<p>1. Display resolution</p>
-									<p>2. Screen orientation.</p>
-									<p>For example, if you are using Ipad mini locked on landscape orientation, you should upload an image 1024px by 768px.</p>
+									<p>Recommended width and height: 650 x 450</p>
 								</span>	
 								<div class="clear" style="padding-top:1.5em"></div>
 								<hr>
 							    <div class="clear" style="padding-top:1em"></div>
 								<p class="font-17 bgrey" style="padding:10px">Tell us about your campaign. Add "call to action" messages &amp; links here!</p>
 								 <div class="clear" style="padding-top:1.4em"></div>
-								<div>
+								<div id="focushere">
 									<textarea name="bbcode_field" id="campaign-desc" style="height:400px;width:100%;max-height: 900px;"></textarea>
 								</div>
 								<div class="clear" style="padding-top:0.8em"></div>

@@ -30,29 +30,11 @@ switch($opt){
 		echo json_encode($imagesArray);
 	break;
 	case 'generatesharedurl':
-		$placeId = $_REQUEST['placeId'];$photo_url = $_REQUEST['photo_url'];$comment = $_REQUEST['comment'];$average = round($_REQUEST['ave'],1);
+		$placeId = $_REQUEST['placeId'];$photo_url = $_REQUEST['photo_url'];
 		$table = 'sharedlink_'.$placeId;
-        $hadTable = $connect->tableIsExist($table);
-		if($hadTable < 1){
-			$sql1 = " CREATE TABLE IF NOT EXISTS `{$table}` (
-			`id` int(11) NOT NULL,
-			  `feedbackId` int(11) NOT NULL,
-			  `fbId` bigint(20) NOT NULL,
-			  `link` varchar(50) NOT NULL,
-			  `pathimg` varchar(200) NOT NULL,
-			  `isshared` tinyint(4) NOT NULL DEFAULT '0',
-			  `ave` double NOT NULL,
-			  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `datecreated` datetime NOT NULL
-			) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-			$sql2 = "ALTER TABLE `{$table}` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";
-			mysql_query($sql1);
-			mysql_query($sql2);
-			mysql_query("ALTER TABLE `{$table}` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT");
-		}
 		$date = date('Y-m-d H:i:s');
 		$link = checksharedURL($table,$placeId);
-		mysql_query("INSERT INTO {$table} SET link = '{$link}',pathimg = '{$photo_url}',datecreated='{$date}',comment = '{$comment}',ave={$average}");
+		mysql_query("INSERT INTO {$table} SET link = '{$link}',pathimg = '{$photo_url}',datecreated='{$date}'");
 		$lastId = mysql_insert_id();
 		echo $link .'_'.$lastId;
 	break;
@@ -639,9 +621,9 @@ switch($opt){
 	break;	
 	case 'createTable':
 		$id = $_REQUEST['placeId'];
-		mysql_query("DROP TABLE IF EXISTS businessplace_$id");
-		mysql_query("DROP TABLE IF EXISTS sharedlink_$id");
-		feedbacktable($id);
+		mysql_query("TRUNCATE TABLE businessplace_$id");
+		mysql_query("TRUNCATE TABLE sharedlink_$id");
+		//feedbacktable($id);
 	break;
 	case 'updatetimezone':   //Joan Villamor Timezone
 		$id = $_REQUEST['groupId'];
@@ -744,7 +726,6 @@ function feedbacktable($id){
 		  `source` varchar(5) NOT NULL,
 		  `feedsource` varchar(2) NOT NULL,
 		  `photo_url` varchar(200) NOT NULL,
-		  `poorrate` mediumtext CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `hideimg` tinyint(4) NOT NULL,
 		  `feature` tinyint(4) NOT NULL,
 		  `date` datetime NOT NULL,
@@ -767,8 +748,6 @@ function feedbacktable($id){
 		  `link` varchar(50) NOT NULL,
 		  `pathimg` varchar(200) NOT NULL,
 		  `isshared` tinyint(4) NOT NULL DEFAULT '0',
-		  `ave` double NOT NULL,
-		  `comment` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 		  `datecreated` datetime NOT NULL
 		) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		$sql4 = "ALTER TABLE `sharedlink_$id` ADD PRIMARY KEY (`id`), ADD KEY `feedbackId` (`feedbackId`,`link`), ADD KEY `fbId` (`fbId`);";

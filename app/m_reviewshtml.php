@@ -11,7 +11,7 @@
 	<div style="margin:0 auto;width:200px;">
 		<?php
 		if($rowrate->source == 'fb' && $rowrate->link != '' && $rowrate->isshared == 1)
-			echo '<a href="'.$path.'user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/></a>';
+			echo '<a href="user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/></a>';
 		else
 			echo '<img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/>';
 		?>

@@ -117,7 +117,7 @@ function showpolicy(){
 	}); 
 }
 function decodequote(str){
-	return String(str).replace(/<double>/g,'"').replace('<privacy_policy_link>','<a href="privacy_policy.php?name='+customArray.businessName+'" class="fancybox fancybox.iframe">Privacy Policy</a>').replace(/<campaigner>/,customArray.businessName).replace(/<comma>/g,',').replace(/{_}/g,"'").replace(/<quote>/g,"'").replace(/{}/g,'"').replace('<social_media>','Facebook');
+	return String(str).replace(/<double>/g,'"').replace('<privacy_policy_link>','<a href="privacy_policy.php?name='+customArray.businessName+'" class="fancybox fancybox.iframe">Privacy Policy</a>').replace(/<campaigner>/,customArray.organization).replace(/<comma>/g,',').replace(/{_}/g,"'").replace(/<quote>/g,"'").replace(/{}/g,'"').replace('<social_media>','Facebook');
 }
 
 function hadpoorexp(){
@@ -156,7 +156,7 @@ $(document).bind('mobileinit', function(){
 
 function createTempSharedPage(){
 	$('.top-button-selfie').hide();
-	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto+'&comment='+ratecomment+'&ave='+alertaverate,success:function(link){
+	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatesharedurl&placeId='+placeId+'&photo_url='+sharedlinkphoto,success:function(link){
 		hideLoader();
 		sharedurl = link;
 		setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "framelinkshared.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 500);
@@ -476,7 +476,6 @@ function getPhoto(){
 }
 
 function showCamera(IDparam){
-  
 	//note: whatpage if 1 from rateone else 2 from takephoto
 	var canvas = document.getElementById('canvas'),
 		context = canvas.getContext('2d');
@@ -598,10 +597,11 @@ function getLocationData(){
 		else if(customArray.subscribe < 1)
 			alertErrorPage('this campaign is offline','Please change the status to online');
 		else{
+			
 			changetextcamerabutton();
 			if($.inArray(customArray.state,state_Array) == -1){
 				placeId = customArray.placeId;
-				if($.inArray(getUrlVar('s'),['0','1','2','3','4','5','e','','6','8','b'] ) == -1){
+				if($.inArray(getUrlVar('s'),['0','2','3','4','5','e','','6','8'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Camrally support");
 				}else {
 					rate_initialize();

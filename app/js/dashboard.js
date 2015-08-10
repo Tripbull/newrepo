@@ -39,7 +39,7 @@ $(document).ready(function(){
 		//var steps = 6;//(selfieonly == 1 ? 7 : 7);
 		if(whatsetup == 1){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please set your correct time zone.</p>';
+			var body = '<p>Please set your time zone.</p>';
 			var redirect = "settings.html";	
         }else if(whatsetup == 2){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
@@ -53,18 +53,18 @@ $(document).ready(function(){
 			var redirect = "profile.html";
 		}else if(whatsetup == 4){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please upload your profile image (for individuals) or a logo of your organization.</p>';
+			var body = '<p style="text-align:left;">Please upload your profile image (for individuals) or a logo of your organization.</p>';
 			var redirect = "profile.html";
 			curClick = 1;
         }else if(whatsetup == 5){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
 			var body = '<p style="text-align:left;">Please upload one image related to your campaign.</p>'
-						+'<p style="text-align:left;">You may return to the image section later & upload up to 8 images.</p>';
+						+'<p style="text-align:left;padding-top:7px">You may return to the image section later & upload up to 8 images.</p>';
 			var redirect = "profile.html";
 			createProfileMenu2();
         }else if(whatsetup == 6){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
-			var body = '<p>Please upload your campaign poster & enter your campaign message.</p>';
+			var body = '<p style="text-align:left;">Please upload your campaign poster & enter your campaign message.</p>';
 			var redirect = "setup.html";
 			curClick = 1;
 		 }else if(whatsetup == 7){
@@ -341,10 +341,10 @@ $(document).ready(function(){
 		$('#dashboard #startgetting').click(function(){showrate();});
 		$('.plan-page').on('click', ' > li', function () {
 		   curClick = $(this).index();
-		   if(userArray.productId == liteID)
-				alertBox('no access','Please upgrade to basic plan & above to access this feature');
-			else
-				$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
+		  // if(userArray.productId == liteID)
+			//	alertBox('no access','Please upgrade to basic plan & above to access this feature');
+			//else
+			$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });
 		});
 		$('.right-menu').on('click', ' > li', function () {
 		   curClick = $(this).index();
@@ -593,7 +593,7 @@ $(document).ready(function(){
 				}
 				setupclickmenu = row;
 			});
-			$(".left-menu").listview();		
+			$(".left-menu").listview();	
 		}
 		showHideMenu(curClick);
 		defaultMenu();
@@ -601,6 +601,7 @@ $(document).ready(function(){
 			curClick=0;
 			setTimeout(function(){$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });},300);
 		}
+		diabledTab('.left-menu',[2]);
 	}
 	function defaultMenu(){
 		var height = ($( window ).height() / 16) - 5;
@@ -1048,12 +1049,39 @@ $(document).ready(function(){
 			e.preventDefault();
 		});
 		places = locId.split('|');
+		
+		$('#setup #submit-tagline').click(function(e){
+			e.preventDefault();
+			validatedetails();
+		});
+		$('#setup #submit-desc').click(function(e){ //save description
+			var str = strencode($('#campaign-desc').sceditor('instance').val());
+			if(str == '<br _moz_editor_bogus_node="TRUE" />'){
+				alertBox('incomplete information','Please add your campaign description');
+			}else{
+				showLoader();
+				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
+					hideLoader();
+					customArray.description = str;
+					$.box_Dialog('Description section has been updated', {
+						'type':     'question',
+						'title':    '<span class="color-gold">update successful<span>',
+						'center_buttons': true,
+						'show_close_button':false,
+						'overlay_close':false,
+						'buttons':  [{caption: 'okay',callback:function(){
+							setTimeout(function() {	validatedetails();}, 300);
+						}}]
+					});	
+				}});
+			}
+		});	
 		function updateTextcampaign(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=detailscampaign&placeId='+places[0]+'&'+$('#frmselfies').serialize(),success:function(result){
 				hideLoader();
 				customArray.businessName=$("#namecampaign").val();customArray.brand=$("#txtbrand").val();customArray.tag1=$("#txtcamp1").val();customArray.tag2=$("#txtcamp2").val();customArray.btntext=$("#txtbtnselfie").val();customArray.category=$("#select-category").val();
-				$.box_Dialog('successfully updated', {
+				$.box_Dialog('Campaign details has been updated', {
 				'type': 'information',
 				'title': '<span class="color-white">update</span>',
 				'center_buttons': true,
@@ -1069,29 +1097,30 @@ $(document).ready(function(){
 				}});
 			}});
 		}
-		$('#setup #submit-tagline').click(function(e){
-			e.preventDefault();
+		
+		function validatedetails(){
 			var placeId = locId.split('|');
-				if($("#namecampaign").val() == '')
-					uicAlertBox('incomplete information','Please input occasion','#namecampaign');
-				else if($("#select-category").val() == '')
-					uicAlertBox('incomplete information','Please select category','#select-category');	
-				else if($("#txtbrand").val() == '')
-					uicAlertBox('incomplete information','Please add your brand','#txtbrand');
-				else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
-					uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
-				else if($("#txtbtnselfie").val() == '')
-					uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
-				else if(customArray.backgroundImg == '')
-					uicAlertBox('incomplete information','Please upload campaign poster','#uploadbackground');		
-				else{	
-					updateTextcampaign()
-				}
-		});
+			if(customArray.backgroundImg == '')
+				uicAlertBox('incomplete information','Please upload campaign poster','#uploadbackground');
+			else if(customArray.description == '')
+				uicAlertBox('incomplete information','Please add your campaign description section','#submit-desc');
+			else if($("#namecampaign").val() == '')
+				uicAlertBox('incomplete information','Please input occasion','#namecampaign');	
+			else if($("#txtbrand").val() == '')
+				uicAlertBox('incomplete information','Please complete "Presented by:" section.','#txtbrand');
+			else if($("#txtcamp1").val() == '' && $("#txtcamp2").val() == '')
+				uicAlertBox('incomplete information','Please add your slogan','#txtcamp1');
+			else if($("#txtbtnselfie").val() == '')
+				uicAlertBox('incomplete information','Please add your text button','#txtbtnselfie');
+			else if($("#select-category").val() == '')
+				uicAlertBox('incomplete information','Please select category','#select-category');	
+			else
+				updateTextcampaign();
+		}
 		$('#placeIdbackground').val(places[0]);
 		$('#setup #delCampaign').click(function(e){
 			e.preventDefault();
-			$.box_Dialog('All feedback data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+			$.box_Dialog('All data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 			{caption: 'yes', callback: function() {
 					showLoader();
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
@@ -1113,6 +1142,7 @@ $(document).ready(function(){
 			var logoArray = $.parseJSON(responseText);			
 			$('#backgroundthumb').attr('src', logoArray.bckimage);
 			customArray.backgroundImg = responseText;
+			validatedetails();
 		}			
 			
 		$("#backgroundthumb").click(function (){ 
@@ -1342,6 +1372,7 @@ $(document).ready(function(){
 				});
 			}	
 		}  
+		
 		$('#submit-average').click(function(e){
 			var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var found=true,email= $('#multi-email').val().split(',');
@@ -1510,15 +1541,7 @@ $(document).ready(function(){
 		}	
 		if(userArray.productId == liteID)
 			diabledTab('.setup-left-menu',[3]);
-		$('#submit-desc').click(function(e){ //save description
-			showLoader();
-			var str = strencode($('#campaign-desc').sceditor('instance').val());
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-				hideLoader();
-				customArray.description = str;
-				alertBox('update successful','Description section has been updated');
-			}});
-		});		
+		
 	});
 	
 	var rateName=[],tagName=[],noAswer=0;
@@ -2007,7 +2030,7 @@ $(document).ready(function(){
 		if(str != '' && str.indexOf("campaign.html") == -1){
 			$('#txtbooknow').val(customArray.booknow);			
 		}else{
-			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename+'&s=b');	
+			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
 		}
 		if(customArray.webImg != ''){
 			$('#webthumb1').attr('src', customArray.webImg);
@@ -2293,15 +2316,6 @@ $(document).ready(function(){
 				alertBox('update successful','Opening hour section has been updated');
 			}});			
 		});
-		$('#submit-desc').click(function(e){ //save description
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			var str = strencode($('#textarea-desc').sceditor('instance').val());
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=textdesc&val='+str,success:function(lastId){
-				$('#overlay').remove();
-				customArray.description = str;
-				alertBox('update successful','Description section has been updated');
-			}});			
-		});		
 		$('#flipmap').on('change',function(){ // save whin flipswitch
 			$('<div id="overlay"> </div>').appendTo(document.body);
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=flip&val='+$('#flipmap').val(),success:function(lastId){
@@ -2815,10 +2829,10 @@ $(document).ready(function(){
 	});
 	
 function strencode(str){
-	return String(str).replace(/&amp;/,"|one").replace(/&lt;/,"|two").replace(/&gt;/,"|three").replace(/&quot;/,"|four").replace(/#/,"|five");
+	return String(str).replace(/&amp;/g,"|one").replace(/&lt;/,"|two").replace(/&gt;/,"|three").replace(/&quot;/,"|four").replace(/#/,"|five");
 }
 function strdecode(str){
-	return String(str).replace(/\|one/,"&amp;").replace(/\|two/,"&lt;").replace(/\|three/,"&gt;").replace(/\|four/,"&quot;").replace(/\|five/,"#");
+	return String(str).replace(/\|one/,"&amp;").replace(/\|two/,"&lt;").replace(/\|three/,"&gt;").replace(/\|four/,"&quot;").replace(/\|five/,"#").replace(/<and>/g,"&amp;");
 }
 function encodequote(str){
 	return String(str).replace(/\|quote/,"&quot;").replace(/,/g,'<comma>').replace(/"/g,'<double>').replace(/'/g,'<quote>');
@@ -3868,7 +3882,12 @@ $(document).on('pageinit','#feedback', function () {
 	});
 	$('#emaillinkopen').click(function(e){
 		e.preventDefault();
-		window.open(domainpath+customArray.nicename+'=1','_blank');
+		window.open(domainpath+customArray.nicename+'=e','_blank');
+	});
+	$('#promotelinkopen').click(function(e){
+		e.preventDefault();
+		window.open('campaign.html?p='+customArray.nicename,'_blank');
+		//window.open(domainpath+customArray.nicename+'=1','_blank');
 	});
 	$('#website-widget-update').click(function(e){
 		e.preventDefault();
@@ -3929,8 +3948,8 @@ $(document).on('pageinit','#feedback', function () {
 			//if(isdonewizard > 0){
 				wizardstep7();
 				
-				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>'
-						 +'<p style="text-align:left">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
+				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>' 
+						 +'<p style="text-align:left;padding-top:7px">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
 				$.box_Dialog(body, {
 					'type':     'question',
 					'title':    '<span class="color-white">'+title+'<span>',
@@ -4009,11 +4028,13 @@ $(document).on('pageinit','#feedback', function () {
 						hideLoader();
 						arrayDataURL =  $.parseJSON(result);
 						nice1 = domainpath+arrayDataURL.source_1.link;
-						$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+						$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
 						$(".tellafriend").show();
 					}});
+					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
 				}else{
-					$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_1.link);
+					$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
+					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
 					$(".tellafriend").show();
 				}
 			}	
@@ -4078,11 +4099,11 @@ $(document).on('pageshow','#feedback', function () {
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
 		hideLoader();
-		/*$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
+		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
 			arrayDataURL =  $.parseJSON(result);
 			hideLoader();
 			$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_e.link);
-		}});*/
+		}});
 		showFeedbackMenu(curClick);
 	 }});	
 		

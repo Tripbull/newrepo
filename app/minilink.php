@@ -20,7 +20,10 @@ if(mysql_num_rows($result)){
 		die();
 	}else{
 		if($row->link == $link){
-			echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
+			if($row->source == 1 || $row->source == 'b')
+				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename;
+			else
+				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
 			//header("HTTP/1.1 301 Moved Permanently");
 			header("Location: {$goingto}");
 			die();

@@ -54,7 +54,7 @@ echo '<title>'. $businessTitle . '</title>';
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta name="description" content="Interested in going to <?php echo $row->businessName?>? See the latest <?php echo $row->businessName?> Camrally advocates first.">
+<meta name="description" content="See the latest <?php echo $row->businessName?> Camrally advocates.">
 <meta name="keywords" content="<?php echo $row->businessName?> Camrally advocates, <?php echo $row->businessName?>">
 <meta name="title" content="<?php echo $row->businessName?> - Camrally">
 <link href="<?=$path?>css/face/main.css" media="screen" rel="stylesheet" type="text/css" />
@@ -110,9 +110,9 @@ echo '<title>'. $businessTitle . '</title>';
 				if(mysql_num_rows($resultAve)){
 					$rowAvg = mysql_fetch_object($resultAve);
 					if($row->booknow){
-						$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+						$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
 					}else{
-						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 					}
 				}	
 			}
@@ -121,7 +121,7 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</span></div>
+			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 			
@@ -180,9 +180,9 @@ echo '<title>'. $businessTitle . '</title>';
 	$widthmenu = "width:100%";
 		if($connect->liteID != $row->productId){
 			if($row->booknow){$w++;
-				$booksite = (strstr($row->booknow,'http') ? $row->booknow : 'http://'.$row->booknow);
+				$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
 			}else{$w++;
-				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename.'&s=b';
+				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 			}
 		}
 		if($row->websiteURL){$w++;
@@ -260,7 +260,7 @@ echo '<title>'. $businessTitle . '</title>';
 			$offset=0;$limit=50;
 			$timezone = mysql_fetch_object(mysql_query("SELECT u.timezone FROM businessList as l LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId WHERE l.id = $placeId LIMIT 1"));
 			$timezone = $timezone->timezone;
-			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE  feature = 1 AND source = 'fb' ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRowsfeature = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
 			$totalPagesfeature = ceil($numberOfRowsfeature / $limit);
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
@@ -268,19 +268,21 @@ echo '<title>'. $businessTitle . '</title>';
 			while($rowrate = mysql_fetch_object($resultFeature)){
 				if($rowrate->hideimg < 1)
 				{
-					include('reviewshtml.php');
+					if($rowrate->link != null)
+						include('reviewshtml.php');
 				}
 			}
-			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 0 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
 			$totalPages = ceil($numberOfRows / $limit);
 			echo '<input type="hidden" value="'.$numberOfRows.'" name="numberofRows" id="numberofRows" />';
 			echo '<input type="hidden" value="'.$totalPages.'" name="advocatepages" id="advocatepages" />';
 				if($numberOfRowsfeature <= 20){
 					while($rowrate = mysql_fetch_object($notresultFeature)){
-						if($rowrate->hideimg < 1)
+						if($rowrate->hideimg < 1 )
 						{
-							include('reviewshtml.php');
+							if($rowrate->link != null)
+								include('reviewshtml.php');
 						}
 					}
 				}
@@ -300,10 +302,7 @@ echo '<title>'. $businessTitle . '</title>';
 		$array_product = array();$j=0;
 		$resultproduct = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
 		while($row3 = mysql_fetch_object($resultproduct)){
-			//$src = $path.$row3->path;
-			//$array_product[$j]['src'] = $src;
-			//$array_product[$j]['title'] = $row3->title;
-			//$array_product[$j++]['description'] = $row3->description;			
+			$src = $path.$row3->path;		
 			?>		
 			<div class="sysPinItemContainer pin">
 				<p class="description sysPinDescr"><?php echo $row3->title ?></p>
@@ -414,15 +413,19 @@ echo '<title>'. $businessTitle . '</title>';
 						if(mysql_num_rows($resultFeature))
 							mysql_data_seek($resultFeature, 0);
 						while($rowrate = mysql_fetch_object($resultFeature)){
-							if($rowrate->hideimg < 1)
-								include('m_reviewshtml.php');
+							if($rowrate->hideimg < 1){
+								if($rowrate->link != null)
+									include('m_reviewshtml.php');
+							}	
 						}
 						if($numberOfRowsfeature <= 20){
 							if(mysql_num_rows($notresultFeature))
 								mysql_data_seek($notresultFeature, 0);
 							while($rowrate = mysql_fetch_object($notresultFeature)){
-								if($rowrate->hideimg < 1)
-									include('m_reviewshtml.php');
+								if($rowrate->hideimg < 1){
+									if($rowrate->link != null)
+										include('m_reviewshtml.php');
+								}	
 							}	
 						}
 					?>
@@ -454,8 +457,8 @@ echo '<title>'. $businessTitle . '</title>';
 <?php
 if(strlen($row->description) > $shortchar ){
 ?>
-	<div id="showmoredesc" style="display: none;max-width:400px;">
-	<p><?php echo $row->description; ?></p>
+	<div id="showmoredesc" style="display: none;width:1000px;">
+	<?php echo htmldecode($row->description); ?>
 </div>
 <?php
 }

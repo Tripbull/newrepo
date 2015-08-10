@@ -604,7 +604,7 @@ switch($opt){
 	break;
 	case 'getrate':
 		$nice = $_REQUEST['nice'];
-		$sql = "SELECT c.customPlaceId as placeId,p.profilePlaceId, p.nicename, p.category, p.address, p.city, p.country, p.zip, p.contactNo, p.showmap,c.messageBox,c.button,c.backgroundImg,c.reviewPost,c.logo,c.backgroundcolor,c.backgroundFont,c.ratingText,c.fbpost,g.state,g.productId,g.suspend,l.subscribe,c.optsocialpost,c.redirect,p.websiteURL,l.businessName, cam.brand, cam.tag1, cam.tag2, cam.btntext FROM businessProfile AS p
+		$sql = "SELECT c.customPlaceId as placeId,p.businessName as organization,p.profilePlaceId, p.nicename, p.category, p.address, p.city, p.country, p.zip, p.contactNo, p.showmap,c.messageBox,c.button,c.backgroundImg,c.reviewPost,c.logo,c.backgroundcolor,c.backgroundFont,c.ratingText,c.fbpost,g.state,g.productId,g.suspend,l.subscribe,c.optsocialpost,c.redirect,p.websiteURL,l.businessName, cam.brand, cam.tag1, cam.tag2, cam.btntext FROM businessProfile AS p
 		LEFT JOIN businessCustom AS c ON c.customPlaceId = p.profilePlaceId
 		LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 		LEFT JOIN businessvanitylink AS v ON v.placeId = l.id
@@ -691,23 +691,24 @@ switch($opt){
 		$feedarray = array();
 		if($hadtable){
 			if($case == 0)
-				$sql = "SELECT * FROM businessplace_$placeId WHERE 1 ORDER BY date DESC LIMIT $start,$offset";
+				$sql = "SELECT b.id,b.userName, b.userId, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE 1 ORDER BY date DESC LIMIT $start,$offset";
 			if($case == 1)
-				$sql = "SELECT * FROM businessplace_$placeId WHERE feature = 1 ORDER BY date DESC LIMIT $start,$offset";
+				$sql = "SELECT b.id,b.userName, b.userId, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 1 ORDER BY date DESC LIMIT $start,$offset";
 		    if($case == 2)
-				$sql = "SELECT * FROM businessplace_$placeId WHERE hideimg = 1 ORDER BY date DESC LIMIT $start,$offset";
+				$sql = "SELECT b.id,b.userName, b.userId, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE hideimg = 1 ORDER BY date DESC LIMIT $start,$offset";
 			$result =  mysql_query($sql);
 			if(mysql_num_rows($result)){
 				$i=0;
 				while($row = mysql_fetch_object($result)){
-				 	$feedarray[$i]['id'] = $row->id;
-					$feedarray[$i]['name'] = $row->userName;
-					$feedarray[$i]['fbId'] = $row->userId;
-					$feedarray[$i]['url'] = $row->photo_url;
-					$feedarray[$i]['feature'] = ($row->feature != null ? $row->feature : 0);
-					$feedarray[$i]['hideimg'] = ($row->hideimg != null ? $row->hideimg : 0);
-					$feedarray[$i++]['created'] = $row->date;
-					
+					if($row->link != null){
+						$feedarray[$i]['id'] = $row->id;
+						$feedarray[$i]['name'] = $row->userName;
+						$feedarray[$i]['fbId'] = $row->userId;
+						$feedarray[$i]['url'] = $row->photo_url;
+						$feedarray[$i]['feature'] = ($row->feature != null ? $row->feature : 0);
+						$feedarray[$i]['hideimg'] = ($row->hideimg != null ? $row->hideimg : 0);
+						$feedarray[$i++]['created'] = $row->date;
+					}
 				}
 				echo json_encode($feedarray);
 			}else

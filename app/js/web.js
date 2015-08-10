@@ -41,7 +41,7 @@ $(document).ready(function() {
 			var offset = pageincre * d_limit;
 			pageincre++;
 			$.ajax({
-				url: 'loadadvocate.php',	
+				url: 'app/loadadvocate.php',	
 				type: 'POST',
 				data: {offset:offset,limit:d_limit,placeId:$('#placeid').val(),feature:0},
 				success:function(object){
@@ -62,7 +62,7 @@ $(document).ready(function() {
 			//alert('feature '+pagefeatincre +'<='+ pagefeature)
 			var offset = pagefeatincre * d_limit;pagefeatincre++;
 			$.ajax({
-				url: 'loadadvocate.php',	
+				url: 'aap/loadadvocate.php',	
 				type: 'POST',
 				data: {offset:offset,limit:d_limit,placeId:$('#placeid').val(),feature:1},
 				success:function(object){
@@ -78,7 +78,7 @@ $(document).ready(function() {
 			if($('#advocatepages').val() > 0){
 				$( "#overlay" ).show();
 				$.ajax({
-					url: 'loadadvocate.php',	
+					url: 'app/loadadvocate.php',	
 					type: 'POST',
 					data: {offset:0,limit:d_limit,placeId:$('#placeid').val(),feature:0},
 					success:function(object){
@@ -116,7 +116,9 @@ $(document).ready(function() {
 					isbtnshow = 1;
 				}	
 			}
-		}else{
+		}
+		/*
+		else{
 			if($('#totalfeature').val() > 1){
 				if($(window).scrollTop() + $(window).height() > (documentHeight*0.7) && isbtnshowfeature < 1){
 					$('.loadmorefeaturebtn').show();
@@ -128,7 +130,7 @@ $(document).ready(function() {
 					isbtnshow = 1;
 				}	
 			}
-		}
+		} */
 		
 		}, 300);
 	}
