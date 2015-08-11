@@ -2175,7 +2175,7 @@ a.CommentUrlDecorate:hover {
 body{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",arial,sans-serif;}
 .title-name,.desctext,.addtext,.MerchantPinMe,.pinmesnipsuser,.RateCount,.MerchantHead,.menuwrap,.follow,.masonryImage,#nav{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",arial,sans-serif;}
 .title-name{color: #777;font-size: 28px;font-weight: bold;margin-top: 1px;max-width: 380px;overflow: hidden;text-overflow: ellipsis;}
-.desctext,.opentext{font-size: 14px;clear:both;line-height: 22px;margin: 0;padding: 0;color:#9a9a9a;}
+.desctext,.opentext{font-size: 14px;clear:both;line-height: 22px;margin: 0;padding-bottom: 10px;color:#9a9a9a;}
 .desctext,#showmoreopen,#showmoredesc{font-size: 14px;}
 #showmoreopen,#showmoredesc,.desctext a,.opentext a{color:#9a9a9a;}
 #showmoredesc p {color: #000 !important}

@@ -26,7 +26,7 @@ $(document).ready(function(){
 		//test component chargify ids
 		com_basicID=27367,com_basic12 = 69598,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
 		chargifydomain = 'https://camrally.chargify.com';
-		domainpath = '';pathfolder = 'http://camrally.com/app/';
+		domainpath = 'http://camrally.com/staging/';pathfolder = 'http://camrally.com/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
 		chargifydomain = 'https://camrally.chargify.com';
@@ -1230,11 +1230,6 @@ $(document).ready(function(){
 		var val,val2;
 		$('.star').show();
 		
-		if($( window ).width() < 600){
-				$( '.main-wrap .right-content' ).show();
-				$( '.main-wrap .left-content' ).hide();
-				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
-			}
 		if(campaignwizard == 1){
 			clas = 'ui-state-disabled';
 			curClick = 1;
@@ -1326,7 +1321,7 @@ $(document).ready(function(){
 					$(this).removeClass("ui-btn-active");
 					$(this).find( "span" ).removeClass("listview-arrow-active");
 				});		
-			if(questionwizardsetup == 1){
+			if(campaignwizard == 1){
 				$( '.main-wrap .right-content' ).show();
 				$( '.main-wrap .left-content' ).hide();
 				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
@@ -1370,6 +1365,11 @@ $(document).ready(function(){
 					$(this).removeClass("ui-btn-active");
 					$(this).find( "span" ).removeClass("listview-arrow-active");
 				});
+				if(campaignwizard == 1){
+					$( '.main-wrap .right-content' ).show();
+					$( '.main-wrap .left-content' ).hide();
+					$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
+				}
 			}	
 		}  
 		
@@ -3886,8 +3886,8 @@ $(document).on('pageinit','#feedback', function () {
 	});
 	$('#promotelinkopen').click(function(e){
 		e.preventDefault();
-		window.open('campaign.html?p='+customArray.nicename,'_blank');
-		//window.open(domainpath+customArray.nicename+'=1','_blank');
+		//window.open('campaign.html?p='+customArray.nicename,'_blank');
+		window.open(domainpath+customArray.nicename,'_blank');
 	});
 	$('#website-widget-update').click(function(e){
 		e.preventDefault();
@@ -3917,11 +3917,6 @@ $(document).on('pageinit','#feedback', function () {
 	$('.feedback-left-menu').on('click', ' > li', function () {
 		var row = $(this).index();
 		curClick = row;
-		if($( window ).width() <= 600){
-			$( '.main-wrap .right-content' ).show();
-			$( '.main-wrap .left-content' ).hide();
-			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
-		}
 		showFeedbackMenu(row);
 	});
 	$( window ).resize(function() { // when window resize
@@ -3933,6 +3928,7 @@ $(document).on('pageinit','#feedback', function () {
 	$('#qr-generate3').click(function(){
 		window.open('qr-generated.html?p='+nice1+'&s=1&size='+$("#qr-size3 :radio:checked").val(),'_blank');
 	});
+	
 	if(isdonewizard > 0){
 		places = locId.split('|');
 		showLoader();
@@ -3941,15 +3937,15 @@ $(document).on('pageinit','#feedback', function () {
 			arrayDataURL =  $.parseJSON(result);
 			var title = 'Setup Wizard - Step 6 / 6',nicelink='';
 			if(liteID == userArray.productId){
-				nicelink = newvanitylink+'.html'; 
+				nicelink = newvanitylink; 
 			}else if(basicID == userArray.productId || proID == userArray.productId){
 				nicelink = newvanitylink;
 			}
-			//if(isdonewizard > 0){
+			$('#feedback #promotelink').val('camrally.com/'+nicelink);
 				wizardstep7();
 				
 				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>' 
-						 +'<p style="text-align:left;padding-top:7px">Start promoting your Camrally mini link now! (<a href="'+domainpath+arrayDataURL.source_1.link+'" target="_blank">'+domainpath+arrayDataURL.source_1.link+'</a>)</p>';
+						 +'<p style="text-align:left;padding-top:7px">Start promoting your Camrally link now! (<a href="'+domainpath+nicelink+'" target="_blank">'+domainpath+nicelink+'</a>)</p>';
 				$.box_Dialog(body, {
 					'type':     'question',
 					'title':    '<span class="color-white">'+title+'<span>',
@@ -3998,7 +3994,7 @@ $(document).on('pageinit','#feedback', function () {
 });
 
 	function showFeedbackMenu(row){
-		
+
 	$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
 		if(row == 1){
 			$( '#feedback .right-content' ).addClass("bgwhite");
@@ -4021,6 +4017,7 @@ $(document).on('pageinit','#feedback', function () {
 			if(customArray.nicename == ''){	
 				alertBox('setup incomplete','Go to Setup > Camrally Page');
 			}else{
+				/*
 				if(nice1 == ''){
 					places = locId.split('|');
 					showLoader();
@@ -4032,11 +4029,22 @@ $(document).on('pageinit','#feedback', function () {
 						$(".tellafriend").show();
 					}});
 					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
-				}else{
-					$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
-					//$('#feedback #emaillink').val('camrally.com/'+customArray.nicename+'=e');
+				}else{ */
+					if(isdonewizard < 1){
+						var indexn = setupclickmenu - 3;
+						var link = locArray[indexn].vlink;
+						if(link == '')
+							link = customArray.nicename
+						if(liteID == userArray.productId){
+							link = link; 
+						}else if(basicID == userArray.productId || proID == userArray.productId){
+							link = link;
+						}	
+						$('#feedback #promotelink').val('camrally.com/'+link);
+					}
+					//$('#feedback #promotelink').val('camrally.com/'+arrayDataURL.source_1.link);
 					$(".tellafriend").show();
-				}
+				//}
 			}	
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			
@@ -4081,9 +4089,9 @@ $(document).on('pageinit','#feedback', function () {
 				$(this).removeClass("ui-btn-active");
 				$(this).find( "span" ).removeClass("listview-arrow-active");
 			});
-			//$( '.main-wrap .right-content' ).show();
-			//$( '.main-wrap .left-content' ).hide();
-			//$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+			$( '.main-wrap .right-content' ).show();
+			$( '.main-wrap .left-content' ).hide();
+			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
 		}	
 	}
 $(document).on('pageshow','#feedback', function () { 
@@ -4092,21 +4100,32 @@ $(document).on('pageshow','#feedback', function () {
 	$("#tellFrame").hide();
 	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
 	$('#feedback .ui-content').css({"background-color":'#E6E7E8'})
-	$( "#feedback .left-header" ).html('Collect Feedback / Selfie');
+	$( "#feedback .left-header" ).html('Collect Feedback / Selfie');	
+	if($( window ).width() <= 600){
+		$( '.main-wrap .left-content' ).show();
+		$( '.main-wrap .right-content' ).hide();
+		$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );	
+		if(isdonewizard > 0){
+			$( '.main-wrap .right-content' ).show();
+			$( '.main-wrap .left-content' ).hide();
+			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );		
+		}
+	}	
 	$( "#feedback .right-header" ).html( placename );
 	var placeId = locId.split('|');
 	showLoader();
 	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 		customArray =  $.parseJSON(result);
 		hideLoader();
+		/*
 		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=getshorturlemail',async: true,success:function(result){
 			arrayDataURL =  $.parseJSON(result);
 			hideLoader();
 			$('#feedback #emaillink').val('camrally.com/'+arrayDataURL.source_e.link);
-		}});
+		}}); */
 		showFeedbackMenu(curClick);
+		feedbackActiveMenu();
 	 }});	
-		
 		
 });
 //==================================================== Reviews =============================================== 
@@ -4286,6 +4305,11 @@ $(document).on('pageshow','#reviews', function () {
 	}
 	})
 	function showReviewMenu(row){
+		if($( window ).width() <= 600){
+			$( '.main-wrap .right-content' ).show();
+			$( '.main-wrap .left-content' ).hide();
+			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+		}
 		var placeId = locId.split('|');
 		tabSelect = row;
 		if(row == 0){

@@ -123,12 +123,12 @@ p{margin-top:0.5em;}
 .ui-flipswitch{width:5em;}
 .ui-flipswitch.ui-flipswitch-active{padding-left: 3em;background-color:#00AEEF !important;border-color:#fff;}
 .top-button-selfie{color:#fff;position: fixed;top:0;left:0;width: 100%;min-width:300px;background-color: #000;height:auto;min-height: 60px;z-index:10;/*background: url(../js/source/fancybox_overlay.png) repeat scroll 0 0 rgba(0, 0, 0, 0.1);*/}
-.wrapbtn {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin-left: 10px;}
+.wrapbtn {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin-left: 10px;z-index:15;}
 .top-button-selfie img,.top-button-selfie p,.wraptext{pointer-events: none;-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}
-.btn-take-isselfie{cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 9px 15px 8px}
-.btn-take-isselfie-com{cursor:pointer;  box-shadow: 0px 3px 0px 0px #5890ff;background: #5890ff;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 10px 15px 8px}
+.btn-take-isselfie{cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 9px 15px 8px;z-index:15;}
+.btn-take-isselfie-com{cursor:pointer;  box-shadow: 0px 3px 0px 0px #AFACAC;background: #CCC;border-radius: 3px;font-size:13px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 8px 13px 7px;text-shadow:none !important;}
 .wrapbtn-com {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin: 10px;}
-.wraptext-com {font-family: "Helvetica Neue","Helvetica","?????? Pro W3","Hiragino Kaku Gothic Pro","????","Meiryo","?? ?????",arial,sans-serif;}
+.wraptext-com {font-family: "Helvetica Neue","Helvetica","?????? Pro W3","Hiragino Kaku Gothic Pro","????","Meiryo","?? ?????",arial,sans-serif;font-weight:normal !important;}
 
 
 #dashboard,#setup,#settings #profile,#uic,#send-email,#plan,#statistic,#admin,#manage,#weblink,#feedback,#reviews,#widget,#fbpost {background-color:#D9D9D9;}
@@ -183,10 +183,11 @@ select#select-category,select#profile-timezone{font-family: "Myriad" !important;
 #uic .uic-section-tbs .ui-input-text,.uic-section-box .ui-input-text{margin-top:0.9em !important;}
 #uic .uic-section-tbs .ui-input-text input, .uic-section-box  input{min-height: 2.5em !important;}
 #uic .uic-section-tbs .ui-input-text,.uic-section-box .ui-input-text{margin-top:0.9em !important;}
-#uic .uic-section-tb .ui-input-text, .uic-section-tb .ui-input-text input{min-height:0;max-width:7em;text-align:center;}
+#uic .uic-section-tb .ui-input-text, .uic-section-tb .ui-input-text input{min-height:0;max-width:10em;text-align:center;}
 .w60{width:7em;}
 #uic .uic-section-tb .btncampaign .ui-input-text, .uic-section-tb .btncampaign .ui-input-text input#btncampaign{min-height:0;max-width:300px !important;text-align:center;}
 .w60{width:7em;}
+.w90{width:10em;}
 #uic  .content-wrap,#send-email  .content-wrap, #statistic .content-wrap, #plan  .content-wrap {background:#E6E7E8;}
 #send-email .panel-send, #statistic .panel-today, #statistic .panel-export, #plan .panel-sub-plan, #plan .panel-sub-location,#plan .panel-activity{width:90%;margin: 0 auto;padding:1.25em 0 1.25em 0;text-align:left;}
 #plan .ui-focus{box-shadow:none;color:#000;border:1px solid #ddd !important;font-weight: normal !important;font-size: 1em !important;}

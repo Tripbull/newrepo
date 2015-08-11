@@ -50,8 +50,10 @@ $istest = true;
 if($istest){
    $curDomain = 'http://camrally.com/';
    $cur = 'http://camrally.com/';
-}else
-	$curDomain = '../';	
+}else{
+	$curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}	
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">

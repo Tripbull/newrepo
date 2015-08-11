@@ -31,6 +31,13 @@
 						<div class="right-content bgwhite fr">
 							<div class="right-header">Collect Feedback / Selfie</div>
 							<section class="tellafriend hide">
+								<p>Start promoting your camrally link:</p>
+								<div class="clear" style="padding-top:1em"></div>
+								<input type="text" name="promotelink" id="promotelink" value="" >
+								<div class="clear" style="padding-top:1em"></div>
+								<div class="btn-submit">
+									<button class="ui-btn" id="promotelinkopen">Open</button>
+								</div> 
 								<!--
 								<p>Please use the below link in your email invitations to get response:</p>
 								<div class="clear" style="padding-top:1em"></div>	
@@ -38,15 +45,7 @@
 								<div class="clear" style="padding-top:1em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="emaillinkopen">Open</button>
-								</div> -->
-								<div class="clear" style="padding-top:1em"></div>
-								<p>Start promoting your camrally campaign:</p>
-								<div class="clear" style="padding-top:1em"></div>
-								<input type="text" name="promotelink" id="promotelink" value="" >
-								<div class="clear" style="padding-top:1em"></div>
-								<div class="btn-submit">
-									<button class="ui-btn" id="promotelinkopen">Open</button>
-								</div>
+								</div>-->
 							</section>	
 							<section class="feedback-weblink bgwhite hide pad-left-right">
 								<p>Please choose a QR Code size...</p>

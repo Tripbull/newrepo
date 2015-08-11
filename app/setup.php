@@ -104,8 +104,8 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl">Sample: </span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<div style="width:500px;">
-									<img src="images/selfiemovement.jpg" style="width:115%;height:auto;" />
+								<div style="max-width:500px;">
+									<img src="images/selfiemovement.jpg" style="width:100%;height:auto;" />
 								</div>
 								<div class="clear" style="padding-top:1em"></div>
 								<div class="btn-submit">
