@@ -504,7 +504,7 @@ switch($opt){
 	    switch($_REQUEST['case']){
 			case 1:
 				$email = mysql_real_escape_string($_REQUEST['email']);
-				$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET follow=1,email="'.$email.'",placeId='.$id) or die(mysql_error());
+				$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET follow=1,email="'.$email.'"') or die(mysql_error());
 			break;
 			case 2:
 				$lastId = $_REQUEST['lastId'];
