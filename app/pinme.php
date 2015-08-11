@@ -92,8 +92,6 @@ echo '<title>'. $businessTitle . '</title>';
 		<?php
 		$hadTable = $connect->tableIsExist('businessCustomer_'.$placeId);
 		if($hadTable){
-			echo "SELECT COUNT(DISTINCT email) as followTotal FROM businessCustomer_$placeId WHERE follow=1";
-			die();
 			$resultFollow = mysql_query("SELECT COUNT(follow) as followTotal FROM businessCustomer_$placeId WHERE follow=1") or die(mysql_error());
 			if(mysql_num_rows($resultFollow))
 				$follow = mysql_fetch_object($resultFollow);
