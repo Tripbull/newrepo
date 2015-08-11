@@ -3,8 +3,8 @@ var customArray = [],item2Rate=[],ratedObj= [],nicename,isTakeSelfie='',alertave
 var count=0,sharedphoto=0,isphototakedone=0,takeaphoto=0,urlphotoshared,thumbnailurl,businessname='',txtname='',txtphone='',txtemail='',sharedlinkphoto='',sharedurl='',userCurEmail='';
 var defaultPostReview = {posted:1,percent:3.0},ratecomment='',timeInverval='',closeselfie=0,username='',hadlabel='',istakephoto = 0;
 var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',excellent:'Excellent'};
-var defaultButtonText2 = {logout:['okay'],btnshare:['okay'],btncapture:['okay'],follow:['no','yes'],btntake:['okay'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
-var defaultButtonText = {logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:['no','yes'],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
+var defaultButtonText2 = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],btncapture:['okay'],follow:['no','yes'],btntake:['okay'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
+var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:['no','yes'],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
@@ -738,40 +738,13 @@ function rate_initialize(){
 		logo = $.parseJSON('{"dLogo":"images/desktop_default.png","pLogo":"images/iphone_default.png","logo7":"images/7Ins_default.png","mLogo":"images/mobile_default.png","bLogo":"images/desktop_default.png"}');
 	if(customArray.backgroundImg)
 		bgback = $.parseJSON(customArray.backgroundImg);
-	
+
+	$('.wraptext-com').html((typeof(defaultButtonText.campdetails) != 'undefined' ? decodequote(defaultButtonText.campdetails[0]) : decodequote(defaultButtonText2.campdetails[0])));
+
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 
 		$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
 		$('.rate').css('overflow-y', 'hidden');
-
-		// var camp_img = new Image();
-		// camp_img.onload = function() {
-		// 	if(camp_img.width >= camp_img.height)
-		// 	{
-		// 		bgHeight = 'auto';
-		// 		bgWidth = $(window).width() + 'px';
-		// 	}
-		// 	else
-		// 	{
-		// 		bgHeight = $(window).height()-$('.top-button-selfie').height() + 'px';
-		// 		bgWidth = 'auto';
-		// 	}
-
-		// 	$('.rate').css('background-image',(bgback.bckimage != '' ? 'url('+ bgback.bckimage + ')' : ''));
-		// 	$('.rate').css('background-size', bgWidth + ' ' + bgHeight);
-		// 	$('.rate').css('background-repeat', 'no-repeat');
-		// 	$('.rate').css('margin-top', $('.top-button-selfie').height() + 'px');
-		// 	if(camp_img.height < ($(window).height()-$('.top-button-selfie').height()))
-		// 	{
-		// 		$('.rate').css('background-position', 'center center');
-		// 	}
-		// 	else
-		// 	{
-		// 		$('.rate').css('background-position', 'center top');
-		// 	}
-		// };
-		// camp_img.src = bgback.bckimage;
-
 	}	
 
 	$( '.rate' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
