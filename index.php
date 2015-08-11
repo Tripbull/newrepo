@@ -200,7 +200,7 @@ $_SESSION['session']=$ur_session;
   </div>
 </div>  
 </div>
-<div class="widthDiv" style="opacity:0;position:absolute;font-size:35px !important;font-weight: bold;white-space: nowrap;"></div>
+<div class="widthDiv" style="opacity:0;position:absolute;font-size:35px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>
 <div style="background-color:#F5F5F5">
 <div class="container">
   <div class="plan">

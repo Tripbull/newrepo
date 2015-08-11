@@ -1,22 +1,11 @@
-var fontWidth = 0;
-
-$('.widthDiv').css('font-size', $('.title1').css('font-size'));
-fontWidth = txtWidth('W', 'width');
-wordwrap('title1');
-wordwrap('title2');
-wordwrap('title3');
-wordwrap('title4');
-wordwrap('title5');
-
 function wordwrap(questionContainer) {
 	$('.' + questionContainer).css('width', 'auto');
 	var str = $('.' + questionContainer).html();
-	var containerWidth = $('.' + questionContainer).width();
 	var textWidth = txtWidth(str, 'width');
 	var textHeight = txtWidth(str, 'height');
 	var lines = Math.ceil(textWidth/$('.' + questionContainer).width());
 	var senHeight = textHeight*lines;
-	var widthDiff = textWidth - containerWidth;
+	var fontWidth = txtWidth('W', 'width');
 	if(lines > 1)
 	{
 		$('.' + questionContainer).width(textWidth/lines);
@@ -26,7 +15,6 @@ function wordwrap(questionContainer) {
 			$('.' + questionContainer).width($('.' + questionContainer).width()+fontWidth);
 		}
 	}
-
 }
 
 function txtWidth(str, type){
@@ -62,9 +50,15 @@ function closeVideo()
 
 $(document).ready(function() {
 
+	$('.widthDiv').css('font-size', $('.title1').css('font-size'));
+	wordwrap('title1');
+	wordwrap('title2');
+	wordwrap('title3');
+	wordwrap('title4');
+	wordwrap('title5');
+
 	$( window ).resize(function() { // when window resize
 		$('.widthDiv').css('font-size', $('.title1').css('font-size'));
-		fontWidth = txtWidth('W', 'width');
 		wordwrap('title1');
 		wordwrap('title2');
 		wordwrap('title3');

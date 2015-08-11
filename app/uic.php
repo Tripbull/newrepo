@@ -110,6 +110,13 @@ $noPhoto = 'images/template/no-photo.gif';
 										<div class="fr w60">
 											<input type="text" name="follow-yes" id="follow-yes" value="yes" placeholder="yes">
 										</div>
+									</div>
+									<div class="clear" style="padding-top:0.5em"></div>
+									<p>&lt;Campaign details&gt;</p>
+									<div class="clear" style="padding-top:1em;width:15em;">
+										<div class="fl w60">
+											<input type="text" name="txt-camdetails" id="txt-camdetails" value="Campaign details" placeholder="Campaign details">
+										</div>
 									</div>								
 									<div class="clear" style="padding-top:0.5em"></div>
 									<div class="btn-submit">
