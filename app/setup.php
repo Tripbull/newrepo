@@ -127,7 +127,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear"></div>
 								<div class="hide txtdesirepage">
 									<div class="clear" style="padding-top:0.5em"></div>
-									<input type="text" name="txtwebdesired" id="txtwebdesired" value="" placeholder="website url">
+									<input type="text" name="txtwebdesired" id="txtwebdesired" value="http://" placeholder="website url">
 								</div>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<div class="btn-submit">

@@ -61,12 +61,6 @@ if(isset($_REQUEST['type']) && isset($_REQUEST['plan'])){
 				</div>	
 		</div><!-- /content -->
 		<div data-role="footer"></div><!-- /footer -->
-	</div>
-	<script type="text/javascript" src="http://static.leaddyno.com/js"></script>
-	<script>
-	LeadDyno.key = "8e2a70840f441554c2eb5208c4ef501baa0f7d38";
-	LeadDyno.recordVisit();
-	LeadDyno.autoWatch();
-	</script>				
+	</div>				
 </body>
 </html>

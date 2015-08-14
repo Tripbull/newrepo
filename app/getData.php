@@ -14,10 +14,18 @@ $data = array();
 switch($opt){
 	case 'vanitylink':
 		$placeId = $_REQUEST['placeId'];
-		$result = mysql_query("SELECT link FROM businessvanitylink WHERE placeId = {$placeId}");//check if source is existed
-		if(mysql_num_rows($result)){ // existed update it
-			$row = mysql_fetch_object($result);	
-			echo $row->link; 
+		if($_REQUEST['case'] == 1){
+			$result = mysql_query("SELECT link FROM businesslitelink WHERE placeId = {$placeId}");//check if source is existed
+			if(mysql_num_rows($result)){ // existed update it
+				$row = mysql_fetch_object($result);	
+				echo $row->link; 
+			}
+		}else if($_REQUEST['case'] == 2){
+			$result = mysql_query("SELECT link FROM businessvanitylink WHERE placeId = {$placeId}");//check if source is existed
+			if(mysql_num_rows($result)){ // existed update it
+				$row = mysql_fetch_object($result);	
+				echo $row->link; 
+			}
 		}
 	break;
 	case 'getTransaction':
@@ -1270,12 +1278,14 @@ function getLocations($userId,$permission){
 	$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'isselfie'") or die(mysql_error());
 	if(mysql_num_rows($addnewfield) < 1)
 		mysql_query("ALTER TABLE `businessCustom`  ADD `isselfie` TINYINT NOT NULL DEFAULT '0'  AFTER `fbpost`");
-	$sql = "SELECT l.id, l.businessName, l.subscribe, l.setup, l.label, p.nicename, v.link,c.isselfie
+	$sql = "SELECT l.id, l.businessName, l.subscribe, l.setup, l.label, p.nicename, v.link,c.isselfie,li.link as litelink,g.productId
 			FROM businessUsers AS u
 			LEFT JOIN businessList AS l ON l.userGroupId = u.userGroupId
+			LEFT JOIN businessUserGroup AS g ON g.gId = l.userGroupId
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessCustom AS c ON c.customPlaceId = l.id
 			LEFT JOIN businessvanitylink AS v ON v.placeId = l.id
+			LEFT JOIN businesslitelink AS li ON li.placeId = l.id
 			WHERE u.id = $userId ORDER BY l.id ASC
 			LIMIT 0 , 30";	
 	$result = mysql_query($sql);$i=0;$arrayPlace=array();
@@ -1288,7 +1298,10 @@ function getLocations($userId,$permission){
 			$arrayPlace[$i]['label'] = $row->label;
 			$arrayPlace[$i]['nicename'] = $row->nicename;
 			$arrayPlace[$i]['isselfie'] = $row->isselfie;
-			$arrayPlace[$i++]['vlink'] = ($row->link != null ? $row->link : '');
+			if($row->productId == $connect->liteID)
+				$arrayPlace[$i++]['vlink'] = ($row->litelink != null ? $row->litelink : '');
+			else
+				$arrayPlace[$i++]['vlink'] = ($row->link != null ? $row->link : '');
 		}
 	}	
 	$array = $arrayPlace;	

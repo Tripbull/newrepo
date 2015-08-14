@@ -74,7 +74,23 @@ switch($opt){
 			}
 		}else if($_REQUEST['case'] == 2){
 			mysql_query("UPDATE businessvanitylink SET link = '' WHERE placeId = {$placeId}");
-		}
+		}else if($_REQUEST['case'] == 3){
+			$str = $_REQUEST['str'];
+			$link = $remove->cleanurl($str);
+			$result = mysql_query("SELECT id FROM businesslitelink WHERE link = '{$link}'");//check if source is existed
+			if(mysql_num_rows($result)){ // existed update it
+				echo 'exist';
+			}else{
+				$result = mysql_query("SELECT id FROM businesslitelink WHERE placeId = {$placeId}");//check if source is existed
+				if(mysql_num_rows($result))
+					mysql_query("UPDATE businesslitelink SET link = '{$link}' WHERE placeId = {$placeId}");
+				else
+					$query = mysql_query("INSERT INTO businesslitelink SET link = '{$link}',placeId = {$placeId}") or die(mysql_error());
+				echo $link;
+			}
+		}else if($_REQUEST['case'] == 4){
+			mysql_query("UPDATE businesslitelink SET link = '' WHERE placeId = {$placeId}");
+		}	
 	break;
 	case 'setLoc':
 		$userId = $_REQUEST['key'];
@@ -97,7 +113,7 @@ switch($opt){
 	break;
 	case 'delLoc':
 		$placeId = $_REQUEST['key'];
-		$sql = "DELETE l,p,d,h,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
+		$sql = "DELETE l,p,d,h,c,img,short,v,lite FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businesslitelink as lite ON lite.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();
@@ -623,6 +639,7 @@ switch($opt){
 		$id = $_REQUEST['placeId'];
 		mysql_query("TRUNCATE TABLE businessplace_$id");
 		mysql_query("TRUNCATE TABLE sharedlink_$id");
+		mysql_query("TRUNCATE TABLE businessCustomer_$id");
 		//feedbacktable($id);
 	break;
 	case 'updatetimezone':   //Joan Villamor Timezone
