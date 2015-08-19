@@ -50,7 +50,7 @@
 								</div>								
 							</section>
 							<section class="panel-users hide">
-								<ul class="admin-right-menu" data-role="listview"><li ><a href="manageuser.html" data-prefetch="true"><img src="images/template/iconOwner.png" alt="" class="ui-li-icon ui-corner-none">Test user<span class="listview-arrow-default"></span></a></li><li ><a href="manageuser.html" data-prefetch="true"><img src="images/template/iconAdmin.png" alt="" class="ui-li-icon ui-corner-none">Test user2<span class="listview-arrow-default"></span></a></li></ul>
+								<ul class="admin-right-menu" data-role="listview"><li ><a href="manageuser.html" data-prefetch="true"><img src="images/template/iconOwner.png" alt="" class="ui-li-icon ui-corner-none"><span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="panel-pwd hide">
 								<input type="text" data-clear-btn="true" name="txtfname1" id="txtfname1" value="" placeholder="first name">

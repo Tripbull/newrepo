@@ -228,7 +228,7 @@ foreach($time_zones as $zones){
 										<div class="right1">							
 											<div class="width-lite">
 											<input type="text" data-clear-btn="false" name="vanity-str" id="vanity-str" value="" placeholder="campaignname"></div>
-											<div style="position:relative;left:0;top:-29px;width:50px;color:#38c;padding-left:5px">camrally.com/<span class="hide html-liteplan">c/</span></div>			
+											<div style="position:relative;left:0;top:-29px;width:50px;color:#38c;padding-left:5px">camrally.com/</div>			
 										</div>
 									</div>
 								</div>

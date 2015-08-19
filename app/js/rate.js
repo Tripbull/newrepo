@@ -304,6 +304,7 @@ function saveuserinfo()
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
+			userCurEmail = (typeof(response.email) != 'undefined' ? response.email : '');
 			var p = 'placeId='+placeId+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=&data=&sharedId='+sharedurl; 
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
 				FB.logout(function(response) {});
@@ -319,6 +320,7 @@ function postFb()
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
+			userCurEmail = (typeof(response.email) != 'undefined' ? response.email : '');
 			var p = 'placeId='+placeId+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=fb&data=&sharedId='+sharedurl; 
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
 				FB.logout(function(response) {});

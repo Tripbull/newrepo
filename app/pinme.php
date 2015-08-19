@@ -224,11 +224,11 @@ echo '<title>'. $businessTitle . '</title>';
 				if($rowAvg->totalAvg > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
 					$class = 'li-showcase';
-					$textadvo = 'Campaign Images';
+					$textadvo = 'Gallery';
 				}else{ //shows the product images
 					$hideavocate = 'hide';$m_showcaseactive='activeMenu';
 					$class = 'li-advocate';
-					$textadvo = 'Advocates';
+					$textadvo = 'Posts';
 				}
 				echo '<li id="li-showhide" class="'.$class.'" style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding textadvo">'. $textadvo .'</div></a></li>';
 				if($row->websiteURL)	
@@ -330,8 +330,8 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>	 
 		<div id="topmenu">
 			<ul>
-				<li class="borderright <?=$m_showcaseactive?>" id="showcase"><a href="#">Campaign Images</a></li>
-				<li class="<?=$m_advocateactive?>" id="top-reviews"><a href="#">Advocates</a></li>
+				<li class="borderright <?=$m_showcaseactive?>" id="showcase"><a href="#">Gallery</a></li>
+				<li class="<?=$m_advocateactive?>" id="top-reviews"><a href="#">Posts</a></li>
 			</ul>
 		</div>    
 			<div class="MerchantWrapper">

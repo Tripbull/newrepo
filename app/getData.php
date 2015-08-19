@@ -14,18 +14,10 @@ $data = array();
 switch($opt){
 	case 'vanitylink':
 		$placeId = $_REQUEST['placeId'];
-		if($_REQUEST['case'] == 1){
-			$result = mysql_query("SELECT link FROM businesslitelink WHERE placeId = {$placeId}");//check if source is existed
-			if(mysql_num_rows($result)){ // existed update it
-				$row = mysql_fetch_object($result);	
-				echo $row->link; 
-			}
-		}else if($_REQUEST['case'] == 2){
-			$result = mysql_query("SELECT link FROM businessvanitylink WHERE placeId = {$placeId}");//check if source is existed
-			if(mysql_num_rows($result)){ // existed update it
-				$row = mysql_fetch_object($result);	
-				echo $row->link; 
-			}
+		$result = mysql_query("SELECT link FROM businessvanitylink WHERE placeId = {$placeId}");//check if source is existed
+		if(mysql_num_rows($result)){ // existed update it
+			$row = mysql_fetch_object($result);	
+			echo $row->link; 
 		}
 	break;
 	case 'getTransaction':
@@ -332,11 +324,11 @@ switch($opt){
 			$rows['expiration'] = $date->format('F d, Y');
 			$array = array('response'=>$rows,'code'=>200);
 			echo json_encode($array);
-			$subject = 'Your Tabluu plan is changed from '.$currentPlan.' to '.$newplan; 
+			$subject = 'Your Camrally plan is changed from '.$currentPlan.' to '.$newplan; 
 			$body = '<p>Hi '.$rows['fname'] . ',</p>
-					<p>As requested, we have changed your Tabluu plan from '.$currentPlan.' to '.$newplan.'. This change is effective immediately.</p>
+					<p>As requested, we have changed your Camrally plan from '.$currentPlan.' to '.$newplan.'. This change is effective immediately.</p>
 					<p>Happy-Tabluu-ing!</p>
-					<p>Cheers,<br/>Tabluu Support</p>';
+					<p>Cheers,<br/>Camrally Support</p>';
 			sendEmail($rows['email'],$subject,$body,'support@camrally.com');	
 		}else{
 			$array = array('response'=>$result->response,'code'=>$result->code); 
@@ -955,7 +947,7 @@ switch($opt){
 			<p>You may change the password provided by updating the User Admin section.</p>
 
 			<p>Thank you!<br/>
-			Tabluu Support</p>';
+			Camrally Support</p>';
 		sendEmail($email,$subject,$body);
 	break;
 	case 'getLoc':
@@ -1258,7 +1250,7 @@ function sendEmail($email,$subject,$body,$cc_email=''){
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
 	$mail->From = 'support@camrally.com';
-	$mail->FromName = 'Tabluu Support';
+	$mail->FromName = 'Camrally Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;
 	$mail->Body = $body; 
@@ -1278,14 +1270,13 @@ function getLocations($userId,$permission){
 	$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'isselfie'") or die(mysql_error());
 	if(mysql_num_rows($addnewfield) < 1)
 		mysql_query("ALTER TABLE `businessCustom`  ADD `isselfie` TINYINT NOT NULL DEFAULT '0'  AFTER `fbpost`");
-	$sql = "SELECT l.id, l.businessName, l.subscribe, l.setup, l.label, p.nicename, v.link,c.isselfie,li.link as litelink,g.productId
+	$sql = "SELECT l.id, l.businessName, l.subscribe, l.setup, l.label, p.nicename, v.link,c.isselfie,g.productId
 			FROM businessUsers AS u
 			LEFT JOIN businessList AS l ON l.userGroupId = u.userGroupId
 			LEFT JOIN businessUserGroup AS g ON g.gId = l.userGroupId
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessCustom AS c ON c.customPlaceId = l.id
 			LEFT JOIN businessvanitylink AS v ON v.placeId = l.id
-			LEFT JOIN businesslitelink AS li ON li.placeId = l.id
 			WHERE u.id = $userId ORDER BY l.id ASC
 			LIMIT 0 , 30";	
 	$result = mysql_query($sql);$i=0;$arrayPlace=array();
@@ -1298,10 +1289,7 @@ function getLocations($userId,$permission){
 			$arrayPlace[$i]['label'] = $row->label;
 			$arrayPlace[$i]['nicename'] = $row->nicename;
 			$arrayPlace[$i]['isselfie'] = $row->isselfie;
-			if($row->productId == $connect->liteID)
-				$arrayPlace[$i++]['vlink'] = ($row->litelink != null ? $row->litelink : '');
-			else
-				$arrayPlace[$i++]['vlink'] = ($row->link != null ? $row->link : '');
+			$arrayPlace[$i++]['vlink'] = ($row->link != null ? $row->link : '');
 		}
 	}	
 	$array = $arrayPlace;	

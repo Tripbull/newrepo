@@ -2,8 +2,8 @@
 session_start();
   //check if this is an ajax request OR user session is not setting up
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !isset($_SESSION['session'])){
-	//echo 'access is forbidden';
-	//die();
+	echo 'access is forbidden';
+	die();
 }
 include_once('class/class.textToImage.php');
 include_once("class/class.resizephoto.php");
@@ -74,23 +74,7 @@ switch($opt){
 			}
 		}else if($_REQUEST['case'] == 2){
 			mysql_query("UPDATE businessvanitylink SET link = '' WHERE placeId = {$placeId}");
-		}else if($_REQUEST['case'] == 3){
-			$str = $_REQUEST['str'];
-			$link = $remove->cleanurl($str);
-			$result = mysql_query("SELECT id FROM businesslitelink WHERE link = '{$link}'");//check if source is existed
-			if(mysql_num_rows($result)){ // existed update it
-				echo 'exist';
-			}else{
-				$result = mysql_query("SELECT id FROM businesslitelink WHERE placeId = {$placeId}");//check if source is existed
-				if(mysql_num_rows($result))
-					mysql_query("UPDATE businesslitelink SET link = '{$link}' WHERE placeId = {$placeId}");
-				else
-					$query = mysql_query("INSERT INTO businesslitelink SET link = '{$link}',placeId = {$placeId}") or die(mysql_error());
-				echo $link;
-			}
-		}else if($_REQUEST['case'] == 4){
-			mysql_query("UPDATE businesslitelink SET link = '' WHERE placeId = {$placeId}");
-		}	
+		}
 	break;
 	case 'setLoc':
 		$userId = $_REQUEST['key'];
@@ -113,7 +97,7 @@ switch($opt){
 	break;
 	case 'delLoc':
 		$placeId = $_REQUEST['key'];
-		$sql = "DELETE l,p,d,h,c,img,short,v,lite FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businesslitelink as lite ON lite.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
+		$sql = "DELETE l,p,d,h,c,img,short,v FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();
@@ -337,7 +321,7 @@ switch($opt){
 				<p>Username: '. $email .'<br/>Password: ' .$pwd. '</p>
 				<p>You may change the password provided by updating the User Admin section.</p>
 				<p>Thank you!<br/>
-				Tabluu Support</p>
+				Camrally Support</p>
 				';	
 		 sendEmail($email,$subject,$body);
 	break;	
@@ -390,10 +374,10 @@ switch($opt){
 		$lastid = mysql_insert_id();
 		$cookie = new cookie();
 		$cookie->setCookie( $lastid );
-				//$time = time();
-				//$name =$fname.' '.$lname; //optional
-				//$join_date = round(time()/60)*60;
-				//mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
+		$time = time();
+		$name =$fname.' '.$lname; //optional
+		$join_date = round(time()/60)*60;
+		mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
 	break;
 	case 'wizardsetupdone':
 		$placeid = $_REQUEST['placeId'];
@@ -660,7 +644,7 @@ function sendEmail($email,$subject,$body,$cc_email=''){
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
 	$mail->From = 'support@camrally.com';
-	$mail->FromName = 'Tabluu Support';
+	$mail->FromName = 'Camrally Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;
 	$mail->Body = $body; 

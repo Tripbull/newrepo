@@ -22,12 +22,11 @@ $(document).ready(function(){
 	$('.fancybox').fancybox();
 	if(istest == true){
 			//test mode chargify ids
-		basicID=3361656,basic12 = 3602785,basic24 = 3602788,liteID = 3720054; 
+		basicID=3716169,proID=3716170,liteID = 3720054; 
 		//test component chargify ids
-		com_basicID=27367,com_basic12 = 69598,com_proID=27368,com_pro12 = 69600,com_pro24 = 69601,com_enterprise=69597,com_enterprise12 =69602,com_enterprise24 =69603;
 		chargifydomain = 'https://camrally.chargify.com';
-		domainpath = 'http://camrally.com/staging/';
-		//domainpath = '';
+		//domainpath = 'http://camrally.com/staging/';
+		domainpath = '';
 	}else{
 		domainpath = 'http://camrally.com/';
 		chargifydomain = 'https://camrally.chargify.com';
@@ -441,7 +440,14 @@ $(document).ready(function(){
             var user = userArray;
 			var name = $.trim($("#text-6").val());
             if(user.permission < 2){
-                var rows = locArray.length; //get total length of location
+                var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
+				if(userArray.productId == basicID || userArray.productId == proID){
+					if(rows >= parseInt(numofcampaign))
+						defaulAlertBox('alert','no access',"Please request to add more campaigns.");
+					else
+						_setBusinessName(name);
+				}else
+					_setBusinessName(name);
                 /*if(user.productId == everFree){
                     if(rows > 0){
                         defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
@@ -449,7 +455,7 @@ $(document).ready(function(){
                         _setBusinessName(name);
                     }
                 }else{ */
-					 _setBusinessName(name);
+					// _setBusinessName(name);
 				//}
 		  }else
 			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
@@ -507,7 +513,7 @@ $(document).ready(function(){
 		//if(row == 0){
 			//$('.right-menu-help').show();
 		if(row == 1){
-			if(userArray.productId == liteID)
+			if(userArray.productId == liteID || userArray.permission > 1 )
 				diabledTab('.right-menu-admin .right-menu',[0,1]);
 			$('.right-menu-admin').show();
 		}else if(row == 0){
@@ -524,11 +530,9 @@ $(document).ready(function(){
 				if(newvanitylink != ''){
 					locArray[index].vlink = newvanitylink;
 					newvanitylink= '';
-				}		
-				var endhtml = (userArray.productId == liteID ? '.html' : '');
+				}
 				if(locArray[index].vlink != ''){
-					var finalname = (userArray.productId == liteID ? 'c/'+locArray[index].vlink : locArray[index].vlink);
-					$('#visit-tabluu-page a').attr('href',domainpath+finalname);
+					$('#visit-tabluu-page a').attr('href',domainpath+locArray[index].vlink);
 				}else
 					$('#visit-tabluu-page a').attr('href',domainpath+locArray[index].nicename);
 				$('#visit-tabluu-page').show();
@@ -1294,7 +1298,7 @@ $(document).ready(function(){
 			j++;
 		//if(customArray.city != '' && j > 2){
 		//var endhtml = (userArray.productId == liteID ? '.html' : '');
-		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : (userArray.productId == liteID ? 'c/'+customArray.link : customArray.link));
+		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
 		if(customArray.city != ''){
 			if(customArray.nicename == "")
 				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
@@ -1544,10 +1548,9 @@ $(document).ready(function(){
 	}); 
 	$(document).on('pageshow','#setup', function () {
 		if(newvanitylink != ""){
-			var endhtml = (userArray.productId == liteID ? 'c/'+newvanitylink : newvanitylink);
-			$('.link-visit-page').attr('href',domainpath+endhtml);
+			$('.link-visit-page').attr('href',domainpath+newvanitylink);
 		}	
-		if(userArray.productId == liteID)
+		if(userArray.productId == liteID || userArray.productId == basicID)
 			diabledTab('.setup-left-menu',[3]);
 		
 	});
@@ -1605,7 +1608,7 @@ $(document).ready(function(){
 		if(customArray.webImg8 != '')
 			j++;
 		//if(customArray.city != '' && j > 1){
-		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : (userArray.productId == liteID ? 'c/'+customArray.link : customArray.link));
+		var addli='',newnice = (customArray.link == null || customArray.link == '' ? customArray.nicename+'.html' : customArray.link);
 		/*if(customArray.city != ''){
 			if(customArray.nicename == "")
 				createPage2();
@@ -1685,28 +1688,20 @@ $(document).ready(function(){
 			}else if(row == 1){
 				$('.open-section').show();	
 			}else if(row == 2){	
-				if(userArray.productId == liteID){
-					var cases = 1;
-					$('.html-liteplan').show();
-				}else{
-					var cases = 2;
-					$('.html-liteplan').hide();
-				}	
 				showLoader();
-					
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink&case='+cases,success:function(data){
-						hideLoader();
-						createdvanity = data;
-						if($.trim(createdvanity) != '' ){
-							$('#vanity-reset').show();
-							//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+createdvanity+'</a>');
-							$('#vanity-str').val(createdvanity);
-						}else{
-							$('#vanity-reset').hide();
-							//$('.van-link-default').html('');
-						}	
-						$('.pro-vanity').show();
-					}});
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=vanitylink',success:function(data){
+					hideLoader();
+					createdvanity = data;
+					if($.trim(createdvanity) != '' ){
+						$('#vanity-reset').show();
+						//$('.van-link-default').html('<a href="'+domainpath+createdvanity+'" target="_blank" style="text-decoration:none;font-weight: normal;font-size: 16px">https://camrally.com/'+createdvanity+'</a>');
+						$('#vanity-str').val(createdvanity);
+					}else{
+						$('#vanity-reset').hide();
+						//$('.van-link-default').html('');
+					}	
+					$('.pro-vanity').show();
+				}});
 			
 			}else if(row == 3){
 				showLoader();
@@ -1839,15 +1834,14 @@ $(document).ready(function(){
 			showLoader();
 			var vanitystr = $('#vanity-str').val();
 			if($.trim(vanitystr) != ''){
-			var cases = (userArray.productId == liteID ? 3 : 1);
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case='+cases+'&str='+encodeURIComponent(encodequote(vanitystr)),success:function(data){
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case=1&str='+encodeURIComponent(encodequote(vanitystr)),success:function(data){
 				hideLoader();
 				if(data == 'exist')
 					setTimeout(function(){alertBox('not available','This entry is not available anymore. Please try another one.');},300);
 				else{
 					$('#vanity-reset').show();
 					$('#vanity-str').val(data);newvanitylink = data;
-					var endhtml = (userArray.productId == liteID ? 'c/'+data : data);
+					var endhtml = data;
 					$('.link-visit-page').attr('href',domainpath+endhtml); 
 					if(vanitywizard == 1){
 						vanitywizard=0;wizardsetup();
@@ -1866,8 +1860,7 @@ $(document).ready(function(){
 				{caption: 'yes', callback: function() {
 					var places = locId.split('|');
 					showLoader();var vanitystr = $('#vanity-str').val();
-					var cases = (userArray.productId == liteID ? 4 : 2);
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case='+cases,success:function(data){ 
+					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=updatevanity&case=2',success:function(data){ 
 						hideLoader();
 						$('#vanity-str').val('');$('#vanity-reset').hide();newvanitylink='';
 						$('.link-visit-page').attr('href',customArray.nicename+'.html'); 
@@ -2247,22 +2240,22 @@ $(document).ready(function(){
 			}
 			if(userArray.productId != liteID){
 				if(txtAdd == ''){
-					alertBox('incomplete information','Please input an address');
+					uicAlertBox('incomplete information','Please input an address','#txtAdd');
 					r=false;
 				}else if(txtCity == ''){
-					alertBox('incomplete information','Please input a city');
+					uicAlertBox('incomplete information','Please input a city','#txtCity');
 					r=false;        
 				}else if(txtCountry == ''){
-					alertBox('incomplete information','Please input a country');
+					uicAlertBox('incomplete information','Please input a country','#txtCountry');
 					r=false;        
 				}else if(txtZip == ''){
-					alertBox('incomplete information','Please input a ZIP / Postal code');
+					uicAlertBox('incomplete information','Please input a ZIP / Postal code','#txtZip');
 					r=false;        
 				}else if(!regex.test(email)){
-					alertBox('invalid email address','Please enter a valid email address');
+					uicAlertBox('invalid email address','Please enter a valid email address','#txtproemail');
 					r=false;        
 				}else if(txtcustombutton == '' && txtcustombuttonurl != ''){
-					alertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)');
+					uicAlertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)','#txtbooknowlabel');
 					r=false;        
 				}
 			}
@@ -2331,7 +2324,6 @@ $(document).ready(function(){
 			
 			if(checkProfileBox()){
 				//$('<div id="overlay"> </div>').appendTo(document.body);
-				
 				showLoader();
 				  var geocoder = new google.maps.Geocoder();
 				  var address = $('#txtname').val() +' '+ $('#txtadd').val() +', '+ $('#txtcity').val() +', '+$('#txtcountry').val();
@@ -2344,8 +2336,8 @@ $(document).ready(function(){
 					} //else 
 						//alertBox('notice','Your locaton address had no geocode'); 
 					 saveProfile();
-				  }); 
-				 //saveProfile();
+				  });
+				// saveProfile();
 			}
 		});
 		
@@ -3467,37 +3459,42 @@ $(document).on('pageshow','#admin', function () {
 	$( "input" ).focus(function() {
 		isfocus = 1;
 	});	
-	if(userArray.productId == liteID)
+	if(userArray.productId == liteID || userArray.permission > 1)
 		diabledTab('.admin-left-menu',[0,1]);
 	$('.star').show();
     var listuser= [],locDefault=''; 
 	var height = ($( window ).height() / 16) - 5;
 	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
-	$('<div id="overlay"></div>').appendTo(document.body);
-	$.ajax({type: "POST",url:"getData.php",cache: false,data:'groupID='+userArray.userGroupId+'&opt=listuser',success:function(data){
-		$('#overlay').remove();
-		 listuser = $.parseJSON(data);
-		if(listuser.length){ // had location already
-			for(var i in listuser){
-				var icon = '';  	
-				if(listuser[i].permission == 0)
-					 icon = 'images/template/iconOwner.png';
-				else if(listuser[i].permission == 1)
-					 icon = 'images/template/iconAdmin.png';
-				else if(listuser[i].permission == 2)
-					 icon = 'images/template/iconUser.png';	
-				locDefault = locDefault + '<li><a href="manageuser.html" data-prefetch="true"><img src="'+icon+'" alt="" class="ui-li-icon ui-corner-none">'+listuser[i].fname+' '+listuser[i].lname+'<span class="listview-arrow-default"></span></a></li>';
-			}	
-			$('.admin-right-menu').html('<ul class="admin-right-menu" data-role="listview">'+locDefault+'</ul>');
-			$('.admin-right-menu').on('click', ' > li', function () {
-				$(this).removeClass('ui-btn-active');
-			   curClick = $(this).index();
-			});	
-			$(".admin-right-menu").listview();
-		}
-		showHideMenuAdmin(curClick);
-		defaultMenuAdmin();
-	}});
+	showHideMenuAdmin(curClick);
+	defaultMenuAdmin();
+	function getlistuser(){
+		locDefault='';
+		$('<div id="overlay"></div>').appendTo(document.body);
+		$.ajax({type: "POST",url:"getData.php",cache: false,data:'groupID='+userArray.userGroupId+'&opt=listuser',success:function(data){
+			$('#overlay').remove();
+			 listuser = $.parseJSON(data);
+			if(listuser.length){ // had location already
+				for(var i in listuser){
+					var icon = '';  	
+					if(listuser[i].permission == 0)
+						 icon = 'images/template/iconOwner.png';
+					else if(listuser[i].permission == 1)
+						 icon = 'images/template/iconAdmin.png';
+					else if(listuser[i].permission == 2)
+						 icon = 'images/template/iconUser.png';	
+					locDefault = locDefault + '<li><a href="manageuser.html" data-prefetch="true"><img src="'+icon+'" alt="" class="ui-li-icon ui-corner-none">'+listuser[i].fname+' '+listuser[i].lname+'<span class="listview-arrow-default"></span></a></li>';
+				}	
+				$('.admin-right-menu').html('<ul class="admin-right-menu" data-role="listview">'+locDefault+'</ul>');
+				$('.admin-right-menu').on('click', ' > li', function () {
+					$(this).removeClass('ui-btn-active');
+				   curClick = $(this).index();
+				});	
+				$(".admin-right-menu").listview();
+			}
+			//showHideMenuAdmin(curClick);
+			//defaultMenuAdmin();
+		}});
+	}
     $('#submit-updatepwd').click(function(){ //update pwd
 		var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		var demail=$('#txtaddress').val();
@@ -3521,13 +3518,6 @@ $(document).on('pageshow','#admin', function () {
 		var totalUsers = listuser;
 		var numUsers=1;   
 		if(userArray.state == 'active' || userArray.state == 'trialing'){
-			if(userArray.productId == liteID) //free 30 days  
-				numUsers = (parseInt(userArray.addLoc) + 1) * 1;
-			else if(userArray.productId == basicID) //basic
-				numUsers = (parseInt(userArray.addLoc) + 1) * 3;		
-			else if(userArray.productId == proID ) //plan 
-				numUsers = (parseInt(userArray.addLoc) + 1) * 7;
-			if(totalUsers.length < numUsers){  
 				var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 				var demail=$('#txtemail').val();
 				if($('#txtfname').val() == '' || $('#txtlname').val() == '')
@@ -3548,8 +3538,6 @@ $(document).on('pageshow','#admin', function () {
 						}	
 					}});
 					}	
-			}else
-				alertBox('maximum # of users reached',"Unable to add new user(s). Your current plan allow users # up to: "+numUsers);
 		}else
 			alertBox('trial ended','Please subscribe to a plan');
 	})
@@ -3617,21 +3605,14 @@ $(document).on('pageshow','#admin', function () {
 		}
 		$('.panel-new').hide();$('.panel-users').hide();$('.panel-pwd').hide();		
 		if(row == 0){
-		    if(userArray.permission > 1 )
-				alertBox('request not granted',"Unauthorized or invalid request");
-			else{	
-				$( '#admin .right-content' ).removeClass("right-bgblue");
-				$( '#admin .right-content' ).addClass("bgwhite");
-				$('.panel-new').show();
-			}
+			$( '#admin .right-content' ).removeClass("right-bgblue");
+			$( '#admin .right-content' ).addClass("bgwhite");
+			$('.panel-new').show();
 		}else if(row == 1){
-			if(userArray.permission > 1 )
-				alertBox('request not granted',"Unauthorized or invalid request");
-			else{	
-				$( '#admin .right-content' ).removeClass("bgwhite");
-				$( '#admin .right-content' ).addClass("right-bgblue");
-				$('.panel-users').show();
-			}	
+			$( '#admin .right-content' ).removeClass("bgwhite");
+			$( '#admin .right-content' ).addClass("right-bgblue");
+			getlistuser();
+			$('.panel-users').show();
 		}else if(row == 2){
 			$( '#admin .right-content' ).removeClass("right-bgblue");
 			$( '#admin .right-content' ).addClass("bgwhite");
@@ -3761,17 +3742,19 @@ $(document).on('pageshow','#manage', function () { // Profile script start here
 						$('#overlay').remove();
 						 curClick = 0;
 						 listuser = $.parseJSON(data);
+						 setTimeout(function(){initializeManage();},300);
+						 /*
 						 $.box_Dialog('This user no longer have access to your account', {'type':     'question','title':    '<span class="color-gold">user removed<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'okay',callback: function(){
-						    initializeManage();
+						    setTimeout(function(){initializeManage();},300);
 						 }}]
-						});
+						}); */
 					}});
 				}},{caption: 'no'}]
 			});
 		}else{
-			showHideMenuManage(curClick);
-			defaultMenuManage();
-			alertBox('unauthorized request',"You don't have rights to delete this user");
+			//showHideMenuManage(curClick);
+			//defaultMenuManage();
+			setTimeout(function(){alertBox('unauthorized request',"You don't have rights to delete this user");},300);
 		}	
 	})
 	
@@ -3988,7 +3971,7 @@ $(document).on('pageinit','#feedback', function () {
 			}
 			//$('#feedback #promotelink').val('camrally.com/'+nicelink);
 				wizardstep7();
-				var endhtml = (userArray.productId == liteID ? 'c/'+nicelink : nicelink);
+				var endhtml = nicelink;
 				var body = '<p style="text-align:left">Congratulations! You have completed the setup.</p>' 
 						 +'<p style="text-align:left;padding-top:7px">Start promoting your Camrally link now! (<a href="'+domainpath+endhtml+'" target="_blank">'+domainpath+endhtml+'</a>)</p>';
 				$.box_Dialog(body, {
