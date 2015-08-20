@@ -6,7 +6,7 @@ var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',ex
 var defaultButtonText2 = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],btncapture:['okay'],follow:['no','yes'],btntake:['okay'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
 var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:['no','yes'],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
 var defaultTextMessage2 = {};
-var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Press the "yes" button to share. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
+var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Use a social media button below to recommend <campaigner>. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
 var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
@@ -193,6 +193,25 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 					showLoader();
 					loginFb();
 				} 
+			}},{caption: 'Twitter',callback:function(){
+				if(isTakeSelfie == 5 || isTakeSelfie == 3 || isTakeSelfie == 2){ //photoboth, checkout anywhere, survey
+					setTimeout(function(){
+						$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
+							'type':     'question',
+							'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
+							'center_buttons': true,
+							'show_close_button':false,
+							'overlay_close':false,
+							'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
+								showLoader();
+								loginTwit();
+							}}]
+						});
+					},500);
+				}else{
+					showLoader();
+					loginTwit();
+				} 
 			}},{caption: defaultButtonText.share[0],callback:function(){setTimeout(function(){
 				//var niceid = sharedurl.split('_');
 				//$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
@@ -304,6 +323,7 @@ function saveuserinfo()
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
+			userCurEmail = (typeof(response.email) != 'undefined' ? response.email : '');
 			var p = 'placeId='+placeId+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=&data=&sharedId='+sharedurl; 
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
 				FB.logout(function(response) {});
@@ -319,6 +339,7 @@ function postFb()
 	if(FB.getAuthResponse())
 	{
 		FB.api('/me', function(response) {
+			userCurEmail = (typeof(response.email) != 'undefined' ? response.email : '');
 			var p = 'placeId='+placeId+'&userName='+response.name+'&userId='+response.id+'&email='+userCurEmail+'&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=fb&data=&sharedId='+sharedurl; 
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
 				FB.logout(function(response) {});
@@ -328,6 +349,29 @@ function postFb()
 			}});
 		});
 	}
+}
+
+function loginTwit()
+{
+	var src = sharedurl.split('_');
+	window.open(domainpath + "oauth_authorize_flow.html?l=" + src[0], " ","width=" + ($(window).width()/2) + ", height=" + $(window).height());
+}
+
+function HandlePopupResult(result, email, name, screen_name) {
+
+    if (result == 'allowed') 
+    {
+		var p = 'placeId='+placeId+'&userName='+name+'&userId='+screen_name+'&email='+email+'&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=tw&data=&sharedId='+sharedurl; 
+		$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=ratesave&'+p,success:function(lastId){
+			var ids = lastId.split('_');
+			lastidbusiness = ids[1];
+			setTimeout(function(){pressyes2();},300);
+		}});
+    }
+    else
+    {
+		saveuserinfo2();
+    }
 }
 
 $(document).ready(function(){ 

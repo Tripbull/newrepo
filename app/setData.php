@@ -491,7 +491,7 @@ switch($opt){
 		$last_Id = mysql_insert_id();
 		$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source=1,userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
 		$lastId = mysql_insert_id();
-		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = {$userId},isshared=1 WHERE id = {$sharedId[1]}");
+		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = '".$userId."',isshared=1 WHERE id = {$sharedId[1]}");
 		echo $last_Id.'_'.$lastId; 
 	break;
 	case 'photoshare':
@@ -744,7 +744,7 @@ function feedbacktable($id){
 		$sql3 = " CREATE TABLE IF NOT EXISTS `sharedlink_$id` (
 		`id` int(11) NOT NULL,
 		  `feedbackId` int(11) NOT NULL,
-		  `fbId` bigint(20) NOT NULL,
+		  `fbId` varchar(100) NOT NULL,
 		  `link` varchar(50) NOT NULL,
 		  `pathimg` varchar(200) NOT NULL,
 		  `isshared` tinyint(4) NOT NULL DEFAULT '0',
