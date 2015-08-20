@@ -223,7 +223,7 @@ foreach($time_zones as $zones){
 							    <div class="tbl">
 									<div class="row1">
 										<div class="left1">
-											<div class="font-16">Your custom Camrally URL <span class="hide html-liteplan">(with .html at the end)</span>: </div>
+											<div class="font-16">Your custom Camrally URL: </div>
 										</div>
 										<div class="right1">							
 											<div class="width-lite">

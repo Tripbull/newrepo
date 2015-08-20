@@ -12,7 +12,7 @@ $result1 = mysql_query($sql) or die(mysql_error());
 $row = mysql_fetch_object($result1);
 $placeId = $row->profilePlaceId;
 $photoDomain = '';//'http://camrally.com/';
-$path = $connect->path;
+
 if($connect->liteID == $row->productId)
 	$businessTitle = $row->businessName . ' @ Camrally';
 else
@@ -36,7 +36,7 @@ function htmldecode($str){
 $shortchar = 330;$shortchar2= 250;
 $descAll = strip_tags(htmldecode($row->description));
 if(strlen($descAll) > $shortchar ){
-	$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
+	$desc = mb_strcut($descAll,0,$shortchar). '...' .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 }else
 	$desc = strip_tags(htmldecode($row->description));
 
@@ -92,8 +92,6 @@ echo '<title>'. $businessTitle . '</title>';
 		<?php
 		$hadTable = $connect->tableIsExist('businessCustomer_'.$placeId);
 		if($hadTable){
-			echo "SELECT COUNT(DISTINCT email) as followTotal FROM businessCustomer_$placeId WHERE follow=1";
-			die();
 			$resultFollow = mysql_query("SELECT COUNT(follow) as followTotal FROM businessCustomer_$placeId WHERE follow=1") or die(mysql_error());
 			if(mysql_num_rows($resultFollow))
 				$follow = mysql_fetch_object($resultFollow);
@@ -221,16 +219,16 @@ echo '<title>'. $businessTitle . '</title>';
 	<div id="nav">
 		<ul>
 			<?php
-				$hideshowcase = '';$hideavocate = '';
+				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
 				if($rowAvg->totalAvg > $totalimg->imgtotal){ //shows the advocates
-					$hideshowcase='hide';
+					$hideshowcase='hide';$m_advocateactive='activeMenu';
 					$class = 'li-showcase';
-					$textadvo = 'Campaign Images';
+					$textadvo = 'Gallery';
 				}else{ //shows the product images
-					$hideavocate = 'hide';
+					$hideavocate = 'hide';$m_showcaseactive='activeMenu';
 					$class = 'li-advocate';
-					$textadvo = 'Advocates';
+					$textadvo = 'Posts';
 				}
 				echo '<li id="li-showhide" class="'.$class.'" style="'.$widthmenu.'"><a href="#" target="_blank" ><div class="menupadding textadvo">'. $textadvo .'</div></a></li>';
 				if($row->websiteURL)	
@@ -332,8 +330,8 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>	 
 		<div id="topmenu">
 			<ul>
-				<li class="borderright" id="showcase"><a href="#">Campaign Images</a></li>
-				<li class="activeMenu" id="top-reviews"><a href="#">Advocates</a></li>
+				<li class="borderright <?=$m_showcaseactive?>" id="showcase"><a href="#">Gallery</a></li>
+				<li class="<?=$m_advocateactive?>" id="top-reviews"><a href="#">Posts</a></li>
 			</ul>
 		</div>    
 			<div class="MerchantWrapper">
@@ -391,7 +389,7 @@ echo '<title>'. $businessTitle . '</title>';
 					  </div>    
 				</div>
 			</div>	
-                <div id="m_productImages" class="hide" style="margin-top:5px;" >
+                <div id="m_productImages" class="<?=$hideshowcase?>" style="margin-top:5px;" >
 					<div class="pinList center">
 					<?php
 						if(mysql_num_rows($resultproduct))
@@ -410,7 +408,7 @@ echo '<title>'. $businessTitle . '</title>';
 					?>
 				</div>
 				</div>
-            	<div id="m_reviews" style="margin-top:5px;">
+            	<div id="m_reviews" class="<?=$hideavocate?>" style="margin-top:5px;">
 					<?php
 						if(mysql_num_rows($resultFeature))
 							mysql_data_seek($resultFeature, 0);
@@ -459,10 +457,17 @@ echo '<title>'. $businessTitle . '</title>';
 <?php
 if(strlen($row->description) > $shortchar ){
 ?>
-	<div id="showmoredesc" style="display: none;width:1000px;">
-	<?php echo htmldecode($row->description); ?>
+	<div id="showmoredesc" style="display: none;width:1000px;color:#000">
+	<?php echo htmldecode2($row->description); ?>
 </div>
 <?php
+}
+function htmldecode2($str){
+	$str = str_replace("|one","&amp;",$str);
+	$str = str_replace("|two","&lt;",$str);
+	$str = str_replace("|three","&gt;",$str);
+	$str = str_replace("|four","&quot;",$str);
+	return str_replace("|five","#",$str);
 }
 ?>
 </body>

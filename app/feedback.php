@@ -20,7 +20,7 @@
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="left-content fl">
-							<div class="left-header">Collect Response</div>			
+							<div class="left-header">Campaign Page Links</div>			
 							<ul class="feedback-left-menu" data-role="listview">
 								<li><a href="#">Mini Link<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#" class="qrcode">QR Code<span class="listview-arrow-default"></span></a></li>
@@ -31,7 +31,7 @@
 						<div class="right-content bgwhite fr">
 							<div class="right-header">Collect Feedback / Selfie</div>
 							<section class="tellafriend hide">
-								<p>Start promoting your camrally link:</p>
+								<p>Your campaign page mini link:</p>
 								<div class="clear" style="padding-top:1em"></div>
 								<input type="text" name="promotelink" id="promotelink" value="" >
 								<div class="clear" style="padding-top:1em"></div>

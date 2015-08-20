@@ -14,13 +14,13 @@ $(document).ready(function() {
 	{
 		e.preventDefault();
 		if($(this).hasClass( "li-advocate" )){
-			$('.textadvo').html('Campaign Images');
+			$('.textadvo').html('Gallery');
 			$(this).removeClass( "li-advocate" );
 			$(this).addClass( "li-showcase" );
 			$('.showcaseimg').hide();
 			$('.advocateimg').show();
 		}else if($(this).hasClass( "li-showcase" )){
-			$('.textadvo').html('Advocates');
+			$('.textadvo').html('Posts');
 			$(this).removeClass( "li-showcase" );
 			$(this).addClass( "li-advocate" );
 			$('.advocateimg').hide();

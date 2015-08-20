@@ -21,45 +21,33 @@ if(mysql_num_rows($result)){
 	}else{
 		if($row->link == $link){
 			if($row->source == 1 || $row->source == 'b')
-				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename;
+				echo $goingto = 'http://camrally.com/staging/campaign.html?p='. $row->nicename;
 			else
-				echo $goingto = 'http://camrally.com/app/campaign.html?p='. $row->nicename .'&s='.$row->source;
+				echo $goingto = 'http://camrally.com/staging/campaign.html?p='. $row->nicename .'&s='.$row->source;
 			//header("HTTP/1.1 301 Moved Permanently");
 			header("Location: {$goingto}");
 			die();
 		}else if($row->vlink == $link){
-			if($row->productId == $connect->liteID && !strpos($_SERVER['REQUEST_URI'], 'html')){
+			if(strpos($_SERVER['REQUEST_URI'], 'html')){
 				header("HTTP/1.1 301 Moved Permanently");
-				$goingto = 'http://camrally.com/'.$row->vlink.'.html'; 
+				$goingto = 'http://camrally.com/staging/'.$row->vlink; 
 				header("Location: {$goingto}");
 				die();
 			}else{
-				if(($row->productId == $connect->basicID || $row->productId == $connect->proID) && strpos($_SERVER['REQUEST_URI'], 'html')){
-					header("HTTP/1.1 301 Moved Permanently");
-					$goingto = 'http://camrally.com/'.$row->vlink; 
-					header("Location: {$goingto}");
-					die();
-				}else{
-					$nice = $row->nicename;
-					include_once('pinme.php');
-					die();
-				}
+				$nice = $row->nicename;
+				$path = $connect->path;
+				include_once('pinme.php');
+				die();
 			}
 		}else if($row->nicename == $link){
 			if(trim($row->vlink) != ''){
-					if($row->productId == $connect->basicID || $row->productId == $connect->proID){
-						header("HTTP/1.1 301 Moved Permanently");
-						$goingto = 'http://camrally.com/'.$row->vlink;
-						header("Location: {$goingto}");
-						die();
-					}else{
-						header("HTTP/1.1 301 Moved Permanently");
-						$goingto = 'http://camrally.com/'.$row->vlink . '.html';
-						header("Location: {$goingto}");
-						die();
-					}	
+				header("HTTP/1.1 301 Moved Permanently");
+				$goingto = 'http://camrally.com/staging/'.$row->vlink;
+				header("Location: {$goingto}");
+				die();	
 			}else{
 				$nice = $row->nicename;
+				$path = $connect->path;
 				include_once('pinme.php');
 				die();
 			}

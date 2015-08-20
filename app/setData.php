@@ -2,8 +2,8 @@
 session_start();
   //check if this is an ajax request OR user session is not setting up
 if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !isset($_SESSION['session'])){
-	//echo 'access is forbidden';
-	//die();
+	echo 'access is forbidden';
+	die();
 }
 include_once('class/class.textToImage.php');
 include_once("class/class.resizephoto.php");
@@ -97,7 +97,7 @@ switch($opt){
 	break;
 	case 'delLoc':
 		$placeId = $_REQUEST['key'];
-		$sql = "DELETE l,p,d,h,c,img,short FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
+		$sql = "DELETE l,p,d,h,c,img,short,v FROM businessList AS l LEFT JOIN businessProfile as p ON p.profilePlaceId=l.id LEFT JOIN businessDescription as d ON d.descPlaceId = l.id LEFT JOIN campaigndetails as h ON h.posterId=l.id LEFT JOIN businessCustom as c ON c.customPlaceId = l.id LEFT JOIN businessvanitylink as v ON v.placeId = c.customPlaceId LEFT JOIN businessImages as img ON img.placeId = $placeId LEFT JOIN businessshorturl as short ON short.placeId = $placeId WHERE l.id = $placeId ";	
 		mysql_query($sql);
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();
@@ -321,7 +321,7 @@ switch($opt){
 				<p>Username: '. $email .'<br/>Password: ' .$pwd. '</p>
 				<p>You may change the password provided by updating the User Admin section.</p>
 				<p>Thank you!<br/>
-				Tabluu Support</p>
+				Camrally Support</p>
 				';	
 		 sendEmail($email,$subject,$body);
 	break;	
@@ -374,10 +374,10 @@ switch($opt){
 		$lastid = mysql_insert_id();
 		$cookie = new cookie();
 		$cookie->setCookie( $lastid );
-				//$time = time();
-				//$name =$fname.' '.$lname; //optional
-				//$join_date = round(time()/60)*60;
-				//mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
+		$time = time();
+		$name =$fname.' '.$lname; //optional
+		$join_date = round(time()/60)*60;
+		mysql_query('INSERT INTO subscribers (userID, email, name, custom_fields, list, timestamp, join_date) VALUES (1, "'.$email.'", "'.$name.'", "", 2, '.$time.', '.$join_date.')');
 	break;
 	case 'wizardsetupdone':
 		$placeid = $_REQUEST['placeId'];
@@ -623,6 +623,7 @@ switch($opt){
 		$id = $_REQUEST['placeId'];
 		mysql_query("TRUNCATE TABLE businessplace_$id");
 		mysql_query("TRUNCATE TABLE sharedlink_$id");
+		mysql_query("TRUNCATE TABLE businessCustomer_$id");
 		//feedbacktable($id);
 	break;
 	case 'updatetimezone':   //Joan Villamor Timezone
@@ -643,7 +644,7 @@ function sendEmail($email,$subject,$body,$cc_email=''){
 	$mail->AddAmazonSESKey($connect->aws_access_key_id, $connect->aws_secret_key);                            // Enable SMTP authentication
 	$mail->CharSet	  =	"UTF-8";                      // SMTP secret 
 	$mail->From = 'support@camrally.com';
-	$mail->FromName = 'Tabluu Support';
+	$mail->FromName = 'Camrally Support';
 	$mail->Subject = $subject;
 	$mail->AltBody = $body;
 	$mail->Body = $body; 

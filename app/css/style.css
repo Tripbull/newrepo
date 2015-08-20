@@ -149,7 +149,7 @@ p{margin-top:0.5em;}
 #profile #frmfb .ui-btn,#profile #frmweb .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
 #profile .pro-section .ui-focus,#profile .pro-vanity .ui-focus,#setup .panel-redirect .ui-focus{box-shadow:none;color:#000;border:1px solid #ddd !important;font-weight: normal !important;font-size: 1em !important;}
 #profile .pro-vanity{font-family:"OpenSans";}
-#profile .pro-vanity .ui-input-text{min-height: 1.7em !important;padding-left:105px !important;margin-top:10px;color:#38c}
+#profile .pro-vanity .ui-input-text{min-height: 1.7em !important;padding-left:104px !important;margin-top:10px;color:#38c}
 select#select-category,select#profile-timezone{font-family: "Myriad" !important;font-size: 1em !important;color:#000;font-weight: normal !important;}
 #setup .ui-select .ui-btn,#profile .ui-select .ui-btn{background-color:#00AEEF;color:#fff;}
 #profile .pro-section .ui-btn-active{background-color:none !important;border:1px solid #ddd !important;color:#000 !important;font-size: 1em !important;font-weight: normal !important;}

@@ -92,11 +92,12 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:0.5em"></div>
 								<select name="select-category" id="select-category">
 										<option value="">Select a Category</option>
+										<option value="Social cause">Online mass rally</option>
 										<option value="Social cause">Social cause</option>
 										<option value="Fanbase building">Fanbase building</option>
 										<option value="Fundraising">Fundraising</option>
 										<option value="New product/service launch">New product/service launch</option>
-										<option value="Marketing promotions">Marketing promotions</option>
+										<option value="Marketing promotions">Marketing promotion</option>
 										<option value="Contest">Contest</option>
 										<option value="Event">Event</option>
 										<option value="Others">Others</option>
@@ -127,7 +128,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear"></div>
 								<div class="hide txtdesirepage">
 									<div class="clear" style="padding-top:0.5em"></div>
-									<input type="text" name="txtwebdesired" id="txtwebdesired" value="" placeholder="website url">
+									<input type="text" name="txtwebdesired" id="txtwebdesired" value="http://" placeholder="website url">
 								</div>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<div class="btn-submit">
