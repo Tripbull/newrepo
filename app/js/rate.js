@@ -4,7 +4,7 @@ var count=0,sharedphoto=0,isphototakedone=0,takeaphoto=0,urlphotoshared,thumbnai
 var defaultPostReview = {posted:1,percent:3.0},ratecomment='',timeInverval='',closeselfie=0,username='',hadlabel='',istakephoto = 0;
 var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',excellent:'Excellent'};
 var defaultButtonText2 = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],btncapture:['okay'],follow:['no','yes'],btntake:['okay'],cambtnoption:['cancel','snap','discard','use']},arraytagline={};
-var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:['no','yes'],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
+var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnshare:['okay'],follow:['no','yes'],comment:['proceed'],share:["Don't share"],photo:['no','yes'],cambtnoption:['cancel','snap','discard','use']};
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Use a social media button below to recommend <campaigner>. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
@@ -174,59 +174,76 @@ $(document).on('pageinit','#sharedlinkpage', function(e) {
 			'center_buttons': true,
 			'show_close_button':false,
 			'overlay_close':false,
-			'buttons':  [{caption: defaultButtonText.share[1],callback:function (){
-				if(isTakeSelfie == 5 || isTakeSelfie == 3 || isTakeSelfie == 2){ //photoboth, checkout anywhere, survey
-					setTimeout(function(){
-						$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
-							'type':     'question',
-							'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
-							'center_buttons': true,
-							'show_close_button':false,
-							'overlay_close':false,
-							'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
-								showLoader();
-								loginFb();
-							}}]
-						});
-					},500);
-				}else{
-					showLoader();
-					loginFb();
-				} 
-			}},{caption: 'Twitter',callback:function(){
-				if(isTakeSelfie == 5 || isTakeSelfie == 3 || isTakeSelfie == 2){ //photoboth, checkout anywhere, survey
-					setTimeout(function(){
-						$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
-							'type':     'question',
-							'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
-							'center_buttons': true,
-							'show_close_button':false,
-							'overlay_close':false,
-							'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
-								showLoader();
-								loginTwit();
-							}}]
-						});
-					},500);
-				}else{
-					showLoader();
-					loginTwit();
-				} 
-			}},{caption: defaultButtonText.share[0],callback:function(){setTimeout(function(){
-				//var niceid = sharedurl.split('_');
-				//$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
-				//pressyes();
-				saveuserinfo2();
-			},300);}}]
+			'buttons':  []
 	  });
 	  //if(item2Rate.length == 1){
 		//setTimeout(function(){alert('r')},10000000);
 	 // }	
+	 	$('.ZebraDialog_Buttons').html('<a style="border:none !important;cursor:pointer;" onclick="return getFacebook();"><img src="images/facebook.png"/></a><a style="border:none !important;cursor:pointer;" onclick="return getTwitter();"><img src="images/twitter.png"/></a><a style="border:none !important;cursor:pointer;text-decoration:underline !important;" onclick="return dontShare();">' + defaultButtonText.share[0] + '</a>');
     });
 	if(item2Rate.length == 1)
 		e.preventDefault();
 });
 
+function getFacebook()
+{
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').remove();
+	if(isTakeSelfie == 5 || isTakeSelfie == 3 || isTakeSelfie == 2){ //photoboth, checkout anywhere, survey
+		setTimeout(function(){
+			$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
+				'type':     'question',
+				'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
+					showLoader();
+					loginFb();
+				}}]
+			});
+		},500);
+	}else{
+		showLoader();
+		loginFb();
+	} 
+}
+
+function getTwitter()
+{
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').remove();
+	if(isTakeSelfie == 5 || isTakeSelfie == 3 || isTakeSelfie == 2){ //photoboth, checkout anywhere, survey
+		setTimeout(function(){
+			$.box_Dialog((typeof(defaultTextMessage.logoutB) != 'undefined' ? decodequote(defaultTextMessage.logoutB) : decodequote(defaultTextMessage2.logoutB)), {
+				'type':     'question',
+				'title':    '<span class="color-white">'+(typeof(defaultTextMessage.logoutT) != 'undefined' ? decodequote(defaultTextMessage.logoutT) : decodequote(defaultTextMessage2.logoutT))+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: (typeof(defaultButtonText.logout) != 'undefined' ? decodequote(defaultButtonText.logout[0]) : decodequote(defaultButtonText2.logout[0])),callback:function(){
+					showLoader();
+					loginTwit();
+				}}]
+			});
+		},500);
+	}else{
+		showLoader();
+		loginTwit();
+	} 
+}
+
+function dontShare()
+{
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').remove();
+	setTimeout(function(){
+		//var niceid = sharedurl.split('_');
+		//$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=generatedurlremove&placeId='+placeId+'&sharedId='+niceid[1],success:function(lastId){}});
+		//pressyes();
+		saveuserinfo2();
+	},300);
+}
 
 function fbisfollow(){
 	setTimeout(function() {
@@ -297,7 +314,6 @@ function shareFb()
 }
 function saveuserinfo2()
 {
-
 	var p = 'placeId='+placeId+'&userName=&userId=&email=&photo_url='+thumbnailurl+'&param='+isTakeSelfie+'&source=&data=&sharedId='+sharedurl; 
 	$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=savecampaign&'+p,success:function(lastId){
 		//setTimeout(function(){followplace();},300);

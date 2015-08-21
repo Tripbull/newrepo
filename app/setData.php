@@ -577,7 +577,7 @@ switch($opt){
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET ratingText= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==6){
-		   $obj =  array('btnshare' => array(encodequote($_REQUEST['txt-share'])),'share' => array(encodequote($_REQUEST['txtshare1']),encodequote($_REQUEST['txtshare2'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])),'campdetails' => array(encodequote($_REQUEST['txt-camdetails'])));
+		   $obj =  array('btnshare' => array(encodequote($_REQUEST['txt-share'])),'share' => array(encodequote($_REQUEST['txtshare1'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])),'campdetails' => array(encodequote($_REQUEST['txt-camdetails'])));
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET button= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==7){

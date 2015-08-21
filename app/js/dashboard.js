@@ -2742,8 +2742,7 @@ $(document).ready(function(){
 		}		
 		if(customArray.button != ''){
 			var boxArray = $.parseJSON(customArray.button);
-			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : 'no'));
-			$('#txtshare2').val((boxArray.share[1] != '' ? decodequote(boxArray.share[1]) : 'yes'));
+			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : "Don't share"));
 			$('#txt-logout').val((typeof(boxArray.logout) != 'undefined' ? decodequote(boxArray.logout[0]) : 'okay'));
 			$('#follow-no').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[0]) : 'no'));
 			$('#follow-yes').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[1]) : 'yes'));
@@ -2827,7 +2826,7 @@ $(document).ready(function(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=6&'+$('#frmUIC2').serialize(),success:function(lastId){
 				customArray.button =
-				JSON.stringify({"share":[$('#txtshare1').val(),$('#txtshare2').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()],"campdetails":[$('#txt-camdetails').val()]});
+				JSON.stringify({"share":[$('#txtshare1').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()],"campdetails":[$('#txt-camdetails').val()]});
 				hideLoader();
 				alertBox('successful','Update completed.');
 			}});	

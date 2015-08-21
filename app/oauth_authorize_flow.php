@@ -79,7 +79,6 @@ function request_token($tmhOAuth) {
   ));
 
   if ($code != 200) {
-    $_SESSION['twitresult'] = 'denied';
     error("There was an error communicating with Twitter. {$tmhOAuth->response['response']}");
     return;
   }
@@ -90,7 +89,6 @@ function request_token($tmhOAuth) {
   // check the callback has been confirmed
   if ($_SESSION['oauth']['oauth_callback_confirmed'] !== 'true') 
   {
-    $_SESSION['twitresult'] = 'denied';
     error('The callback was not confirmed by Twitter so we cannot continue.');
     return;
   } 
@@ -104,16 +102,12 @@ function request_token($tmhOAuth) {
 function access_token($tmhOAuth) {
   $params = uri_params();
   if ($params['oauth_token'] !== $_SESSION['oauth']['oauth_token']) {
-    $_SESSION['twitresult'] = 'denied';
     error('The oauth token you started with doesn\'t match the one you\'ve been redirected with. do you have multiple tabs open?');
-    session_unset();
     return;
   }
 
   if (!isset($params['oauth_verifier'])) {
-    $_SESSION['twitresult'] = 'denied';
     error('The oauth verifier is missing so we cannot continue. did you deny the appliction access?');
-    session_unset();
     return;
   }
 
@@ -137,7 +131,6 @@ function access_token($tmhOAuth) {
   }
   else
   {
-    $_SESSION['twitresult'] = 'denied';
     error("There was an error communicating with Twitter. {$tmhOAuth->response['response']}");
     return;
   }
@@ -158,14 +151,13 @@ function verify_credentials($tmhOAuth, $get_token, $get_secret)
   if ($code == 200) {
     $data = json_decode($tmhOAuth->response['response'], true);
     $_SESSION['twitresult'] = 'allowed';
-    $_SESSION['twitemail'] = 'test@gmail.com';
+    $_SESSION['twitemail'] = '';
     $_SESSION['twitname'] = $data['name'];
     $_SESSION['twitscreenname'] = $data['screen_name'];
     tweet_photo($tmhOAuth);
   }
   else
   {
-    $_SESSION['twitresult'] = 'denied';
     error("There was an error communicating with Twitter. {$tmhOAuth->response['response']}");
     return;
   }
@@ -194,7 +186,7 @@ function tweet_photo($tmhOAuth)
 
   $params = array(
     'media[]' => "@{$dir};type={'jpg'};filename={$getpath[3]}",
-    'status'  => $row->businessName . ' ' . $row->tag1 . ' ' . $row->tag2 . ' ' . $row->brand . ' ' . 'http://camrally.com/app/user/' . $nice
+    'status'  => $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/app/user/' . $nice
   );
   
   $code = $tmhOAuth->user_request(array(
@@ -210,7 +202,6 @@ function tweet_photo($tmhOAuth)
   }
   else
   {
-    $_SESSION['twitresult'] = 'denied';
     error("There was an error communicating with Twitter. {$tmhOAuth->response['response']}");
     return;
   }
