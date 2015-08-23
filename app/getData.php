@@ -237,9 +237,8 @@ switch($opt){
 				$array = array_merge(array('response'=>$rows,'code'=>$result->code));
 				$subject = 'add new location(s) request'; 
 				$body = '<p>Hi '.$rows['fname'] . ',</p>
-						<p>As requested, we have added '. (int)$_REQUEST['addloc'] .' location(s) to your Tabluu account.</p>
-						<p>Happy-Tabluu-ing!</p>
-						<p>Cheers,<br/>Tabluu Support</p>';
+						<p>As requested, we have added '. (int)$_REQUEST['addloc'] .' location(s) to your Camrally account.</p>
+						<p>Cheers,<br/>Camrally Support</p>';
 				sendEmail($rows['email'],$subject,$body,'support@camrally.com');		
 			}else
 				$array = array('response'=>$result->response,'code'=>$result->code); 
@@ -327,7 +326,6 @@ switch($opt){
 			$subject = 'Your Camrally plan is changed from '.$currentPlan.' to '.$newplan; 
 			$body = '<p>Hi '.$rows['fname'] . ',</p>
 					<p>As requested, we have changed your Camrally plan from '.$currentPlan.' to '.$newplan.'. This change is effective immediately.</p>
-					<p>Happy-Tabluu-ing!</p>
 					<p>Cheers,<br/>Camrally Support</p>';
 			sendEmail($rows['email'],$subject,$body,'support@camrally.com');	
 		}else{

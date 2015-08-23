@@ -23,6 +23,7 @@ function alertBox(title,message){ // testing
 	});	
 	}, 500);//to prevent the events fire twice
 }
+
 function alertErrorPage(title,message){
 	clearTimeout(resizeTimeout);
 	resizeTimeout = setTimeout(function(){ 

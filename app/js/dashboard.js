@@ -1508,7 +1508,7 @@ $(document).ready(function(){
 			places = locId.split('|');
 			if($("#optionredirect :radio:checked").val() == 1){
 				if(validateURL($('#txtwebdesired').val()) == false)
-					uicAlertBox('incorrect url','Please ensure "http://" are used','#txtwebdesired');
+					uicAlertBox('incorrect url','Please include "http://" in your URL','#txtwebdesired');
 				else{
 					showLoader();
 					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=redirectpage&selected='+$("#optionredirect :radio:checked").val()+'&txtwebsite='+$('#txtwebdesired').val()+'&case=0',success:function(lastId){
@@ -2270,27 +2270,27 @@ $(document).ready(function(){
 			if($('#txtfb').val() != ''){
 				if(validateURL($('#txtfb').val()) == false){
 					validateurl = false;
-					uicAlertBox('incorrect website url','Please ensure "http://" are used','#txtfb');
+					uicAlertBox('incorrect website url','Please include "http://" in your URL','#txtfb');
 				}	
 			}if($('#txtweb').val() != '' && validateurl == true){
 				if(validateURL($('#txtweb').val()) == false){
 					validateurl = false;
-					uicAlertBox('incorrect website url','Please ensure "http://" are used','#txtweb');
+					uicAlertBox('incorrect website url','Please include "http://" in your URL','#txtweb');
 				}	
 			} if($('#txtlink').val() != '' && validateurl == true){
 				if(validateURL($('#txtlink').val()) == false) {
 					validateurl = false;
-					uicAlertBox('incorrect linkedIn url','Please ensure "http://" are used','#txtlink');
+					uicAlertBox('incorrect linkedIn url','Please include "http://" in your URL','#txtlink');
 				}	
 			} if($('#txttwit').val() != '' && validateurl == true){
 				if(validateURL($('#txttwit').val()) == false){
 					validateurl = false;
-					uicAlertBox('incorrect twitter url','Please ensure "http://" are used','#txttwit');
+					uicAlertBox('incorrect twitter url','Please include "http://" in your URL','#txttwit');
 				}	
 			}if($('#txtbooknow').val() != '' && validateurl == true){
 				if(validateURL($('#txtbooknow').val()) == false){
 					validateurl = false;
-					uicAlertBox('incorrect button url','Please ensure "http://" are used','#txtbooknow');
+					uicAlertBox('incorrect button url','Please include "http://" in your URL','#txtbooknow');
 				}	
 			}
 			
