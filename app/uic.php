@@ -81,10 +81,7 @@ $noPhoto = 'images/template/no-photo.gif';
 									<p class="share">Share this page?</p>
 									<div class="clear" style="padding-top:1em;width:15em;">
 										<div class="fl w60">
-											<input type="text" name="txtshare1" id="txtshare1" value="no" placeholder="no">
-										</div>
-										<div class="fr w60">
-											<input type="text" name="txtshare2" id="txtshare2" value="yes" placeholder="yes">
+											<input type="text" name="txtshare1" id="txtshare1" value="Don't share" placeholder="Don't share">
 										</div>
 									</div>
 									<div class="clear" style="padding-top:0.5em"></div>
@@ -114,7 +111,7 @@ $noPhoto = 'images/template/no-photo.gif';
 									<div class="clear" style="padding-top:0.5em"></div>
 									<p>&lt;Campaign details&gt;</p>
 									<div class="clear" style="padding-top:1em;width:15em;">
-										<div class="fl w60">
+										<div class="fl w90">
 											<input type="text" name="txt-camdetails" id="txt-camdetails" value="Campaign details" placeholder="Campaign details">
 										</div>
 									</div>								

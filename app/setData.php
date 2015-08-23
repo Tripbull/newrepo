@@ -491,7 +491,7 @@ switch($opt){
 		$last_Id = mysql_insert_id();
 		$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source=1,userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
 		$lastId = mysql_insert_id();
-		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = {$userId},isshared=1 WHERE id = {$sharedId[1]}");
+		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = '".$userId."',isshared=1 WHERE id = {$sharedId[1]}");
 		echo $last_Id.'_'.$lastId; 
 	break;
 	case 'photoshare':
@@ -577,7 +577,7 @@ switch($opt){
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET ratingText= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==6){
-		   $obj =  array('btnshare' => array(encodequote($_REQUEST['txt-share'])),'share' => array(encodequote($_REQUEST['txtshare1']),encodequote($_REQUEST['txtshare2'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])),'campdetails' => array(encodequote($_REQUEST['txt-camdetails'])));
+		   $obj =  array('btnshare' => array(encodequote($_REQUEST['txt-share'])),'share' => array(encodequote($_REQUEST['txtshare1'])),'logout' => array(encodequote($_REQUEST['txt-logout'])),'follow' => array(encodequote($_REQUEST['follow-no']),encodequote($_REQUEST['follow-yes'])),'cambtnoption' => array(encodequote($_REQUEST['btncam1']),encodequote($_REQUEST['btncam2']),encodequote($_REQUEST['btncam3']),encodequote($_REQUEST['btncam4'])),'campdetails' => array(encodequote($_REQUEST['txt-camdetails'])));
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET button= '".$json."' WHERE customPlaceId = $placeId";
 		}else if($case ==7){
@@ -745,7 +745,7 @@ function feedbacktable($id){
 		$sql3 = " CREATE TABLE IF NOT EXISTS `sharedlink_$id` (
 		`id` int(11) NOT NULL,
 		  `feedbackId` int(11) NOT NULL,
-		  `fbId` bigint(20) NOT NULL,
+		  `fbId` varchar(100) NOT NULL,
 		  `link` varchar(50) NOT NULL,
 		  `pathimg` varchar(200) NOT NULL,
 		  `isshared` tinyint(4) NOT NULL DEFAULT '0',
