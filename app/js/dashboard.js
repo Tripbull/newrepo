@@ -2742,7 +2742,7 @@ $(document).ready(function(){
 		}		
 		if(customArray.button != ''){
 			var boxArray = $.parseJSON(customArray.button);
-			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : "Don't share"));
+			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : "Cancel"));
 			$('#txt-logout').val((typeof(boxArray.logout) != 'undefined' ? decodequote(boxArray.logout[0]) : 'okay'));
 			$('#follow-no').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[0]) : 'no'));
 			$('#follow-yes').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[1]) : 'yes'));
