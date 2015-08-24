@@ -12,7 +12,7 @@
 		<div id="manage" data-role="page" data-ajax="false">
 			<div class="content-wrap">
 				<div data-role="header">
-					<img src="images/template/logo.png" class="logo fl" />
+					<img src="images/Logo/logo-arrow.png" class="logo fl" width="143" height="auto" />
 					<div class="logout-wrap">
 						<img src="images/template/star.png" class="star hide" />
 						<img src="images/template/logout.png" class="logout fr iconmanage" />
@@ -33,7 +33,7 @@
 									<button class="ui-btn" id="btn-remove-user">Delete this user?</button>
 								</div>	
 								<div class="clear" style="padding-top:0.8em"></div>
-								<p class="font-17 fl" >Locations this user can access...</p>
+								<p class="font-17 fl" >Campaigns this user can access...</p>
 								<div class="clear" style="padding-top:0.8em"></div>
 								<fieldset id="check-manage-loc" data-role="controlgroup" data-iconpos="left" data-corners="false">
 								</fieldset>	

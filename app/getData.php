@@ -912,6 +912,16 @@ switch($opt){
 		else	
 			echo 0;
 	break;
+	case 'resetdata':
+		$pwd = md5($_REQUEST['pwd']);
+		$sql = "SELECT id FROM businessUsers 
+		WHERE pwd ='$pwd'";
+		$result = mysql_query($sql);
+		if(mysql_num_rows($result) > 0){
+			echo 1;
+		}else	
+			echo 0;
+	break;
 	case 'login':
 		include_once('class/class.cookie.php');
 		$email = $_REQUEST['email'];

@@ -1131,14 +1131,50 @@ $(document).ready(function(){
 			e.preventDefault();
 			$.box_Dialog('All data for this campaign will be deleted.', {'type':'confirm','title': '<span class="color-gold">warning!<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 			{caption: 'yes', callback: function() {
-					showLoader();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
-						hideLoader();
-					}});
-				}},{caption: 'no',callback:function(){ 
+					loginreset();
+			}},{caption: 'no',callback:function(){ 
 			}}]
 			});
-		});		
+		});
+		function loginreset(){
+			setTimeout(function(){
+				$.box_Dialog('<input type="password" name="resetpwd" id="resetpwd" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">confirm password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+				{caption: 'okay', callback: function() {
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val(),success:function(ispwdcorrect){
+						if(ispwdcorrect > 0){
+							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
+								hideLoader();
+								setTimeout(function(){
+								$.box_Dialog('Data for this campaign deleted', {
+									'type': 'information',
+									'title': '<span class="color-white">successful</span>',
+									'center_buttons': true,
+									'show_close_button':false,
+									'overlay_close':false,
+									'buttons': [{caption:'okay'}]
+								});
+								},500);
+							}});	
+						}else{
+							setTimeout(function(){
+							$.box_Dialog('Your password is incorrect', {
+								'type': 'information',
+								'title': '<span class="color-white">incorrect</span>',
+								'center_buttons': true,
+								'show_close_button':false,
+								'overlay_close':false,
+								'buttons': [{caption:'okay',callback:function(){loginreset()}}]
+							});
+							},500);
+						}
+							
+					}});
+					
+				}}]
+				});
+				setTimeout(function(){$('#resetpwd').focus()},300);
+			},500);
+		}
 		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();
@@ -3771,10 +3807,10 @@ $(document).on('pageshow','#manage', function () { // Profile script start here
 					$('#overlay').remove();
 					listuser = $.parseJSON(data);
 					 initializeManage();
-					 alertBox('location access updated','The new location access for this user is updated');
+					 alertBox('campaign access updated','The new campaign access for this user is updated');
 				}});
 			}else
-				alertBox('invalid',"Please check one or more Locations");
+				alertBox('invalid',"Please check one or more Campaigns");
 		}	
 	});
 	 
