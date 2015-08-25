@@ -2,7 +2,7 @@ $(document).bind('mobileinit', function(){
      $.mobile.metaViewportContent = 'width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no';
 	 $('input[type="text"]').textinput({ preventFocusZoom: true });
 });
-var resizeTimeout;
+var resizeTimeout,clickme=0;
 $(document).ready(function(){
 
 	var height = ($( window ).height() / 16) - 5;
@@ -25,7 +25,8 @@ $(document).ready(function(){
 
 	$("#signInPwd").keypress(function(e) {
 		if(e.which == 13){
-			login();		
+			$("#signInEmail").focus();
+			login();
 		}
 	})		
 	
@@ -53,13 +54,16 @@ $(document).ready(function(){
 			$('#invalidcode').html('Invalid code try again');
 	});	
 	function login(){
+		//setTimeout(function(){
+		//if(clickme < 1){
+		//clickme = 1;
 		var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		var demail=$('#signInEmail').val();
-		if(!regex.test(demail))
-			alertBox('invalid','Please enter a valid email address');
-		else if($('#signInPwd').val() == '')
-			alertBox('incomplete','Please input password');
-		else{
+		if(!regex.test(demail)){
+			alertBoxfocus('invalid','Please enter a valid email address',"#signInEmail");
+		}else if($('#signInPwd').val() == ''){
+			alertBoxfocus('incomplete','Please input password',"#signInPwd");
+		}else{
 			$('<div id="overlay"> </div>').appendTo(document.body);
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=login&pwd='+$.md5($('#signInPwd').val())+'&email='+$('#signInEmail').val(),success:function(status){
 				$('#overlay').remove();
@@ -67,17 +71,22 @@ $(document).ready(function(){
 					if(status == 1)
 						window.location= "index.html";	
 					else
-						alertBox('account suspended','Please contact Tabluu Support to unsuspend your account.');	
+						alertBox('account suspended','Please contact Camrally Support to unsuspend your account.');	
 				}else
-					alertBox('please try again','Invalid email or password');
+					alertBoxfocus('please try again','Invalid email or password',"#signInPwd");
 			}});
-		}	
+		}
+		//}	
+		//},300);
 	}
-	$( "#submit-signing" ).click(function() { // signing in
+	//$( "#submit-signing" ).on('click',function() { // signing in
+		
+	$( "#submit-signing" ).click(function(e) { // signing in
+		e.preventDefault();
 		login();
 	});
 
-	function alertBox(title,message){
+	function alertBox(title,message,id){
 		clearTimeout(resizeTimeout);
 		resizeTimeout = setTimeout(function(){ 
 		$.box_Dialog(message, {
@@ -87,6 +96,19 @@ $(document).ready(function(){
 			'show_close_button':false,
 			'overlay_close':false,
 			'buttons':  [{caption: 'okay'}]
+		});
+		}, 500);//to prevent the events fire twice
+	}
+	function alertBoxfocus(title,message,id){
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function(){ 
+		$.box_Dialog(message, {
+			'type':     'question',
+			'title':    '<span class="color-gold">'+title+'<span>',
+			'center_buttons': true,
+			'show_close_button':false,
+			'overlay_close':false,
+			'buttons':  [{caption: 'okay',callback:function(){$(id).focus();}}]
 		});
 		}, 500);//to prevent the events fire twice
 	}	

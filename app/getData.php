@@ -703,6 +703,7 @@ switch($opt){
 						$feedarray[$i]['name'] = $row->userName;
 						$feedarray[$i]['fbId'] = $row->userId;
 						$feedarray[$i]['url'] = $row->photo_url;
+						$feedarray[$i]['link'] = $row->link;
 						$feedarray[$i]['feature'] = ($row->feature != null ? $row->feature : 0);
 						$feedarray[$i]['hideimg'] = ($row->hideimg != null ? $row->hideimg : 0);
 						$feedarray[$i++]['created'] = $row->date;

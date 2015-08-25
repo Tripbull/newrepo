@@ -375,6 +375,11 @@ $(document).ready(function(){
 					
 			//}	
 		});
+		$('#exportemail').click(function(e){
+			e.preventDefault();
+			var id = locId.split('|');
+			window.open('exportData.php?id='+id[0],'_blank');
+		});
 		$('#dashboard img.logo').css({'margin': '0.6em 0 0 1.6em'});
 		$("#dashboard img.logo").click(function (){  //logo click
 			if($( window ).width() <= 600){
@@ -523,6 +528,8 @@ $(document).ready(function(){
 		}else if(row == 2){
 			$('.right-menu-plan').show();
 		}else if(row > 2){
+			if(userArray.productId != proID )
+				diabledTab('.right-menu-loc',[4]);
 			$('#visit-tabluu-page').hide();
 			placeId= locId;
 			var index = row - 3;
@@ -4249,7 +4256,7 @@ $(document).on('pageshow','#reviews', function () {
 					t = t +'<div class="profilename"><a href="https://www.facebook.com/'+feedbackArray[i].fbId+'" style="text-decoration:none;" target="_blank">'+feedbackArray[i].name+'</a></div>'
 				+'</div>'
 				+'<div class="imgSelfie">'
-					+'<div class="wrapImg2 selfImg'+counter+'"><img src="'+feedbackArray[i].url+'" /></div>'
+					+'<div class="wrapImg2 selfImg'+counter+'"><a href="'+domainpath+'user/'+feedbackArray[i].link+'" target="_blank"><img src="'+feedbackArray[i].url+'" /></a></div>'
 				+'</div>'
 			+'</div>'
 		+'</div>'
@@ -4259,7 +4266,7 @@ $(document).on('pageshow','#reviews', function () {
 				+'<tr>'
 					+'<th class="areas noborderleft padLeft-5 c1">Manage</th>'
 					+'<th class="date c1">Date</th>'
-				+'</tr>';		
+				+'</tr>';
 					t = t + '<tr>'
 					t = t +'<td rowspan="'+reviewQuestion.length+'" style="vertical-align: middle">'
 						+'<div style="padding-top:5px;"><fieldset id="removePhoto" data-role="controlgroup" data-iconpos="left" data-corners="false"><div class="ui-controlgroup-controls"><div class="ui-checkbox"><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="feature-'+feedbackArray[i].id+'">Feature</label><input id="feature-'+feedbackArray[i].id+'" type="checkbox" name="feature-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].feature == 1 ? 'checked="checked"' : '')+'><label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="hideImg-'+feedbackArray[i].id+'">Hide</label><input id="hideImg-'+feedbackArray[i].id+'" type="checkbox" name="hideImg-'+feedbackArray[i].id+'" value="'+feedbackArray[i].id+'" '+(feedbackArray[i].hideimg == 1 ? 'checked="checked"' : '')+'></div></div></fieldset></div>'
