@@ -57,18 +57,11 @@ echo '<title>'. $businessTitle . '</title>';
 <meta name="description" content="See the latest <?php echo $row->businessName?> Camrally advocates.">
 <meta name="keywords" content="<?php echo $row->businessName?> Camrally advocates, <?php echo $row->businessName?>">
 <meta name="title" content="<?php echo $row->businessName?> - Camrally">
+<link href="<?=$path?>css/bootstrap.css" rel="stylesheet" media="all">
 <link href="<?=$path?>css/face/main.css" media="screen" rel="stylesheet" type="text/css" />
 <!--[if IE 7]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 8]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<?=$path?>js/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="<?=$path?>js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-<script type="text/javascript" src="<?=$path?>js/jquery.masonry.min.js"></script>
-<script type="text/javascript" src="<?=$path?>js/jquery.ae.image.resize.min.js"></script>
-<script type="text/javascript" src="<?=$path?>js/app.js"></script>
-<script type="text/javascript" src="<?=$path?>js/web.js"></script>
-<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
-<script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
 <link rel="Shortcut Icon" href="<?=$path?>images/Logo/ico/Icon_2.ico" type="image/x-icon">
 </head>
 <body>
@@ -326,14 +319,44 @@ echo '<title>'. $businessTitle . '</title>';
         <a name="top"></a>    
         <div class="header">
             <div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_2-small.png" > </a></div>
-			<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>
+			<header>
+			<nav class="navbar navbar-default" role="navigation"> 
+			  <!-- Brand and toggle get grouped for better mobile display -->
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> </div>
+			  <!-- Collect the nav links, forms, and other content for toggling -->
+			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav pull-right">
+				  <?php
+				  if($row->websiteURL)
+						echo '<li><a href="'.(strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL) .'"  target="_blank">Website</a></li>';
+					if($row->facebookURL)
+						echo '<li><a href="'. (strstr($row->facebookURL,'http') ? $row->facebookURL : 'http://'.$row->facebookURL) .'"  target="_blank">Facebook Page</a></li>';	
+					if($row->linkedinURL)
+						echo '<li><a href="'. (strstr($row->linkedinURL,'http') ? $row->linkedinURL : 'http://'.$row->linkedinURL) .'"  target="_blank">LinkedIn Page</a></li>';
+					if($row->twitterURL)
+						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
+					if($booksite)
+						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a></li>'; 		
+					if($row->contactNo)	
+						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
+					?>
+					<li><a href="/">camrally.com</a></li>
+							  
+				</ul>
+			  </div>
+			  <!-- /.navbar-collapse --> 
+			</nav>
+		</header>
+			<!--<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>-->
 		</div>	 
+		
 		<div id="topmenu">
 			<ul>
 				<li class="borderright <?=$m_showcaseactive?>" id="showcase"><a href="#">Gallery</a></li>
 				<li class="<?=$m_advocateactive?>" id="top-reviews"><a href="#">Posts</a></li>
 			</ul>
-		</div>    
+		</div>  
 			<div class="MerchantWrapper">
 				 <div class="MerchantHead">
 					  <div style="padding:10px 0;width:176px:height:176px;">
@@ -470,5 +493,14 @@ function htmldecode2($str){
 	return str_replace("|five","#",$str);
 }
 ?>
+<script type="text/javascript" src="<?=$path?>js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="<?=$path?>js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+<script type="text/javascript" src="<?=$path?>js/jquery.masonry.min.js"></script>
+<script type="text/javascript" src="<?=$path?>js/jquery.ae.image.resize.min.js"></script>
+<script type="text/javascript" src="<?=$path?>js/app.js"></script>
+<script type="text/javascript" src="<?=$path?>js/web.js"></script>
+<script type="text/javascript" src="<?=$path?>js/bootstrap.min.js"></script> 
+<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
+<script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
 </body>
 </html>
