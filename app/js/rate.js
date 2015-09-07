@@ -415,8 +415,8 @@ $(document).ready(function(){
    $('.fancybox').fancybox();
    
    if(istest == true){
-		domainpath = 'http://camrally.com/staging/';
-		//domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
+		//domainpath = 'http://camrally.com/staging/';
+		domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
 	}
@@ -571,7 +571,7 @@ function showCamera(IDparam){
 	$('.snapshot').show(); // Show snapshot buttons
 
 	var shootEnabled = false;
-	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#data','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
+	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
 	$('.snapshot .takesnap').click(function(){
 		var snd = new Audio("shutter.mp3"); // buffers automatically when created
 		snd.play();

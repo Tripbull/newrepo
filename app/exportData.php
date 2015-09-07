@@ -13,7 +13,7 @@ $controller = new fucn();
 
 if(isset($_REQUEST['id'])){
 	$placeId = $_REQUEST['id'];
-	$sql = "SELECT name,email FROM businessCustomer_$placeId WHERE 1 ORDER BY id DESC";
+	$sql = "SELECT name,email FROM businessCustomer_$placeId WHERE 1 GROUP BY email ORDER BY id DESC";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	$ratingTextTemp = array('Name', 'Email');

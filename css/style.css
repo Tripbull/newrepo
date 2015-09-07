@@ -1,4 +1,3 @@
-
 @font-face { font-family: 'OpenSansBold'; src: url('../fonts/opensans-bold_0.eot'); src: url('../fonts/opensans-bold_0.eot') format('embedded-opentype'), url('../fonts/opensans-bold_0.woff') format('woff'), url('../fonts/opensans-bold_0.ttf') format('truetype'), url('../fonts/opensans-bold_0.svg#OpenSansBold') format('svg'); }
 @font-face { font-family: 'OpenSansExtrabold'; src: url('../fonts/opensans-extrabold_0.eot'); src: url('../fonts/opensans-extrabold_0.eot') format('embedded-opentype'), url('../fonts/opensans-extrabold_0.woff') format('woff'), url('../fonts/opensans-extrabold_0.ttf') format('truetype'), url('../fonts/opensans-extrabold_0.svg#OpenSansExtrabold') format('svg'); }
 @font-face { font-family: 'OpenSansRegular'; src: url('../fonts/opensans-regular_0.eot'); src: url('../fonts/opensans-regular_0.eot') format('embedded-opentype'), url('../fonts/opensans-regular_0.woff') format('woff'), url('../fonts/opensans-regular_0.ttf') format('truetype'), url('../fonts/opensans-regular_0.svg#OpenSansRegular') format('svg'); }
@@ -258,7 +257,76 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#15cc44', end
 .privacypage h2 {color:#00aeef;font-size: 42px;font-weight: bold;margin-top: 40px;padding-bottom: 20px;}
 .privacypage p{color:#333;font-size: 18px;background: url("../images/dot.png") no-repeat scroll left 5px rgba(0, 0, 0, 0);padding-bottom: 17px;padding-left: 10px;}
 .privacypage .notdot {background: none;padding-left: 0 !important;}
-/*  */
+/*robert code campaign menu link august 25 2015*/
+.active-li{background-color: #f3f3f3;}
+#nav,#nav2 {width: 100%;float: left;margin: 0 0 1em 0;padding: 0;background-color:#fff;border-top:1px #ccc solid;box-shadow: 0 1px 0px rgba(0, 0, 0, 0.22);}
+#nav ul,#nav2 ul {list-style: none;width: 100%;margin: 0 auto;padding: 0; }
+#nav li,#nav2 li {float: left; }
+#nav li a,#nav2 li a {display: block;padding-top:10px;text-decoration: none;height:46px;text-align:center;font-size:16px;color: #9a9a9a; font-weight:normal;outline: 0;}
+#nav li a:hover,#nav2 li a:hover {color: #444;background-color: #f3f3f3; outline: 0;}
+#nav li:first-child a:hover ,#nav2 li:first-child a:hover {border-radius:0 0 0 6px;}
+#nav li:last-child a:hover ,#nav2 li:last-child a:hover {border-radius:0 0 6px 0;}
+#nav2 .btn,#m-nav .btn{border-radius:0px !important;border-color:transparent !important}
+#nav2 .dropdown-menu > li ,#m-nav .dropdown-menu > li{width:100%;height:30px !important;text-align:left;}
+#nav2 .dropdown-menu > li > a, #m-nav .dropdown-menu > li > a{width:100%;padding:3px 10px !important;height:30px !important;text-align:left;}
+#nav2 .dropdown-menu > li:hover, #m-nav .dropdown-menu > li:hover{width:100%;height:30px !important;text-align:left;color:#9a9a9a}
+.dropdown-menu{border-radius:0px;min-width:217px !important}
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus{color:#fff !important;}
+.borderright{border-right:1px solid #e9e9e9}
+.bottom-campaign-link{position: relative;z-index: 105;height: auto;min-height: 48px;position: fixed;bottom:0px;width: 100%;background-color: #fff;box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4);-moz-box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4);-webkit-box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4);
+}
+.fundwrap-content{clear:both;height:auto;min-height:300px;}
+.pinList.center {margin: 0px auto; width:inherit;}
+.pin {position:absolute;width: 100%; margin:10px 0px 0px; padding: 10px; font-size: 11px; background-color: #fff; overflow: hidden;border-radius:6px;max-width:236px !important}
+.pin .PriceContainer {position: absolute; z-index: 2; top: 0; left: 0; width: 100px; height: 100px; overflow: hidden;}
+.pin .price {position: absolute; z-index: 2; top: 19px; left: -28px; width: 125px; height: 22px; padding-top: 8px; text-align: center; font-size: 11px; color: #524d4d; background-color: #f2f0f0; overflow: hidden; -webkit-transform: rotate(-45deg); -moz-transform:  rotate(-45deg); -o-transform: rotate(-45deg); -ms-transform: rotate(-45deg);}
+.pin .ImgLink {position: relative;}
+.pin .ImgLink span.video_pin {
+	position: absolute;
+	background:transparent url(/img/playIcon.png) 0% 0% no-repeat;
+	display: block;
+	width: 42px;
+	height: 42px;
+	left: 75px;
+	top:51px;
+	z-index: 1;
+}
+.pin .ImgLink img {width: 192px; border:1px solid red;}
+.pin .description {display: block;line-height: 1.35em;color: #333; font-size: 15px;overflow: hidden; text-align:left; font-weight:bold;}
+.pin{float:left;margin-top: 4px;margin-bottom:7px;}
+.d-content{display:block}
+.m-content{display:none}
+.mwidth{width:33.3%}
+.d-dropmenu{display:block}
+.m-dropmenu{display:none}
+.borderright2{border-right:1px solid #e9e9e9}
+@media (max-width:770px){
+	.d-dropmenu{display:none}
+	.borderright3{border-right:0px}
+	.m-dropmenu{display:inline !important;text-align:center;}
+	.mwidth{width:50%}
+	#nav2 {margin: 0 !important;}
+	#m-nav {width: 100%;float: left;margin: 0 0 1em 0;padding: 5px 0 !important;background-color:#fff;border-top:1px #ccc solid;box-shadow: 0 1px 0px rgba(0, 0, 0, 0.22);}
+}
+@media (max-width:600px){
+	.d-content{display:none}
+	.m-content{display:block}
+	.pin{background-color: #fff;border: 1px solid #bfbfbf;border-radius: 5px;margin: 5px auto 0;padding: 10px;width: 95%;float:none;max-width:600px !important;position:relative}
+	#m_productImages .pin,#m_reviews .pin{background-color: #fff;border: 1px solid #bfbfbf;border-radius: 5px;margin: 5px auto 0;padding: 10px;width: 90%;float:none;max-width:700px;position:relative;text-align:center;}
+	.pin .PinImg{margin-bottom:6px;/*background-color:#D9D9D9;*/position:relative}
+	.pin div.PinImg img{display:block;height:auto;margin:0 auto;max-width:auto}
+	.pinImage{width:100%;max-width: 200px;border-radius:3px;}
+	.pin .description {display: block;line-height: 1.35em;color: #333; font-size: 15px;overflow: hidden; text-align:left; font-weight:bold;}
+	.fblink{margin-bottom:0.8em}
+}
+.masonryImage{background-color:#fff;width:100%;border-radius:6px;max-width:20%;min-width:222px;padding:10px;margin-top:10px;}
+.pinImage{width:100%;max-width: 200px;border-radius:3px;}
+.masonryImage .title {color: #333;font-size: 15px;line-height: 15px;padding: 2px 0;font-weight: bold;padding:7px 0;}
+.masonryImage .rating {padding:0;font-size: 12px;overflow: hidden;position: relative;text-align: left;width: 99%;}
+.masonryImage p {padding:0;margin:0;}
+.fblink a{text-decoration:none !important;font-size:15px !important}
+.fblink a:hover{text-decoration:underline !important;color:blue;}
+/* end robert code */
 @media (max-width:1200px) {
 .banner-main .col-sm-9 { max-width:inherit; min-width:inherit; }
 .banner-main .col-sm-3 { max-width:inherit; min-width:inherit; }
@@ -371,6 +439,7 @@ p { font-size:13px !important; }
 @media (max-width:552px){
    .pricing .secondcols{border-left: none;border-right: none}
    .pricing .thirdcols{border-right: none;}
+   .pin .PinImg{margin-bottom:6px;/*background-color:#D9D9D9;*/position:relative}
 } 
 @media (max-width:767px) {
 .qrcode-content{padding-bottom:30px;}
@@ -618,4 +687,3 @@ footer{text-align:center;}
    background: #ffffff;
    z-index: 500;
 }
-

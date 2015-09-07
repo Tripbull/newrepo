@@ -3,7 +3,7 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
-$type = $_REQUEST['s'];
+$type = (isset($_REQUEST['s']) ? isset($_REQUEST['s']) : '');
 $istest = true;
 if($istest){
    $curDomain = 'http://camrally.com/';
@@ -91,7 +91,7 @@ $connect->db_disconnect();
 						<input type="hidden" value="" name="selfieId" id="selfieId" />
 					</form>
 					<div class="hide">
-						<div id="data">
+						<div id="modal-cam">
 							<div class="cam-frame">
 								<div id="screen"></div>
 								<canvas id="canvas" style="position:absolute;z-index:-1;" width="640" height="480"></canvas>
