@@ -145,13 +145,16 @@ function verify_credentials($tmhOAuth, $get_token, $get_secret)
   )));
 
   $code = $tmhOAuth->user_request(array(
-    'url' => $tmhOAuth->url('1.1/account/verify_credentials')
+    'url' => $tmhOAuth->url('1.1/account/verify_credentials'),
+    'params' => array(
+      'include_email' => 'true'
+    )
   ));
 
   if ($code == 200) {
     $data = json_decode($tmhOAuth->response['response'], true);
     $_SESSION['twitresult'] = 'allowed';
-    $_SESSION['twitemail'] = '';
+    $_SESSION['twitemail'] = $data['email'];
     $_SESSION['twitname'] = $data['name'];
     $_SESSION['twitscreenname'] = $data['screen_name'];
     tweet_photo($tmhOAuth);

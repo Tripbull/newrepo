@@ -609,10 +609,49 @@ switch($opt){
 		}//else
 			//echo 0;			
 	break;
-	
 	case 'delImg':
 		$placeId = $_REQUEST['placeId'];$id = $_REQUEST['id'];$sql='';
 		$sql = "UPDATE businessImages SET path= '',title='',description='' WHERE placeId = $placeId AND id = $id";
+		mysql_query($sql) or die(mysql_error());
+		if(mysql_affected_rows()){
+			echo mysql_affected_rows();		
+		}else
+			echo 0;
+	break;	
+	case 'saveVid':
+		$placeId = $_REQUEST['placeId'];
+		$sql='';
+		$name = $_REQUEST['typevid'];
+		$imgurl = $_REQUEST['imgurlvid'];
+		$imgtitle = $_REQUEST['imgtitlevid'];
+		$savetype = $_REQUEST['savetype'];
+		$query = array();
+		$parts = parse_url($imgurl);
+		parse_str($parts['query'], $query);
+		
+		$result = mysql_query("SELECT id,name FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			if($savetype == 'url')
+			{
+				$sql = "UPDATE businessVideos SET video_id= '" . $query['v'] . "',title='$imgtitle',url='$imgurl' WHERE id = $row->id";
+			}
+			else
+			{
+				$sql = "UPDATE businessVideos SET title='$imgtitle' WHERE id = $row->id";
+			}
+		}else{
+			$sql = "INSERT INTO businessVideos (placeId,video_id,title,url,name) VALUES($placeId,'" . $query['v'] . "','$imgtitle','$imgurl','$name')";
+		}
+		mysql_query($sql) or die(mysql_error());
+		if(mysql_affected_rows()){
+			echo $query['v'];		
+		}else
+			echo 0;
+	break;	
+	case 'delVid':
+		$placeId = $_REQUEST['placeId'];$id = $_REQUEST['id'];$sql='';
+		$sql = "UPDATE businessVideos SET video_id= '',title='',url='' WHERE placeId = $placeId AND id = $id";
 		mysql_query($sql) or die(mysql_error());
 		if(mysql_affected_rows()){
 			echo mysql_affected_rows();		
@@ -723,7 +762,7 @@ function feedbacktable($id){
 	$sql = "CREATE TABLE IF NOT EXISTS `businessplace_$id` (
 		`id` int(10) NOT NULL AUTO_INCREMENT,
 		  `userName` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-		  `userId` varchar(50) NOT NULL,
+		  `userId` varchar(100) NOT NULL,
 		  `source` varchar(5) NOT NULL,
 		  `feedsource` varchar(2) NOT NULL,
 		  `photo_url` varchar(200) NOT NULL,

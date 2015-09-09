@@ -10,6 +10,7 @@ $(document).ready(function() {
 	$('.sharedpage').fancybox({width:'90%'});
 	$('.fancybox').fancybox({});
 	$(".showproductsimg").fancybox({helpers : {title : {type : 'inside'}}});
+
 	$("#li-showhide").click(function(e)
 	{
 		e.preventDefault();

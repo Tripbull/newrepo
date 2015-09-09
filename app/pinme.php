@@ -12,6 +12,7 @@ $result1 = mysql_query($sql) or die(mysql_error());
 $row = mysql_fetch_object($result1);
 $placeId = $row->profilePlaceId;
 $photoDomain = '';//'http://camrally.com/';
+$image_alt = $row->businessName . ' @ Camrally';
 
 if($connect->liteID == $row->productId)
 	$businessTitle = $row->businessName . ' @ Camrally';
@@ -313,6 +314,22 @@ echo '<title>'. $businessTitle . '</title>';
 			<?php
 		}	
 			?>
+			<?php
+		$array_product1 = array();$j=0;
+		$resultproduct1 = mysql_query("SELECT id,placeId,video_id,title,url,name FROM businessVideos AS ps WHERE placeId =$placeId AND video_id <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
+		while($row4 = mysql_fetch_object($resultproduct1)){
+			$src1 = $path . 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
+			$url1 = 'http://www.youtube.com/embed/' . $row4->video_id . '?autoplay=1';	
+			?>		
+			<div class="sysPinItemContainer pin">
+				<p class="description sysPinDescr"><?php echo $row4->title ?></p>
+
+				<div style="text-align:center;"><a class="fancybox fancybox.iframe" href="<?php echo $url1; ?>" title=""><img class="pinImage" src="<?php echo $src1; ?>" alt="<?php echo $row4->title ?>" /></a></div>
+				<p class="RateCount" style="padding-top:5px;"><?php echo $row4->url; ?></p>
+			</div>
+			<?php
+		}	
+			?>
 		</div>
 	</div>
    <!-- end product code -->
@@ -406,6 +423,23 @@ echo '<title>'. $businessTitle . '</title>';
 					<?php
 					}
 					?>
+
+				<?php
+					if(mysql_num_rows($resultproduct1))
+						mysql_data_seek($resultproduct1, 0);
+					while($row4 = mysql_fetch_object($resultproduct1)){
+						$src1 = $path . 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
+						$url1 = 'http://www.youtube.com/embed/' . $row4->video_id . '?autoplay=1';	
+						?>		
+						<div class="sysPinItemContainer pin">
+							<p class="description sysPinDescr"><?php echo $row4->title ?></p>
+
+							<div style="text-align:center;"><a class="fancybox fancybox.iframe" href="<?php echo $url1; ?>" title=""><img class="pinImage" src="<?php echo $src1; ?>" alt="<?php echo $row4->title ?>" /></a></div>
+							<p class="RateCount" style="padding-top:5px;"><?php echo $row4->url; ?></p>
+						</div>
+						<?php
+					}	
+						?>
 				</div>
 				</div>
             	<div id="m_reviews" class="<?=$hideavocate?>" style="margin-top:5px;">
