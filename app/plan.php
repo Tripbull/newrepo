@@ -34,43 +34,52 @@
 								<div class="clear" style="padding-top:0.5em"></div> 
 								<p class="font-17 fl" id="lblPlan">Current plan:</p>
 								<div class="ifcancel">
-									<div class="clear" style="padding-top:0.5em"></div>
 									<p class="font-17 fl" id="lblTotal">Total (plan + subscribed campaign) =</p>
 									<div class="clear" style="padding-top:0.5em"></div>
 									<p class="font-17 fl" id="lblExpired">expiration date:</p>
+									<div class="hide">
 									<div class="clear" style="padding-top:1em"></div>
+									
 									<select name="changeAplan" id="changeAplan">
 										<option value="" selected="selected">Change a plan</option>
 									</select>
+									</div>
 									<div class="btn-submit hide">
 										<button class="ui-btn" id="submit-planchange">Change</button>
 									</div>
 									<div class="clear" style="padding-top:0.5em"></div>
-									<div class="btn-submit btncancelplan">
+									<div class="btn-submit btncancelplan hide">
 										<button class="ui-btn" id="submit-plancancel">Cancel My Plan</button>
 									</div> 
 								</div>
+								<div class="hide">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<div class="btn-submit btnreactivate">
 									<button class="ui-btn" id="submit-reactivate">Reactivate My Plan</button>
-								</div>									
+								</div>
+								</div>		
+																
 								<p class="font-17 fl" id="lblTotalSubs">Total # of campaign</p>
+								<div class="hide">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<p class="font-17 fl" id="label7">Free: 1</p>
+								</div>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<p class="font-17 fl" id="label8">Subscribed:</p>
+								<div class="hide">
 								<div class="ifcancel">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<p class="font-17 fl" id="lblperLoc">Cost per subscribed campaign: </p>
 								<div class="clear" style="padding-top:0.5em"></div>
 								<p class="font-17 fl" id="lblcostLoc">Total cost of all subscribed campaign:</p>
 								<div class="clear" style="padding-top:1em"></div>
-								<div class="btn-submit addlocation">
+								<div class="btn-submit addlocation hide">
 									<button class="ui-btn" id="submit-planadd">Add Campaign(s)</button>
 								</div>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<div class="btn-submit">
+								<div class="btn-submit hide">
 									<button class="ui-btn" id="submit-planremove">Remove Campaign(s)</button>
+								</div>
 								</div>
 								</div>
 							</section>

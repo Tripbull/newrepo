@@ -353,7 +353,7 @@ echo '<title>'. $businessTitle . '</title>';
 					if($row->contactNo)	
 						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 					?>
-					<li><a href="/">camrally.com</a></li>
+					<li><a href="/">Camrally.com</a></li>
 							  
 				</ul>
 			  </div>
@@ -486,7 +486,7 @@ echo '<title>'. $businessTitle . '</title>';
 		if($row->contactNo)	
 			echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 		?>
-		<li><a href="/">camrally.com</a></li>
+		<li><a href="/">Camrally.com</a></li>
 	</ul>
 </div>   
 <?php

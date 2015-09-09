@@ -575,11 +575,10 @@ function showCamera(IDparam){
 	$('.snapshot .takesnap').click(function(){
 		var snd = new Audio("shutter.mp3"); // buffers automatically when created
 		snd.play();
-
     	Webcam.freeze();
 		//if(!shootEnabled) return false;
 		$('.snapshot').hide(); // button for snapshot
-		$('.usesnap').show(); // button for use		
+		$('.usesnap').show(); // button for use
 		return false;
 	});
 	$('.snapshot .cancelsnap').click(function(e){

@@ -420,12 +420,46 @@ $(document).ready(function(){
 				defaulAlertBox('alert','invalid request','Please contact your administrator(s) for this request.',1);
 		});	
 			$("#del-place").click(function () {  // delete place
-		if(userArray.permission < 2 )
-			defaulAlertBox('confirm','please confirm','Delete this campaign?',1);
-		else
+		if(userArray.permission < 2 ){
+			//loginpwd();
+			//defaulAlertBox('confirm','please confirm','Delete this campaign?',1);
+			$.box_Dialog('Delete this campaign?', {'type':'confirm','title': '<span class="color-gold">please confirm</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+				{caption: 'yes', callback: function() {
+				loginpwd();
+			}}]
+			});	
+		}else
 			defaulAlertBox('alert','invalid request','Please contact your administrator(s) for this request.',1);
 	});	
-	
+	function loginpwd(){
+			var placeId = locId.split('|');
+			setTimeout(function(){
+				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpw" id="resetpw" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+				{caption: 'okay', callback: function() {
+					//clearTimeout(resizeTimeout);
+					//resizeTimeout = setTimeout(function(){ 
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val(),success:function(ispwdcorrect){
+						if(ispwdcorrect > 0){
+							setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
+						}else{
+							setTimeout(function(){ 
+							$.box_Dialog('Your password is incorrect', {
+								'type': 'information',
+								'title': '<span class="color-white">incorrect</span>',
+								'center_buttons': true,
+								'show_close_button':false,
+								'overlay_close':false,
+								'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
+							});
+							},500);
+						}
+					}});
+					//},500);
+				}}]
+			});	
+				setTimeout(function(){$('#resetpw').focus()},300);
+			},300);
+		}
 	$(".addnew-loc li a").click(function () {  // listview when tried to add new location
 		$('.addnew-loc').hide();
 		$('.text-loc').show();
@@ -526,6 +560,7 @@ $(document).ready(function(){
 		//}else if(row == 3){
 			//$('.right-menu-send').show();
 		}else if(row == 2){
+			diabledTab('.plan-page',[1,2]);
 			$('.right-menu-plan').show();
 		}else if(row > 2){
 			if(userArray.productId != proID )
@@ -614,7 +649,7 @@ $(document).ready(function(){
 			curClick=0;
 			setTimeout(function(){$( ":mobile-pagecontainer" ).pagecontainer( "change", "plan.html",{ });},300);
 		}
-		diabledTab('.left-menu',[2]);
+		//diabledTab('.left-menu',[2]);
 	}
 	function defaultMenu(){
 		var height = ($( window ).height() / 16) - 5;
@@ -750,6 +785,7 @@ $(document).ready(function(){
 		$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+id+'&opt=selfieonly',success:function(lastId){
 		}});	
 	}
+	
 	function setData(s){
 	 switch(s.opt){
 		case 'setLoc':
@@ -776,11 +812,22 @@ $(document).ready(function(){
 		case 'delLoc':
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'key='+s.placeId+'&opt='+s.opt,success:function(lastId){
-				hadError(lastId);
-				if(activeLocLength > 0)
-					activeLocLength--;
-				customArray=[];
-			}});	
+				setTimeout(function(){
+				$.box_Dialog('Data for this campaign deleted', {
+					'type': 'information',
+					'title': '<span class="color-white">successful</span>',
+					'center_buttons': true,
+					'show_close_button':false,
+					'overlay_close':false,
+					'buttons': [{caption:'okay',callback:function(){
+						hadError(lastId);
+						if(activeLocLength > 0)
+							activeLocLength--;
+						customArray=[];
+					}}]
+				});
+				},500);
+			}});
 		break;
 		case 'onLoc':
 			showLoader();
@@ -1145,7 +1192,7 @@ $(document).ready(function(){
 		});
 		function loginreset(){
 			setTimeout(function(){
-				$.box_Dialog('<input type="password" name="resetpwd" id="resetpwd" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">confirm password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
+				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpwd" id="resetpwd" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 				{caption: 'okay', callback: function() {
 					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val(),success:function(ispwdcorrect){
 						if(ispwdcorrect > 0){
@@ -1170,7 +1217,7 @@ $(document).ready(function(){
 								'center_buttons': true,
 								'show_close_button':false,
 								'overlay_close':false,
-								'buttons': [{caption:'okay',callback:function(){loginreset()}}]
+								'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginreset()},300);}}]
 							});
 							},500);
 						}
@@ -2964,15 +3011,25 @@ $(document).on('pageshow','#plan', function () {
 		alertBox('invalid request','Please contact your administrator(s) for this request.');
 	}else
 		initiazePlan();
+	/* hide dropdown*/
+	$('#changeAplan').hide();
+  	diabledTab('.plan-left-menu',[1,2]);
    function initiazePlan(){
 		var plan='',txtPlan='';$('#lblExpired').show();$('.ifcancel').show(),$('.addlocation').hide();$('.btncancelplan').hide();$('#lblcostLoc').hide();$('#lblTotal').hide();$('#lblperLoc').show();$('.btnreactivate').hide();$('#submit-planremove').hide();
+		if(userArray.productId == liteID)
+			txtPlan= 'Lite';
+		else if(userArray.productId == basicID)
+			txtPlan= 'Basic';
+		else if(userArray.productId == proID)
+			txtPlan= 'Pro';
 		var state = userArray.state,currentPlan='';
 		state= state.substr(0, 1).toUpperCase() + state.substr(1);
 		$('#lblStatus').html('Status: '+state);
 		$('#lblPlan').html('Current plan: '+txtPlan);
 		if($.inArray(userArray.state,state_Array) == -1){
 			if(userArray.productId == liteID){
-				$('#lblExpired').hide();
+				$('#label7').hide();
+				//$('#lblExpired').hide();
 				$('.addlocation').hide();
 				$('#lblperLoc').hide();
 			}
@@ -2981,7 +3038,7 @@ $(document).on('pageshow','#plan', function () {
 			if(userArray.addLoc > 0){
 				$('#lblcostLoc').show();
 				$('#lblcostLoc').html('Total cost of all subscribed campaigns: $'+seCommas(parseFloat(costperloc) * parseFloat(userArray.addLoc)));
-			}	
+			}
 			$('#lblExpired').html('Expiration date (plan & campaigns): '+userArray.expiration);
 			currPlaceAvail = parseInt(userArray.addLoc) + 1;
 			$('#lblTotalSubs').html('Total # of campaigns: '+ currPlaceAvail);
@@ -2993,7 +3050,6 @@ $(document).on('pageshow','#plan', function () {
 				if(currPlaceAvail > 1)
 					$('#submit-planremove').show();
 			}
-			
 		}else{
 			$('.btnreactivate').show();
 			$('.ifcancel').hide();
@@ -3437,7 +3493,7 @@ $(document).on('pageshow','#plan', function () {
 		}
 		$('.panel-sub-plan').hide();$('.panel-sub-location').hide();$('.panel-activity').hide();
 		if(row == 0){
-			getProductId();
+			//getProductId();
 			if(userArray.permission > 1)
 				$('.panel-sub-plan').hide();
 			else
