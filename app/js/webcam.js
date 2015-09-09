@@ -88,9 +88,10 @@ var Webcam = {
 			// setup webcam video container
 			var video = document.createElement('video');
 			video.setAttribute('autoplay', 'autoplay');
-			video.style.width = '' + this.params.dest_width + 'px';
-			video.style.height = '' + this.params.dest_height + 'px';
-			
+			video.style.width = this.params.dest_width + 'px';
+			video.style.height = this.params.dest_height + 'px';
+			//video.style.width = '675px'; //+ this.params.width + 'px';
+			//elem.style.height = '90%'; //+ this.params.height + 'px';
 			if ((scaleX != 1.0) || (scaleY != 1.0)) {
 				elem.style.overflow = 'hidden';
 				video.style.webkitTransformOrigin = '0px 0px';
@@ -156,8 +157,10 @@ var Webcam = {
 		}
 		else {
 			// no crop, set size to desired
-			elem.style.width = '' + this.params.width + 'px';
-			elem.style.height = '' + this.params.height + 'px';
+			//elem.style.width = '90%'; //+ this.params.width + 'px';
+			elem.style.height = '90%'; //+ this.params.height + 'px';
+			//elem.style.maxWidth = '640px';
+			elem.style.maxHeight = '480px';
 		}
 	},
 	

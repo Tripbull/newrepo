@@ -482,16 +482,20 @@ switch($opt){
 		$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
 		$last_Id = mysql_insert_id();
 		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = 0,isshared=1 WHERE id = {$sharedId[1]}") or die(mysql_error());
+		$query = mysql_query('INSERT INTO advocates_all SET campaignId = '.$id.', sharedId = '.$sharedId[1].', date="'.$date.'"') or die(mysql_error());
+		
 	break;
 	case 'ratesave':
 		 $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url =$_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d H:i:s');$email = $_REQUEST['email'];$source = $_REQUEST['source'];$param = $_REQUEST['param'];$data = $_REQUEST['data'];$sharedId = explode("_",$_REQUEST['sharedId']);
 		$table = 'sharedlink_'.$id;	
-			
+		 $cussource= ($source == 'fb' ? 1 : 2);
+ 		
 		$query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
 		$last_Id = mysql_insert_id();
-		$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source=1,userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
+		$query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source='.$cussource.',userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
 		$lastId = mysql_insert_id();
 		mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = '".$userId."',isshared=1 WHERE id = {$sharedId[1]}");
+		$query = mysql_query('INSERT INTO advocates_all SET campaignId = '.$id.', sharedId = '.$sharedId[1].', date="'.$date.'"') or die(mysql_error());
 		echo $last_Id.'_'.$lastId; 
 	break;
 	case 'photoshare':

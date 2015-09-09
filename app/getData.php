@@ -968,9 +968,13 @@ switch($opt){
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) > 0){
 			$row = mysql_fetch_object($result);
-			$cookie = new cookie();
-			$cookie->setCookie( $row->id );
-			echo 1;
+			if($row->suspend)
+				echo 2;
+			else{
+				$cookie = new cookie();
+				$cookie->setCookie( $row->id );
+				echo 1;
+			}
 		}else	
 			echo 0;
 	break;

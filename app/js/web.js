@@ -16,12 +16,14 @@ $(document).ready(function() {
 		e.preventDefault();
 		if($(this).hasClass( "li-advocate" )){
 			$('.textadvo').html('Gallery');
+			$('#campin-showimage').removeClass( "hide" );
 			$(this).removeClass( "li-advocate" );
 			$(this).addClass( "li-showcase" );
 			$('.showcaseimg').hide();
 			$('.advocateimg').show();
 		}else if($(this).hasClass( "li-showcase" )){
 			$('.textadvo').html('Posts');
+			$('#campin-showimage').removeClass( "hide" );
 			$(this).removeClass( "li-showcase" );
 			$(this).addClass( "li-advocate" );
 			$('.advocateimg').hide();
@@ -165,6 +167,7 @@ $(document).ready(function() {
 	$('#top-reviews').click(function(e){
 		e.preventDefault();
 		$('#m_productImages').hide();
+		$('#m_reviews').removeClass('hide');
 		$('#m_reviews').show();
 		$('#topmenu ul li#showcase').removeClass('activeMenu');
 		$('#topmenu ul li#top-reviews').addClass('activeMenu');
@@ -173,6 +176,7 @@ $(document).ready(function() {
 	$('#showcase').click(function(e){
 		e.preventDefault();
 		$('#m_reviews').hide();
+		$('#m_productImages').removeClass('hide');
 		$('#m_productImages').show();
 		$('#topmenu ul li#top-reviews').removeClass('activeMenu');
 		$('#topmenu ul li#showcase').addClass('activeMenu');

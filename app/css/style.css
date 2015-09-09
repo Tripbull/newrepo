@@ -428,17 +428,25 @@ h3.subtitle-2{color:#00aeed;font-size:29px;padding:10px 0 20px;}
 .mfp-bg{opacity: 0.5;background: none repeat scroll 0 0 #666;}
 .mfp-inline-holder .mfp-content, .mfp-ajax-holder .mfp-content{padding-top:30px;width:100%;}
 #camera-modal{background-color: #000;position:fixed;top:0;left:0;bottom:0;width:100%;z-index: 5000;filter:alpha(opacity=90);-moz-opacity:0.9;-khtml-opacity: 0.6;opacity: 0.9;z-index: 900;}
-.cam-frame{width:auto;height:auto;min-width:100px;margin:10px auto 0;text-align:center;}
+.cam-frame{width:100%;height:100%;min-width:400px;margin:auto 0;text-align:center;}
+.cam-frame #screen{margin:0 auto;text-align:center !important;overflow:hidden}
 .cam-frame .cam-title {-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;}
 p.ratetxt{margin: 0 auto;width:70%;}
+#modal-cam{height:90%;min-height:10px !important;width:640px !important}
+@media (max-height: 600px){#modal-cam{height:97% !important;}}
+@media (max-height: 500px){#modal-cam{height:93% !important;}}
+@media (max-height: 374px){#modal-cam{height:90% !important;}}
+@media (max-height: 350px){#modal-cam{height:85% !important;}}
+@media (max-height: 320px){#modal-cam{height:74% !important;}}
+@media (max-height: 220px){#modal-cam{height:60% !important;}}
 .cam-frame .cam-title{font-size: 15px;font-weight:normal;
-  color: #F6F5F5;
+	color: #F6F5F5;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
     background: #00AEEF;
     padding: 13px 15px 15px 11px;
     line-height: 1;
     vertical-align: middle;
-  border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
 }
 .cam-frame .snapshotbutton a {
     white-space: nowrap;
@@ -446,23 +454,26 @@ p.ratetxt{margin: 0 auto;width:70%;}
     text-decoration: none;
     display: inline-block;
     min-width: 60px;
-  margin-top:10px;
-  border:1px solid #ccc;
-  color: #fff;
+	margin-top:10px;
+	border:1px solid #ccc;
+	color: #fff;
     padding: 10px 15px 10px 15px;
 }
 .cam-frame .snapshotbutton .snapshot a {
-  background-color:#00AEEF;
+  background-color:#00AEEF;overflow:hidden
 }
 .cam-frame .snapshotbutton .usesnap a {
   background-color:#7fBA00;
+  overflow:hidden
 }
 .snapshotbutton .btnseparator{
   width:50px;display: inline-block;
+  overflow:hidden
 }
 .cam-frame .snapshotbutton{
   background: transparent !important;
-    padding: 10px;
+    padding-top: 10px;
+	height:auto;overflow:hidden
 }
 .fluidMedia {
     position: relative;
@@ -478,6 +489,7 @@ p.ratetxt{margin: 0 auto;width:70%;}
     width: 100%;
     height: 100%;
 }
+
 /* for iphone 325px */
 @media (max-width: 20.3em){
   .main-wrap .left-content{max-width:100%;height:100%;background:#E6E7E8;}

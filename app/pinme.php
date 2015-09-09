@@ -58,19 +58,21 @@ echo '<title>'. $businessTitle . '</title>';
 <meta name="description" content="See the latest <?php echo $row->businessName?> Camrally advocates.">
 <meta name="keywords" content="<?php echo $row->businessName?> Camrally advocates, <?php echo $row->businessName?>">
 <meta name="title" content="<?php echo $row->businessName?> - Camrally">
+<link href="<?=$path?>css/bootstrap.css" rel="stylesheet" media="all">
 <link href="<?=$path?>css/face/main.css" media="screen" rel="stylesheet" type="text/css" />
 <!--[if IE 7]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if IE 8]> <link href="<?=$path?>css/face/ie.css" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="<?=$path?>images/Logo/ico/Icon_2.ico" type="image/x-icon">
 <script type="text/javascript" src="<?=$path?>js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="<?=$path?>js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 <script type="text/javascript" src="<?=$path?>js/jquery.masonry.min.js"></script>
 <script type="text/javascript" src="<?=$path?>js/jquery.ae.image.resize.min.js"></script>
 <script type="text/javascript" src="<?=$path?>js/app.js"></script>
 <script type="text/javascript" src="<?=$path?>js/web.js"></script>
+<script type="text/javascript" src="<?=$path?>js/bootstrap.min.js"></script> 
 <script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
 <script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
-<link rel="Shortcut Icon" href="<?=$path?>images/Logo/ico/Icon_2.ico" type="image/x-icon">
 </head>
 <body>
 <div id="overlay" class="hide"></div>
@@ -93,9 +95,13 @@ echo '<title>'. $businessTitle . '</title>';
 		<?php
 		$hadTable = $connect->tableIsExist('businessCustomer_'.$placeId);
 		if($hadTable){
-			$resultFollow = mysql_query("SELECT COUNT(follow) as followTotal FROM businessCustomer_$placeId WHERE follow=1") or die(mysql_error());
+			//$resultFollow = mysql_query();
+			//echo mysql_num_rows($resultFollow);
+			//die();
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 GROUP BY email") or die(mysql_error());
+			$follow = 0;
 			if(mysql_num_rows($resultFollow))
-				$follow = mysql_fetch_object($resultFollow);
+				$follow = mysql_num_rows($resultFollow);	
 			$resultimg = mysql_query("SELECT count(id) as imgtotal FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' LIMIT 8") or die(mysql_error());
 			$totalimg = mysql_fetch_object($resultimg);
 		}
@@ -107,7 +113,7 @@ echo '<title>'. $businessTitle . '</title>';
 			<?php
 			if($hadTable){
 				//echo '<div class="follow">'.$follow->followTotal .' followers</div>';
-				$resultAve = mysql_query("SELECT count(id) as totalAvg FROM businessplace_$placeId WHERE 1 ORDER BY id DESC");
+				$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId`");
 				if(mysql_num_rows($resultAve)){
 					$rowAvg = mysql_fetch_object($resultAve);
 					if($row->booknow){
@@ -115,14 +121,14 @@ echo '<title>'. $businessTitle . '</title>';
 					}else{
 						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 					}
-				}	
+				}
 			}
 			?>
 			</div>
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</i></span></div>
+			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 			
@@ -222,7 +228,7 @@ echo '<title>'. $businessTitle . '</title>';
 			<?php
 				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
-				if($rowAvg->totalAvg > $totalimg->imgtotal){ //shows the advocates
+				if($rowAvg->advocates > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
 					$class = 'li-showcase';
 					$textadvo = 'Gallery';
@@ -339,18 +345,47 @@ echo '<title>'. $businessTitle . '</title>';
 <!--CONTENT ENDS HERE-->
 </div>
 <div class="vmobile">
-	<div class="main_wrapper">
-        <a name="top"></a>    
-        <div class="header">
-            <div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_2-small.png" > </a></div>
-			<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>
+	<div class="main_wrapper"> 
+        <div class="m-header">
+            <div class="logo"><a href="/"><img src="images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
+			<header>
+			<nav class="navbar navbar-default" role="navigation"> 
+			  <!-- Brand and toggle get grouped for better mobile display -->
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> </div>
+			  <!-- Collect the nav links, forms, and other content for toggling -->
+			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav pull-right">
+				  <?php
+				  if($row->websiteURL)
+						echo '<li><a href="'.(strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL) .'"  target="_blank">Website</a></li>';
+					if($row->facebookURL)
+						echo '<li><a href="'. (strstr($row->facebookURL,'http') ? $row->facebookURL : 'http://'.$row->facebookURL) .'"  target="_blank">Facebook Page</a></li>';	
+					if($row->linkedinURL)
+						echo '<li><a href="'. (strstr($row->linkedinURL,'http') ? $row->linkedinURL : 'http://'.$row->linkedinURL) .'"  target="_blank">LinkedIn Page</a></li>';
+					if($row->twitterURL)
+						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
+					if($booksite)
+						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a></li>'; 		
+					if($row->contactNo)	
+						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
+					?>
+					<li><a href="/">Camrally.com</a></li>
+							  
+				</ul>
+			  </div>
+			  <!-- /.navbar-collapse --> 
+			</nav>
+		</header>
+			<!--<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>-->
 		</div>	 
+		
 		<div id="topmenu">
 			<ul>
 				<li class="borderright <?=$m_showcaseactive?>" id="showcase"><a href="#">Gallery</a></li>
 				<li class="<?=$m_advocateactive?>" id="top-reviews"><a href="#">Posts</a></li>
 			</ul>
-		</div>    
+		</div>  
 			<div class="MerchantWrapper">
 				 <div class="MerchantHead">
 					  <div style="padding:10px 0;width:176px:height:176px;">
@@ -364,7 +399,7 @@ echo '<title>'. $businessTitle . '</title>';
 						?>
 						 <div style="margin-top:5px;">
 						 
-						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=$rowAvg->totalAvg?> advocates, <?=$follow->followTotal?> followers</i></span>
+						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span>
 						 </div>
 						 <?php
 						}
@@ -485,13 +520,13 @@ echo '<title>'. $businessTitle . '</title>';
 		if($row->contactNo)	
 			echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 		?>
-		<li><a href="/">camrally.com</a></li>
+		<li><a href="/">Camrally.com</a></li>
 	</ul>
 </div>   
 <?php
 if(strlen($row->description) > $shortchar ){
 ?>
-	<div id="showmoredesc" style="display: none;width:1000px;color:#000">
+	<div id="showmoredesc" style="display: none;width:80%;max-width:1000px;color:#000">
 	<?php echo htmldecode2($row->description); ?>
 </div>
 <?php

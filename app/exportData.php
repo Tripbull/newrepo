@@ -13,12 +13,12 @@ $controller = new fucn();
 
 if(isset($_REQUEST['id'])){
 	$placeId = $_REQUEST['id'];
-	$sql = "SELECT name,email FROM businessCustomer_$placeId WHERE 1 ORDER BY id DESC";
+	$sql = "SELECT name,email FROM businessCustomer_$placeId WHERE follow = 1 AND email <> '' GROUP BY email ORDER BY id DESC";
 	$result = mysql_query($sql) or die(mysql_error());
 	
 	$ratingTextTemp = array('Name', 'Email');
 
-	$array_col = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");	
+	$array_col = array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 	$r=0;$c=1;
 	foreach( $ratingTextTemp as $val )  
 		$objPHPExcel->setActiveSheetIndex(0)->setCellValue($array_col[$r++] . $c, encodequote($val));
