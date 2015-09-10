@@ -25,9 +25,9 @@
 	<div style="text-align:center;">
 		<?php
 		if($rowrate->link != '')
-			echo '<a href="user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/></a>';
+			echo '<a href="user/'.$rowrate->link.'"><img class="pinImage" src="'.$fbsrc.'" alt="' . $image_alt . ' selfie photo"/></a>';
 		else
-			echo '<img class="pinImage" src="'.$fbsrc.'" alt="Selfie"/>';
+			echo '<img class="pinImage" src="'.$fbsrc.'" alt="' . $image_alt . ' selfie photo"/>';
 		?>
 	</div>
 		<div style="padding:5px;">

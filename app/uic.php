@@ -81,7 +81,7 @@ $noPhoto = 'images/template/no-photo.gif';
 									<p class="share">Share this page?</p>
 									<div class="clear" style="padding-top:1em;width:15em;">
 										<div class="fl w60">
-											<input type="text" name="txtshare1" id="txtshare1" value="Cancel" placeholder="Cancel">
+											<input type="text" name="txtshare1" id="txtshare1" value="Skip" placeholder="Skip">
 										</div>
 									</div>
 									<div class="clear" style="padding-top:0.5em"></div>

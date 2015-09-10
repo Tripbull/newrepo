@@ -295,6 +295,54 @@ if(isset($_FILES["fileweb"]))
 		}
     
 }
+if(isset($_FILES["filevid"]))
+{
+	
+    $placeId = $_REQUEST['placeidvid'];
+	$name = $_REQUEST['typevid'];
+	$imgurl = $_REQUEST['imgurlvid'];
+	$imgtitle = $_REQUEST['imgtitlevid'];
+    $UploadDirectory    = 'images/profile/'.$placeId;
+	if (!file_exists($UploadDirectory))
+		mkdir($UploadDirectory,0777);
+    
+    $File_Name          = strtolower($_FILES['filevid']['name']);
+    $File_Ext           = substr($File_Name, strrpos($File_Name, '.')); //get file extention
+    $Random_Number      = rand(); //Random number to be added to name.
+    $NewFileName        = $Random_Number.$File_Ext; //new file name
+     $path = $UploadDirectory.'/'.$NewFileName;
+		
+	if(move_uploaded_file($_FILES['filevid']['tmp_name'], $UploadDirectory.'/'.$NewFileName )){
+		$img = $UploadDirectory.'/'.$NewFileName;
+		echo $img;
+		$result = mysql_query("SELECT id,name FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			mysql_query("UPDATE businessVideos SET video_id= '$path',title='$imgtitle',url='$imgurl' WHERE id = $row->id") or die(mysql_error());
+		}else{
+			mysql_query("INSERT INTO businessVideos (placeId,video_id,title,url,name) VALUES($placeId,'$path','$imgtitle','$imgurlvid','$name')") or die(mysql_error());
+		}
+/*			if($row->webImg == '')
+			$sql = "UPDATE businessPhotos SET webImg= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg2 == '')
+			$sql = "UPDATE businessPhotos SET webImg2= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg3 == '')
+			$sql = "UPDATE businessPhotos SET webImg3= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg4 == '')
+			$sql = "UPDATE businessPhotos SET webImg4= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg5 == '')
+			$sql = "UPDATE businessPhotos SET webImg5= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg6 == '')
+			$sql = "UPDATE businessPhotos SET webImg6= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg7 == '')
+			$sql = "UPDATE businessPhotos SET webImg7= '$img' WHERE photoPlaceId = $placeId";
+		else if($row->webImg8 == '')
+			$sql = "UPDATE businessPhotos SET webImg8= '$img' WHERE photoPlaceId = $placeId";				
+		mysql_query($sql); */
+	}else{
+		die('error uploading File!');
+	}
+}
  class Photos{
  
    var $image;

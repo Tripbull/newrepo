@@ -348,6 +348,21 @@ switch($opt){
 		}else
 			echo 0;
 	break;
+	case 'getVideos':
+		$placeId = $_REQUEST['placeId'];
+		$result = mysql_query("SELECT id,placeId,video_id,title,url,name FROM businessVideos AS ps WHERE placeId = $placeId LIMIT 10") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$videosArray = array();
+			while($row = mysql_fetch_object($result)){
+				$videosArray[$row->name]['id'] = $row->id;
+				$videosArray[$row->name]['video_id'] = $row->video_id;
+				$videosArray[$row->name]['title'] = $row->title;
+				$videosArray[$row->name]['url'] = $row->url;
+			}
+			echo json_encode($videosArray);
+		}else
+			echo 0;
+	break;
 	case 'getshorturl':
 		$placeId = $_REQUEST['placeId'];$imagesArray = array();$issetselfie = false;$issetnoselfie = false;$iscreated = array();
 		$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId} AND source = '1'") or die(mysql_error());
@@ -398,6 +413,16 @@ switch($opt){
 			mysql_query("INSERT INTO businessImages (placeId,path,name) VALUES($placeId,'".$row->fbImg."','fbImg'),($placeId,'".$row->webImg."','webImg'),($placeId,'".$row->webImg2."','webImg2'),($placeId,'".$row->webImg3."','webImg3'),($placeId,'".$row->webImg4."','webImg4'),($placeId,'".$row->webImg5."','webImg5'),($placeId,'".$row->webImg6."','webImg6'),($placeId,'".$row->webImg7."','webImg7'),($placeId,'".$row->webImg8."','webImg8')") or die(mysql_error());
 			$imagesArray['fbImg'] = $row->fbImg;$imagesArray['webImg'] = $row->webImg;$imagesArray['webImg2'] = $row->webImg2;$imagesArray['webImg3'] = $row->webImg3;$imagesArray['webImg4'] = $row->webImg4;$imagesArray['webImg5'] = $row->webImg5;$imagesArray['webImg6'] = $row->webImg6;$imagesArray['webImg7'] = $row->webImg7;$imagesArray['webImg8'] = $row->webImg8; 
 		}	
+		$result = mysql_query("SELECT id,placeId,video_id,title,url,name FROM businessVideos AS ps WHERE placeId = $placeId LIMIT 10") or die(mysql_error());
+		$videosArray = array('vidImg'=>'','vidImg2'=>'','vidImg3'=>'','vidImg4'=>'','vidImg5'=>'','vidImg6'=>'','vidImg7'=>'','vidImg8'=>'');
+		if(mysql_num_rows($result)){
+			while($row = mysql_fetch_object($result)){
+				$videosArray[$row->name] = $row->video_id;
+			}
+		}else{
+			mysql_query("INSERT INTO businessVideos (placeId,name) VALUES($placeId,'vidImg'),($placeId,'vidImg2'),($placeId,'vidImg3'),($placeId,'vidImg4'),($placeId,'vidImg5'),($placeId,'vidImg6'),($placeId,'vidImg7'),($placeId,'vidImg8')") or die(mysql_error()); 
+			$videosArray['vidImg'] = '';$videosArray['vidImg2'] = '';$videosArray['vidImg3'] = '';$videosArray['vidImg4'] = '';$videosArray['vidImg5'] = '';$videosArray['vidImg6'] = '';$videosArray['vidImg7'] = '';$videosArray['vidImg8'] = ''; 
+		}	
 		$sql = "SELECT p.profilePlaceId, p.businessName as organization, p.nicename, p.address, p.longitude,p.latitude, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.email, p.booknowlabel, p.booknow, l.subscribe,l.businessName, g.email as gmail, d.description, cam.category,cam.brand,cam.tag1,cam.tag2,cam.btntext, c.messageBox,c.item2Rate,c.settingsItem,c.selectedItems,c.button,c.backgroundImg,c.reviewPost,c.logo,c.backgroundcolor,c.backgroundFont,c.ratingText,c.fbpost,c.email_alert,c.printvalue,c.optsocialpost,c.isselfie,c.taglineselfie,v.link,c.redirect FROM businessList AS l
 		LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 		LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -409,7 +434,18 @@ switch($opt){
 		LIMIT 1";
 		$result = mysql_query($sql) or die(mysql_error());
 		
-		echo json_encode(array_merge(mysql_fetch_array($result),$imagesArray)); 
+		echo json_encode(array_merge(mysql_fetch_array($result),$imagesArray,$videosArray)); 
+	break;
+	case 'getVideoId':
+		$placeId = $_REQUEST['placeId'];
+		$sql='';
+		$name = $_REQUEST['typevid'];
+		
+		$result = mysql_query("SELECT video_id FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			echo $row->video_id;
+		}
 	break;
 	case 'getReviewProduct': 
 		$placeId = $_REQUEST['placeId'];

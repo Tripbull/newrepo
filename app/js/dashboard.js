@@ -1,7 +1,7 @@
 var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0;
 var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'https://tabluu.chargify.com';
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
-var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],txtdescription='',txtimg='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
+var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],videosArray=[],txtdescription='',txtimg='',txtvideourl='',txtvideotitle='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
 var liteID = 3720054,basicID=3716169,proID=3716170;
 //live component chargify ids
@@ -1403,11 +1403,11 @@ $(document).ready(function(){
 				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
 			else
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
 				
 		}
 			$('.profile-left-menu1').html(newli);
@@ -1716,7 +1716,7 @@ $(document).ready(function(){
 		}else{
 			if(customArray.nicename != "") */
 				addli = '<li '+clas+'><a href="'+domainpath+newnice+'" target="_blank" class="link-visit-page" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+clas+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+				var newli = '<ul class="profile-left-menu2" id="setup-profile-menu" data-role="listview"><li '+clas+'><a href="profile.html"  data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="#"  data-prefetch="true" class="addlogo">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li '+clas+'><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		//}
 		
 			$('.profile-left-menu2').html(newli);
@@ -1781,7 +1781,7 @@ $(document).ready(function(){
 				$( '.main-wrap .right-content' ).show();
 				$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
 			}
-			$('.pro-section').hide();$('.desc-section').hide();$('.open-section').hide();$('.photo-section').hide();$('.map-section').hide();$('.pro-vanity').hide();
+			$('.pro-section').hide();$('.desc-section').hide();$('.open-section').hide();$('.photo-section').hide();$('.video-section').hide();$('.map-section').hide();$('.pro-vanity').hide();
 			if(row == 0){
 				$('.pro-section').show();
 			}else if(row == 1){
@@ -1852,6 +1852,48 @@ $(document).ready(function(){
 				}});
 				
 			}else if(row == 4){
+				
+				showLoader();
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getVideos&',async: false,success:function(result){
+					hideLoader();
+					if(result != 0){
+						videosArray =  $.parseJSON(result);
+
+						if(videosArray.vidImg.title != '' || videosArray.vidImg.url != ''){
+							$('.vidtitle1').html(videosArray.vidImg.title);$('.vidurl1').html(videosArray.vidImg.url);
+						}
+						if(videosArray.vidImg2.title != '' || videosArray.vidImg2.url != ''){
+							$('.vidtitle2').html(videosArray.vidImg2.title);$('.vidurl2').html(videosArray.vidImg2.url);
+						}
+						if(videosArray.vidImg3.title != '' || videosArray.vidImg3.url != ''){
+							$('.vidtitle3').html(videosArray.vidImg3.title);$('.vidurl3').html(videosArray.vidImg3.url);
+						}
+						if(videosArray.vidImg4.title != '' || videosArray.vidImg4.url != ''){
+							$('.vidtitle4').html(videosArray.vidImg4.title);$('.vidurl4').html(videosArray.vidImg4.url);
+						}
+						if(videosArray.vidImg5.title != '' || videosArray.vidImg5.url != ''){
+							$('.vidtitle5').html(videosArray.vidImg5.title);$('.vidurl5').html(videosArray.vidImg5.url);
+						}
+						if(videosArray.vidImg6.title != '' || videosArray.vidImg6.url != ''){	
+							$('.vidtitle6').html(videosArray.vidImg6.title);$('.vidurl6').html(videosArray.vidImg6.url);
+						}
+						if(videosArray.vidImg7.title != '' || videosArray.vidImg7.url != ''){
+							$('.vidtitle7').html(videosArray.vidImg7.title);$('.vidurl7').html(videosArray.vidImg7.url);
+						}
+						if(videosArray.vidImg8.title != '' || videosArray.vidImg8.url != ''){	
+							$('.vidtitle8').html(videosArray.vidImg8.title);$('.vidurl8').html(videosArray.vidImg8.url);
+						}
+						var $container = $('#containervid');
+						$container.imagesLoaded( function(){
+						  $container.masonry({
+							itemSelector : '.masonryImage'
+						  });
+						});
+					}
+					$('.video-section').show();
+				}});
+				
+			}else if(row == 5){
 				$('.map-section').show();
 				drawMap();
 			}
@@ -2102,6 +2144,14 @@ $(document).ready(function(){
 			itemSelector : '.masonryImage'
 		  });
 		});
+
+		var $container1 = $('#containervid');
+		$container1.imagesLoaded( function(){
+		  $container1.masonry({
+			itemSelector : '.masonryImage'
+		  });
+		});
+
 	   $('input[type="text"]').textinput({ preventFocusZoom: true });
 		$( "input" ).focus(function() {
 			isfocus = 1;
@@ -2129,8 +2179,9 @@ $(document).ready(function(){
 		}});
 		createProfileMenu2();
 		$('#placeidweb').val(places[0]);
+		$('#placeidvid').val(places[0]);
 		// setting up values
-		$('#webthumb1').attr('src', noPhoto);$('#webthumb2').attr('src', noPhoto);$('#webthumb3').attr('src', noPhoto);$('#webthumb4').attr('src', noPhoto);$('#webthumb5').attr('src', noPhoto);$('#webthumb6').attr('src', noPhoto);$('#webthumb7').attr('src', noPhoto);$('#webthumb8').attr('src', noPhoto);$('#txtorg').val('');$('#txtadd').val('');$('#txtcity').val('');$('#txtcountry').val('');$('#txtzip').val('');$('#txtpho').val('');$('#txtfb').val('');$('#txtweb').val('');$('#txtlink').val('');$('#txttwit').val('');$('#txtproemail').val('');$('#txtbooknow').val('');
+		$('#webthumb1').attr('src', noPhoto);$('#webthumb2').attr('src', noPhoto);$('#webthumb3').attr('src', noPhoto);$('#webthumb4').attr('src', noPhoto);$('#webthumb5').attr('src', noPhoto);$('#webthumb6').attr('src', noPhoto);$('#webthumb7').attr('src', noPhoto);$('#webthumb8').attr('src', noPhoto);$('#txtorg').val('');$('#txtadd').val('');$('#txtcity').val('');$('#txtcountry').val('');$('#txtzip').val('');$('#txtpho').val('');$('#txtfb').val('');$('#txtweb').val('');$('#txtlink').val('');$('#txttwit').val('');$('#txtproemail').val('');$('#txtbooknow').val('');$('#vidthumb1').attr('src', noPhoto);$('#vidthumb2').attr('src', noPhoto);$('#vidthumb3').attr('src', noPhoto);$('#vidthumb4').attr('src', noPhoto);$('#vidthumb5').attr('src', noPhoto);$('#vidthumb6').attr('src', noPhoto);$('#vidthumb7').attr('src', noPhoto);$('#vidthumb8').attr('src', noPhoto);
 		var str = $.trim(customArray.booknow);
 		if(str != '' && str.indexOf("campaign.html") == -1){
 			$('#txtbooknow').val(customArray.booknow);			
@@ -2154,6 +2205,25 @@ $(document).ready(function(){
 		}if(customArray.webImg8 != ''){
 			$('#webthumb8').attr('src', customArray.webImg8);
 		}
+
+		if(customArray.vidImg != ''){
+			$('#vidthumb1').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg + "/default.jpg");
+		}if(customArray.vidImg2 != ''){
+			$('#vidthumb2').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg2 + "/default.jpg");
+		}if(customArray.vidImg3 != ''){
+			$('#vidthumb3').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg3 + "/default.jpg");
+		}if(customArray.vidImg4 != ''){
+			$('#vidthumb4').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg4 + "/default.jpg");
+		}if(customArray.vidImg5 != ''){
+			$('#vidthumb5').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg5 + "/default.jpg");
+		}if(customArray.vidImg6 != ''){
+			$('#vidthumb6').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg6 + "/default.jpg");
+		}if(customArray.vidImg7 != ''){
+			$('#vidthumb7').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg7 + "/default.jpg");
+		}if(customArray.vidImg8 != ''){
+			$('#vidthumb8').attr('src', "http://i.ytimg.com/vi/" + customArray.vidImg8 + "/default.jpg");
+		}
+
 		if(customArray.organization != '')
 			$('#txtorg').val(customArray.organization);
 		if(customArray.address != ''){
@@ -2184,6 +2254,10 @@ $(document).ready(function(){
 			$('#txtproemail').val(customArray.gmail);
 		if(customArray.webImg8 != '' && customArray.webImg7 != '' && customArray.webImg6 != '' && customArray.webImg5 != '' && customArray.webImg4 != '' && customArray.webImg3 != '' && customArray.webImg2 != '' && customArray.webImg != '')
 			$('#frmweb').css({display:'none'});		
+
+		if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
+			$('#frmvid').css({display:'none'});		
+
 		var mapoff = $("select#flipmap"); //set selected flipswitch
 		mapoff[0].selectedIndex = customArray.showmap;
 		mapoff.flipswitch("refresh");
@@ -2319,6 +2393,144 @@ $(document).ready(function(){
 								customArray.webImg8 = '';$('#frmweb').css({display:'inline'});
 								$('.ishide8').hide();
 								$('#webthumb8').attr('src', noPhoto);
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});	
+			}			
+		});	
+
+
+		$("#vidthumb1").click(function (){
+			if(customArray.vidImg != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb1').attr('src', noPhoto);
+								$('.vidtitle1').html('');$('.vidurl1').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});
+			}	
+		});
+		$("#vidthumb2").click(function (){
+			if(customArray.vidImg2 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg2.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg2 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb2').attr('src', noPhoto);
+								$('.vidtitle2').html('');$('.vidurl2').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});	
+			}
+		});
+		$("#vidthumb3").click(function (){
+			if(customArray.vidImg3 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg3.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg3 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb3').attr('src', noPhoto);
+								$('.vidtitle3').html('');$('.vidurl3').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});
+			}
+		});	
+		$("#vidthumb4").click(function (){
+			if(customArray.vidImg4 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg4.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg4 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb4').attr('src', noPhoto);
+								$('.vidtitle4').html('');$('.vidurl4').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});
+			}		
+		});
+		$("#vidthumb5").click(function (){  
+			if(customArray.vidImg5 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg5.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg5 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb5').attr('src', noPhoto);
+								$('.vidtitle5').html('');$('.vidurl5').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});	
+			}	
+		});	
+		$("#vidthumb6").click(function (){
+			if(customArray.vidImg6 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg6.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg6 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb6').attr('src', noPhoto);
+								$('.vidtitle6').html('');$('.vidurl6').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});	
+			}
+		});
+		$("#vidthumb7").click(function (){ 
+			if(customArray.vidImg7 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg7.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg7 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb7').attr('src', noPhoto);
+								$('.vidtitle7').html('');$('.vidurl7').html('');
+							}else
+								alertBox('error detected','Please try again');
+						}});
+					}},{caption: 'no'}]
+				});
+			}		
+		});
+		$("#vidthumb8").click(function (){ 
+			if(customArray.webImg8 != ''){
+				$.box_Dialog('Delete this video?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+						showLoader();
+						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg8.id,success:function(lastId){
+							hideLoader();
+							if(lastId > 0){
+								customArray.vidImg8 = '';$('#frmvid').css({display:'inline'});
+								$('#vidthumb8').attr('src', noPhoto);
+								$('.vidtitle8').html('');$('.vidurl8').html('');
 							}else
 								alertBox('error detected','Please try again');
 						}});
@@ -2464,7 +2676,6 @@ $(document).ready(function(){
 			$('<div id="overlay"> </div>').appendTo(document.body);
 			$('#frmweb').ajaxSubmit({beforeSubmit:  beforeSubmitweb,success: showResponse2,resetForm: true });
 		});	
-		
 		
 		function setTitleDesc(){
 			txtdescription='';txtimg='';
@@ -2645,8 +2856,199 @@ $(document).ready(function(){
 			   return false;
 			}
 		}		
+
+		$('#uploadvid').click(function(e){e.preventDefault();setUrlVideo();}); // when upload button change web photos
 		
-		
+		$('#filevid').on('change',function(){ // save web photos
+			$('<div id="overlay"> </div>').appendTo(document.body);
+			$('#frmvid').ajaxSubmit({beforeSubmit: beforeSubmitvid,success: showResponsevid3,resetForm: true });
+		});	
+
+		function setUrlVideo(){
+			txtvideourl='';
+			$.box_Dialog('Enter a Youtube URL and <br> click save or click browse <br> to upload a video file. <br><br><input type="text" value="" name="txtvideourl" id="txtvideourl" placeholder="Youtube video url" style="width:100%;"/>', {
+					'type':     'question',
+					'title':    '<span class="color-gold">Youtube URL<span>',
+					'center_buttons': true,
+					'show_close_button':false,
+					'overlay_close':false,
+					'buttons':  [{caption: 'browse',callback:function(){
+						changephotovid2();
+						$('#filevid').click();
+					}},{caption: 'save',callback:function(){
+						txtvideourl=$('#txtvideourl').val();
+    					var n = txtvideourl.indexOf("youtube");
+						if(txtvideourl == '')
+						{
+							alertBox('Youtube URL error','Youtube URL is empty!');	
+						}
+						else if(n < 0)
+						{
+							alertBox('Youtube URL error','Please enter a valid Youtube URL!');
+						}
+						else
+						{
+							changephotovid2();
+							$('<div id="overlay"> </div>').appendTo(document.body);
+							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&imgurlvid='+$('#imgurlvid').val()+'&imgtitlevid=Camrally Video&savetype=url&opt=saveVid',async: false,success:function(imgurl){
+								hideLoader();
+								showResponsevid2("http://i.ytimg.com/vi/" + imgurl + "/default.jpg");
+							}});
+						}
+					}},{caption:'cancel'}]
+				});		
+		}
+
+		function showResponsevid3(responseText, statusText, xhr, $form)  
+		{
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&imgurlvid='+$('#imgurlvid').val()+'&imgtitlevid='+$('#imgtitlevid').val()+'&savetype=file&opt=saveVid',async: false,success:function(lastid){
+				var win = window.open(domainpath + "resumable_upload.html?placeId=" + places[0] + "&name=" + $('#typevid').val(), " ","width=410, height=405");   
+				var timer = setInterval(function() {   
+				    if(win.closed) {  
+				        clearInterval(timer);  
+				        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(imgurl){
+				        	showResponsevid2("http://i.ytimg.com/vi/" + imgurl + "/default.jpg"); 
+				        }}); 
+				    }  
+				}, 1000);  
+			}});
+		}
+
+		function showResponsevid2(responseText)  { 
+			
+			// if(profilewizardvidImg == 1){
+			// 	setTimeout(function() {profilewizardvidImg = 0;wizardsetup();},200);
+			// }	
+			if(customArray.vidImg == ''){
+				$('#vidthumb1').attr('src', responseText);
+				customArray.vidImg = responseText;
+				$('.vidtitle1').html(txtvideotitle);$('.vidurl1').html(txtvideourl);
+			}else if(customArray.vidImg2 == ''){
+				$('#vidthumb2').attr('src', responseText);
+				customArray.vidImg2 = responseText;
+				$('.vidtitle2').html(txtvideotitle);$('.vidurl2').html(txtvideourl);
+			}else if(customArray.vidImg3 == ''){
+				$('#vidthumb3').attr('src', responseText);
+				$('.vidtitle3').html(txtvideotitle);$('.vidurl3').html(txtvideourl);
+				customArray.vidImg3 = responseText;
+			}else if(customArray.vidImg4 == ''){
+				$('#vidthumb4').attr('src', responseText);
+				$('.vidtitle4').html(txtvideotitle);$('.vidurl4').html(txtvideourl);
+				customArray.webImg4 = responseText;
+			}else if(customArray.vidImg5 == ''){
+				$('#vidthumb5').attr('src', responseText);
+				$('.vidtitle5').html(txtvideotitle);$('.vidurl5').html(txtvideourl);
+				customArray.vidImg5 = responseText;
+			}else if(customArray.vidImg6 == ''){
+				$('#vidthumb6').attr('src', responseText);
+				$('.vidtitle6').html(txtvideotitle);$('.vidurl6').html(txtvideourl);
+				customArray.vidImg6 = responseText;
+			}else if(customArray.vidImg7 == ''){
+				$('#vidthumb7').attr('src', responseText);
+				$('.vidtitle7').html(txtvideotitle);$('.vidurl7').html(txtvideourl);
+				customArray.vidImg7 = responseText;
+			}else if(customArray.vidImg8 == ''){
+				$('#vidthumb8').attr('src', responseText);
+				customArray.vidImg8 = responseText;
+				$('.vidtitle8').html(txtvideotitle);$('.vidurl8').html(txtvideourl);
+			}
+			$('#overlay').remove();
+			if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
+				$('#frmvid').css({display:'none'});	
+
+			createProfileMenu2();
+			var $container = $('#containervid');
+			$container.imagesLoaded( function(){
+			  $container.masonry({
+				itemSelector : '.masonryImage'
+			  });
+			});
+		}
+		function changephotovid2(){
+			
+			if(customArray.vidImg == ''){
+				$('#typevid').val('vidImg');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg2 == ''){
+				$('#typevid').val('vidImg2');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg3 == ''){
+				$('#typevid').val('vidImg3');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg4 == ''){
+				$('#typevid').val('vidImg4');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg5 == ''){
+				$('#typevid').val('vidImg5');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg6 == ''){
+				$('#typevid').val('vidImg6');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg7 == ''){
+				$('#typevid').val('vidImg7');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}else if(customArray.vidImg8 == ''){
+				$('#typevid').val('vidImg8');
+				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+			}			
+		}
+		function changephotovid(){
+			if(customArray.vidImg == ''){
+				$('#vidthumb1').attr('src', loadingPhoto);
+			}else if(customArray.vidImg2 == ''){
+				$('#vidthumb2').attr('src', loadingPhoto);
+			}else if(customArray.vidImg3 == ''){
+				$('#vidthumb3').attr('src', loadingPhoto);
+			}else if(customArray.vidImg4 == ''){
+				$('#vidthumb4').attr('src', loadingPhoto);
+			}else if(customArray.vidImg5 == ''){
+				$('#vidthumb5').attr('src', loadingPhoto);
+			}else if(customArray.vidImg6 == ''){
+				$('#vidthumb6').attr('src', loadingPhoto);
+			}else if(customArray.vidImg7 == ''){
+				$('#vidthumb7').attr('src', loadingPhoto);
+			}else if(customArray.vidImg8 == ''){
+				$('#vidthumb8').attr('src', loadingPhoto);
+			}		
+		}
+		function beforeSubmitvid(){
+			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
+			
+			txtvideotitle='';
+			$.box_Dialog('Enter the Youtube video Title. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Youtube video title" style="width:100%;"/>', {
+				'type':     'question',
+				'title':    '<span class="color-gold">Youtube title<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'upload',callback:function(){
+					txtvideotitle=$('#txtvideotitle').val();
+					changephotovid2();
+
+					if (window.File){
+					   var fsize = String($('#filevid')[0].files[0].size); //get file size
+					   var ftype = $('#filevid')[0].files[0].type; // get file type
+
+						switch(ftype){
+							case 'video/mov':
+							case 'video/mp4':
+							case 'video/avi':
+							case 'video/wmv':
+							case 'video/flv':
+							changephotovid();
+							break;
+							default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv file types');	
+							$('#overlay').remove();
+							return false;
+						}
+					}else{
+					   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
+					   $('#overlay').remove();
+					   return false;
+					}
+				}}]
+			});		
+		}	
 	});
 	
 	function bytesToSize(bytes) {
@@ -2841,7 +3243,7 @@ $(document).ready(function(){
 		}		
 		if(customArray.button != ''){
 			var boxArray = $.parseJSON(customArray.button);
-			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : "Cancel"));
+			$('#txtshare1').val((boxArray.share[0] != '' ? decodequote(boxArray.share[0]) : "Skip"));
 			$('#txt-logout').val((typeof(boxArray.logout) != 'undefined' ? decodequote(boxArray.logout[0]) : 'okay'));
 			$('#follow-no').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[0]) : 'no'));
 			$('#follow-yes').val((typeof(boxArray.follow) != 'undefined' ? decodequote(boxArray.follow[1]) : 'yes'));

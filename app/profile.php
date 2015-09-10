@@ -209,6 +209,108 @@ foreach($time_zones as $zones){
 								 <span class="color-grey font-12 fl">Note: Max image size is 1000kb</span>		
 								  <div class="clear" style="padding-top:1em"></div>
 							</section>
+
+							<section class="video-section hide">
+								<span class="font-17 fl">Upload videos for your Camrally page...</span>
+								<div class="clear"></div>
+								<form id="frmvid" action="setPhoto.php" method="post" enctype="multipart/form-data" >
+									<button class="ui-btn" id="uploadvid">Upload a Video</button>
+									<div style="visibility:hidden;height:0px">
+									<input type="file" name="filevid" style="visibility:hidden;height:0px" id="filevid" value="">
+									</div>
+									<input type="hidden" value="" name="placeidvid" id="placeidvid" />
+									<input type="hidden" value="" name="typevid" id="typevid" />
+									<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />
+									<input type="hidden" value="" name="imgurlvid" id="imgurlvid" />
+								 </form>	
+								 <div class="clear" style="padding-top:0.5em"></div>
+								 <div id="containervid">
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb1" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle1"></span></p><p>U: <span class="vidurl1"></span></p>
+											</div>
+										</div>
+									</div>
+										 
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb2" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle2"></span></p><p>U: <span class="vidurl2"></span></p>
+											</div>
+										</div>
+									</div>
+										 
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb3" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle3"></span></p><p>U: <span class="vidurl3"></span></p>
+											</div>
+										</div>
+									</div>
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb4" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle4"></span></p><p>U: <span class="vidurl4"></span></p>
+											</div>
+										</div>
+									</div>
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb5" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle5"></span></p><p>U: <span class="vidurl5"></span></p>
+											</div>
+										</div>
+									</div>
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb6" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle6"></span></p><p>U: <span class="vidurl6"></span></p>
+											</div>
+										</div>
+									</div>
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb7" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle7"></span></p><p>U: <span class="vidurl7"></span></p>
+											</div>
+										</div>
+									</div>
+									<div class="masonryImage">
+										<div style="padding-right:10px;padding-bottom:10px;">
+											<div class="imgthumb">
+												<img src="<?php echo $noPhoto ?>" id="vidthumb8" width="200" height="200" />
+											</div>
+											<div class="titledesc">
+												<p>T: <span class="vidtitle8"></span></p><p>U: <span class="vidurl8"></span></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								 <div class="clear" style="padding-top:1em"></div>
+							</section>
+
 							<section class="pro-vanity hide">
 								<div class="clear" style="padding-top:0.2em"></div>
 								<p class="font-16 fl bgrey" style="width:97%;padding:10px">
