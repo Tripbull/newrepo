@@ -261,7 +261,7 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 								}		
 								?>
 								<div class="clear" style="padding-top:5px"></div>
-								<?=$advocates?>, Advocates	
+								<?=$advocates?> Advocates	
 								</div>
 							</div>
 					</div>
@@ -326,7 +326,7 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$advocates?>, Advocates	
+					<?=$advocates?> Advocates	
 					</div>
 				</div>
 			</div>

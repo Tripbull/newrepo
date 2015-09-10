@@ -91,7 +91,7 @@ require_once('header.html'); ?>
 								}		
 								?>
 								<div class="clear" style="padding-top:5px"></div>
-								<?=$rowAvg->advocates?>, Advocates	
+								<?=$rowAvg->advocates?> Advocates	
 								</div>
 							</div>
 					</div>
@@ -150,7 +150,7 @@ require_once('header.html'); ?>
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$rowAvg->advocates?>, Advocates	
+					<?=$rowAvg->advocates?> Advocates	
 					</div>
 				</div>
 			</div>

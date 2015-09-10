@@ -1,14 +1,12 @@
-<?php
-session_start();
-$ur_session = rand(0, 15);
-$_SESSION['session']=$ur_session;
-?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta name="robots" content="index, follow"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<title>Tabluu's pricing page</title>
+	<meta name="title" content="Pricing - Camrally">
+	<meta name="description" content="Here are the pricing plans for Camrally. Pick a plan of your choice and sign up now!">
+	<meta name="keywords" content="camrally pricing, pricing camrally, camrally">
+	<title>Camrally Pricing</title>
     <link href="css/bootstrap.css" rel="stylesheet" media="all">
 	<link href="css/style.css" rel="stylesheet" media="all">
 	<script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
@@ -18,7 +16,7 @@ $_SESSION['session']=$ur_session;
 	<script type="text/javascript" src="js/star-rating.js"></script>
 	<script type="text/javascript" src="js/pricing.js"></script>
 	<link type="text/css" media="all" rel="stylesheet" href="css/dialog.css" >
-	<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
+	<link rel="Shortcut Icon" href="http://camrally.com/images/Icons/ico/favicon.ico" type="image/x-icon">
 	<?php include_once("analyticstracking.php") ?>
 </head>
 <body class="pricing">
@@ -39,34 +37,35 @@ if(mysql_num_rows($result)){
 	$schedule_date->setTimeZone(new DateTimeZone($user_tz));
 	$startdate = $schedule_date->format('Y/m/d H:i:s');
 }
-$connect->db_disconnect();
+$connect->db_disconnect();		  
 */
 ?>
-<!--
 <input type="hidden" value="<?php //echo $isclokstart;?>" name="isclokstart" id="isclokstart" />
 <input type="hidden" value="<?php //echo $row->selects;?>" name="txttime" id="txttime" />
 <input type="hidden" value="<?php //echo $startdate?>" name="stardate" id="stardate" />
 <input type="hidden" value="<?php //echo $row->campaign;?>" name="campaign" id="campaign" />
 <input type="hidden" value="<?php //echo $row->accounts;?>" name="accounts" id="accounts" />
 <input type="hidden" value="<?php //echo $row->accountleft;?>" name="accountleft" id="accountleft" />
--->
 <span class="worday" style="height:0.1px"></span>
 <?php require_once('browser_detection.php'); ?>
 <?php require_once('header.html'); ?>
 <div style="width:100%;min-width:287px;">		  
 <section class="plan-section text-center clear">
 	<div class="container">
-		<h2 class="clear text-center">Pay for what you need. No hidden costs.</h2>
+		<div class="clear title-top"></div>
+		<h4 class="plan-title pricing-header">Choose a plan that best fits your purpose</h4>
 		
 		<div class="text-center">
 		 <nav class="navbar navbar-default" role="navigation"> 
           <!-- Brand and toggle get grouped for better mobile display -->
-          <div id="subiconmenu" class="navbar-sub clear">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigator"> 
-				<span class="sr-only">Toggle navigation</span> <span class="arrow-down"></span> <!-- <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> --> </button>
+         
+		 <div id="subiconmenu" class="navbar-sub clear">
+            <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigator"> 
+				<span class="sr-only">Toggle navigation</span> <span class="arrow-down"></span> <!-- <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>  </button>
             <a class="navbar-brand nav-title" href="#">Menu</a> 
 		  </div>
           <!-- Collect the nav links, forms, and other content for toggling -->
+		  <!--
 		  <div id="wrapsubmenu">
           <div class="navbar-collapse collapse" id="navigator">
 			<ul class="nav navbar-nav pull-right">
@@ -76,15 +75,16 @@ $connect->db_disconnect();
             </ul>
           </div>
 		  </div>
-          <!-- /.navbar-collapse --> 
-        </nav>
+          -->
+        </nav> 
+		<!--
 		<div class="button-group">
 				<a href="#" class="month-plan"> <div class="left-button button dark">Monthly</div></a>
 				<a href="#" class="year-plan"><div class="button borderleftright">1 Yearly</div></a>
 				<a href="#" class="year2-plan"><div class="right-button button">2 Yearly</div></a>
 				<div class="clear"></div>
-			</div>
-		</div>
+			</div>-->
+		</div> 
 	  <div class="row text-center content-plan-menu" style="max-width: 1108px;">
 		 <!-- <div class="col-xs-6 col-sm-3 colscols">
 			<div class="contentwrap">
@@ -97,55 +97,63 @@ $connect->db_disconnect();
 			   </div>
 			   <a href="#" id="pro-link" class="color-button inline-block">Sign up</a>
 		  </div> -->
-		  <div class="col-sm-4 cols">
+		 <div class="col-sm-4 cols">
 			<div class="contentwrap">
-			<h4 class="plan-title">Basic</h4>
-			<p class="plan-subtitle">Discover</p>
-			<p class="price"><span class="basic-price">$9.90</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">monthly</span> <br/> per location</span></p>
-			<p class="plan-subtitle2">Get all these features...</p>
+			<h4 class="plan-title">Lite</h4>
+			<p class="plan-subtitle"></p>
+			<p class="price"><span class="basic-price">Free</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">for all</span> <br/>campaigns</span></p>
+			<p class="plan-subtitle2"></p>
 			<ul>
-				<li>Collect feedback & reviews using fun & innovative ways</li>
-				<li>Get your customers to share only positive reviews on the social media</li>
-				<li>Your very own customer advocacy (Tabluu) page for your business</li>
-				<li>Customize your feedback & review page</li>
+				<li>1 user</li>
+				<li>Non-commercial usage</li>
+				<li>Run unlimited campaigns</li>
+				<li>Your Camrally page URL in this format: Camrally.com/campaignname.html</li>
 			</ul>
 			</div>
-			<a href="#" id="basic-link" class="color-button color-4 inline-block">Sign up</a>
+			<a href="app/signup.html" class="color-button color-4 inline-block">Sign up</a>
 		  </div>
 		  <div class="col-sm-4 cols secondcols">
 			<div class="contentwrap">
-			<h4 class="plan-title">Pro</h4>
-			<p class="plan-subtitle">Optimize</p>
-			<p class="price"><span class="pro-price">$29.90</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">monthly</span> <br/> per location</span></p>
-			<p class="plan-subtitle2">Get all the features from the Basic plan... plus...</p>
+			<h4 class="plan-title">Basic</h4>
+			<p class="plan-subtitle"></p>
+			<p class="price"><span class="pro-price">$29.90</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">monthly</span> <br/> per campaign</span></p>
+			<p class="plan-subtitle2"></p>
 			<ul>
-				<li>Manage your Tabluu reviews</li>
-				<li>Customize your customers' social media posts</li>
-				<li>Display Tabluu reviews on your online sales page using widgets</li>
-				<li>Create customized / vanity links (coming soon!)</li>
+				<li>Add & manage unlimited users</li>
+				<li>Commercial usage</li>
+				<li>Display your organizational info, website & social media buttons on your Camrally page</li>
+				<li>Add a custom strong "call to action" button on your Camrally page</li>
+				<li>Your Camrally page URL in this format: Camrally.com/campaignname</li>
 			</ul>	
 			</div>
-			<a href="#" id="pro-link" class="color-button color-4 inline-block">Sign up</a>	
+			<a id="pro-link" class="color-button color-4 inline-block">Coming Soon</a>	
 		  </div>
 		  <div class="col-sm-4 cols">
+		  	<div class="ribbon-overlay">
+		  		<div class="ribbon">Marketers' Choice</div>
+			</div>
 			<div class="contentwrap">
-			<h4 class="plan-title">Enterprise</h4>
-			<p class="plan-subtitle">Supercharge</p>
-			<p class="price"><span class="enter-price">$59.90</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">monthly</span> <br/> per location</span></p>
-			<p class="plan-subtitle2">Get all the features from the Pro plan... plus...</p>
+			<h4 class="plan-title">Pro</h4>
+			<p class="plan-subtitle"></p>
+			<p class="price"><span class="enter-price">$59.90</span><span style="font-size:15px;float:right;margin-right:20px"><span class="txtmontly">monthly</span> <br/> per campaign</span></p>
+			<p class="plan-subtitle2"></p>
 			<ul>
-				<li>Real time poor feedback alerts</li>
-				<li>Collect feedback & reviews using the Photo Booth feature</li>
-				<li>Post customers' reviews to your social media pages (coming soon!)</li>
-				<li>Collect feedback using the "Your Selfie Here!" feature (coming soon!)</li>
+				<li>Add & manage unlimited users</li>
+				<li>Commercial usage</li>
+				<li>Display your organizational info, website & social media buttons on your Camrally page</li>
+				<li>Add a custom strong "call to action" button on your Camrally page</li>
+				<li>Your Camrally page URL in this format: Camrally.com/campaignname</li>
+				<li>Redirect advocates to your desired web page</li>
+				<li>Your logo watermark on the image posts (coming soon)</li>
+				<li>Export email addresses of your followers to excel (coming soon)</li>
 			</ul>
 			</div>
-			<a href="#" id="enter-link" class="color-button color-4 inline-block">Sign up</a>	
+			<a id="enter-link" class="color-button color-4 inline-block">Coming Soon</a>	
 		  </div>
 		  
 		</div>
 		<div class="clear"></div>
-		<p class="text-center" style="margin-top:20px">Note: If you already have an exisiting account with Tabluu, please login to upgrade / downgrade your subscription. </p>	
+		<p class="text-center" style="margin-top:20px">Note: If you already have an existing account with Camrally, please login to upgrade / downgrade your subscription. </p>	
 	</div>
 </section>
 <section class="plan-section2">
@@ -154,33 +162,28 @@ $connect->db_disconnect();
 		 <div class="clear" style="padding-top:40px;"></div>
 		 <div class="align-center" style="float:left;width:50%;">
 			<ul>
-				<li>Collect feedback using email invitations, </br>QR Codes, surveys & feedback stations</li>
-				<li>Build up your followers & email list</li>
-				<li>Automatic daily backup of your data</li>
-				<li>User administration & management</li>
-				<li>Prompt & friendly email support</li>
-				<li>Statistics reporting of your feedback & reviews</li>
-				<li>Social sharing buttons on your Tabluu page</li>
-				<li>Link to your Facebook page</li>
-				<li>Link to your business web page</li>
-				<li>Secure data transfer with SSL technology</li>
-				<li>Limit & restrict access for each location</li>
-				<li>Fully customizable feedback interface</li>
+				<li>In built viral mechanism</li>
+				<li>Rally for support online or hit the streets!</li>
+				<li>Get & promote a hassle free mini link</li>
+				<li>Clear & consistent campaign message at all touch points</li>
+				<li>Proactively ask advocates to share on Facebook</li>
+				<li>Social sharing widgets on your campaign pages</li>
+				<li>Strong call to action on external landing pages</li>
+				<li>Get your own custom Camrally page URL!</li>
+				<li>Take your campaign offline</li>
 			</ul>
 		</div>
 		<div class="align-center" style="float:left;width:50%">
 			<ul>
-				<li>Your business contact info is posted along with your </br>customers' social media posts</li>
-				<li>Tabluu is hosted on cloud servers with 99.9% uptime</li>
-				<li>Assign admin rights to managers</li>
-				<li>Step by step instructions to setup Tabluu</li>
-				<li>A variety of samples for reference</li>
-				<li>Manage multiple businesses & locations</li>
-				<li>Multilingual customer interface possibilities</li>
-				<li>Post customers' selfies & reviews to their social media accounts</li>
-				<li>Export feedback data to excel</li>
-				<li>Mobile friendly Tabluu web pages</li>
+				<li>Camrally is hosted on cloud servers with 99.9% uptime</li>
+				<li>Step by step instructions for your campaign setup</li>
+				<li>Campaign in your native language</li>
+				<li>Mobile friendly Camrally web pages</li>
 				<li>Easy to use & intuitive user interface</li>
+				<li>Vibrant online discussions of your campaign</li>
+				<li>Discovery to participation in one click!</li>
+				<li>Manage posts from your advocates</li>
+				<li>Get your own Pinterest-like page!</li>
 			</ul>
 		</div>
 	</div>
@@ -189,16 +192,16 @@ $connect->db_disconnect();
 	<div class="container text-left">
 		<h2 class="plan-title">Frequently Asked Questions</h4>
 		<div class="clear" style="padding-top:10px;"></div> 
-		<h4>Is Tabluu available on Apple and Android stores?</h4>
-		<p>No. Tabluu is a web app available on any device with a web browser and internet connection.</p>
-		<h4>Do I need to hire a designer to create an attractive feedback user interface?</h4>
-		<p>No, simply upload any image of the correct sizes to Tabluu and choose a matching background colour to create an attracive looking customer interface.</p>
-		<h4>My customers are concerned about signing into their Facebook account on a third party device.  How can I assure them?</h4>
-		<p>Tabluu automatically logs out of your customer's Facebook account once sharing is completed. Our script also double checks to ensure the user is completely logged out  before the next user is allowed to use Tabluu</p>
-		<h4>Do I always have to take a photo of my customers before requesting for ratings and reviews?</h4>
-		<p>No. Simply use Tabluu in the way that best suits your business needs. Tabluu works even without the customers's photos or selfies.</p>
-		<h4>What is your refund policy?</h4>
-		<p>Tabluu does not offer any refund.</p>
+		<h4>Is the Lite version really free? Any catch?</h4>
+		<p>Yes, it's free forever as long as it is used for non-commercial purposes.</p>
+		<h4>Imagine if I would to create a campaign to rally support for the recent Nepal Earthquake by getting people to post selfies. Isn't it wrong if some people start posting photos of themselves smiling?</h4>
+		<p>Yes, it will make a lot of sense to mention in your campaign poster that advocates should post selfies of themselves praying or showing a solemn expression. In case any inappropriate selfies are posted, you may hide them until the concern is fully addressed.</p>
+		<h4>Do I need to hire a designer to create an attractive campaign poster?</h4>
+		<p>That will depend on the reasons why you are running a photo campaign. Your audience may expect high quality posters for commercial campaigns.</p>
+		<h4>I'm hitting the streets to rally for advocates. Some people are concerned about signing into their Facebook account on a third party device.  How can I assure them?</h4>
+		<p>Camrally automatically logs out of your advocates' Facebook accounts once sharing is completed. You may also ask potential advocates to enter Camrally's mini link into their own mobile devices as a backup plan.</p>
+		<h4>I'll like to use Camrally to create photo campaigns on topics such as "books i'm reading now" & "cute doggy photos"... what do you think?</h4>
+		<p>Sounds like fun! And a great way to meet like minded people online. Use Camrally as you see fit, there is no restrictions on how this service may be used as long as the topics you choose are wholesome & does not offend any persons or groups.</p>
 	</div>
 </section>
 </div>

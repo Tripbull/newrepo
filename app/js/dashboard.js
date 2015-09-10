@@ -25,9 +25,11 @@ $(document).ready(function(){
 		basicID=3716169,proID=3716170,liteID = 3720054; 
 		//test component chargify ids
 		chargifydomain = 'https://camrally.chargify.com';
+		photourl2='http://camrally.com/staging/'
 		//domainpath = 'http://camrally.com/staging/';
 		domainpath = '';
 	}else{
+		photourl2='http://camrally.com/app/'
 		domainpath = 'http://camrally.com/';
 		chargifydomain = 'https://camrally.chargify.com';
 		pathfolder = 'http://camrally.com/app/';
@@ -356,6 +358,13 @@ $(document).ready(function(){
 			else
 				alertBox('no access','Please subscribe.');
 		});
+		$('#getwidget').click(function(){
+			curClick = 0;
+			if($.inArray(userArray.state,state_Array) == -1)
+				$( ":mobile-pagecontainer" ).pagecontainer( "change", "widget.html",{ });
+			else
+				alertBox('no access','Please subscribe.');
+		});
 		$('#review-widget').click(function(){
 			curClick = 0;
 			if($.inArray(userArray.state,state_Array) == -1)
@@ -564,7 +573,7 @@ $(document).ready(function(){
 			$('.right-menu-plan').show();
 		}else if(row > 2){
 			if(userArray.productId != proID )
-				diabledTab('.right-menu-loc',[4]);
+				diabledTab('.right-menu-loc',[5]);
 			$('#visit-tabluu-page').hide();
 			placeId= locId;
 			var index = row - 3;
@@ -4241,6 +4250,221 @@ $(document).on('pageshow','#feedback', function () {
 	 }});	
 		
 });
+
+$(document).on('pageshow','#widget', function () { 
+	var height = ($( window ).height() / 16) - 5;
+	var placeId = locId.split('|'),limit=5;
+	var start = 0,offset=limit,tabSelect,page=0;
+	reviewActiveMenu();
+    $('.star').show();
+	$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
+	// $( "#reviews .left-header" ).html('Manage Feedback / Reviews');
+	// $( "#reviews .right-header" ).html( placename );
+	showLoader();
+	$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
+		customArray =  $.parseJSON(result);
+		hideLoader();	
+		$('#widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="script-camrally" src= "http://camrally.com/app/widget/js/widget.min.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
+		getdatafeature();
+	 }});	
+	$('#widget .ui-content').css({"background-color":'#E6E7E8'});
+	$('#widget .reviews-left-menu').on('click', ' > li', function () {
+		$(".reviews-shared").hide();$(".reviews-notshared").hide();$(".reviews-featured").hide();
+		var row = $(this).index();
+		curClick = row;
+		if($( window ).width() <= 600){
+			$( '.main-wrap .right-content' ).show();
+			$( '.main-wrap .left-content' ).hide();
+			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+		}
+		reviewActiveMenu();
+		showReviewMenu(row);
+	});
+	showReviewMenu(curClick);
+	
+	function showReviewMenu(row){
+		if($( window ).width() <= 600){
+			$( '.main-wrap .right-content' ).show();
+			$( '.main-wrap .left-content' ).hide();
+			$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+		}
+		var placeId = locId.split('|');
+		tabSelect = row;
+		 
+	}
+	
+	$( window ).resize(function() { // when window resize
+		var height = ($( window ).height() / 16) - 5;
+		$( '.ui-content,.left-content,.right-content').css( {"min-height":height.toFixed() + 'em'} );
+		reviewActiveMenu();	
+	});
+	
+	function reviewActiveMenu(){
+		//$( "#widget .left-header" ).html('Manage Posts');
+	    $( "#widget .right-header" ).html( placename );
+		if($( window ).width() > 600){
+			$('#widget .reviews-left-menu li').each(function (index) {
+				if(index == curClick){
+					$(this).find( "a" ).addClass('ui-btn-active'); 
+					$(this).find( "span" ).addClass("listview-arrow-active");
+				}else{
+					$(this).find( "a" ).removeClass('ui-btn-active'); 
+					$(this).find( "span" ).removeClass("listview-arrow-active");				
+				}
+			});	
+		}else{
+			$('#widget .reviews-left-menu li a').each(function (index) {
+				$(this).removeClass("ui-btn-active");
+				$(this).find( "span" ).removeClass("listview-arrow-active");
+			});
+			//$( '.main-wrap .right-content' ).show();
+			//$( '.main-wrap .left-content' ).hide();
+			//$( '.main-wrap .right-content' ).css( {"max-width":'100%'} );
+		}	
+	}
+    var domainpath2 = 'http://www.camrally.com/app/widget/';
+	var widgetArray = [],nomorefeature=1,nomorenotfeature=1,notfeatureStart=0,featureStart=0,notfeaturelimit=5,featurelimit=5;
+	function getdatafeature(){
+		$('.loading').addClass('loader');
+		$.getJSON(domainpath2+"jsonwidget.php?callback=?",{pubId:customArray.nicename,feature:1,start:featureStart,limit:featurelimit}, function(data) {
+			widgetArray = data
+			if(typeof(data.pubId) != 'undefined'){
+				$('.widget-camrally').html('pubId = "'+customArray.nicename+'" not found. Otherwise, please upgrade plan to access the advocates widget');
+			}else{
+				widgetArray = data;
+				if(widgetArray.average.advocate < 1)
+					$('.widget-camrally').html('You have not any advocates yet');
+				else{
+					if(featureStart == 0)
+						createReview();
+					featureStart = featureStart + featurelimit;
+					if(widgetArray.reviews.length > 0)
+						contenloop(widgetArray.reviews);
+					if(widgetArray.reviews.length < 5)
+						getdatanotfeature();
+					if(widgetArray.reviews.length == 0){
+						nomorefeature = 0;
+					}
+					whenresize();
+				}
+				$('.loading').removeClass('loader');
+			}
+			
+		});
+	}
+	function getdatanotfeature(){
+		$('.loading').addClass('loader');
+		$.getJSON(domainpath2+"jsonwidget.php?callback=?",{pubId:customArray.nicename,feature:0,start:notfeatureStart,limit:notfeaturelimit}, function(data) {
+			widgetArray = data
+			notfeatureStart = notfeatureStart + notfeaturelimit;
+			if(typeof(data.pubId) != 'undefined'){
+					$('.widget-camrally').html('pubId = "'+customArray.nicename+'" not found. Otherwise, please upgrade plan to access the advocates widget');
+			}else{
+				widgetArray = data;
+				if(widgetArray.average.advocate < 1)
+					$('.widget-camrally').html('You have not any advocates yet');
+				else{
+					if(widgetArray.reviews.length > 0)
+						contenloop(widgetArray.reviews);
+					else if(widgetArray.reviews.length == 0)
+						nomorenotfeature = 0;
+				}
+			}
+			$('.loading').removeClass('loader');
+		});
+	}
+	function whenresize(){
+		if($('div.widget-camrally').width() > 300){
+			$('.widget-camrally .pin').css({'width':'90%'});
+		}else if($('div.widget-camrally').width() <= 300 && $('div.widget-camrally').width() > 250)
+			$('.widget-camrally .pin').css({'width':'88%'});
+		else if($('div.widget-camrally').width() <= 250 && $('div.widget-camrally').width() > 230)
+			$('.widget-camrally .pin').css({'width':'85%'});
+		else if($('div.widget-camrally').width() <= 230){
+			$('.widget-camrally .rate-reviews p').css({'font-size':'12px'});
+			$('.widget-camrally .pin').css({'width':'80%'});
+		}		
+	}
+		function contenloop(arrayreviews){
+			var div = '';
+			for (var i in arrayreviews){
+					div = div + '<div class="pin">';
+					if(arrayreviews[i].link != ''){
+						div = div +'<div class="fblink">'
+							+'<a href="'+arrayreviews[i].fbId+'" target="_blank">'+arrayreviews[i].name+'</a>'
+						+'</div>';
+					}
+					div = div +'<div class="text-center"><img alt="shared pages" src="'+photourl2+arrayreviews[i].url+'" class="pinImage"></div>'
+					+'<div style="color: #576A6E;text-align:left;font-size:12px">'+arrayreviews[i].created+'</div>'
+					+'</div>';
+				}
+			$('.comment-container-camrally').append(div);
+		}
+		function createReview(){
+			var div = '<div class="loading"><div class="wrap-rate-header">'
+				+'<div class="wrap-rate-logo">'
+					+'<div class="rate-logo"><img src="http://www.camrally.com/app/images/Logo/Logo_2-small.png" /></div>'
+				+'</div>'
+				+'<div class="rate-reviews">'
+				+'<div style="color: #777;text-align:right;font-size:14px">'+widgetArray.average.advocate+' advocates<div></div>'+widgetArray.average.follower+' followers</div>'
+				+'</div>'
+			+'</div>'
+			+'<div class="comment-container-camrally">'
+			+ '</div';
+			$('.widget-camrally').html(div);
+
+			//if(widgetArray.reviews.length > 0)
+			//	contenloop(widgetArray.reviews);
+			
+		}
+		$( window ).resize(function() { // when window resize
+			whenresize();
+		});
+		var resizeTimeout,noReviewAtAll=0;
+		$('.widget-camrally').scroll(function () {
+			if($(this).scrollTop() + ($(this).innerHeight() + 200) >= this.scrollHeight) {
+				clearTimeout(resizeTimeout);
+			resizeTimeout = setTimeout(function(){
+				
+				if(nomorefeature == 1)
+					getdatafeature();
+				else if(nomorenotfeature == 1)
+					getdatanotfeature();
+				}, 500);		
+			}
+		});
+});
+
+$(document).on('pageinit','#widget', function () {
+	$('.iconReview').click(function(e){
+		clearTimeout(resizeTimeout);
+		resizeTimeout = setTimeout(function(){ 
+			$.box_Dialog('Logout now?', {'type':'confirm','title': '<span class="color-gold">'+userArray.fname +' '+userArray.lname+'<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'logout', callback: function() {
+				showLoader();
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'opt=logout',success:function(result){
+					hideLoader();
+					window.location = 'index.php'
+				}});		
+			}},{caption: 'cancel'}]
+			});
+		}, 500);//to prevent the events fire twice
+		e.preventDefault();	
+	});
+	$("#widget img.logo").click(function (e){  //logo click
+		if($( window ).width() <= 600 && !$('.left-content').is(":visible")){
+			$( '.main-wrap .left-content' ).show();
+			$( '.main-wrap .right-content' ).hide();
+			$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
+		}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
+			curClick = setupclickmenu;defaultSetup=0;
+			$( ":mobile-pagecontainer" ).pagecontainer( "change", "index.html",{ });
+		}
+		e.preventDefault();
+	});
+	$('#widget .star').click(function(){goHome();});
+});
+
+
 //==================================================== Reviews =============================================== 
 //	Date created: Oct, 15 2014
 
@@ -4272,6 +4496,7 @@ $(document).on('pageinit','#reviews', function () {
 	});
 	$('#reviews .star').click(function(){goHome();});
 });
+
 
 $(document).on('pageshow','#reviews', function () { 
 	var height = ($( window ).height() / 16) - 5;

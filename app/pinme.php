@@ -112,7 +112,7 @@ echo '<title>'. $businessTitle . '</title>';
 			<?php
 			if($hadTable){
 				//echo '<div class="follow">'.$follow->followTotal .' followers</div>';
-				$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId`");
+				$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId` AND hideimg = 0");
 				if(mysql_num_rows($resultAve)){
 					$rowAvg = mysql_fetch_object($resultAve);
 					if($row->booknow){
@@ -150,7 +150,7 @@ echo '<title>'. $businessTitle . '</title>';
 				<?php
 				
 			if($hadTable){
-				$latestrev =  mysql_query("SELECT * FROM businessplace_$placeId WHERE source = 'fb' ORDER BY id DESC LIMIT 3");
+				$latestrev =  mysql_query("SELECT * FROM businessplace_$placeId WHERE source = 'fb' AND hideimg = 0 ORDER BY id DESC LIMIT 3");
 				if(mysql_num_rows($latestrev)){
 			?>	
 			<div class="reviews">
@@ -266,7 +266,7 @@ echo '<title>'. $businessTitle . '</title>';
 			$offset=0;$limit=50;
 			$timezone = mysql_fetch_object(mysql_query("SELECT u.timezone FROM businessList as l LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId WHERE l.id = $placeId LIMIT 1"));
 			$timezone = $timezone->timezone;
-			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$resultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.id, b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 1 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRowsfeature = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
 			$totalPagesfeature = ceil($numberOfRowsfeature / $limit);
 			echo '<input type="hidden" value="'.$numberOfRowsfeature.'" name="numberoffeature" id="numberoffeature" />';
@@ -278,7 +278,7 @@ echo '<title>'. $businessTitle . '</title>';
 						include('reviewshtml.php');
 				}
 			}
-			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 0 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
+			$notresultFeature =  mysql_query("SELECT SQL_CALC_FOUND_ROWS b.id, b.userName, b.userId, b.source, b.feedsource, b.photo_url, b.date, b.hideimg, b.feature,s.link,s.isshared FROM businessplace_$placeId as b LEFT JOIN sharedlink_$placeId AS s ON s.feedbackId = b.id WHERE feature = 0 ORDER BY date DESC LIMIT $offset,$limit") or die(mysql_error());
 			$numberOfRows = mysql_result(mysql_query("SELECT FOUND_ROWS()"),0,0);
 			$totalPages = ceil($numberOfRows / $limit);
 			echo '<input type="hidden" value="'.$numberOfRows.'" name="numberofRows" id="numberofRows" />';

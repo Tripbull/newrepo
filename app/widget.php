@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Review Widgets</title>
+	<title>Camrally Widgets</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<script type='text/javascript'>window.location='index.html'</script>
@@ -19,9 +19,9 @@
 				<div role="main" class="ui-content">
 					<div class="main-wrap">
 						<div class="left-content fl">
-							<div class="left-header">Review / Selfie Widget</div>			
+							<div class="left-header">Advocate Widget</div>			
 							<ul class="widget-left-menu" data-role="listview">
-								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Review / Selfie Widget<span class="listview-arrow-default listview-arrow-active"></span></a></li>
+								<li><a href="#" class="ui-btn ui-btn-icon-right ui-icon-carat-r ui-btn-active">Advocate Widget<span class="listview-arrow-default listview-arrow-active"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -31,15 +31,16 @@
 								<div class="clear" style="padding:3px;"></div>
 								<div class="script-tag" ></div>
 								<div class="clear" style="padding:5px;"></div>
-								<p style="padding-bottom:5px">Copy the below codes and paste it where you want Tabluu reviews to appear on your web page.</p>
-								<div style="line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;div class="widget-tabluu">&lt;/div&gt;</div>
+								<p style="padding-bottom:5px">Copy the below codes and paste it where you want camrally advocates to appear on your web page.</p>
+								<div style="line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;div class="widget-camrally">&lt;/div&gt;</div>
 								<div class="clear" style="padding:5px;"></div>
-								<p style="padding-bottom:5px">Note: Tabluu review / selfie widget has a max width of 350px and will automatically resize itself to a smaller container on the web page.</p>
+								<p style="padding-bottom:5px">Note: camrally advocates widget has a max width of 350px and will automatically resize itself to a smaller container on the web page.</p>
 								<div class="clear" style="padding:5px;"></div>
 								<p>Preview:<p>
-								<div class="wrap-widget">
-								      
+								<div style="height:400px;float:left;width:350px">
+								     <div class="widget-camrally" style="height:400px;overflow-y:scroll"></div> 
 								</div>
+								<div class="clear" style="padding:10px"></div>
 							</section>	
 						</div>
 					</div>	

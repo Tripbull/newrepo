@@ -222,24 +222,5 @@ $_SESSION['session']=$ur_session;
 <script type="text/javascript" src="js/dialog.js"></script>
 <script type="text/javascript" src="js/jquery.countdown.js"></script>
 <script type="text/javascript" src="js/home.js"></script>
-<!-- FlexSlider --> 
-<script defer src="js/jquery.flexslider.js"></script> 
-<script>
-$('.bxslider').bxSlider({
-pagerCustom: '#bx-pager',
-mode: 'fade',
-auto: true,
-});
-</script> 
-<script type="text/javascript">
-$(window).load(function(){
-	$('.flexslider').flexslider({
-	animation: "slide",
-	start: function(slider){
-	$('body').removeClass('loading');
-	}
-	});
-});
-</script>
 </body>
 </html>

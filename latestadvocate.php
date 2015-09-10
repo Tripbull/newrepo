@@ -61,7 +61,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 								}		
 								?>
 								<div class="clear" style="padding-top:5px"></div>
-								<?=$advocates?>, Advocates	
+								<?=$advocates?> Advocates	
 								</div>
 							</div>
 					</div>
@@ -90,7 +90,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 							}	
 							?>
 							<div class="clear" style="padding-top:5px"></div>
-							<?=$advocates?>, Advocates	
+							<?=$advocates?> Advocates	
 							</div>
 						</div>
 					</div>
@@ -151,7 +151,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 					}	
 				?>
 				<div class="clear" style="padding-top:5px"></div>
-				<?=$advocates?>, Advocates	
+				<?=$advocates?> Advocates	
 				</div>
 			</div>
 	</div>
@@ -182,7 +182,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$advocates?>, Advocates	
+					<?=$advocates?> Advocates	
 					</div>
 				</div>
 			</div>
