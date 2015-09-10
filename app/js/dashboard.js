@@ -10,7 +10,7 @@ var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,co
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
 var istest=true,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
-var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
+var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,profilewizardwebVid = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
 
 $(document).bind('mobileinit', function(){
@@ -64,17 +64,23 @@ $(document).ready(function(){
 						+'<p style="text-align:left;padding-top:7px">You may return to the image section later & upload up to 8 images.</p>';
 			var redirect = "profile.html";
 			createProfileMenu2();
-        }else if(whatsetup == 6){
+		}else if(whatsetup == 6){
+			var title = 'Setup Wizard - Step '+level+' / '+ steps;
+			var body = '<p style="text-align:left;">Please upload one video related to your campaign.</p>';
+				body += '<p style="text-align:left;padding-top:7px">You may return to the video section later & upload up to 8 videos.</p>';
+			var redirect = "profile.html";
+			createProfileMenu2();
+        }else if(whatsetup == 7){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
 			var body = '<p style="text-align:left;">Please upload your campaign poster & enter your campaign message.</p>';
 			var redirect = "setup.html";
 			curClick = 1;
-		 }else if(whatsetup == 7){
+		 }else if(whatsetup == 8){
 			var title = 'Setup Wizard - Step '+level+' / '+ steps;
 			var body = '<p>Customize your Camrally link.</p>';
 			var redirect = "profile.html";
 			curClick = 1;
-        }else if(whatsetup == 8){
+        }else if(whatsetup == 9){
 			curClick = 2;
 			var redirect = "feedback.html"; 
 			$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
@@ -104,7 +110,7 @@ $(document).ready(function(){
 			$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keypad+'&opt=getCustom',success:function(result){
 				customArray =  $.parseJSON(result);
 				placename  = customArray.businessName;
-				hideLoader();var j=0;
+				hideLoader();var j=0;var v=0;
 				if(selfieonly == 1)
 					customArray.settingsItem = 1;
 				if(customArray.webImg != '')
@@ -123,6 +129,24 @@ $(document).ready(function(){
 					j++;
 				if(customArray.webImg8 != '')
 					j++;	
+
+				if(customArray.vidImg != '')
+					v++;
+				if(customArray.vidImg2 != '')
+					v++;
+				if(customArray.vidImg3 != '')
+					v++;
+				if(customArray.vidImg4 != '')
+					v++;
+				if(customArray.vidImg5 != '')
+					v++;
+				if(customArray.vidImg6 != '')
+					v++;
+				if(customArray.vidImg7 != '')
+					v++;
+				if(customArray.vidImg8 != '')
+					v++;
+
 				if(customArray.organization == ''){
 					profilewizardsetup=1;logowizard=1; 
 					wizardAlert(3,1,6);
@@ -130,16 +154,19 @@ $(document).ready(function(){
 					bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
 					wizardAlert(4,2,6);	
 				}else if(j == 0){
+					profilewizardwebVid = 1;
 					wizardAlert(5,3,6);
+				}else if(v == 0){
+					wizardAlert(6,4,6);
 				}else if(campaignwizard == 1){
 					vanitywizard=1;
-					wizardAlert(6,4,6);
+					wizardAlert(7,5,6);
 				}else if(vanitywizard == 1){
 					wizardcreatedlink=1;
-					wizardAlert(7,5,6);			
+					wizardAlert(8,6,6);			
 				}else if(locOption[2] < 1){
 					issetup = 1;uicwizardsetup = 0;
-					wizardAlert(8,6,6);
+					wizardAlert(9,7,6);
 				}
 			}});
 		}
@@ -162,7 +189,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"getData.php",cache: false,data:'key='+keypad+'&opt=getCustom',success:function(result){
 							customArray =  $.parseJSON(result);
 							placename  = customArray.businessName;
-							hideLoader();var j=0;
+							hideLoader();var j=0;var v=0;
 							if(selfieonly == 1)
 								customArray.settingsItem = 1;
 							if(customArray.webImg != '')
@@ -181,6 +208,24 @@ $(document).ready(function(){
 								j++;
 							if(customArray.webImg8 != '')
 								j++;	
+
+							if(customArray.vidImg != '')
+								v++;
+							if(customArray.vidImg2 != '')
+								v++;
+							if(customArray.vidImg3 != '')
+								v++;
+							if(customArray.vidImg4 != '')
+								v++;
+							if(customArray.vidImg5 != '')
+								v++;
+							if(customArray.vidImg6 != '')
+								v++;
+							if(customArray.vidImg7 != '')
+								v++;
+							if(customArray.vidImg8 != '')
+								v++;	
+
 							if(customArray.organization == ''){
 								profilewizardsetup=1;logowizard=1; 
 								wizardAlert(3,3,6);
@@ -188,16 +233,19 @@ $(document).ready(function(){
 								bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
 								wizardAlert(4,4,6);	
 							}else if(j == 0){
+								profilewizardwebVid = 1;
 								wizardAlert(5,5,6);
+							}else if(v == 0){
+								wizardAlert(6,6,6);
 							}else if(campaignwizard == 1){
 								vanitywizard=1;
-								wizardAlert(6,6,6);
+								wizardAlert(7,7,6);
 							}else if(vanitywizard == 1){
 								wizardcreatedlink=1;
-								wizardAlert(7,7,6);			
+								wizardAlert(8,8,6);			
 							}else if(locArray[0].setup < 1){
 								issetup = 1;uicwizardsetup = 0;
-								wizardAlert(8,8,8);
+								wizardAlert(9,9,8);
 							}
 					    }});
 				}else{
@@ -1071,7 +1119,7 @@ $(document).ready(function(){
 	function wizardstep7(){
 		showLoader();
 		var placeId = locId.split('|');
-		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;
+		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;profilewizardwebVid = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
 			customArray =  $.parseJSON(result);
@@ -1742,6 +1790,9 @@ $(document).ready(function(){
 		}else if(profilewizardwebImg==1){
 			curClick = 3;
 			diabledTab('#profile .profile-left-menu2',[0,1,2,4,5,6]);
+		}else if(profilewizardwebVid==1){
+			curClick = 4;
+			diabledTab('#profile .profile-left-menu2',[0,1,2,3,5,6]);
 		}else if(vanitywizard==1){
 			curClick = 2;
 			diabledTab('#profile .profile-left-menu2',[0,1,3,4,5,6]);
@@ -2873,8 +2924,7 @@ $(document).ready(function(){
 					'show_close_button':false,
 					'overlay_close':false,
 					'buttons':  [{caption: 'browse',callback:function(){
-						changephotovid2();
-						$('#filevid').click();
+						setTitleVideo();
 					}},{caption: 'save',callback:function(){
 						txtvideourl=$('#txtvideourl').val();
     					var n = txtvideourl.indexOf("youtube");
@@ -2899,6 +2949,27 @@ $(document).ready(function(){
 				});		
 		}
 
+		function setTitleVideo()
+		{
+			$('.ZebraDialogOverlay').remove();
+			$('.ZebraDialog').remove();
+			setTimeout(function(){
+				txtvideotitle='';
+				$.box_Dialog('Enter the Youtube video Title. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Youtube video title" style="width:100%;"/>', {
+					'type':     'question',
+					'title':    '<span class="color-gold">Youtube title<span>',
+					'center_buttons': true,
+					'show_close_button':false,
+					'overlay_close':false,
+					'buttons':  [{caption: 'upload',callback:function(){
+						txtvideotitle=$('#txtvideotitle').val();
+						changephotovid2();
+						$('#filevid').click();
+					}}]
+				});	
+			},500);	
+		}
+
 		function showResponsevid3(responseText, statusText, xhr, $form)  
 		{
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&imgurlvid='+$('#imgurlvid').val()+'&imgtitlevid='+$('#imgtitlevid').val()+'&savetype=file&opt=saveVid',async: false,success:function(lastid){
@@ -2916,9 +2987,9 @@ $(document).ready(function(){
 
 		function showResponsevid2(responseText)  { 
 			
-			// if(profilewizardvidImg == 1){
-			// 	setTimeout(function() {profilewizardvidImg = 0;wizardsetup();},200);
-			// }	
+			if(profilewizardwebVid == 1){
+				setTimeout(function() {profilewizardwebVid = 0;wizardsetup();},200);
+			}	
 			if(customArray.vidImg == ''){
 				$('#vidthumb1').attr('src', responseText);
 				customArray.vidImg = responseText;
@@ -3011,43 +3082,30 @@ $(document).ready(function(){
 				$('#vidthumb8').attr('src', loadingPhoto);
 			}		
 		}
+
 		function beforeSubmitvid(){
 			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			
-			txtvideotitle='';
-			$.box_Dialog('Enter the Youtube video Title. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Youtube video title" style="width:100%;"/>', {
-				'type':     'question',
-				'title':    '<span class="color-gold">Youtube title<span>',
-				'center_buttons': true,
-				'show_close_button':false,
-				'overlay_close':false,
-				'buttons':  [{caption: 'upload',callback:function(){
-					txtvideotitle=$('#txtvideotitle').val();
-					changephotovid2();
+			if (window.File){
+			   var fsize = String($('#filevid')[0].files[0].size); //get file size
+			   var ftype = $('#filevid')[0].files[0].type; // get file type
 
-					if (window.File){
-					   var fsize = String($('#filevid')[0].files[0].size); //get file size
-					   var ftype = $('#filevid')[0].files[0].type; // get file type
-
-						switch(ftype){
-							case 'video/mov':
-							case 'video/mp4':
-							case 'video/avi':
-							case 'video/wmv':
-							case 'video/flv':
-							changephotovid();
-							break;
-							default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv file types');	
-							$('#overlay').remove();
-							return false;
-						}
-					}else{
-					   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-					   $('#overlay').remove();
-					   return false;
-					}
-				}}]
-			});		
+				switch(ftype){
+					case 'video/mov':
+					case 'video/mp4':
+					case 'video/avi':
+					case 'video/wmv':
+					case 'video/flv':
+					changephotovid();
+					break;
+					default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv file types');	
+					$('#overlay').remove();
+					return false;
+				}
+			}else{
+			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
+			   $('#overlay').remove();
+			   return false;
+			}
 		}	
 	});
 	

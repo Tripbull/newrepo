@@ -8,7 +8,7 @@ var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnsha
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Use a social media button below to recommend <campaigner>. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
-var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -371,7 +371,7 @@ function postFb()
 function loginTwit()
 {
 	var src = sharedurl.split('_');
-	window.open(domainpath + "oauth_authorize_flow.html?l=" + src[0], " ","width=" + ($(window).width()/2) + ", height=" + $(window).height());
+	window.open(domainpath + "app/oauth_authorize_flow.html?l=" + src[0], " ","width=" + ($(window).width()/2) + ", height=" + $(window).height());
 }
 
 function HandlePopupResult(result, email, name, screen_name) {
@@ -415,8 +415,8 @@ $(document).ready(function(){
    $('.fancybox').fancybox();
    
    if(istest == true){
-		//domainpath = 'http://camrally.com/staging/';
-		domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
+		domainpath = 'http://camrally.com/staging/';
+		// domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
 	}

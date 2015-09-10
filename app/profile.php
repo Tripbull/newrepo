@@ -214,7 +214,7 @@ foreach($time_zones as $zones){
 								<span class="font-17 fl">Upload videos for your Camrally page...</span>
 								<div class="clear"></div>
 								<form id="frmvid" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-									<button class="ui-btn" id="uploadvid">Upload a Video</button>
+									<button class="ui-btn" id="uploadvid">Upload Videos</button>
 									<div style="visibility:hidden;height:0px">
 									<input type="file" name="filevid" style="visibility:hidden;height:0px" id="filevid" value="">
 									</div>
