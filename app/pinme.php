@@ -305,21 +305,6 @@ echo '<title>'. $businessTitle . '</title>';
 	  <!-- product images -->
     <div id="campin-showimage" class="showcaseimg pinList center <?=$hideshowcase?>">
 		<div class="pinList center">
-		<?php
-		$array_product = array();$j=0;
-		$resultproduct = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
-		while($row3 = mysql_fetch_object($resultproduct)){
-			$src = $path.$row3->path;		
-			?>		
-			<div class="sysPinItemContainer pin">
-				<p class="description sysPinDescr"><?php echo $row3->title ?></p>
-
-				<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
-				<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
-			</div>
-			<?php
-		}	
-			?>
 			<?php
 		$array_product1 = array();$j=0;
 		$resultproduct1 = mysql_query("SELECT id,placeId,video_id,title,url,name FROM businessVideos AS ps WHERE placeId =$placeId AND video_id <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
@@ -332,6 +317,21 @@ echo '<title>'. $businessTitle . '</title>';
 
 				<div style="text-align:center;"><a class="fancybox fancybox.iframe" href="<?php echo $url1; ?>" title=""><img class="pinImage" src="<?php echo $src1; ?>" alt="<?php echo $row4->title ?>" /></a></div>
 				<p class="RateCount" style="padding-top:5px;"><?php echo $row4->url; ?></p>
+			</div>
+			<?php
+		}	
+			?>
+		<?php
+		$array_product = array();$j=0;
+		$resultproduct = mysql_query("SELECT id,placeId,path,title,description,name FROM businessImages AS ps WHERE placeId =$placeId AND name <> 'fbImg' AND path <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
+		while($row3 = mysql_fetch_object($resultproduct)){
+			$src = $path.$row3->path;		
+			?>		
+			<div class="sysPinItemContainer pin">
+				<p class="description sysPinDescr"><?php echo $row3->title ?></p>
+
+				<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
+				<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
 			</div>
 			<?php
 		}	
@@ -443,22 +443,6 @@ echo '<title>'. $businessTitle . '</title>';
 			</div>	
                 <div id="m_productImages" class="<?=$hideshowcase?>" style="margin-top:5px;" >
 					<div class="pinList center">
-					<?php
-						if(mysql_num_rows($resultproduct))
-							mysql_data_seek($resultproduct, 0);
-						while($row3 = mysql_fetch_object($resultproduct)){
-						$src = $path.$row3->path;	
-						?>		
-						<div class="sysPinItemContainer pin">
-							<p class="description sysPinDescr"><?php echo $row3->title ?></p>
-
-							<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
-							<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
-						</div>
-					<?php
-					}
-					?>
-
 				<?php
 					if(mysql_num_rows($resultproduct1))
 						mysql_data_seek($resultproduct1, 0);
@@ -475,6 +459,21 @@ echo '<title>'. $businessTitle . '</title>';
 						<?php
 					}	
 						?>
+					<?php
+						if(mysql_num_rows($resultproduct))
+							mysql_data_seek($resultproduct, 0);
+						while($row3 = mysql_fetch_object($resultproduct)){
+						$src = $path.$row3->path;	
+						?>		
+						<div class="sysPinItemContainer pin">
+							<p class="description sysPinDescr"><?php echo $row3->title ?></p>
+
+							<div style="text-align:center;"><a class="showproductsimg" href="<?php echo $src; ?>" title=""><img class="pinImage" src="<?php echo $src; ?>" alt="<?php echo $row3->title ?>" /></a></div>
+							<p class="RateCount" style="padding-top:5px;"><?php echo $row3->description; ?></p>
+						</div>
+					<?php
+					}
+					?>
 				</div>
 				</div>
             	<div id="m_reviews" class="<?=$hideavocate?>" style="margin-top:5px;">
