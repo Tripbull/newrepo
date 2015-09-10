@@ -168,9 +168,6 @@ switch($opt){
 		}	
 	break;
 	case 'webwidget':
-		$addnewfield = mysql_query("SHOW COLUMNS FROM `businessCustom` LIKE 'webwidget'") or die(mysql_error());
-		if(mysql_num_rows($addnewfield) < 1)
-			mysql_query('ALTER TABLE `businessCustom` ADD `webwidget` VARCHAR(22) NOT NULL AFTER `printvalue`');
 		$placeId = $_REQUEST['placeId'];
 		$result = mysql_query("SELECT webwidget FROM  businessCustom WHERE customPlaceId = {$placeId}") or die(mysql_error());
 		$row = mysql_fetch_object($result);

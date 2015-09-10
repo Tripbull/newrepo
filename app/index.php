@@ -60,7 +60,7 @@ echo date_default_timezone_get();*/
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="http://camrally.com/app/widget/widget.min.css" type="text/css">
+	<!--<link rel="stylesheet" href="http://camrally.com/app/widget/widget.min.css" type="text/css">-->
 	<link rel="stylesheet" href="./minified/themes/square.min.css" type="text/css" media="all" />
 	<link type="text/css" rel="stylesheet" href="css/colorpicker.css" />
 	<link rel="stylesheet" href="css/jquery.mobile.datepicker.css" />
@@ -125,7 +125,9 @@ echo date_default_timezone_get();*/
 								<ul class="plan-page" data-role="listview"><li ><a href="#" data-prefetch="true">Plan &amp; Campaign<span class="listview-arrow-default"></span></a></li><li ><a href="#" data-prefetch="true">Transactions<span class="listview-arrow-default"></span></a></li><li ><a href="#" data-prefetch="true">Activity<span class="listview-arrow-default"></span></a></li></ul>
 							</section>	
 							<section class="right-menu-loc hide">
-								<ul class="right-menu-loc" data-role="listview"><li ><a href="#" id="setup-custom" data-prefetch="false">Setup<span class="listview-arrow-default"></span></a></li><li id="visit-tabluu-page"><a href="#" target="_blank" class="link-visit-page" data-prefetch="false">Promote Your Camrally Page<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="collectFeedback" data-prefetch="false">Campaign Page Links<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="getwidget" data-prefetch="false">Advocate Widget<span class="listview-arrow-default"></span></a></li><li><a href="#" id="manageFeedback" data-prefetch="true">Manage Posts<span class="listview-arrow-default"></span></a></li><li><a href="#" id="exportemail" data-prefetch="true">Export followers' emails<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="change-icon" data-prefetch="false">Change Status<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="del-place" data-prefetch="false">Delete<span class="listview-arrow-default"></span></a></li></ul>
+								<ul class="right-menu-loc" data-role="listview"><li ><a href="#" id="setup-custom" data-prefetch="false">Setup<span class="listview-arrow-default"></span></a></li><li id="visit-tabluu-page"><a href="#" target="_blank" class="link-visit-page" data-prefetch="false">Promote Your Camrally Page<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="collectFeedback" data-prefetch="false">Campaign Page Links<span class="listview-arrow-default"></span></a></li>
+								<!--<li ><a href="#" id="getwidget" data-prefetch="false">Advocate Widget<span class="listview-arrow-default"></span></a></li>-->
+								<li><a href="#" id="manageFeedback" data-prefetch="true">Manage Posts<span class="listview-arrow-default"></span></a></li><li><a href="#" id="exportemail" data-prefetch="true">Export followers' emails<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="change-icon" data-prefetch="false">Change Status<span class="listview-arrow-default"></span></a></li><li ><a href="#" id="del-place" data-prefetch="false">Delete<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 						</div>
 					</div>					

@@ -573,7 +573,7 @@ $(document).ready(function(){
 			$('.right-menu-plan').show();
 		}else if(row > 2){
 			if(userArray.productId != proID )
-				diabledTab('.right-menu-loc',[5]);
+				diabledTab('.right-menu-loc',[4]);
 			$('#visit-tabluu-page').hide();
 			placeId= locId;
 			var index = row - 3;
@@ -4591,6 +4591,30 @@ $(document).on('pageinit','#feedback', function () {
 				//else	
 					$(".feedback-photo").show();
 			}
+		}else if(row == 4){	
+			var placeId = locId.split('|');
+			showLoader();
+			if(isdonewizard > 0)
+				wizardstep7();
+			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget',success:function(result){
+				hideLoader();
+				$(".feedback-widget").show();
+				if(result != ''){
+					data = $.parseJSON(result);
+					if(data.top == 1)
+						$('.feedback-widget input[id="checkbox-top"]').attr("checked",true).checkboxradio();
+					else
+						$('.feedback-widget input[id="checkbox-top"]').attr("checked",false).checkboxradio();
+					if(data.bot == 1)
+						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",true).checkboxradio();
+					else
+						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",false).checkboxradio();	
+			   }else
+				  $('.feedback-widget input[type="checkbox"]').attr("checked",true).checkboxradio();
+				$(".feedback-widget [data-role=controlgroup]").controlgroup("refresh");
+			
+			}});
+			$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="camrally-script" src= "http://camrally.com/app/feedback/js/camrallyfeed.min.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
 		}
 		feedbackActiveMenu();
 	}

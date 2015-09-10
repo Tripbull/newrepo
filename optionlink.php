@@ -73,7 +73,7 @@ require_once('header.html'); ?>
 					<div class="sysPinItemContainer pin clear">
 						<p class="description sysPinDescr fblink"><?=$camrow->businessName?></p>
 						<div style="text-align:center;">
-							<img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/>
+							<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 						</div>
 							<div style="padding:5px;">
 							    <i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -132,7 +132,7 @@ require_once('header.html'); ?>
 			<div style="width:auto;">
 			<div class="description sysPinDescr fblink"><?=$camrow->businessName?></div>
 			<div style="margin:0 auto;width:200px;">
-				<img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/>
+				<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 			</div>
 				<div style="padding:5px;">
 					<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
