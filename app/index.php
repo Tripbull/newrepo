@@ -46,7 +46,9 @@ $date = new DateTime("2014-12-18 01:34:27", new DateTimeZone($server_tz));
 date_default_timezone_set($user_tz);
 
 echo date("Y-m-d h:iA", $date->format('U')); 
-echo date_default_timezone_get();*/
+echo date_default_timezone_get();
+sdf
+*/
 
 ?>
 <!DOCTYPE html>
