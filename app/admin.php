@@ -41,9 +41,9 @@
 									<input type="radio" name="radio-a" id="radio-b" value="1">
 									<label for="radio-b">yes</label>
 								</fieldset>
-								<input type="text" data-clear-btn="true" name="txtfname" id="txtfname" value="" placeholder="first name">
-								<input type="text" data-clear-btn="true" name="txtlname" id="txtlname" value="" placeholder="last name">
-								<input type="text" data-clear-btn="true" name="txtemail" id="txtemail" value="" placeholder="email address">
+								<input type="text" data-clear-btn="false" name="txtfname" id="txtfname" value="" placeholder="first name">
+								<input type="text" data-clear-btn="false" name="txtlname" id="txtlname" value="" placeholder="last name">
+								<input type="text" data-clear-btn="false" name="txtemail" id="txtemail" value="" placeholder="email address">
 								<div class="clear" style="padding-top:0.5em"></div>	
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-invite">Invite</button>
@@ -53,11 +53,11 @@
 								<ul class="admin-right-menu" data-role="listview"><li ><a href="manageuser.html" data-prefetch="true"><img src="images/template/iconOwner.png" alt="" class="ui-li-icon ui-corner-none"><span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="panel-pwd hide">
-								<input type="text" data-clear-btn="true" name="txtfname1" id="txtfname1" value="" placeholder="first name">
-								<input type="text" data-clear-btn="true" name="txtlname1" id="txtlname1" value="" placeholder="last name">
-								<input type="text" data-clear-btn="true" name="txtaddress" id="txtaddress" value="" placeholder="email address">
-								<input type="password" data-clear-btn="true" name="newpwd" id="newpwd" value="" placeholder="new password">
-								<input type="password" data-clear-btn="true" name="newpwdConfirm" id="newpwdConfirm" value="" placeholder="confirm password">
+								<input type="text" data-clear-btn="false" name="txtfname1" id="txtfname1" value="" placeholder="first name">
+								<input type="text" data-clear-btn="false" name="txtlname1" id="txtlname1" value="" placeholder="last name">
+								<input type="text" data-clear-btn="false" name="txtaddress" id="txtaddress" value="" placeholder="email address">
+								<input type="password" data-clear-btn="false" name="newpwd" id="newpwd" value="" placeholder="new password">
+								<input type="password" data-clear-btn="false" name="newpwdConfirm" id="newpwdConfirm" value="" placeholder="confirm password">
 								<div class="clear" style="padding-top:0.5em"></div>	
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-updatepwd">Update</button>
