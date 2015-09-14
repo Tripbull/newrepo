@@ -1455,7 +1455,11 @@ $(document).ready(function(){
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+<<<<<<< Updated upstream
 			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+=======
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+>>>>>>> Stashed changes
 				
 		}
 			$('.profile-left-menu1').html(newli);
@@ -2908,81 +2912,50 @@ $(document).ready(function(){
 			}
 		}		
 
-		$('#uploadvid').click(function(e){e.preventDefault();setUrlVideo();}); // when upload button change web photos
-		
-		$('#filevid').on('change',function(){ // save web photos
-			$('<div id="overlay"> </div>').appendTo(document.body);
-			$('#frmvid').ajaxSubmit({beforeSubmit: beforeSubmitvid,success: showResponsevid3,resetForm: true });
-		});	
-
-		function setUrlVideo(){
-			txtvideourl='';
-			$.box_Dialog('Enter a Youtube URL and <br> click save or click browse <br> to upload a video file. <br><br><input type="text" value="" name="txtvideourl" id="txtvideourl" placeholder="Youtube video url" style="width:100%;"/>', {
-					'type':     'question',
-					'title':    '<span class="color-gold">Youtube URL<span>',
-					'center_buttons': true,
-					'show_close_button':false,
-					'overlay_close':false,
-					'buttons':  [{caption: 'browse',callback:function(){
-						setTitleVideo();
-					}},{caption: 'save',callback:function(){
-						txtvideourl=$('#txtvideourl').val();
-    					var n = txtvideourl.indexOf("youtube");
-						if(txtvideourl == '')
-						{
-							alertBox('Youtube URL error','Youtube URL is empty!');	
-						}
-						else if(n < 0)
-						{
-							alertBox('Youtube URL error','Please enter a valid Youtube URL!');
-						}
-						else
-						{
-							changephotovid2();
-							$('<div id="overlay"> </div>').appendTo(document.body);
-							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&imgurlvid='+$('#imgurlvid').val()+'&imgtitlevid=Camrally Video&savetype=url&opt=saveVid',async: false,success:function(imgurl){
-								hideLoader();
-								showResponsevid2("http://i.ytimg.com/vi/" + imgurl + "/default.jpg");
-							}});
-						}
-					}},{caption:'cancel'}]
-				});		
-		}
+		$('#uploadvid').click(function(e){e.preventDefault();setTitleVideo();});
 
 		function setTitleVideo()
 		{
-			$('.ZebraDialogOverlay').remove();
-			$('.ZebraDialog').remove();
-			setTimeout(function(){
-				txtvideotitle='';
-				$.box_Dialog('Enter the Youtube video Title. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Youtube video title" style="width:100%;"/>', {
-					'type':     'question',
-					'title':    '<span class="color-gold">Youtube title<span>',
-					'center_buttons': true,
-					'show_close_button':false,
-					'overlay_close':false,
-					'buttons':  [{caption: 'upload',callback:function(){
-						txtvideotitle=$('#txtvideotitle').val();
+			showLoader();
+			txtvideotitle='';
+			$.box_Dialog('Enter a title for your video. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Video title" style="width:100%;"/>', {
+				'type':     'question',
+				'title':    '<span class="color-gold">Video title<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'enter',callback:function(){
+					txtvideotitle=$('#txtvideotitle').val();
+					if(txtvideotitle == '')
+					{
+						alertBox('Youtube error','Youtube title is empty!');	
+						hideLoader();
+					}
+					else
+					{
+						changephoto();
 						changephotovid2();
-						$('#filevid').click();
-					}}]
-				});	
-			},500);	
+					}
+				}},{caption:'cancel'}]
+			});	
 		}
 
-		function showResponsevid3(responseText, statusText, xhr, $form)  
+		function ytBrowserUpload(txtvideotitle)  
 		{
-			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&imgurlvid='+$('#imgurlvid').val()+'&imgtitlevid='+$('#imgtitlevid').val()+'&savetype=file&opt=saveVid',async: false,success:function(lastid){
-				var win = window.open(domainpath + "resumable_upload.html?placeId=" + places[0] + "&name=" + $('#typevid').val(), " ","width=410, height=405");   
-				var timer = setInterval(function() {   
-				    if(win.closed) {  
-				        clearInterval(timer);  
-				        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(imgurl){
-				        	showResponsevid2("http://i.ytimg.com/vi/" + imgurl + "/default.jpg"); 
-				        }}); 
-				    }  
-				}, 1000);  
-			}});
+			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val(), " ","width=410, height=294");   
+			var timer = setInterval(function() {   
+			    if(win.closed) {  
+			        clearInterval(timer);  
+			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
+			        	if(videoId != '')
+			        	{
+				        	alertBox('Youtube upload','Video successfully uploaded!');
+				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
+			        	}
+				        hideLoader();
+			        }}); 
+			    }  
+			}, 500);  
 		}
 
 		function showResponsevid2(responseText)  { 
@@ -3039,30 +3012,33 @@ $(document).ready(function(){
 			
 			if(customArray.vidImg == ''){
 				$('#typevid').val('vidImg');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
+				// $('#imgurlvid').val(txtvideourl);
 			}else if(customArray.vidImg2 == ''){
 				$('#typevid').val('vidImg2');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg3 == ''){
 				$('#typevid').val('vidImg3');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg4 == ''){
 				$('#typevid').val('vidImg4');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg5 == ''){
 				$('#typevid').val('vidImg5');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg6 == ''){
 				$('#typevid').val('vidImg6');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg7 == ''){
 				$('#typevid').val('vidImg7');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}else if(customArray.vidImg8 == ''){
 				$('#typevid').val('vidImg8');
-				$('#imgurlvid').val(txtvideourl);$('#imgtitlevid').val(txtvideotitle);
+				$('#imgtitlevid').val(txtvideotitle);
 			}			
+			ytBrowserUpload(txtvideotitle);
 		}
+
 		function changephotovid(){
 			if(customArray.vidImg == ''){
 				$('#vidthumb1').attr('src', loadingPhoto);
@@ -3082,31 +3058,6 @@ $(document).ready(function(){
 				$('#vidthumb8').attr('src', loadingPhoto);
 			}		
 		}
-
-		function beforeSubmitvid(){
-			//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
-			if (window.File){
-			   var fsize = String($('#filevid')[0].files[0].size); //get file size
-			   var ftype = $('#filevid')[0].files[0].type; // get file type
-
-				switch(ftype){
-					case 'video/mov':
-					case 'video/mp4':
-					case 'video/avi':
-					case 'video/wmv':
-					case 'video/flv':
-					changephotovid();
-					break;
-					default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv file types');	
-					$('#overlay').remove();
-					return false;
-				}
-			}else{
-			   alertBox('unsupported browser','Please upgrade your browser, because your current browser lacks some new features we need!');	
-			   $('#overlay').remove();
-			   return false;
-			}
-		}	
 	});
 	
 	function bytesToSize(bytes) {

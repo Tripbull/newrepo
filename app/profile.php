@@ -213,16 +213,10 @@ foreach($time_zones as $zones){
 							<section class="video-section hide">
 								<span class="font-17 fl">Upload videos for your Camrally page...</span>
 								<div class="clear"></div>
-								<form id="frmvid" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-									<button class="ui-btn" id="uploadvid">Upload Videos</button>
-									<div style="visibility:hidden;height:0px">
-									<input type="file" name="filevid" style="visibility:hidden;height:0px" id="filevid" value="">
-									</div>
-									<input type="hidden" value="" name="placeidvid" id="placeidvid" />
-									<input type="hidden" value="" name="typevid" id="typevid" />
-									<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />
-									<input type="hidden" value="" name="imgurlvid" id="imgurlvid" />
-								 </form>	
+								<button class="ui-btn" id="uploadvid">Upload Videos</button>
+								<input type="hidden" value="" name="placeidvid" id="placeidvid" />
+								<input type="hidden" value="" name="typevid" id="typevid" />
+								<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />
 								 <div class="clear" style="padding-top:0.5em"></div>
 								 <div id="containervid">
 									<div class="masonryImage">
