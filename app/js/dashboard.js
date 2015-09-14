@@ -1,4 +1,4 @@
-var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0;
+var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0,invited=0,invitedemail='';
 var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'https://tabluu.chargify.com';
 var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],videosArray=[],txtdescription='',txtimg='',txtvideourl='',txtvideotitle='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
@@ -4054,7 +4054,17 @@ $(document).on('pageshow','#admin', function () {
 						}else{
 							$.ajax({type: "POST",url:"setData.php",cache: false,data:'groupID='+userArray.userGroupId+'&id='+userArray.id+'&opt=adduser&fname='+$('#txtfname').val()+'&lname='+$('#txtlname').val()+'&email='+$('#txtemail').val()+'&permission='+$("#permission :radio:checked").val() ,success:function(lastId){
 								$('#overlay').remove();
-								alertBox('invitation sent','An invitation email has been sent.');
+								$.box_Dialog('An invitation email has been sent.', {
+									'type':     'question',
+									'title':    '<span class="color-white">invitation sent<span>',
+									'center_buttons': true,
+									'show_close_button':false,
+									'overlay_close':false,
+									'buttons':  [{caption: 'okay',callback:function(){
+										invited = 1;invitedemail=$('#txtemail').val();
+										$( ":mobile-pagecontainer" ).pagecontainer( "change", "manageuser.html",{ });
+									}}]
+								});	
 							}});
 						}	
 					}});
@@ -4201,6 +4211,10 @@ $(document).on('pageshow','#manage', function () { // Profile script start here
 		if(listuser.length){ // had location already
 			for(var i in listuser){
 				var icon = '';  	
+				if(invitedemail == listuser[i].email){
+					curClick = i;
+					invitedemail = '';
+				}	
 				if(listuser[i].permission == 0)
 					 icon = 'images/template/iconOwner.png';
 				else if(listuser[i].permission == 1)

@@ -74,21 +74,21 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Campaign name:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="true" name="namecampaign" id="namecampaign" value="" placeholder="Text (max 40 chars)">
+								<input type="text" data-clear-btn="false" name="namecampaign" id="namecampaign" value="" placeholder="Text (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Presented by:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="true" name="txtbrand" id="txtbrand" value="" placeholder="Text (max 40 chars)">
+								<input type="text" data-clear-btn="false" name="txtbrand" id="txtbrand" value="" placeholder="Text (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Add your slogan:</i> </span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="true" name="txtcamp1" id="txtcamp1" value="" placeholder="Text for row 1 (max 40 chars)">
+								<input type="text" data-clear-btn="false" name="txtcamp1" id="txtcamp1" value="" placeholder="Text for row 1 (max 40 chars)">
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="true" name="txtcamp2" id="txtcamp2" value="" placeholder="Text for row 2 (max 40 chars)">
+								<input type="text" data-clear-btn="false" name="txtcamp2" id="txtcamp2" value="" placeholder="Text for row 2 (max 40 chars)">
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Your call to action button:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="true" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo or Selfie!" placeholder="Post Your Photo or Selfie!">
+								<input type="text" data-clear-btn="false" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo or Selfie!" placeholder="Post Your Photo or Selfie!">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<select name="select-category" id="select-category">
 										<option value="">Select a Category</option>
