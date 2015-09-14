@@ -434,8 +434,8 @@ switch($opt){
 		echo json_encode(array_merge(mysql_fetch_array($result),$imagesArray,$videosArray)); 
 	break;
 	case 'getVideoId':
-		$placeId = $_REQUEST['placeId'];
 		$sql='';
+		$placeId = $_REQUEST['placeId'];
 		$name = $_REQUEST['typevid'];
 		
 		$result = mysql_query("SELECT video_id FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
