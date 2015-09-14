@@ -37,7 +37,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<ul class="profile-left-menu1" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Description<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Photos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map Display<span class="listview-arrow-default"></span></a></li></ul>										
 							</section>
 							<section class="panel-UIC hide">
-								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li></ul>
+								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" >Font Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="panel-question hide">
 								<p class="font-17 bgrey" style="padding:10px">Please upload a campaign poster...</p>

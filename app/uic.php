@@ -26,7 +26,7 @@ $noPhoto = 'images/template/no-photo.gif';
 						<div class="left-content fl">
 							<div class="left-header">Customizations</div>			
 							<ul class="uic-left-menu" data-role="listview">
-								<li ><a href="#">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Message<span class="listview-arrow-default"></span></a></li>
+								<li ><a href="#">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="#" >Font Color<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="#">Text in Message<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -114,7 +114,14 @@ $noPhoto = 'images/template/no-photo.gif';
 										<div class="fl w90">
 											<input type="text" name="txt-camdetails" id="txt-camdetails" value="Campaign details" placeholder="Campaign details">
 										</div>
-									</div>								
+									</div>
+									<div class="clear" style="padding-top:0.5em"></div>
+									<p>&lt;Respond Now!&gt;</p>
+									<div class="clear" style="padding-top:1em;width:15em;">
+										<div class="fl w90">
+											<input type="text" name="txt-widget" id="txt-widget" value="Respond Now!" placeholder="Respond Now!">
+										</div>
+									</div>									
 									<div class="clear" style="padding-top:0.5em"></div>
 									<div class="btn-submit">
 										<button class="ui-btn" id="submit-tb">Submit</button>

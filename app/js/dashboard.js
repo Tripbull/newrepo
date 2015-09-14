@@ -1455,7 +1455,7 @@ $(document).ready(function(){
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
 				
 		}
 			$('.profile-left-menu1').html(newli);
@@ -3154,7 +3154,7 @@ $(document).ready(function(){
 				$( '.main-wrap .right-content' ).hide();
 				$( '.main-wrap .left-content' ).css( {"max-width":'100%'} );
 			}else if(($( window ).width() <= 600 && $('.left-content').is(":visible")) || $( window ).width() > 600){
-				curClick=1;defaultSetup=1;
+				curClick=2;defaultSetup=2;
 				$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{ });
 			}
 			e.preventDefault();
@@ -3208,9 +3208,11 @@ $(document).ready(function(){
 					// alertBox('no access','Please upgrade to basic plan & above to access this feature');
 				//else
 				$('.uic-section-bg').show();
-			}else if(row == 1){
-				$('.uic-section-tb').show();
+			}else if(row == 1){			
+					$('.uic-section-fc').show();	
 			}else if(row == 2){
+				$('.uic-section-tb').show();
+			}else if(row == 3){
 				$('.uic-section-box').show();
 			}
 		}		
@@ -3310,6 +3312,7 @@ $(document).ready(function(){
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 			$('#txt-camdetails').val((typeof(boxArray.campdetails) != 'undefined' ? decodequote(boxArray.campdetails[0]) : 'Campaign details'));
+			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Respond Now!'));
 		}	
 		
 		$('#pickerbackground').colpick({
@@ -3385,7 +3388,7 @@ $(document).ready(function(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=6&'+$('#frmUIC2').serialize(),success:function(lastId){
 				customArray.button =
-				JSON.stringify({"share":[$('#txtshare1').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()],"campdetails":[$('#txt-camdetails').val()]});
+				JSON.stringify({"share":[$('#txtshare1').val()],"logout":[$('#txt-logout').val()],"follow":[$('#follow-no').val(),$('#follow-yes').val()],"cambtnoption":[$('#btncam1').val(),$('#btncam2').val(),$('#btncam3').val(),$('#btncam4').val()],"btnshare":[$('#txt-share').val()],"campdetails":[$('#txt-camdetails').val()],"btnwidget":[$('#txt-widget').val()]});
 				hideLoader();
 				alertBox('successful','Update completed.');
 			}});	
@@ -4672,7 +4675,7 @@ $(document).on('pageinit','#feedback', function () {
 				$(".feedback-widget [data-role=controlgroup]").controlgroup("refresh");
 			
 			}});
-			$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="camrally-script" src= "http://camrally.com/app/feedback/js/camrallyfeed.min.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
+			$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="camrally-script" src= "http://camrally.com/app/campaign/js/camrallyfeed.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
 		}
 		feedbackActiveMenu();
 	}
