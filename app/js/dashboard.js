@@ -2306,8 +2306,16 @@ $(document).ready(function(){
 		if(customArray.webImg8 != '' && customArray.webImg7 != '' && customArray.webImg6 != '' && customArray.webImg5 != '' && customArray.webImg4 != '' && customArray.webImg3 != '' && customArray.webImg2 != '' && customArray.webImg != '')
 			$('#frmweb').css({display:'none'});		
 
-		if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
-			$('#frmvid').css({display:'none'});		
+		if(userArray.productId == liteID)
+		{
+			if(customArray.vidImg != '')
+				$('#uploadvid').css({display:'none'});	
+		}
+		else
+		{
+			if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
+				$('#uploadvid').css({display:'none'});	
+		}
 
 		var mapoff = $("select#flipmap"); //set selected flipswitch
 		mapoff[0].selectedIndex = customArray.showmap;
@@ -2460,7 +2468,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb1').attr('src', noPhoto);
 								$('.vidtitle1').html('');$('.vidurl1').html('');
 							}else
@@ -2477,7 +2485,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg2.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg2 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg2 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb2').attr('src', noPhoto);
 								$('.vidtitle2').html('');$('.vidurl2').html('');
 							}else
@@ -2494,7 +2502,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg3.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg3 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg3 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb3').attr('src', noPhoto);
 								$('.vidtitle3').html('');$('.vidurl3').html('');
 							}else
@@ -2511,7 +2519,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg4.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg4 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg4 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb4').attr('src', noPhoto);
 								$('.vidtitle4').html('');$('.vidurl4').html('');
 							}else
@@ -2528,7 +2536,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg5.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg5 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg5 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb5').attr('src', noPhoto);
 								$('.vidtitle5').html('');$('.vidurl5').html('');
 							}else
@@ -2545,7 +2553,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg6.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg6 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg6 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb6').attr('src', noPhoto);
 								$('.vidtitle6').html('');$('.vidurl6').html('');
 							}else
@@ -2562,7 +2570,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg7.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg7 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg7 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb7').attr('src', noPhoto);
 								$('.vidtitle7').html('');$('.vidurl7').html('');
 							}else
@@ -2579,7 +2587,7 @@ $(document).ready(function(){
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=delVid&id='+videosArray.vidImg8.id,success:function(lastId){
 							hideLoader();
 							if(lastId > 0){
-								customArray.vidImg8 = '';$('#frmvid').css({display:'inline'});
+								customArray.vidImg8 = '';$('#uploadvid').css({display:'inline'});
 								$('#vidthumb8').attr('src', noPhoto);
 								$('.vidtitle8').html('');$('.vidurl8').html('');
 							}else
@@ -2993,8 +3001,16 @@ $(document).ready(function(){
 				$('.vidtitle8').html(txtvideotitle);$('.vidurl8').html(txtvideourl);
 			}
 			$('#overlay').remove();
-			if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
-				$('#frmvid').css({display:'none'});	
+			if(userArray.productId == liteID)
+			{
+				if(customArray.vidImg != '')
+					$('#uploadvid').css({display:'none'});	
+			}
+			else
+			{
+				if(customArray.vidImg8 != '' && customArray.vidImg7 != '' && customArray.vidImg6 != '' && customArray.vidImg5 != '' && customArray.vidImg4 != '' && customArray.vidImg3 != '' && customArray.vidImg2 != '' && customArray.vidImg != '')
+					$('#uploadvid').css({display:'none'});	
+			}
 
 			createProfileMenu2();
 			var $container = $('#containervid');

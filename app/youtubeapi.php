@@ -78,7 +78,7 @@
 
 		//create a video obj with temp info  
 		$video_title  = $title;  
-		$video_desc   = $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/app/' . $row->nicename . '.html';  
+		$video_desc   = $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/' . $row->nicename . '.html';  
 		$video_keywords = $row->businessName . ', ' . 'Camrally, Campaign';  
 	 
 		//setup request body as xml  
@@ -275,7 +275,7 @@
         </script>
 	</head>
 	<body>
-		<div id="ytupload" style="margin:15px;position:absolute;width:94%;overflow:hidden;">
+		<div id="ytupload" style="margin:15px;position:absolute;width:94%;height:100%;overflow:hidden;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
 			<input type="hidden" value="<?=$_SESSION['typeVid']?>" name="typeVid" id="typeVid" />
 			<input type="hidden" value="<?=$_SESSION['titleVid']?>" name="titleVid" id="titleVid" />
