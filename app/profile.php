@@ -39,35 +39,35 @@ foreach($time_zones as $zones){
 							<div class="right-header"></div>
 							<section class="pro-section hide">
 								<form id="frmpro" action="#" method="post" enctype="multipart/form-data" >
-								<input type="text" data-clear-btn="true" name="txtorg" id="txtorg" value="" placeholder="name of individual or organisation">
+								<input type="text" data-clear-btn="false" name="txtorg" id="txtorg" value="" placeholder="name of individual or organisation">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtadd" id="txtadd" value="" placeholder="address">
+								<input type="text" data-clear-btn="false" name="txtadd" id="txtadd" value="" placeholder="address">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtcity" id="txtcity" value="" placeholder="city">
+								<input type="text" data-clear-btn="false" name="txtcity" id="txtcity" value="" placeholder="city">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtcountry" id="txtcountry" value="" placeholder="country">
+								<input type="text" data-clear-btn="false" name="txtcountry" id="txtcountry" value="" placeholder="country">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtzip" id="txtzip" value="" placeholder="zip or postal code">
+								<input type="text" data-clear-btn="false" name="txtzip" id="txtzip" value="" placeholder="zip or postal code">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtproemail" id="txtproemail" value="" placeholder="email address">
+								<input type="text" data-clear-btn="false" name="txtproemail" id="txtproemail" value="" placeholder="email address">
 								<label for="number-1"></label>
 								<select name="profile-timezone" id="profile-timezone">
                                 	<?=$tz?>
                                 </select>
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtpho" id="txtpho" value="" placeholder="telephone (optional)">
+								<input type="text" data-clear-btn="false" name="txtpho" id="txtpho" value="" placeholder="telephone (optional)">
                                 <label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtfb" id="txtfb" value="" placeholder="facebook page url (optional)">
+								<input type="text" data-clear-btn="false" name="txtfb" id="txtfb" value="" placeholder="facebook page url (optional)">
 								<label for="number-1"></label>
-								<input type="text" data-clear-btn="true" name="txtweb" id="txtweb" value="" placeholder="website url (optional)">
+								<input type="text" data-clear-btn="false" name="txtweb" id="txtweb" value="" placeholder="website url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="true" name="txtlink" id="txtlink" value="" placeholder="linkedIn url (optional)">
+									<input type="text" data-clear-btn="false" name="txtlink" id="txtlink" value="" placeholder="linkedIn url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="true" name="txttwit" id="txttwit" value="" placeholder="twitter url (optional)">
+									<input type="text" data-clear-btn="false" name="txttwit" id="txttwit" value="" placeholder="twitter url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="true" name="txtbooknowlabel" id="txtbooknowlabel" value="Post Your Photo or Selfie!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
+									<input type="text" data-clear-btn="false" name="txtbooknowlabel" id="txtbooknowlabel" value="Post Your Photo or Selfie!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
 									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Take a advocates!, etc.)</label>
-									<input type="text" data-clear-btn="true" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url">
+									<input type="text" data-clear-btn="false" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url">
 									<label for="number-1" style="font-size:12px;">(custom button url)</label>
 								<div class="btn-submit">
 									<button class="ui-btn" id="submit-pro">Submit</button>
@@ -213,16 +213,10 @@ foreach($time_zones as $zones){
 							<section class="video-section hide">
 								<span class="font-17 fl">Upload videos for your Camrally page...</span>
 								<div class="clear"></div>
-								<form id="frmvid" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-									<button class="ui-btn" id="uploadvid">Upload Videos</button>
-									<div style="visibility:hidden;height:0px">
-									<input type="file" name="filevid" style="visibility:hidden;height:0px" id="filevid" value="">
-									</div>
-									<input type="hidden" value="" name="placeidvid" id="placeidvid" />
-									<input type="hidden" value="" name="typevid" id="typevid" />
-									<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />
-									<input type="hidden" value="" name="imgurlvid" id="imgurlvid" />
-								 </form>	
+								<button class="ui-btn" id="uploadvid">Upload Videos</button>
+								<input type="hidden" value="" name="placeidvid" id="placeidvid" />
+								<input type="hidden" value="" name="typevid" id="typevid" />
+								<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />
 								 <div class="clear" style="padding-top:0.5em"></div>
 								 <div id="containervid">
 									<div class="masonryImage">

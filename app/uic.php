@@ -49,11 +49,11 @@ $noPhoto = 'images/template/no-photo.gif';
 							</section>	
 							<section class="uic-section-tbs hide">
 								<form id="frmUIC1" action="#" method="post" enctype="multipart/form-data" >
-									<input type="text" data-clear-btn="true" name="txtvpoor" id="txtvpoor" value="Very poor" placeholder="Very poor">
-									<input type="text" data-clear-btn="true" name="txtpoor" id="txtpoor" value="Poor" placeholder="Poor">
-									<input type="text" data-clear-btn="true" name="txtfair" id="txtfair" value="Average" placeholder="Average">
-									<input type="text" data-clear-btn="true" name="txtgood" id="txtgood" value="Good" placeholder="Good">
-									<input type="text" data-clear-btn="true" name="txtexc" id="txtexc" value="Excellent" placeholder="Excellent">
+									<input type="text" data-clear-btn="false" name="txtvpoor" id="txtvpoor" value="Very poor" placeholder="Very poor">
+									<input type="text" data-clear-btn="false" name="txtpoor" id="txtpoor" value="Poor" placeholder="Poor">
+									<input type="text" data-clear-btn="false" name="txtfair" id="txtfair" value="Average" placeholder="Average">
+									<input type="text" data-clear-btn="false" name="txtgood" id="txtgood" value="Good" placeholder="Good">
+									<input type="text" data-clear-btn="false" name="txtexc" id="txtexc" value="Excellent" placeholder="Excellent">
 									<div class="clear" style="padding-top:0.5em"></div>
 									<div class="btn-submit">
 										<button class="ui-btn" id="submit-tbs">Submit</button>
@@ -130,14 +130,14 @@ $noPhoto = 'images/template/no-photo.gif';
 							</section>	
 							<section class="uic-section-box hide">
 								<form id="frmUIC3" action="#" method="post" enctype="multipart/form-data" >
-									<input type="text" data-clear-btn="true" name="txtbox9" id="txtbox9" value="Auto logout" placeholder="Auto logout">
-									<input type="text" data-clear-btn="true" name="txtbox10" id="txtbox10" value="You'll be logged out of <social_media> after sharing." placeholder="You'll be logged out of <social_media> after sharing.">
-									<input type="text" data-clear-btn="true" name="txtbox26" id="txtbox26" value="You're logged in to <social_media>" placeholder="You're logged in to <social_media>">
-									<input type="text" data-clear-btn="true" name="txtbox27" id="txtbox27" value="Click &quot;okay&quot; to start sharing!" placeholder="Click &quot;okay&quot; to start sharing!">
-									<input type="text" data-clear-btn="true" name="txtbox3" id="txtbox3" value="Share your Camrally Post?" placeholder="Share your Camrally Post?">
-									<input type="text" data-clear-btn="true" name="txtbox22" id="txtbox22" value="By sharing you agree with Camrally's <privacy_policy_link>." placeholder="By sharing you agree with Camrally's <privacy_policy_link>.">
-									<input type="text" data-clear-btn="true" name="txtbox11" id="txtbox11" value="Follow this campaign?" placeholder="Follow this campaign?">
-									<input type="text" data-clear-btn="true" name="txtbox12" id="txtbox12" value="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <campaigner> to contact you." placeholder="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <campaigner> to contact you.">
+									<input type="text" data-clear-btn="false" name="txtbox9" id="txtbox9" value="Auto logout" placeholder="Auto logout">
+									<input type="text" data-clear-btn="false" name="txtbox10" id="txtbox10" value="You'll be logged out of <social_media> after sharing." placeholder="You'll be logged out of <social_media> after sharing.">
+									<input type="text" data-clear-btn="false" name="txtbox26" id="txtbox26" value="You're logged in to <social_media>" placeholder="You're logged in to <social_media>">
+									<input type="text" data-clear-btn="false" name="txtbox27" id="txtbox27" value="Click &quot;okay&quot; to start sharing!" placeholder="Click &quot;okay&quot; to start sharing!">
+									<input type="text" data-clear-btn="false" name="txtbox3" id="txtbox3" value="Share your Camrally Post?" placeholder="Share your Camrally Post?">
+									<input type="text" data-clear-btn="false" name="txtbox22" id="txtbox22" value="By sharing you agree with Camrally's <privacy_policy_link>." placeholder="By sharing you agree with Camrally's <privacy_policy_link>.">
+									<input type="text" data-clear-btn="false" name="txtbox11" id="txtbox11" value="Follow this campaign?" placeholder="Follow this campaign?">
+									<input type="text" data-clear-btn="false" name="txtbox12" id="txtbox12" value="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <campaigner> to contact you." placeholder="Press the &quot;yes&quot; button to agree with Camrally's <privacy_policy_link> & allow <campaigner> to contact you.">
 									<div class="clear" style="padding-top:0.5em"></div>
 									<div class="btn-submit">
 										<button class="ui-btn" id="submit-box">Submit</button>

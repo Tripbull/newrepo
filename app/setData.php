@@ -623,8 +623,8 @@ switch($opt){
 			echo 0;
 	break;	
 	case 'saveVid':
-		$placeId = $_REQUEST['placeId'];
 		$sql='';
+		$placeId = $_REQUEST['placeId'];
 		$name = $_REQUEST['typevid'];
 		$imgurl = $_REQUEST['imgurlvid'];
 		$imgtitle = $_REQUEST['imgtitlevid'];
@@ -636,20 +636,13 @@ switch($opt){
 		$result = mysql_query("SELECT id,name FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
 		if(mysql_num_rows($result)){
 			$row = mysql_fetch_object($result);
-			if($savetype == 'url')
-			{
-				$sql = "UPDATE businessVideos SET video_id= '" . $query['v'] . "',title='$imgtitle',url='$imgurl' WHERE id = $row->id";
-			}
-			else
-			{
-				$sql = "UPDATE businessVideos SET title='$imgtitle' WHERE id = $row->id";
-			}
+			$sql = "UPDATE businessVideos SET video_id= '" . $query['v'] . "',title='$imgtitle',url='$imgurl' WHERE id = $row->id";
 		}else{
 			$sql = "INSERT INTO businessVideos (placeId,video_id,title,url,name) VALUES($placeId,'" . $query['v'] . "','$imgtitle','$imgurl','$name')";
 		}
 		mysql_query($sql) or die(mysql_error());
 		if(mysql_affected_rows()){
-			echo $query['v'];		
+			echo $imgurl;		
 		}else
 			echo 0;
 	break;	

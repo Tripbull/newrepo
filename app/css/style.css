@@ -146,7 +146,7 @@ p{margin-top:0.5em;}
 /*#profile #profile-timezone-button{ background-color:#fff; color:#000; border:#000; text-align:left; }
 #profile #profile-timezone-button .ui-focus{ border:#000; } */
 #profile #select-profile .ui-btn-icon-left:after, .ui-btn-icon-right:after, .ui-btn-icon-top:after, .ui-btn-icon-bottom:after, .ui-btn-icon-notext:after{background-color:#00AEEF;}
-#profile #frmfb .ui-btn,#profile #frmweb .ui-btn,#profile #frmvid .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
+#profile #frmfb .ui-btn,#profile #frmweb .ui-btn,#profile .video-section .ui-btn,#ytupload .ui-btn{background-color:#00AEEF;text-shadow:none;color:#fff;font-weight: normal;}
 #profile .pro-section .ui-focus,#profile .pro-vanity .ui-focus,#setup .panel-redirect .ui-focus{box-shadow:none;color:#000;border:1px solid #ddd !important;font-weight: normal !important;font-size: 1em !important;}
 #profile .pro-vanity{font-family:"OpenSans";}
 #profile .pro-vanity .ui-input-text{min-height: 1.7em !important;padding-left:104px !important;margin-top:10px;color:#38c}
