@@ -115,7 +115,7 @@ $noPhoto = 'images/template/no-photo.gif';
 											<input type="text" name="txt-camdetails" id="txt-camdetails" value="Campaign details" placeholder="Campaign details">
 										</div>
 									</div>
-									<div class="hide"> <!-- remove this div to show the button -->
+									<div class="hide"> <!-- remove this div to show the button  -->
 										<div class="clear" style="padding-top:0.5em"></div>
 										<p>&lt;Respond Now!&gt;</p>
 										<div class="clear" style="padding-top:1em;width:15em;">
