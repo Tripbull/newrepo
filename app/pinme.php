@@ -142,7 +142,7 @@ echo '<title>'. $businessTitle . '</title>';
 							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 						} ?>
 						<div class="clear" style="padding-top:5px"></div>
-						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Post Your Photo!' : $row->booknowlabel)  ?></a></div>
+						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
 					}
@@ -435,7 +435,7 @@ echo '<title>'. $businessTitle . '</title>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     }if($connect->liteID != $row->productId){
 						if($booksite){
-							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
+							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
 						}
 					}					
