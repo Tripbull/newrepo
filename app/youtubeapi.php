@@ -78,7 +78,7 @@
 
 		//create a video obj with temp info  
 		$video_title  = $title;  
-		$video_desc   = $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/app/' . $row->nicename . '.html';  
+		$video_desc   = $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/' . $row->nicename . '.html';  
 		$video_keywords = $row->businessName . ', ' . 'Camrally, Campaign';  
 	 
 		//setup request body as xml  
