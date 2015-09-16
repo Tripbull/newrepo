@@ -10,10 +10,17 @@ $(document).ready(function() {
 	$('.sharedpage').fancybox({width:'90%'});
 	$('.fancybox').fancybox({});
 	$(".showproductsimg").fancybox({helpers : {title : {type : 'inside'}}});
-
+	$("li.sub-comment").click(function(e){
+		e.preventDefault();
+		$('#comment').show();
+		$('#comment').removeClass('hide');
+		$('#masoncontainer').hide();
+	});
 	$("#li-showhide").click(function(e)
 	{
 		e.preventDefault();
+		$('#comment').hide();
+		$('#masoncontainer').show();	
 		if($(this).hasClass( "li-advocate" )){
 			$('.textadvo').html('Gallery');
 			$('#campin-showimage').removeClass( "hide" );
