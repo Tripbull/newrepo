@@ -263,12 +263,14 @@ echo '<title>'. $businessTitle . '</title>';
 </div>    
     <div class="clear"></div>
 	<div id="comment" class="hide">
+		<!--<div class="loader">f</div>-->
+		
 	    <?php
 			$curDomain = 'http://camrally.com/app/';
 			if($connect->istest)
-				$curDomain = 'http://camrally.com/staging/'
+				$curDomain = 'http://camrally.com/staging/';
 		?>
-		<div class="fb-comments" data-href="<?=$curDomain.$nice?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 	</div>
    <div id="masoncontainer">
    <!-- advocates images -->   
@@ -550,5 +552,14 @@ function htmldecode2($str){
 	return str_replace("|five","#",$str);
 }
 ?> 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
