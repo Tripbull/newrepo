@@ -125,15 +125,14 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
+			 <div class="FLeft" style="max-width:400px;"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 		
 			?>
-			 <div style="float:right;padding-right:10px;">
+			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
 					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
-					<div class="clear" style="padding-top:5px"></div>
 					<?php
 					if($connect->liteID != $row->productId){
 						if($row->booknow){
@@ -141,7 +140,6 @@ echo '<title>'. $businessTitle . '</title>';
 						}else{
 							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 						} ?>
-						<div class="clear" style="padding-top:5px"></div>
 						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
@@ -551,14 +549,6 @@ function htmldecode2($str){
 	$str = str_replace("|four","&quot;",$str);
 	return str_replace("|five","#",$str);
 }
-?>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script> 
+?> 
 </body>
 </html>
