@@ -132,7 +132,7 @@ echo '<title>'. $businessTitle . '</title>';
 			?>
 			 <div style="float:right;padding-right:10px;">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
+					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
 					<?php
 					if($connect->liteID != $row->productId){
@@ -212,6 +212,7 @@ echo '<title>'. $businessTitle . '</title>';
 		if($row->showmap)
 			$w++;
 		$w++; //count for showcase or review tab	
+		$w++;
 		if($w == 1)
 			$widthmenu = "width:50%";
         else if($w == 2)
@@ -225,13 +226,17 @@ echo '<title>'. $businessTitle . '</title>';
 		else if($w == 6)
 			$widthmenu = "width:14.25%";
 		else if($w == 7)
-			$widthmenu = "width:12.5%";		
+			$widthmenu = "width:12.5%";
+		else if($w == 8)
+			$widthmenu = "width:12.5%";	
+			
 	?>
 
 	<div id="nav">
 		<ul>
 			<?php
 				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
+				echo '<li class="sub-comment" style="'.$widthmenu.'"><a href="#" ><div class="menupadding">Comment</div></a></li>';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
 				if($rowAvg->advocates > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
@@ -259,7 +264,14 @@ echo '<title>'. $businessTitle . '</title>';
 	</div>
 </div>    
     <div class="clear"></div>
-
+	<div id="comment" class="hide">
+	    <?php
+			$curDomain = 'http://camrally.com/app/';
+			if($connect->istest)
+				$curDomain = 'http://camrally.com/staging/'
+		?>
+		<div class="fb-comments" data-href="<?=$curDomain.$nice?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+	</div>
    <div id="masoncontainer">
    <!-- advocates images -->   
 	<div class="advocateimg  <?=$hideavocate?>">
@@ -540,5 +552,13 @@ function htmldecode2($str){
 	return str_replace("|five","#",$str);
 }
 ?>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script> 
 </body>
 </html>
