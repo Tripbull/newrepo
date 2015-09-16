@@ -125,15 +125,14 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
+			 <div class="FLeft" style="max-width:400px;"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 		
 			?>
-			 <div style="float:right;padding-right:10px;">
+			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
-					<div class="clear" style="padding-top:5px"></div>
+					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
 					<?php
 					if($connect->liteID != $row->productId){
 						if($row->booknow){
@@ -141,7 +140,6 @@ echo '<title>'. $businessTitle . '</title>';
 						}else{
 							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 						} ?>
-						<div class="clear" style="padding-top:5px"></div>
 						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
@@ -212,6 +210,7 @@ echo '<title>'. $businessTitle . '</title>';
 		if($row->showmap)
 			$w++;
 		$w++; //count for showcase or review tab	
+		$w++;
 		if($w == 1)
 			$widthmenu = "width:50%";
         else if($w == 2)
@@ -225,13 +224,17 @@ echo '<title>'. $businessTitle . '</title>';
 		else if($w == 6)
 			$widthmenu = "width:14.25%";
 		else if($w == 7)
-			$widthmenu = "width:12.5%";		
+			$widthmenu = "width:12.5%";
+		else if($w == 8)
+			$widthmenu = "width:12.5%";	
+			
 	?>
 
 	<div id="nav">
 		<ul>
 			<?php
 				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
+				echo '<li class="sub-comment" style="'.$widthmenu.'"><a href="#" ><div class="menupadding">Comment</div></a></li>';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
 				if($rowAvg->advocates > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
@@ -259,7 +262,14 @@ echo '<title>'. $businessTitle . '</title>';
 	</div>
 </div>    
     <div class="clear"></div>
-
+	<div id="comment" class="hide">
+	    <?php
+			$curDomain = 'http://camrally.com/app/';
+			if($connect->istest)
+				$curDomain = 'http://camrally.com/staging/'
+		?>
+		<div class="fb-comments" data-href="<?=$curDomain.$nice?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+	</div>
    <div id="masoncontainer">
    <!-- advocates images -->   
 	<div class="advocateimg  <?=$hideavocate?>">
@@ -539,6 +549,6 @@ function htmldecode2($str){
 	$str = str_replace("|four","&quot;",$str);
 	return str_replace("|five","#",$str);
 }
-?>
+?> 
 </body>
 </html>
