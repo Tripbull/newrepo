@@ -264,7 +264,6 @@ echo '<title>'. $businessTitle . '</title>';
     <div class="clear"></div>
 	<div id="comment" class="hide">
 		<!--<div class="loader">f</div>-->
-		
 	    <?php
 			$curDomain = 'http://camrally.com/app/';
 			if($connect->istest)
@@ -436,13 +435,16 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';
+					  echo '<a href="#" rel="nofollow" class="color-button m-btncomment" style="tex-decoration:none">Comment</a>';
+					echo '<div class="clear" style="padding:5px 0"></div>';
 					echo '<a href="'.$campaignsite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
 						
-					if($row->contactNo){
+					/*if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
-					}if($row->showmap){
+					}*/
+					if($row->showmap){
 						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     }if($connect->liteID != $row->productId){
@@ -454,7 +456,15 @@ echo '<title>'. $businessTitle . '</title>';
 					?>
 					  </div>    
 				</div>
-			</div>	
+				<div class="m-comment hide" style="width:93%;margin:5px auto 0;">		
+					<?php
+						$curDomain = 'http://camrally.com/app/';
+						if($connect->istest)
+							$curDomain = 'http://camrally.com/staging/';
+					?>
+					<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				</div>
+				<div class="m-images">
                 <div id="m_productImages" class="<?=$hideshowcase?>" style="margin-top:5px;" >
 					<div class="pinList center">
 				<?php
@@ -511,6 +521,7 @@ echo '<title>'. $businessTitle . '</title>';
 							}	
 						}
 					?>
+				</div>
 				</div>
 				<div style="height:5px"></div>
         </div>
