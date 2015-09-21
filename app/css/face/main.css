@@ -2212,6 +2212,12 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 #nav li:last-child a:hover {border-radius:0 0 6px 0;}
 .menupadding{margin-top:9px;overflow: hidden;padding: 0 5px;text-overflow: ellipsis;white-space: nowrap;width: auto;}
 #masoncontainer,#comment{width:98%;margin:0 auto;max-width:1250px;}
+#comment,.m-comment{height:100%;min-height:100px;background: url("../../images/loader.png") 50% 50%;background-repeat:no-repeat}
+a.m-btncomment:hover,a.m-btncomment{text-decoration:none;outline:none;color:#fff;}
+#comment .loader{margin:0 auto;text-align:center;width:100%;height:100%;min-height:30px;background: url("../../images/loader.png") 50% 50% no-repeat;}
+
+#comment{height:100%;min-height:100px;background: url("../../images/loader.png") 50% 50%;background-repeat:no-repeat}
+#comment .loader{margin:0 auto;text-align:center;width:100%;height:100%;min-height:30px;background: url("../../images/loader.png") 50% 50% no-repeat;}
 .pin{max-width: 218px;float:left;margin-top: 6px;margin-bottom:7px;}
 .masonryImage{background-color:#fff;width:100%;border-radius:6px;max-width:20%;min-width:222px;padding:10px;margin-top:10px;}
 .pinImage{width:100%;max-width: 200px;border-radius:3px;}
@@ -2233,13 +2239,14 @@ span.staryellow2 {background:url(../../images/small-rate-yellow.png) 0 0 !import
 .morebtn{width: 100%;background-color: #5890ff;padding:7px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;font-weight:bold;color:#fff;margin-top:20px;box-shadow: 0px 3px 0px 0px #5890ff;border-radius: 3px;}
 /*.morebtn{position: fixed;bottom:0px;right:0;width: 100%;background-color: #5890ff;height:auto;overflow:hidden;padding:10px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;font-weight:bold;color:#fff;} */
 .btnwrap{float:right;padding-right:10px;max-width:1000px}
+.fb-comments, .fb-comments iframe[style], .fb-comments span[style] {width: 100% !important;border-radius: 6px;background-color:#fff}
 @media screen and (max-width: 1000px){
 	.btnwrap{float:right;padding-right:10px;max-width:300px}
 	.btn-take-isselfie{margin-top:10px}
 
 }
 /* mobile css */
-@media screen and (max-width: 600px){
+@media screen and (max-width: 700px){
 @font-face { font-family: 'OpenSansBold'; src: url('../../fonts/opensans-bold_0.eot'); src: url('../fonts/opensans-bold_0.eot') format('embedded-opentype'), url('../fonts/opensans-bold_0.woff') format('woff'), url('../fonts/opensans-bold_0.ttf') format('truetype'), url('../fonts/opensans-bold_0.svg#OpenSansBold') format('svg'); }
 @font-face { font-family: 'OpenSansExtrabold'; src: url('../fonts/opensans-extrabold_0.eot'); src: url('../fonts/opensans-extrabold_0.eot') format('embedded-opentype'), url('../fonts/opensans-extrabold_0.woff') format('woff'), url('../fonts/opensans-extrabold_0.ttf') format('truetype'), url('../fonts/opensans-extrabold_0.svg#OpenSansExtrabold') format('svg'); }
 @font-face { font-family: 'OpenSansRegular'; src: url('../../../fonts/opensans-regular_0.eot'); src: url('../../../fonts/opensans-regular_0.eot') format('embedded-opentype'), url('../../../fonts/opensans-regular_0.woff') format('woff'), url('../../../fonts/opensans-regular_0.ttf') format('truetype'), url('../../../fonts/opensans-regular_0.svg#OpenSansRegular') format('svg'); }

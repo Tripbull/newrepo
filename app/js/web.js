@@ -10,10 +10,17 @@ $(document).ready(function() {
 	$('.sharedpage').fancybox({width:'90%'});
 	$('.fancybox').fancybox({});
 	$(".showproductsimg").fancybox({helpers : {title : {type : 'inside'}}});
-
+	$("li.sub-comment").click(function(e){
+		e.preventDefault();
+		$('#comment').show();
+		$('#comment').removeClass('hide');
+		$('#masoncontainer').hide();
+	});
 	$("#li-showhide").click(function(e)
 	{
 		e.preventDefault();
+		$('#comment').hide();
+		$('#masoncontainer').show();	
 		if($(this).hasClass( "li-advocate" )){
 			$('.textadvo').html('Gallery');
 			$('#campin-showimage').removeClass( "hide" );
@@ -34,7 +41,6 @@ $(document).ready(function() {
 	$("#ScrollToTop").click(function()
 	{
 		$(window).scrollTop(0);
-
 		return false;
 	});
 	function hideloader(){setTimeout(function(){$( "#overlay" ).hide();},1000);}
@@ -166,6 +172,8 @@ $(document).ready(function() {
 	}}); */
 	$('#top-reviews').click(function(e){
 		e.preventDefault();
+		$('.m-comment').addClass('hide');
+		$('.m-images').show();
 		$('#m_productImages').hide();
 		$('#m_reviews').removeClass('hide');
 		$('#m_reviews').show();
@@ -176,10 +184,17 @@ $(document).ready(function() {
 	$('#showcase').click(function(e){
 		e.preventDefault();
 		$('#m_reviews').hide();
+		$('.m-comment').addClass('hide');
+		$('.m-images').show();
 		$('#m_productImages').removeClass('hide');
 		$('#m_productImages').show();
 		$('#topmenu ul li#top-reviews').removeClass('activeMenu');
 		$('#topmenu ul li#showcase').addClass('activeMenu');
+	});
+	$('.m-btncomment').click(function(e){
+		e.preventDefault();
+		$('.m-images').hide();
+		$('.m-comment').removeClass('hide');
 	});
 	/*
 	$('#socialmenu ul').on('click', ' > li', function () {

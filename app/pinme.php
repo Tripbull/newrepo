@@ -270,12 +270,13 @@ echo '<title>'. $businessTitle . '</title>';
 </div>    
     <div class="clear"></div>
 	<div id="comment" class="hide">
+		<!--<div class="loader">f</div>-->
 	    <?php
 			$curDomain = 'http://camrally.com/app/';
 			if($connect->istest)
-				$curDomain = 'http://camrally.com/staging/'
+				$curDomain = 'http://camrally.com/staging/';
 		?>
-		<div class="fb-comments" data-href="<?=$curDomain.$nice?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+		<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 	</div>
    <div id="masoncontainer">
    <!-- advocates images -->   
@@ -376,6 +377,9 @@ echo '<title>'. $businessTitle . '</title>';
 			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav pull-right">
 				  <?php
+				  echo '<li><a href="#" rel="nofollow" class="m-btncomment">Comment</a></li>';
+					if($row->contactNo)	
+						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>';
 					if($row->showmap)
 				       echo '<li><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a></li>';
 					if($row->websiteURL)
@@ -386,8 +390,6 @@ echo '<title>'. $businessTitle . '</title>';
 						echo '<li><a href="'. (strstr($row->linkedinURL,'http') ? $row->linkedinURL : 'http://'.$row->linkedinURL) .'"  target="_blank">LinkedIn Page</a></li>';
 					if($row->twitterURL)
 						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
-					if($row->contactNo)	
-						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 					?>
 					<li><a href="/">Camrally.com</a></li>
 							  
@@ -425,17 +427,18 @@ echo '<title>'. $businessTitle . '</title>';
 						?>
 					</div>
 						<?php
-						$shortchar = 200;
+						$shortchar = 180;
 						$descAll = strip_tags(htmldecode($row->description));
 						if(strlen($descAll) > $shortchar ){
-							$desc = mb_strcut($descAll,0,$shortchar) .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
+							$desc = mb_strcut($descAll,0,$shortchar) .'... <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 						}else
 							$desc = strip_tags(htmldecode($row->description));
 						?>
 						<div class="m_desc">
 							<?php
+							echo (trim($desc) != '' ? '<p class="desctext">'.$desc.'</p>' : '');
 							if($connect->liteID != $row->productId)
-								echo '<p class="addtext">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
+								echo '<p class="addtext" style="margin-top:0px;padding-top:0px">'.$row->address.' '.$row->city.', '.$row->zip.' '.$row->country.($row->contactNo != '' ? ', Tel: '.$row->contactNo : '').'</p>';
 						?>
 						</div>
 					  <div class="" style="">
@@ -452,7 +455,15 @@ echo '<title>'. $businessTitle . '</title>';
 					?>
 					  </div>    
 				</div>
-			</div>	
+				<div class="m-comment hide" style="width:93%;margin:5px auto 0;">		
+					<?php
+						$curDomain = 'http://camrally.com/app/';
+						if($connect->istest)
+							$curDomain = 'http://camrally.com/staging/';
+					?>
+					<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				</div>
+				<div class="m-images">
                 <div id="m_productImages" class="<?=$hideshowcase?>" style="margin-top:5px;" >
 					<div class="pinList center">
 				<?php
@@ -510,6 +521,7 @@ echo '<title>'. $businessTitle . '</title>';
 						}
 					?>
 				</div>
+				</div>
 				<div style="height:5px"></div>
         </div>
   <!--CONTENT ENDS HERE-->     
@@ -550,5 +562,14 @@ function htmldecode2($str){
 	return str_replace("|five","#",$str);
 }
 ?> 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>
