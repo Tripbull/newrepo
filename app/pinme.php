@@ -368,9 +368,7 @@ echo '<title>'. $businessTitle . '</title>';
 					if($row->twitterURL)
 						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
 					if($booksite)
-						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</a></li>'; 		
-					if($row->contactNo)	
-						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
+						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</a></li>';
 					?>
 					<li><a href="/">Camrally.com</a></li>
 							  

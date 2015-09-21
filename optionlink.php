@@ -167,9 +167,12 @@ require_once('header.html'); ?>
 		</div>
 	</div><!-- mobile -->
 </div>
-<div class="bottom-campaign-link">
-    <div style="text-align:center;font-size:16px;padding:10px;display:block;">
-        <a href="/"><div class="txtfund" style="text-align:center;margin:0 auto">Camrally.com is currently raising funds. Click here to help us change the world!</div></a>
+<div class="bottom-campaign-link hide">
+	<div class="top-xclose">&times;</div>
+    <div class="txtfund" style="text-align:center;font-size:16px;margin:0 auto;padding:10px;display:block;">
+	Create a video and photo campaign in 5 mins with Camrally! <a href="http://camrally.com/blog/camrally/general/how-camrally-works" class="link2blog" target="_blank">Learn more</a>.<br/>
+	We are currently raising funds. <a href="http://camrally.com/blog" class="link2blog" target="_blank">Click here</a> to help us change the world!.
+        <!--<a href="/"><div class="txtfund" style="text-align:center;margin:0 auto">Camrally.com is currently raising funds. Click here to help us change the world!</div></a>-->
     </div>		
 </div>
 <div class="widthDiv" style="opacity:0;position:absolute;font-size:16px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>

@@ -34,20 +34,46 @@ $(document).ready(function() {
 var height = $( window ).height() - 100,lastScrollTop = 0,resizeTimeout,latest=0;
 $( '.fundwrap-content').css( {"min-height":height.toFixed() + 'px'} ); 
 $(".showproductsimg").fancybox({helpers : {title : {type : 'inside'}}});
+if(getCookie('topxclose') == ''){
+	$('.bottom-campaign-link').removeClass('hide').show();
+	$('body').css({paddingTop:$('.bottom-campaign-link').height()});
+	$('.ribbonwhite-overlay').css({top:47});
+}
 App.tabledList.init(".trend-campaign");
    $(function () {
 		$(window).scroll(function () {
 			var documentHeight = $(document).height();
+			/*
 			if($(window).scrollTop() > 0){ //scrolling down
 				if ($(window).scrollTop() + $(window).height() > (documentHeight*0.7))
 					$('.bottom-campaign-link').fadeOut('slow');
 			} else {
 				$('.bottom-campaign-link').fadeIn('slow');
-			}
+			}*/
 		});
 	});
-	
-		
+	function setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		d.setTime(d.getTime() + (exdays*24*60*60*1000));
+		var expires = "expires="+d.toUTCString();
+		document.cookie = cname + "=" + cvalue + "; " + expires + ";";
+	}
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1);
+			if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+		}
+		return "";
+	}
+	$('.top-xclose').click(function(){
+		setCookie('topxclose', 1, 5);
+		$( ".bottom-campaign-link" ).remove();
+		$('body').css({paddingTop:0});
+		$('.ribbonwhite-overlay').css({top:-20});
+	});		
 	$('.trending').click(function(e){
 		e.preventDefault();
 		$('.latest').removeClass( "active-li" );
@@ -120,6 +146,7 @@ App.tabledList.init(".trend-campaign");
 	wordwrap('txtfund');
 	$( window ).resize(function() { // when window resize
 		wordwrap('txtfund');
+		$('body').css({paddingTop:$('.bottom-campaign-link').height()});
 	});
   function showLoader(){loader = jQuery('<div id="overlay"></div>');loader.appendTo(document.body);}
   function hideLoader(){$( "#overlay" ).remove();}

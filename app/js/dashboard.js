@@ -101,6 +101,7 @@ $(document).ready(function(){
 			});	
 		//}
 	}
+	
 	function wizardforloction(){
 		locId = newplaceId;
 		var locOption = locId.split('|');
