@@ -1,5 +1,5 @@
 <?php
-$sql = "SELECT p.profilePlaceId, l.businessName, p.category,p.nicename, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email,cam.btntext, d.description, c.item2Rate,c.selectedItems,c.reviewPost,c.logo FROM businessProfile AS p
+$sql = "SELECT p.profilePlaceId, l.businessName, p.category,p.nicename, p.longitude, p.latitude, p.address, p.city, p.country, p.zip, p.contactNo, p.facebookURL, p.websiteURL, p.linkedinURL, p.twitterURL, p.showmap, p.booknowlabel, p.booknow,p.email as pemail, l.subscribe, u.productId,u.state,u.email,cam.btntext, d.description,c.button,c.reviewPost,c.logo FROM businessProfile AS p
 LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
 LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
 LEFT JOIN businessUserGroup AS u ON u.gId = l.userGroupId
@@ -36,6 +36,12 @@ function htmldecode($str){
 }
 $shortchar = 330;$shortchar2= 250;
 $descAll = strip_tags(htmldecode($row->description));
+$btntxt = '';
+if($row->button != ''){
+	$btnarray = json_decode($row->button);
+	if(isset($btnarray->btnwidget[0]))
+		$btntxt = $btnarray->btnwidget[0];
+} 
 if(strlen($descAll) > $shortchar ){
 	$desc = mb_strcut($descAll,0,$shortchar). '...' .' <a class="fancybox" href="#showmoredesc"><img style="width: 20px;height: auto;margin-left: 5px;position: absolute;" src="' . $path . 'images/zoomin.png" ></a>';
 }else
@@ -132,17 +138,18 @@ echo '<title>'. $businessTitle . '</title>';
 			?>
 			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
+					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($btntxt == '' ? 'Show me!' : $btntxt)  ?></a></div>
 					<?php
 					if($connect->liteID != $row->productId){
 						if($row->booknow){
 							$booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.?p='.$row->nicename : $row->booknow));
-						}else{
-							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
-						} ?>
+						}
+						if($booksite){
+						?>
 						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
+						}
 					}
 					?>
 					
@@ -369,7 +376,9 @@ echo '<title>'. $businessTitle . '</title>';
 			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav pull-right">
 				  <?php
-				  if($row->websiteURL)
+					if($row->showmap)
+				       echo '<li><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a></li>';
+					if($row->websiteURL)
 						echo '<li><a href="'.(strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL) .'"  target="_blank">Website</a></li>';
 					if($row->facebookURL)
 						echo '<li><a href="'. (strstr($row->facebookURL,'http') ? $row->facebookURL : 'http://'.$row->facebookURL) .'"  target="_blank">Facebook Page</a></li>';	
@@ -377,8 +386,6 @@ echo '<title>'. $businessTitle . '</title>';
 						echo '<li><a href="'. (strstr($row->linkedinURL,'http') ? $row->linkedinURL : 'http://'.$row->linkedinURL) .'"  target="_blank">LinkedIn Page</a></li>';
 					if($row->twitterURL)
 						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
-					if($booksite)
-						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</a></li>'; 		
 					if($row->contactNo)	
 						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 					?>
@@ -434,16 +441,9 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';
-					echo '<a href="'.$campaignsite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
-							echo '<div class="clear" style="padding:5px 0"></div>';
-						
-					if($row->contactNo){
-						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
-						echo '<div class="clear" style="padding:5px 0"></div>';
-					}if($row->showmap){
-						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
+					echo '<a href="'.$campaignsite.'"  class="color-button" target="_blank"><span>' .($btntxt == '' ? 'Show me!' : $btntxt) . '</span></a>'; 
 					echo '<div class="clear" style="padding:5px 0"></div>';
-                    }if($connect->liteID != $row->productId){
+                    if($connect->liteID != $row->productId){
 						if($booksite){
 							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
