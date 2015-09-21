@@ -241,7 +241,7 @@ echo '<title>'. $businessTitle . '</title>';
 		<ul>
 			<?php
 				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
-				echo '<li class="sub-comment" style="'.$widthmenu.'"><a href="#" ><div class="menupadding">Comment</div></a></li>';
+				echo '<li class="sub-comment" style="'.$widthmenu.'"><a href="#" ><div class="menupadding">Comments</div></a></li>';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
 				if($rowAvg->advocates > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
@@ -377,7 +377,7 @@ echo '<title>'. $businessTitle . '</title>';
 			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav pull-right">
 				  <?php
-				  echo '<li><a href="#" rel="nofollow" class="m-btncomment">Comment</a></li>';
+				  echo '<li><a href="#" rel="nofollow" class="m-btncomment">Comments</a></li>';
 					if($row->contactNo)	
 						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>';
 					if($row->showmap)
