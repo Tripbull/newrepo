@@ -100,7 +100,7 @@
 										<input id="checkbox-bottom" type="checkbox" value="1" name="checkbox-bottom">
 									</div>
 								</fieldset> 
-								<div class="clear" style="padding-top:2em"></div>
+								<div class="clear" style="padding-top:1em"></div>
 								<div class="btn-submit">
 									<button class="ui-btn" id="website-widget-update">Update</button>
 								</div>
