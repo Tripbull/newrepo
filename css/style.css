@@ -1,3 +1,4 @@
+
 @font-face { font-family: 'OpenSansBold'; src: url('../fonts/opensans-bold_0.eot'); src: url('../fonts/opensans-bold_0.eot') format('embedded-opentype'), url('../fonts/opensans-bold_0.woff') format('woff'), url('../fonts/opensans-bold_0.ttf') format('truetype'), url('../fonts/opensans-bold_0.svg#OpenSansBold') format('svg'); }
 @font-face { font-family: 'OpenSansExtrabold'; src: url('../fonts/opensans-extrabold_0.eot'); src: url('../fonts/opensans-extrabold_0.eot') format('embedded-opentype'), url('../fonts/opensans-extrabold_0.woff') format('woff'), url('../fonts/opensans-extrabold_0.ttf') format('truetype'), url('../fonts/opensans-extrabold_0.svg#OpenSansExtrabold') format('svg'); }
 @font-face { font-family: 'OpenSansRegular'; src: url('../fonts/opensans-regular_0.eot'); src: url('../fonts/opensans-regular_0.eot') format('embedded-opentype'), url('../fonts/opensans-regular_0.woff') format('woff'), url('../fonts/opensans-regular_0.ttf') format('truetype'), url('../fonts/opensans-regular_0.svg#OpenSansRegular') format('svg'); }
@@ -440,7 +441,6 @@ p { font-size:13px !important; }
 @media (max-width:552px){
    .pricing .secondcols{border-left: none;border-right: none}
    .pricing .thirdcols{border-right: none;}
-   .pin .PinImg{margin-bottom:6px;/*background-color:#D9D9D9;*/position:relative}
 } 
 @media (max-width:767px) {
 .qrcode-content{padding-bottom:30px;}
@@ -571,8 +571,8 @@ footer{text-align:center;}
 	#subiconmenu .navbar-toggle { margin-top:-100px !important; }
 	.pricing .contentwrap {height: 550px !important;}
 	.ColumnContainer {width:200px;}
-	.MerchantHead{width:200px;height:140px;}
-	.selfieVideo{width:200px;height:140px;}
+	.MerchantHead{width:200px;height:130px;}
+	.selfieVideo{width:200px;height:130px;}
 }
 
 /*ribbon*/
@@ -655,34 +655,6 @@ footer{text-align:center;}
    -ms-transform:     rotate(-40deg);
    transform:         rotate(-40deg);
    font-size: 18px;
-   font-weight: bold;
-   color: #00aeef;
-   background: #ffffff;
-   z-index: 500;
-}
-
-/*ribbon white*/
-.ribbonwhite1-overlay {
-	position: absolute;
-	width: 162px;
-	height: 121px;
-    top: -20px;
-    right: -45px;
-	overflow: hidden;
-	z-index: 499;
-}
-.ribbonwhite1 {
-   display: block;
-   position: absolute;
-   top: 35px;
-   width: 165px;
-   padding: 3px;
-   text-align: center;
-   -webkit-transform: rotate(40deg);
-   -moz-transform:    rotate(40deg);
-   -ms-transform:     rotate(40deg);
-   transform:         rotate(40deg);
-   font-size: 20px;
    font-weight: bold;
    color: #00aeef;
    background: #ffffff;
