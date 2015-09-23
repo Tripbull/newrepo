@@ -26,7 +26,7 @@
 								<li ><a href="#" class="qrcode">QR Code<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Spot Response (Your Own Mobile Devices)<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Photo Booth (Your Own Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#">Website Campaign Widget<span class="listview-arrow-default"></span></a></li>
+								<!--<li ><a href="#">Website Campaign Widget<span class="listview-arrow-default"></span></a></li>-->
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
