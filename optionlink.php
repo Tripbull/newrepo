@@ -169,7 +169,7 @@ require_once('header.html'); ?>
 </div>
 <div class="bottom-campaign-link">
     <div style="text-align:center;font-size:16px;padding:10px;display:block;">
-        <a href="/"><div class="txtfund" style="text-align:center;margin:0 auto">Camrally.com is currently raising funds. Click here to help us change the world!</div></a>
+        <a href="/"><div class="txtfund" style="text-align:center;margin:0 auto"><span style="font-weight:bold;text-decoration:underline">Camrally.com</span> is currently raising funds. Click here to help us change the world!</div></a>
     </div>		
 </div>
 <div class="widthDiv" style="opacity:0;position:absolute;font-size:16px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>

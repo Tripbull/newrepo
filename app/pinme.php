@@ -125,15 +125,14 @@ echo '<title>'. $businessTitle . '</title>';
 		</div>
 		<div class="right">
 			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
+			 <div class="FLeft" style="max-width:400px;"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
 		
 			?>
-			 <div style="float:right;padding-right:10px;">
+			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
-					<div class="clear" style="padding-top:5px"></div>
+					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
 					<?php
 					if($connect->liteID != $row->productId){
 						if($row->booknow){
@@ -141,7 +140,6 @@ echo '<title>'. $businessTitle . '</title>';
 						}else{
 							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 						} ?>
-						<div class="clear" style="padding-top:5px"></div>
 						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
@@ -212,6 +210,7 @@ echo '<title>'. $businessTitle . '</title>';
 		if($row->showmap)
 			$w++;
 		$w++; //count for showcase or review tab	
+		$w++;
 		if($w == 1)
 			$widthmenu = "width:50%";
         else if($w == 2)
@@ -225,13 +224,17 @@ echo '<title>'. $businessTitle . '</title>';
 		else if($w == 6)
 			$widthmenu = "width:14.25%";
 		else if($w == 7)
-			$widthmenu = "width:12.5%";		
+			$widthmenu = "width:12.5%";
+		else if($w == 8)
+			$widthmenu = "width:12.5%";	
+			
 	?>
 
 	<div id="nav">
 		<ul>
 			<?php
 				$hideshowcase = '';$hideavocate = '';$m_showcaseactive = '';$m_advocateactive = '';
+				echo '<li class="sub-comment" style="'.$widthmenu.'"><a href="#" ><div class="menupadding">Comment</div></a></li>';
 				echo '<li style="'.$widthmenu.'"><a href="#" target="_blank" class="mailto"><div class="menupadding">Contact Us</div></a></li>';
 				if($rowAvg->advocates > $totalimg->imgtotal){ //shows the advocates
 					$hideshowcase='hide';$m_advocateactive='activeMenu';
@@ -259,7 +262,15 @@ echo '<title>'. $businessTitle . '</title>';
 	</div>
 </div>    
     <div class="clear"></div>
-
+	<div id="comment" class="hide">
+		<!--<div class="loader">f</div>-->
+	    <?php
+			$curDomain = 'http://camrally.com/app/';
+			if($connect->istest)
+				$curDomain = 'http://camrally.com/staging/';
+		?>
+		<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+	</div>
    <div id="masoncontainer">
    <!-- advocates images -->   
 	<div class="advocateimg  <?=$hideavocate?>">
@@ -368,7 +379,7 @@ echo '<title>'. $businessTitle . '</title>';
 					if($row->twitterURL)
 						echo '<li><a href="'. (strstr($row->twitterURL,'http') ? $row->twitterURL : 'http://'.$row->twitterURL) .'"  target="_blank">Twitter Page</a></li>';
 					if($booksite)
-						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</a></li>'; 		
+						echo '<li><a href="'.$booksite.'" target="_blank">' . ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</a></li>'; 		
 					if($row->contactNo)	
 						echo '<li><a href="tel:'.$row->contactNo.'" target="_blank">Call Us</a></li>'
 					?>
@@ -424,13 +435,16 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';
+					  echo '<a href="#" rel="nofollow" class="color-button m-btncomment" style="tex-decoration:none">Comment</a>';
+					echo '<div class="clear" style="padding:5px 0"></div>';
 					echo '<a href="'.$campaignsite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
 						
-					if($row->contactNo){
+					/*if($row->contactNo){
 						echo '<a href="tel:'.$row->contactNo.'"  class="color-button" target="_blank">Call Us</a>'; 
 						echo '<div class="clear" style="padding:5px 0"></div>';
-					}if($row->showmap){
+					}*/
+					if($row->showmap){
 						echo '<a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="color-button fancybox fancybox.iframe">Map</a>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     }if($connect->liteID != $row->productId){
@@ -442,7 +456,15 @@ echo '<title>'. $businessTitle . '</title>';
 					?>
 					  </div>    
 				</div>
-			</div>	
+				<div class="m-comment hide" style="width:93%;margin:5px auto 0;">		
+					<?php
+						$curDomain = 'http://camrally.com/app/';
+						if($connect->istest)
+							$curDomain = 'http://camrally.com/staging/';
+					?>
+					<div class="fb-comments" data-href="<?=$curDomain.$link?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+				</div>
+				<div class="m-images">
                 <div id="m_productImages" class="<?=$hideshowcase?>" style="margin-top:5px;" >
 					<div class="pinList center">
 				<?php
@@ -500,6 +522,7 @@ echo '<title>'. $businessTitle . '</title>';
 						}
 					?>
 				</div>
+				</div>
 				<div style="height:5px"></div>
         </div>
   <!--CONTENT ENDS HERE-->     
@@ -539,6 +562,15 @@ function htmldecode2($str){
 	$str = str_replace("|four","&quot;",$str);
 	return str_replace("|five","#",$str);
 }
-?>
+?> 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=148972192103323";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 </body>
 </html>

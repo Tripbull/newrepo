@@ -25,17 +25,20 @@ $connect->db_connect();
 <link rel="Shortcut Icon" href="http://camrally.com/images/Icons/ico/favicon.ico" type="image/x-icon">
 <!--<script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>-->
 <?php //include_once("analyticstracking.php") ?>
-
 </head>
 
 <body style="overflow-x:hidden;background-color:#e9e9e9;">
 <?php  
 require_once('header.html'); 
-$sql = "SELECT l.id, p.city, p.country,l.subscribe,l.businessName, cam.category FROM businessList AS l
+$catresult = mysql_query("SELECT l.id, p.city,COUNT(p.city) AS totalcity,COUNT(p.country) AS totalcountry, p.country,l.subscribe,l.businessName, cam.category FROM businessList AS l
 INNER JOIN campaigndetails AS cam ON cam.posterId = l.id
 INNER JOIN businessProfile AS p ON p.profilePlaceId = l.id AND p.city <> '' AND p.country <> ''
-WHERE l.subscribe =1 group by cam.category";
-$catresult =  mysql_query($sql) or die(mysql_error());				
+WHERE l.subscribe =1 group by cam.category") or die(mysql_error());
+$cityresult = mysql_query("SELECT p.city,COUNT(p.city) AS totalcity FROM businessList AS l INNER JOIN campaigndetails AS cam ON cam.posterId = l.id INNER JOIN businessProfile AS p ON p.profilePlaceId = l.id AND p.city <> '' AND p.country <> '' WHERE l.subscribe =1 group by p.city ORDER BY totalcity DESC ") or die(mysql_error());
+$countresult = mysql_query("SELECT COUNT(p.country) AS totalcountry, p.country FROM businessList AS l INNER JOIN campaigndetails AS cam ON cam.posterId = l.id INNER JOIN businessProfile AS p ON p.profilePlaceId = l.id AND p.city <> '' AND p.country <> '' WHERE l.subscribe =1 group by p.country ORDER BY totalcountry DESC ") or die(mysql_error());
+$param = mysql_query("SELECT param FROM paramadmin WHERE 1") or die(mysql_error());
+$param =  mysql_fetch_object($param);
+$param_array = unserialize($param->param);
 ?>
 <div class="fundwrap-content">
 	<div id="nav2">
@@ -75,15 +78,10 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 						</button>
 						<ul class="dropdown-menu">
 							<?php
-								mysql_data_seek($catresult, 0);
-								$isarray = array('t');
-								while($catrow = mysql_fetch_object($catresult)){
-									if(trim($catrow->city) != ''){
-									if(!in_array($catrow->city,$isarray)){
-										array_push($isarray,$catrow->city);
+								while($catrow = mysql_fetch_object($cityresult)){
+									if(trim($catrow->city) != '' && $param_array['city'] <= $catrow->totalcity){
 										$dropmenuActive = (trim((isset($_REQUEST['city']) ? $_REQUEST['city'] :'')) == trim($catrow->city) ? 'class="active"' : '');
-										echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?city='.urlencode($catrow->city).'">'.$catrow->city.'</a></li>';
-									}
+										echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?city='.urlencode($catrow->city).'">'.mb_ucfirst(strtolower($catrow->city)) . ' ('.$catrow->totalcity.')' .'</a></li>';
 									}
 								}
 							?>
@@ -96,15 +94,10 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 						</button>
 						<ul class="dropdown-menu">
 						  <?php
-								mysql_data_seek($catresult, 0);
-								$isarray = array();
-								while($catrow = mysql_fetch_object($catresult)){
-									if(trim($catrow->country) != ''){
-									if(!in_array($catrow->country,$isarray)){
-										array_push($isarray,$catrow->country);
+								while($catrow = mysql_fetch_object($countresult)){
+									if(trim($catrow->country) != '' && $param_array['country'] <= $catrow->totalcountry){
 										$dropmenuActive = (trim((isset($_REQUEST['country']) ? $_REQUEST['country'] : '')) == trim($catrow->country) ? 'class="active"' : '');
-										echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?country='.urlencode($catrow->country).'">'.$catrow->country.'</a></li>';
-									}
+										echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?country='.urlencode($catrow->country).'" class="country">'.mb_ucfirst(strtolower($catrow->country)) . ' ('.$catrow->totalcountry.')' .'</a></li>';
 									}
 								}
 							?>
@@ -145,16 +138,12 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 			</button>
 			<ul class="dropdown-menu">
 			  <?php
-				mysql_data_seek($catresult, 0);
-				$isarray = array();
-				while($catrow = mysql_fetch_object($catresult)){
-					if(trim($catrow->city) != ''){
-					if(!in_array($catrow->city,$isarray)){
-						array_push($isarray,$catrow->city);
+				mysql_data_seek($cityresult, 0);
+				while($catrow = mysql_fetch_object($cityresult)){
+					if(trim($catrow->city) != '' && $param_array['city'] <= $catrow->totalcity){
 						$dropmenuActive = (trim((isset($_REQUEST['city']) ? $_REQUEST['city'] :'')) == trim($catrow->city) ? 'class="active"' : '');
-						echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?city='.urlencode($catrow->city).'">'.$catrow->city.'</a></li>';
-				   }
-				   }
+						echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?city='.urlencode($catrow->city).'">'.mb_ucfirst(strtolower($catrow->city)) . ' ('.$catrow->totalcity.')' .'</a></li>';
+					}
 				}
 			?>
 			</ul>
@@ -166,15 +155,11 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 			</button>
 			<ul class="dropdown-menu">
 			  <?php
-					mysql_data_seek($catresult, 0);
-					$isarray = array();
-					while($catrow = mysql_fetch_object($catresult)){
-						if(trim($catrow->country) != ''){
-							if(!in_array($catrow->country,$isarray)){
-								array_push($isarray,$catrow->country);
-								$dropmenuActive = (trim((isset($_REQUEST['country']) ? $_REQUEST['country'] : '')) == trim($catrow->country) ? 'class="active"' : '');
-								echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?country='.urlencode($catrow->country).'">'.$catrow->country.'</a></li>';
-							}
+					mysql_data_seek($countresult, 0);
+					while($catrow = mysql_fetch_object($countresult)){
+						if(trim($catrow->country) != '' && $param_array['country'] <= $catrow->totalcountry){
+							$dropmenuActive = (trim((isset($_REQUEST['country']) ? $_REQUEST['country'] : '')) == trim($catrow->country) ? 'class="active"' : '');
+							echo '<li '.$dropmenuActive.'><a href="'.$_SERVER['PHP_SELF'].'?country='.urlencode($catrow->country).'" class="country">'.mb_ucfirst(strtolower($catrow->country)) . ' ('.$catrow->totalcountry.')' .'</a></li>';
 						}
 					}
 				?>
@@ -357,6 +342,10 @@ $catresult =  mysql_query($sql) or die(mysql_error());
 </html>
 <?php
 $connect->db_disconnect();
+function mb_ucfirst($str) {
+    $fc = mb_strtoupper(mb_substr($str, 0, 1));
+    return $fc.mb_substr($str, 1);
+}
 function htmldecode($str){
 	$remove = array("\n", "\r\n", "\r", "<br />", "</p>");
 	$remove2 = array("<span>", "</span>");
