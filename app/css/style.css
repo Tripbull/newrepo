@@ -126,6 +126,9 @@ p{margin-top:0.5em;}
 .wrapbtn {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin-left: 10px;z-index:15;}
 .top-button-selfie img,.top-button-selfie p,.wraptext{pointer-events: none;-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}
 .btn-take-isselfie{cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 9px 15px 8px;z-index:15;}
+.new-btn-selfie{color:#fff;position: relative;top:0;left:0;width: 100%;min-width:300px;background-color: #000;height:auto;min-height: 60px;z-index:10;}
+.new-btn-selfie img,.new-btn-selfie p{pointer-events: none;-khtml-user-select: none;-o-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}
+.btn-take-isselfie{cursor:pointer;  box-shadow: 0px 3px 0px 0px #1aa71d;background: #1fca23;border-radius: 3px;font-size:16px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 9px 15px 8px;z-index:15;}
 .btn-take-isselfie-com{cursor:pointer;  box-shadow: 0px 3px 0px 0px #AFACAC;background: #CCC;border-radius: 3px;font-size:13px;white-space: nowrap;text-align: center;text-decoration: none;display: inline-block;min-width: 60px;color: #fff;padding: 8px 13px 7px;text-shadow:none !important;}
 .wrapbtn-com {padding-bottom:10px;text-align: center;display: inline-block;min-width: 60px;margin: 10px;}
 .wraptext-com {font-family: "Helvetica Neue","Helvetica","?????? Pro W3","Hiragino Kaku Gothic Pro","????","Meiryo","?? ?????",arial,sans-serif;font-weight:normal !important;}
