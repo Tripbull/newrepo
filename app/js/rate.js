@@ -636,7 +636,7 @@ function invalidUsedBackbtn(){
 }
 
 
-function getLocationData(){
+function getLocationData(show){
 	var ispageok = false;nicename = $('#nicename').val();
 	var ios_ver = iOSversion();
 	 
@@ -665,7 +665,10 @@ function getLocationData(){
 				if($.inArray(getUrlVar('s'),['0','2','3','4','5','e','','6','8'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Camrally support");
 				}else {
-					rate_initialize();
+					if(show == 1)
+						rate_initialize();
+					else
+						camp_initialize();
 					if(ios_ver[0] == 6)
 					{
 						$.box_Dialog(('iOS 6 is not supported by Camrally. Please use a device running on iOS 7 and above.'), {
@@ -707,12 +710,26 @@ $(document).on('pageinit','#rateone', function() {
 	hideLoader();	
 	if(typeof(ratedObj[0]) != 'undefined')
 		invalidUsedBackbtn();
-	getLocationData();
+	getLocationData(1);
 	$( window ).resize(function() { // when window resize
 		rate_initialize();
 	});
 });
-
+$(document).on('pageinit','#shared-like-page', function() {
+	hideLoader();	
+	getLocationData(0);
+	$( window ).resize(function() { // when window resize
+		camp_initialize();
+	});
+});
+function camp_initialize(){
+	if(customArray.backgroundImg)
+		bgback = $.parseJSON(customArray.backgroundImg);
+	$('.wraptext-com').html((typeof(defaultButtonText.campdetails) != 'undefined' ? decodequote(defaultButtonText.campdetails[0]) : decodequote(defaultButtonText2.campdetails[0])));
+	$( '.MerchantHead' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
+	$( '.MerchantHead' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#7f7f7f')});
+	
+}	
 function campaign_poster()
 {	
 	//CAMPAIGN POSTER DO NOT REMOVE

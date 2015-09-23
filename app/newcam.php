@@ -47,7 +47,7 @@ $path = '';
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
 <body>
-<div class="rate" id="rateone" data-dom-cache="false" data-role="page" data-prefetch="false">
+<div id="shared-like-page" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
 <?php
 $redirectpage = '#';
@@ -86,8 +86,7 @@ $redirectpage = '#';
 	<div class="wrapheader">
 	    <div class="MerchantHead" style="min-height:<?=$height+45?>px;max-width:<?=$width+380?>px;">
 			<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
-			<div class="clear"></div>
-			<div >
+			<div style="">
 			<!-- campaign page -->
 				
 		
@@ -111,7 +110,6 @@ $redirectpage = '#';
 					</div> 
 				</div> -->
 				
-				<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
 				<div class="clear"></div>
 				<div style="margin:0 auto;width:100%;max-width:<?=$width+390?>px;">
 					  <div class="left text-center" style="max-width:<?=$width?>px;">
