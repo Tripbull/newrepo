@@ -1451,15 +1451,11 @@ $(document).ready(function(){
 				addli = '<li ><a href="#" id="create-page" data-prefetch="true">Create Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
 			else
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank">See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-				var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
+			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-<<<<<<< Updated upstream
 			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
-=======
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
->>>>>>> Stashed changes
 				
 		}
 			$('.profile-left-menu1').html(newli);
@@ -2211,6 +2207,12 @@ $(document).ready(function(){
 		$( "input" ).focus(function() {
 			isfocus = 1;
 		});
+		
+		$('#txtorg,#txtproemail').keydown(function (e) {
+			if (e.which === 9 && userArray.productId == liteID) {
+				return false;
+			}
+		});
 		if(userArray.productId == liteID)
 			diabledbox('#frmpro',[1,2,3,4,6,7,8,9,10,11,12]);
 		$('.star').show();
@@ -2612,22 +2614,23 @@ $(document).ready(function(){
 				alertBox('incomplete information','Please input a business name');
 				r=false;        
 			}
+			if(!regex.test(email)){
+				uicAlertBox('invalid email address','Please enter a valid email address','#txtproemail');
+				r=false;
+			}		
 			if(userArray.productId != liteID){
 				if(txtAdd == ''){
-					uicAlertBox('incomplete information','Please input an address','#txtAdd');
+					uicAlertBox('incomplete information','Please input an address','#txtadd');
 					r=false;
 				}else if(txtCity == ''){
-					uicAlertBox('incomplete information','Please input a city','#txtCity');
+					uicAlertBox('incomplete information','Please input a city','#txtcity');
 					r=false;        
 				}else if(txtCountry == ''){
-					uicAlertBox('incomplete information','Please input a country','#txtCountry');
+					uicAlertBox('incomplete information','Please input a country','#txtcountry');
 					r=false;        
 				}else if(txtZip == ''){
-					uicAlertBox('incomplete information','Please input a ZIP / Postal code','#txtZip');
-					r=false;        
-				}else if(!regex.test(email)){
-					uicAlertBox('invalid email address','Please enter a valid email address','#txtproemail');
-					r=false;        
+					uicAlertBox('incomplete information','Please input a ZIP / Postal code','#txtzip');
+					r=false;         
 				}else if(txtcustombutton == '' && txtcustombuttonurl != ''){
 					uicAlertBox('incomplete information','Please input a custom button (this is required since you filled up the custom button url)','#txtbooknowlabel');
 					r=false;        

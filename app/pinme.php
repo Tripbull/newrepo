@@ -111,18 +111,15 @@ echo '<title>'. $businessTitle . '</title>';
 			<div style="text-align:center;"><img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? $path.'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 			<div class="follow"></div>
 			<?php
+			$booksite = '';
 			if($hadTable){
 				//echo '<div class="follow">'.$follow->followTotal .' followers</div>';
 				$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId` AND hideimg = 0");
 				if(mysql_num_rows($resultAve)){
-					$rowAvg = mysql_fetch_object($resultAve);
-					if($row->booknow){
-						$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
-					}else{
-						$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
-					}
+					$rowAvg = mysql_fetch_object($resultAve);				
 				}
 			}
+			$campaignsite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
 			?>
 			</div>
 		</div>
@@ -131,12 +128,26 @@ echo '<title>'. $businessTitle . '</title>';
 			 <div class="FLeft" style="max-width:400px"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span></div>
 			 <?php 
 		if($hadTable){
-			
+		
 			?>
 			 <div style="float:right;padding-right:10px;">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
+					<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>" target="_blank"><?php echo ($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext)  ?></a></div>
 					<div class="clear" style="padding-top:5px"></div>
+					<?php
+					if($connect->liteID != $row->productId){
+						if($row->booknow){
+							$booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.?p='.$row->nicename : $row->booknow));
+						}else{
+							$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
+						} ?>
+						<div class="clear" style="padding-top:5px"></div>
+						<div class="btn-take-isselfie"><a style="text-decoration:none;color: #fff;" href="<?=$booksite?>" target="_blank"><?php echo ($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel)  ?></a></div>
+						<div class="clear" style="padding-top:5px"></div>
+					<?php
+					}
+					?>
+					
 					<!--<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php//echo $rowAvg->totalAvg .' advocates' ?></span> -->
 				</div>
 			</div>
@@ -185,13 +196,7 @@ echo '<title>'. $businessTitle . '</title>';
 	<?php
 	$w=0;
 	$widthmenu = "width:100%";
-		if($connect->liteID != $row->productId){
-			if($row->booknow){$w++;
-				$booksite = $booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow));
-			}else{$w++;
-				$booksite = 'http://camrally.com/app/campaign.html?p='.$row->nicename;
-			}
-		}
+
 		if($row->websiteURL){$w++;
 			$website = (strstr($row->websiteURL,'http') ? $row->websiteURL : 'http://'.$row->websiteURL);
 		}	
@@ -248,10 +253,7 @@ echo '<title>'. $businessTitle . '</title>';
 					echo '<li style="'.$widthmenu.'"><a href="'.$twitter.'" target="_blank"><div class="menupadding">Twitter</div></a></li>';	
 				if($row->showmap)
 					echo '<li style="'.$widthmenu.'"><a href="'.$path.'showmap.php?id='.$placeId.'" rel="nofollow" class="fancybox fancybox.iframe"><div class="menupadding">Map</div></a></li>';	
-				if($connect->liteID != $row->productId){
-				if($booksite)
-					echo '<li style="'.$widthmenu.'"><a href="'.$booksite.'" target="_blank"><div class="menupadding">' . ($row->booknowlabel == '' ? 'Book Now' : $row->booknowlabel) . '</div></a></li>';
-				}	
+					
 			?>
 		</ul>
 	</div>
@@ -422,7 +424,7 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';
-					echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
+					echo '<a href="'.$campaignsite.'"  class="color-button" target="_blank"><span>' .($row->btntext == '' ? 'Post Your Photo or Selfie!' : $row->btntext) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
 						
 					if($row->contactNo){
@@ -433,7 +435,7 @@ echo '<title>'. $businessTitle . '</title>';
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     }if($connect->liteID != $row->productId){
 						if($booksite){
-							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'POST Your Photo!' : $row->booknowlabel) . '</span></a>'; 
+							echo '<a href="'.$booksite.'"  class="color-button" target="_blank"><span>' .($row->booknowlabel == '' ? 'Take action today!' : $row->booknowlabel) . '</span></a>'; 
 							echo '<div class="clear" style="padding:5px 0"></div>';
 						}
 					}					
