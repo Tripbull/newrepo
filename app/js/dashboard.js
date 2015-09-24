@@ -2243,7 +2243,7 @@ $(document).ready(function(){
 		if(str != '' && str.indexOf("campaign.html") == -1){
 			$('#txtbooknow').val(customArray.booknow);			
 		}else{
-			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
+			//$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
 		}
 		if(customArray.webImg != ''){
 			$('#webthumb1').attr('src', customArray.webImg);
@@ -3282,7 +3282,7 @@ $(document).ready(function(){
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 			$('#txt-camdetails').val((typeof(boxArray.campdetails) != 'undefined' ? decodequote(boxArray.campdetails[0]) : 'Campaign details'));
-			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Respond Now!'));
+			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Show me!'));
 		}	
 		
 		$('#pickerbackground').colpick({
