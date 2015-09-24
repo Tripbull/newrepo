@@ -26,7 +26,6 @@
 								<li ><a href="#" class="qrcode">QR Code<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Spot Response (Your Own Mobile Devices)<span class="listview-arrow-default"></span></a></li>
 								<li ><a href="#">Photo Booth (Your Own Tablet or Notebook)<span class="listview-arrow-default"></span></a></li>
-								<li ><a href="#">Website Campaign Widget<span class="listview-arrow-default"></span></a></li>
 							</ul>							
 						</div>
 						<div class="right-content bgwhite fr">
@@ -86,25 +85,7 @@
 								<div class="btn-submit">
 									<button class="ui-btn" id="surveyopen">Open</button>
 								</div>
-							</section>	
-							<section class="feedback-widget hide">	
-								<p>Copy the below codes and paste it within the "&lt;head&gt;&lt;/head&gt;" tags of your web page.</p>
-								<div class="clear" style="padding:5px;"></div>
-								<div class="script-tag" ></div>
-								<div class="clear" style="padding:5px;"></div>
-								<fieldset data-role="controlgroup" data-iconpos="left" data-corners="false">
-									<div class="ui-checkbox">
-										<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="checkbox-top">Display above the header of the webpage</label>
-										<input id="checkbox-top" type="checkbox" value="0" name="checkbox-top">
-										<label class="ui-btn ui-corner-all ui-btn-inherit ui-btn-icon-left ui-first-child ui-last-child" for="checkbox-bottom">Display at the bottom right corner of the webpage</label>
-										<input id="checkbox-bottom" type="checkbox" value="1" name="checkbox-bottom">
-									</div>
-								</fieldset> 
-								<div class="clear" style="padding-top:2em"></div>
-								<div class="btn-submit">
-									<button class="ui-btn" id="website-widget-update">Update</button>
-								</div>
-							</section>	
+							</section>		
 						</div>
 					</div>	
 						
