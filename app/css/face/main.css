@@ -2190,8 +2190,8 @@ body{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hira
 .MerchantPinMe {width:26.5%; min-height:115px;font-size: 15px;border:1px solid #000;float:right;}
 .pinmesnipsuser {color:#777;font-weight: bold;overflow: hidden;font-size:13px;text-overflow: ellipsis;white-space: nowrap;max-width: 150px;width:auto;}
 .RateCount {color: #8e8e8e;font-size: 13px;text-align:left;}
-.devider{clear:both;width:100%;position:relative;padding:10px 0;}
-.devider hr{background-color:#ccc;border:0 none;height:1px;}
+.devider{clear:both;width:100%;position:relative;padding:1px 0;}
+.devider hr{background-color:#ccc;border:0 none;height:1px;margin-bottom:15px}
 .MerchantHead .left {width: 190px;float: left;padding-top:20px;padding-left:15px;}
 .MerchantHead .right {float: none;width: auto;overflow: hidden;padding-left:20px;}
 .MerchantHead .textDesc {float: none;width: auto;overflow: hidden;padding-right:10px;} 

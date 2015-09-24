@@ -415,8 +415,8 @@ $(document).ready(function(){
    $('.fancybox').fancybox();
    
    if(istest == true){
-		domainpath = 'http://camrally.com/staging/';
-		// domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
+		//domainpath = 'http://camrally.com/staging/';
+		 domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
 	}
