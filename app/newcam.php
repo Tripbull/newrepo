@@ -83,10 +83,10 @@ $redirectpage = '#';
 </div>		
 <div class="overlay"> </div>
 <div class="ColumnContainer">
-	<div class="wrapheader">
-	    <div class="MerchantHead" style="min-height:<?=$height+45?>px;max-width:<?=$width+380?>px;">
+	<div class="wrapheader" style="border:1px solid red;overflow:hidden;">
+	    <div class="MerchantHead" style="max-width:<?=$width+380?>px;">
 			<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
-			<div style="">
+			<div style="overflow:hidden;padding-bottom:10px">
 			<!-- campaign page -->
 				
 		
