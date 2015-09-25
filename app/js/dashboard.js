@@ -1287,11 +1287,44 @@ $(document).ready(function(){
 				setTimeout(function(){$('#resetpwd').focus()},300);
 			},500);
 		}
-		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
+
+		$('#uploadbackground').click(function(e){
+			e.preventDefault();
+			showLoader();
+			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
+					$('#filebackground').click();
+				}},{caption: 'video', callback: function() {
+					ytUploadPoster();
+				}}]
+			});	
+		});
+		
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();
 			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
 		});
+
+		function ytUploadPoster()  
+		{
+			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
+			var timer = setInterval(function() {   
+			    if(win.closed) {  
+			        clearInterval(timer);  
+			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getVideoIdPoster',async: false,success:function(videoId){
+			        	if(videoId != '')
+			        	{
+							var getParse = $.parseJSON(videoId);
+							var logoArray = $.parseJSON(getParse);		
+							$('#frmbackground').css({display:'none'});		
+							$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+							customArray.backgroundImg = getParse;
+							validatedetails();
+			        	}
+				        hideLoader();
+			        }}); 
+			    }  
+			}, 500);  
+		}
 		
 		function showResponsebck(responseText, statusText, xhr, $form)  { 
 			hideLoader();
@@ -2992,7 +3025,7 @@ $(document).ready(function(){
 
 		function ytBrowserUpload(txtvideotitle)  
 		{
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val(), " ","width=410, height=294");   
+			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=410, height=294");   
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
