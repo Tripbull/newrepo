@@ -790,6 +790,74 @@ function campaign_poster()
 	$('.camp-wrapper').css('opacity', 1);
 }
 
+function campaign_video()
+{	
+	//CAMPAIGN POSTER DO NOT REMOVE
+    var bgHeight=360, bgWidth=640, minHeight='', campHeight='', campWidth='', campRel='', totalHeight='', commentHeight='';
+	campRel = bgHeight/bgWidth;
+	bgWidth = $(window).width()-400;
+	
+	if(bgWidth < 450)
+	{
+		bgWidth = 450;
+	}
+	bgHeight = bgWidth*campRel;
+
+	$('.left').css('height', bgHeight + 'px');
+	$('.left').css('width', bgWidth + 'px');
+	
+	$('.campaign-video').removeAttr('height');
+	$('.campaign-video').removeAttr('width');
+	$('.campaign-video').css('height', '100%');
+	$('.campaign-video').css('width', '100%');
+	//CAMPAIGN POSTER END
+
+	$('.left').css('margin-top', $('.top-button-selfie').height() + 'px');
+	$('.left').css('min-width', bgWidth + 'px');
+	$('.left').css('max-width', bgWidth + 'px');
+	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
+	if($(window).width() < ($('.left').width()+350))
+	{
+		campWidth = $(window).width();
+		campHeight = campWidth*campRel;
+		
+		$('.left').css('float', 'none');
+		$('.left').css('width', campWidth);
+		$('.left').css('height', campHeight);
+		$('.left').css('min-width', campWidth);
+
+		commentHeight = $(window).height()-($('.left').height()+$('.top-button-selfie').height());
+		if(commentHeight > 300)
+		{
+			totalHeight = commentHeight;
+		}
+		else
+		{
+			totalHeight = 300;
+		}
+		$('.right').css('height', totalHeight + 'px');
+		$('.right').css('float', 'none');
+		$('.right').css('margin-top', '0px');
+		$('.right').css('max-width', $(window).width() + 'px');
+	}
+	else
+	{
+		minHeight = ((($(window).height()-$('.top-button-selfie').height())-bgHeight)/2)+$('.top-button-selfie').height();
+		$('.left').css('float', 'left');
+		$('.left').css('margin-right', '0px');
+		$('.left').css('margin-top', minHeight + 'px');
+
+		$('.right').css('float', 'right');
+		$('.right').css('height', $('.left').height() + 'px');
+		$('.right').css('min-width', '350px');
+		$('.right').css('margin-top', minHeight + 'px');
+
+		var wrapperW = bgWidth + $('.right').width() + 1;
+		$('.camp-wrapper').css('max-width', wrapperW + 'px' );
+	}
+	$('.camp-wrapper').css('opacity', 1);
+}
+
 function rate_initialize(){
     var img = new Image(), logoUrl ='',logo='',bgback='';
     var bgHeight = '', bgWidth='';
@@ -804,7 +872,20 @@ function rate_initialize(){
 
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 
-		$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
+		var bimage = bgback.bckimage;
+		var n = bimage.indexOf("images/profile");
+		if(n >= 0)
+		{
+			$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
+			$('.campaign-video').css('visibility', 'hidden');
+			$('.campaign-video').css('position', 'absolute');
+		}
+		else
+		{
+			$('.campaign-video').attr('src', 'http://www.youtube.com/embed/' + bgback.bckimage + '?autoplay=1');
+			$('.campaign-image').css('visibility', 'hidden');
+			$('.campaign-image').css('position', 'absolute');
+		}
 		$('.rate').css('overflow-y', 'hidden');
 	}	
 

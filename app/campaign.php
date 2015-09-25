@@ -74,6 +74,7 @@ $connect->db_disconnect();
 		<div class="camp-wrapper">
 			<div class="left">
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
+      			<iframe class="campaign-video" width="640" height="360" frameborder="0" src="" onload="campaign_video()"></iframe>
 			</div>
 			<div class="right">
 				<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
