@@ -11,7 +11,6 @@ $connect->db_connect();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="EQez1wVJd5ruzADIL1OQrBMh391ORWp8Nzfkpkhpso8" />
 <title>Camrally - Your photo campaign can change the world!</title>
 <meta name="title" content="Camrally is an awesome photo campaign service to help you rally advocates for anything!">
 <meta name="keywords" content="fund raising, photo contests, brand awareness, new product launch, fanbase building, interest groups, event promotions and marketing promotions">
@@ -38,9 +37,10 @@ require_once('header.html'); ?>
 			<li class="latest" style="width:50%"><a href="#">Latest</a></li>
 		</ul>
 	</div>
-	<div class="d-content">
+	<div class="clear d-content">
 <!-- trending campaign -->
-    <div class="clear trend-campaign pinList center" >
+    <div class="trend-campaign pinList center" style="min-width:236px">
+		<div class="pinList center" >
 		<?php
 		$hadreturn = 0;
 		$result = mysql_query("SELECT campaignId,count(campaignId) as sum FROM advocates_all WHERE date > DATE_SUB(NOW(), INTERVAL 24 HOUR) AND date <= NOW() group by campaignId order by sum desc") or die(mysql_error());
@@ -50,13 +50,17 @@ require_once('header.html'); ?>
 			$result = mysql_query("SELECT campaignId,count(campaignId) as sum FROM advocates_all WHERE date > DATE_SUB(NOW(), INTERVAL 336 HOUR) AND date <= NOW() group by campaignId order by sum desc") or die(mysql_error());
 			if(mysql_num_rows($result)){
 				$hadreturn = 1;
-			}	
+			}
 		}
 		if($hadreturn){
 			while($campaignID = mysql_fetch_object($result)){
 			$placeId = $campaignID->campaignId;
 			$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId`");
 			$rowAvg = mysql_fetch_object($resultAve);
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+			$follow = 0;
+			if(mysql_num_rows($resultFollow))
+				$follow = mysql_num_rows($resultFollow);
 			$sql = "SELECT l.id, p.businessName as organization, p.nicename, p.city, p.country,l.subscribe,l.businessName, g.state, d.description, cam.category,cam.tag1,cam.tag2,c.backgroundImg,v.link FROM businessList AS l
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -73,7 +77,7 @@ require_once('header.html'); ?>
 					<div class="sysPinItemContainer pin clear">
 						<p class="description sysPinDescr fblink"><?=$camrow->businessName?></p>
 						<div style="text-align:center;">
-							<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+							<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 						</div>
 							<div style="padding:5px;">
 							    <i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -91,7 +95,7 @@ require_once('header.html'); ?>
 								}		
 								?>
 								<div class="clear" style="padding-top:5px"></div>
-								<?=$rowAvg->advocates?> Advocates	
+								<?=$rowAvg->advocates?> advocates, <?=$follow?> followers	
 								</div>
 							</div>
 					</div>
@@ -101,8 +105,9 @@ require_once('header.html'); ?>
 		 }	
 		?>
 	</div>
+	</div>
 <!-- end trending campaign code -->
-	<div class="latest-shared pinList center clear hide">
+	<div class="latest-shared pinList center clear hide" style="min-width:236px">
 		
 	</div>
 	</div> <!-- desktop -->
@@ -115,6 +120,10 @@ require_once('header.html'); ?>
 			$placeId = $campaignID->campaignId;
 			$resultAve = mysql_query("SELECT count(b.id) as advocates FROM `sharedlink_$placeId` as a INNER JOIN businessplace_$placeId as b ON b.id = a.`feedbackId`");
 			$rowAvg = mysql_fetch_object($resultAve);
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+			$follow = 0;
+			if(mysql_num_rows($resultFollow))
+				$follow = mysql_num_rows($resultFollow);
 			$sql = "SELECT l.id, p.businessName as organization, p.nicename, p.city, p.country,l.subscribe,l.businessName, g.state, d.description, cam.category,cam.tag1,cam.tag2,c.backgroundImg,v.link FROM businessList AS l
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -132,7 +141,7 @@ require_once('header.html'); ?>
 			<div style="width:auto;">
 			<div class="description sysPinDescr fblink"><?=$camrow->businessName?></div>
 			<div style="margin:0 auto;width:200px;">
-				<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+				<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 			</div>
 				<div style="padding:5px;">
 					<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -150,7 +159,7 @@ require_once('header.html'); ?>
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$rowAvg->advocates?> Advocates	
+					<?=$rowAvg->advocates?> advocates, <?=$follow?> followers	
 					</div>
 				</div>
 			</div>
@@ -167,9 +176,11 @@ require_once('header.html'); ?>
 		</div>
 	</div><!-- mobile -->
 </div>
-<div class="bottom-campaign-link">
-    <div style="text-align:center;font-size:16px;padding:10px;display:block;">
-        <a href="/"><div class="txtfund" style="text-align:center;margin:0 auto"><span style="font-weight:bold;text-decoration:underline">Camrally.com</span> is currently raising funds. Click here to help us change the world!</div></a>
+<div class="bottom-campaign-link hide">
+	<div class="top-xclose">&times;</div>
+    <div class="txtfund" style="text-align:center;font-size:16px;margin:0 auto;padding:10px;display:block;">
+	Create a photo video campaign in 5 mins with Camrally! <a href="http://camrally.com/blog/camrally/general/how-camrally-works" class="link2blog" target="_blank">Learn more</a>.<br/>
+	Camrally is currently raising funds. <a href="http://camrally.com/blog" class="link2blog" target="_blank">Click here</a> to help us change the world!.
     </div>		
 </div>
 <div class="widthDiv" style="opacity:0;position:absolute;font-size:16px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>

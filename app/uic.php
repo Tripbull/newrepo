@@ -119,7 +119,7 @@ $noPhoto = 'images/template/no-photo.gif';
 									<p>&lt;See the Rally&gt;</p>
 									<div class="clear" style="padding-top:1em;width:15em;">
 										<div class="fl w90">
-											<input type="text" name="txt-widget" id="txt-widget" value="See the Rally!" placeholder="See the Rally!">
+											<input type="text" name="txt-widget" id="txt-widget" value="Show me!" placeholder="Show me!">
 										</div>
 									</div>				
 									<div class="clear" style="padding-top:0.5em"></div>

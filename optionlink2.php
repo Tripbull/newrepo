@@ -11,7 +11,6 @@ $connect->db_connect();
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="EQez1wVJd5ruzADIL1OQrBMh391ORWp8Nzfkpkhpso8" />
 <title>Camrally - Your photo campaign can change the world!</title>
 <meta name="title" content="Camrally is an awesome photo campaign service to help you rally advocates for anything!">
 <meta name="keywords" content="fund raising, photo contests, brand awareness, new product launch, fanbase building, interest groups, event promotions and marketing promotions">
@@ -169,7 +168,8 @@ $param_array = unserialize($param->param);
 	</div>
 	<div class="d-content">
 <!-- trending campaign -->
-    <div class="clear trend-campaign pinList center" >
+	<div class="clear">
+    <div class="trend-campaign pinList center" style="min-width:236px">
 		<?php
 		$hadreturn = 0;
 		if((isset($_REQUEST['category']) && trim($_REQUEST['category']) != '') || (isset($_REQUEST['city']) && trim($_REQUEST['city']) != '') || (isset($_REQUEST['country']) && trim($_REQUEST['country']) != '')){
@@ -211,6 +211,10 @@ $param_array = unserialize($param->param);
 				$rowAvg = mysql_fetch_object($resultAve);
 				$advocates = $rowAvg->advocates;
 			}
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+			$follow = 0;
+			if(mysql_num_rows($resultFollow))
+				$follow = mysql_num_rows($resultFollow);
 			$sql = "SELECT l.id, p.businessName as organization, p.nicename, p.city, p.country,l.subscribe,l.businessName, g.state, d.description, cam.category,cam.tag1,cam.tag2,c.backgroundImg,v.link FROM businessList AS l
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -228,7 +232,7 @@ $param_array = unserialize($param->param);
 					<div class="sysPinItemContainer pin clear">
 						<p class="description sysPinDescr fblink"><?=$camrow->businessName?></p>
 						<div style="text-align:center;">
-							<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+							<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 						</div>
 							<div style="padding:5px;">
 								<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -246,7 +250,7 @@ $param_array = unserialize($param->param);
 								}		
 								?>
 								<div class="clear" style="padding-top:5px"></div>
-								<?=$advocates?> Advocates	
+								<?=$advocates?> advocates, <?=$follow?> followers
 								</div>
 							</div>
 					</div>
@@ -258,8 +262,9 @@ $param_array = unserialize($param->param);
 		 }	 
 		?>
 	</div>
+	</div>
 <!-- end trending campaign code -->
-	<div class="latest-shared pinList center clear hide">
+	<div class="latest-shared pinList center clear hide" style="min-width:236px">
 		
 	</div>
 	</div> <!-- desktop -->
@@ -276,6 +281,10 @@ $param_array = unserialize($param->param);
 				$rowAvg = mysql_fetch_object($resultAve);
 				$advocates = $rowAvg->advocates;
 			}
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+			$follow = 0;
+			if(mysql_num_rows($resultFollow))
+				$follow = mysql_num_rows($resultFollow);
 			$sql = "SELECT l.id, p.businessName as organization, p.nicename, p.city, p.country,l.subscribe,l.businessName, g.state, d.description, cam.category,cam.tag1,cam.tag2,c.backgroundImg,v.link FROM businessList AS l
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -293,7 +302,7 @@ $param_array = unserialize($param->param);
 			<div style="width:auto;">
 			<div class="description sysPinDescr fblink"><?=$camrow->businessName?></div>
 			<div style="margin:0 auto;width:200px;">
-				<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+				<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 			</div>
 				<div style="padding:5px;">
 					<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -311,7 +320,7 @@ $param_array = unserialize($param->param);
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$advocates?> Advocates	
+					<?=$advocates?> advocates, <?=$follow?> followers
 					</div>
 				</div>
 			</div>

@@ -101,6 +101,7 @@ $(document).ready(function(){
 			});	
 		//}
 	}
+	
 	function wizardforloction(){
 		locId = newplaceId;
 		var locOption = locId.split('|');
@@ -3320,7 +3321,7 @@ $(document).ready(function(){
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 			$('#txt-camdetails').val((typeof(boxArray.campdetails) != 'undefined' ? decodequote(boxArray.campdetails[0]) : 'Campaign details'));
-			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'See the Rally!'));
+			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Show me!'));
 		}	
 		
 		$('#pickerbackground').colpick({
