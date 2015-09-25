@@ -34,7 +34,8 @@ $(document).ready(function() {
 var height = $( window ).height() - 100,lastScrollTop = 0,resizeTimeout,latest=0;
 $( '.fundwrap-content').css( {"min-height":height.toFixed() + 'px'} ); 
 $(".showproductsimg").fancybox({helpers : {title : {type : 'inside'}}});
-if(getCookie('topxclose') == ''){
+var path = window.location.pathname.split('/');
+if(getCookie('topxclose') == '' && path[path.length-1] == 'optionlink.php'){
 	$('.bottom-campaign-link').removeClass('hide').show();
 	$('body').css({paddingTop:$('.bottom-campaign-link').height()});
 	$('.ribbonwhite-overlay').css({top:47});
@@ -89,7 +90,7 @@ App.tabledList.init(".trend-campaign");
 				data: {'case':3},
 				success:function(object){
 					hideLoader();
-					$('.m-trend-campaign').html('');
+					$('.trend-campaign').html('');
 					$(object).appendTo($('.trend-campaign'));
 					App.tabledList.init(".trend-campaign");
 					$(".trend-campaign").masonry('reload');

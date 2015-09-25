@@ -25,6 +25,10 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 				$rowAvg = mysql_fetch_object($resultAve);
 				$advocates = $rowAvg->advocates;
 			}
+			$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+			$follow = 0;
+			if(mysql_num_rows($resultFollow))
+				$follow = mysql_num_rows($resultFollow);
 			$sql = "SELECT l.id, p.businessName as organization, p.nicename, p.city, p.country,l.subscribe,l.businessName, g.state, d.description, cam.category,cam.tag1,cam.tag2,c.backgroundImg,v.link FROM businessList AS l
 			LEFT JOIN businessProfile AS p ON p.profilePlaceId = l.id
 			LEFT JOIN businessDescription AS d ON d.descPlaceId = l.id
@@ -40,39 +44,39 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 				$bgback = json_decode($camrow->backgroundImg);
 				if($_REQUEST['case'] == 3){
 					?>		
-					<div class="sysPinItemContainer pin clear">
+					<div class="sysPinItemContainer pin">
 						<p class="description sysPinDescr fblink"><?=$camrow->businessName?></p>
 						<div style="text-align:center;">
-							<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+							<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 						</div>
-							<div style="padding:5px;">
-								<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
-								<div style="color:#8e8e8e">
-								<?php 
-								$shortchar= 100;
-								$descAll = strip_tags(htmldecode($camrow->description));
-								if(strlen($descAll) > $shortchar ){
-									$desc = mb_strcut($descAll,0,$shortchar). '...';
-								}else
-									$desc = strip_tags(htmldecode($camrow->description));
-								if($desc){
-								 echo '<div class="clear" style="padding-top:5px"></div>';
-									echo $desc;
-								}		
-								?>
-								<div class="clear" style="padding-top:5px"></div>
-								<?=$advocates?> Advocates	
-								</div>
+						<div style="padding:5px;">
+							<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
+							<div style="color:#8e8e8e">
+							<?php 
+							$shortchar= 100;
+							$descAll = strip_tags(htmldecode($camrow->description));
+							if(strlen($descAll) > $shortchar ){
+								$desc = mb_strcut($descAll,0,$shortchar). '...';
+							}else
+								$desc = strip_tags(htmldecode($camrow->description));
+							if($desc){
+							 echo '<div class="clear" style="padding-top:5px"></div>';
+								echo $desc;
+							}		
+							?>
+							<div class="clear" style="padding-top:5px"></div>
+							<?=$advocates?> advocates, <?=$follow?> followers 	
 							</div>
+						</div>
 					</div>
 					<?php
 					}else{
 				?>
-					<div class="sysPinItemContainer pin">
+					<div class="sysPinItemContainer pin clear">
 					<div style="width:auto;">
 					<div class="description sysPinDescr fblink"><?=$camrow->businessName?></div>
 					<div style="margin:0 auto;width:200px;">
-						<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+						<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 					</div>
 						<div style="padding:5px;">
 							<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -90,7 +94,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 							}	
 							?>
 							<div class="clear" style="padding-top:5px"></div>
-							<?=$advocates?> Advocates	
+							<?=$advocates?> advocates, <?=$follow?> followers	
 							</div>
 						</div>
 					</div>
@@ -125,6 +129,10 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 			$rowAvg = mysql_fetch_object($resultAve);
 			$advocates = $rowAvg->advocates;
 		}
+		$resultFollow = mysql_query("SELECT email FROM businessCustomer_$placeId WHERE follow=1 AND email <> '' GROUP BY email") or die(mysql_error());
+		$follow = 0;
+		if(mysql_num_rows($resultFollow))
+			$follow = mysql_num_rows($resultFollow);
 		$bgback = json_decode($camrow->backgroundImg);
 		if($bgback){
 	if($_REQUEST['case'] == 1){	
@@ -133,7 +141,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 	<div class="sysPinItemContainer pin">
 		<p class="description sysPinDescr fblink"><?=$camrow->businessName?></p>
 		<div style="text-align:center;">
-			<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+			<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 		</div>
 			<div style="padding:5px;">
 				<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -151,7 +159,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 					}	
 				?>
 				<div class="clear" style="padding-top:5px"></div>
-				<?=$advocates?> Advocates	
+				<?=$advocates?> advocates, <?=$follow?> followers	
 				</div>
 			</div>
 	</div>
@@ -164,7 +172,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 			<div style="width:auto;">
 			<div class="description sysPinDescr fblink"><?=$camrow->businessName?></div>
 			<div style="margin:0 auto;width:200px;">
-				<a href="http://camrally.com/<?=$camrow->link?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
+				<a href="http://camrally.com/app/campaign.html?p=<?=$camrow->nicename?>" target="_blank"><img class="pinImage" src="app/<?=$bgback->bckimage?>" alt="campaign image"/></a>
 			</div>
 				<div style="padding:5px;">
 					<i><?=$camrow->tag1?> <?=$camrow->tag2?></i>
@@ -182,7 +190,7 @@ if($_REQUEST['case'] == 3 || $_REQUEST['case'] == 4){
 					}	
 					?>
 					<div class="clear" style="padding-top:5px"></div>
-					<?=$advocates?> Advocates	
+					<?=$advocates?> advocates, <?=$follow?> followers
 					</div>
 				</div>
 			</div>
