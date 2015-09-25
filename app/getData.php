@@ -434,7 +434,6 @@ switch($opt){
 		echo json_encode(array_merge(mysql_fetch_array($result),$imagesArray,$videosArray)); 
 	break;
 	case 'getVideoId':
-		$sql='';
 		$placeId = $_REQUEST['placeId'];
 		$name = $_REQUEST['typevid'];
 		
@@ -442,6 +441,15 @@ switch($opt){
 		if(mysql_num_rows($result)){
 			$row = mysql_fetch_object($result);
 			echo $row->video_id;
+		}
+	break;
+	case 'getVideoIdPoster':
+		$placeId = $_REQUEST['placeId'];
+
+		$result = mysql_query("SELECT backgroundImg FROM businessCustom WHERE customPlaceId = $placeId LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			echo json_encode($row->backgroundImg);
 		}
 	break;
 	case 'getReviewProduct': 

@@ -65,7 +65,7 @@ $(document).ready(function() {
 			//alert('feature '+pagefeatincre +'<='+ pagefeature)
 			var offset = pagefeatincre * d_limit;pagefeatincre++;
 			$.ajax({
-				url: 'aap/loadadvocate.php',	
+				url: 'app/loadadvocate.php',	
 				type: 'POST',
 				data: {offset:offset,limit:d_limit,placeId:$('#placeid').val(),feature:1},
 				success:function(object){

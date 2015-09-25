@@ -44,6 +44,8 @@ $connect->db_disconnect();
 	<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link href="http://vjs.zencdn.net/4.12.12/video-js.css" rel="stylesheet">
+	<link href="css/videojs.record.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/source/jquery.fancybox.pack.js?v=2.1.5"></script>
@@ -51,6 +53,9 @@ $connect->db_disconnect();
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="js/rate.js"></script>
 	<script type="text/javascript" src="js/webcam.js"></script>
+	<script src="http://vjs.zencdn.net/4.12.12/video.js"></script>
+	<script src="http://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+	<script type="text/javascript" src="js/videojs.record.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 	<link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 	<script src="//load.sumome.com/" data-sumo-site-id="83d0035cb9e786112f858edefc4bc4aef74cdbf55010766f0ae97f9b7c25c962" async="async"></script>
@@ -59,7 +64,7 @@ $connect->db_disconnect();
 	<!--
 	<div class="hide top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><img src="images/tabluu-logo-mono-xsmall.png"></div><span style="display: inline-block;margin-left: auto;margin-right: 20px;" class="btn-take-isselfie">Your Selfie Now!</span></div></div> -->
 
-	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post Your Photo or Selfie!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post a response!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>
@@ -74,6 +79,7 @@ $connect->db_disconnect();
 		<div class="camp-wrapper">
 			<div class="left">
 			 	<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
+      			<iframe class="campaign-video" width="640" height="360" frameborder="0" src="" onload="campaign_video()"></iframe>
 			</div>
 			<div class="right">
 				<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
@@ -93,7 +99,8 @@ $connect->db_disconnect();
 					<div class="hide">
 						<div id="modal-cam">
 							<div class="cam-frame">
-								<div id="screen"></div>
+								<div id="screen">
+								</div>
 								<canvas id="canvas" style="position:absolute;z-index:-1;" width="640" height="480"></canvas>
 								<div class="snapshotbutton">
 									<div class="snapshot hide">

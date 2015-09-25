@@ -1286,11 +1286,43 @@ $(document).ready(function(){
 				setTimeout(function(){$('#resetpwd').focus()},300);
 			},500);
 		}
-		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
+		$('#uploadbackground').click(function(e){
+			e.preventDefault();
+			showLoader();
+			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
+					$('#filebackground').click();
+				}},{caption: 'video', callback: function() {
+					ytUploadPoster();
+				}}]
+			});	
+		});
+		
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();
 			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
 		});
+
+		function ytUploadPoster()  
+		{
+			var win = window.open(domainpath + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
+			var timer = setInterval(function() {   
+			    if(win.closed) {  
+			        clearInterval(timer);  
+			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getVideoIdPoster',async: false,success:function(videoId){
+			        	if(videoId != '')
+			        	{
+							var getParse = $.parseJSON(videoId);
+							var logoArray = $.parseJSON(getParse);		
+							$('#frmbackground').css({display:'none'});		
+							$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+							customArray.backgroundImg = getParse;
+							validatedetails();
+			        	}
+				        hideLoader();
+			        }}); 
+			    }  
+			}, 500);  
+		}
 		
 		function showResponsebck(responseText, statusText, xhr, $form)  { 
 			hideLoader();
@@ -1455,12 +1487,8 @@ $(document).ready(function(){
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
-<<<<<<< Updated upstream
-			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
-=======
 			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
->>>>>>> Stashed changes
-				
+		
 		}
 			$('.profile-left-menu1').html(newli);
 			$('.profile-left-menu1').on('click', ' > li', function () {
@@ -1583,7 +1611,17 @@ $(document).ready(function(){
 				if(customArray.backgroundImg != ''){ 
 					var logoArray = $.parseJSON(customArray.backgroundImg);
 					$('#frmbackground').css({display:'none'});	
-					$('#backgroundthumb').attr('src', logoArray.bckimage);
+
+					var bimage = logoArray.bckimage;
+					var n = bimage.indexOf("images/profile");
+					if(n >= 0)
+					{
+						$('#backgroundthumb').attr('src', logoArray.bckimage);
+					}
+					else
+					{
+						$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+					}
 				}
 				setTimeout(function(){
 					$(function() {
@@ -2948,16 +2986,18 @@ $(document).ready(function(){
 			});	
 		}
 
-		function ytBrowserUpload(txtvideotitle)  
+		function ytUploadGallery(txtvideotitle)  
 		{
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val(), " ","width=410, height=294");   
+			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=435, height=294");   
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
-				        	alertBox('Youtube upload','Video successfully uploaded!');
+			        		if(profilewizardwebVid == 0){
+				        		alertBox('Youtube upload','Video successfully uploaded!');
+				        	}
 				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
 			        	}
 				        hideLoader();
@@ -3052,7 +3092,7 @@ $(document).ready(function(){
 				$('#typevid').val('vidImg8');
 				$('#imgtitlevid').val(txtvideotitle);
 			}			
-			ytBrowserUpload(txtvideotitle);
+			ytUploadGallery(txtvideotitle);
 		}
 
 		function changephotovid(){

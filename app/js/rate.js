@@ -572,6 +572,7 @@ function showCamera(IDparam){
 
 	var shootEnabled = false;
 	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
+	
 	$('.snapshot .takesnap').click(function(){
 		var snd = new Audio("shutter.mp3"); // buffers automatically when created
 		snd.play();
@@ -615,6 +616,187 @@ function showCamera(IDparam){
 		return false;
 	});
     
+}
+
+function getVideo()
+{
+	window.open(domainpath + "app/youtubeapiadvocate.html?placeId=" + placeId + "&videotitle=" + customArray.businessName + " advocate", " ","width=415, height=294");   
+}
+
+function HandlePopupResultVid()
+{
+
+}
+
+function showVideo(IDparam){
+	//note: whatpage if 1 from rateone else 2 from takephoto
+
+	var video = document.createElement('video');
+	video.setAttribute('id', 'recVideo');
+	video.setAttribute('class', 'video-js');
+
+	var divVideo = document.getElementById('screen');
+	divVideo.appendChild(video);
+
+	var player = videojs("recVideo",
+	{
+	    controls: true,
+	    width: 640,
+	    height: 480,
+	    plugins: {
+	        record: {
+	            audio: true,
+	            video: true,
+	            maxLength: 15
+	        }
+	    }
+	});
+
+	// change player background color
+	player.el().style.backgroundColor = "#000000";
+
+	// error handling
+	player.on('deviceError', function()
+	{
+	    console.log('device error:', player.deviceErrorCode);
+	});
+
+	// user clicked the record button and started recording
+	player.on('startRecord', function()
+	{
+	    console.log('started recording!');
+	});
+
+	// user completed recording and stream is available
+	player.on('finishRecord', function()
+	{
+	    // the blob object contains the recorded data that
+	    // can be downloaded by the user, stored on server etc.
+	    console.log('finished recording: ', player.recordedData);
+	});
+	
+	player.recorder.getDevice();
+    $('.snapshot .takesnap').html('record');
+	$('.cam-f').show();
+
+    $('.usesnap').show(); // button fo
+    $('.usesnap').hide(); // button fo
+	var curHeight = window.innerWidth,width=0,height=0,ratio;
+	ratio = 0.68;
+	width =  curHeight * ratio;
+	height = window.innerHeight * 0.68;
+    
+	//set video snapshot
+	$('.snapshot').show(); // Show snapshot buttons
+
+	var shootEnabled = false;
+	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
+	
+	$('.snapshot .takesnap').click(function(){
+
+		player.recorder.start();
+		//if(!shootEnabled) return false;
+		$('.snapshot').hide(); // button for snapshot
+		$('.usesnap').show(); // button for use
+		return false;
+	});
+	$('.snapshot .cancelsnap').click(function(e){
+		e.preventDefault();
+		$.fancybox.close();
+
+		player.recorder.stop();
+		player.recorder.destroy();
+
+		if(fromtakephotopage == 2){
+			setTimeout(function() {$( ":mobile-pagecontainer" ).pagecontainer( "change", "campaign.html",{ transition: "flip",data: 'p='+nicename+(isTakeSelfie != '' ? '&s='+isTakeSelfie : '')+(hadlabel != '' ? '&label='+hadlabel : '') });}, 100);
+		}	
+		closeselfie=1;clearInterval(timeInverval);refresh_handler();
+	});
+	$('.usesnap .cancelsnap').click(function(e){
+		e.preventDefault();
+
+		player.recorder.stop();
+
+		$('.snapshot').show(); // button for snapshot
+		$('.usesnap').hide(); // button for use
+		return false;
+	});
+	$('.usesnap .use').click(function(){
+        sharedphoto=1;istakephoto = 1;
+
+		player.recorder.stop();
+    	console.log('finished recording: ', player.recordedData);
+
+		$.fancybox.close();
+		closeselfie=1;clearInterval(timeInverval);refresh_handler();
+		messageaftertakeselfie();
+		return false;
+	});
+}
+
+function getCamResponse()
+{
+	$.box_Dialog(('Video or photo?'), {
+		'type':     'question',
+		'title':    '<span class="color-white">Respond?<span>',
+		'center_buttons': true,
+		'show_close_button':false,
+		'overlay_close':false,
+		'buttons':  [{caption: 'video',callback:function(){setTimeout(function() {
+				getVideo();
+			}, 300);}},{caption: 'photo',callback:function(){setTimeout(function() {
+				getCamPhoto();
+			}, 300);}}]
+	});
+}
+
+function getCamVideo()
+{
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').remove();
+	setTimeout(function(){
+		$.box_Dialog(('Please select an option.'), {
+			'type':     'question',
+			'title':    '<span class="color-white">Video or photo?<span>',
+			'center_buttons': true,
+			'show_close_button':false,
+			'overlay_close':false,
+			'buttons':  [{caption: 'video',callback:function(){setTimeout(function() {
+				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+					getVideo();
+				else
+					showVideo('#camera-modal');
+			}, 300);}},{caption: 'photo',callback:function(){setTimeout(function() {
+				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+					getSelfie();
+				else
+					showCamera('#camera-modal');
+			}, 300);}}]
+		});
+	},500);
+}
+
+function getCamPhoto()
+{
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').remove();
+	setTimeout(function(){
+		$.box_Dialog(('Please select an option.'), {
+			'type':     'question',
+			'title':    '<span class="color-white">Video or photo?<span>',
+			'center_buttons': true,
+			'show_close_button':false,
+			'overlay_close':false,
+			'buttons':  [{caption: 'take a photo',callback:function(){setTimeout(function() {
+				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+					getSelfie();
+				else
+					showCamera('#camera-modal');
+			}, 300);}},{caption: 'browse',callback:function(){setTimeout(function() {
+					getImage();
+			}, 300);}}]
+		});
+	},500);
 }
 
 function getUrlVar(key){
@@ -681,10 +863,7 @@ function getLocationData(){
 					}else{
 						$('.wraptext').html(customArray.btntext);
 						$('.btn-take-isselfie').unbind('click').click(function(){
-								if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-									getSelfie();
-								else
-									showCamera('#camera-modal');
+								getCamResponse();
 							//	$('.top-button-selfie').hide();	
 						});
 					}
@@ -790,6 +969,74 @@ function campaign_poster()
 	$('.camp-wrapper').css('opacity', 1);
 }
 
+function campaign_video()
+{	
+	//CAMPAIGN POSTER DO NOT REMOVE
+    var bgHeight=360, bgWidth=640, minHeight='', campHeight='', campWidth='', campRel='', totalHeight='', commentHeight='';
+	campRel = bgHeight/bgWidth;
+	bgWidth = $(window).width()-400;
+	
+	if(bgWidth < 450)
+	{
+		bgWidth = 450;
+	}
+	bgHeight = bgWidth*campRel;
+
+	$('.left').css('height', bgHeight + 'px');
+	$('.left').css('width', bgWidth + 'px');
+	
+	$('.campaign-video').removeAttr('height');
+	$('.campaign-video').removeAttr('width');
+	$('.campaign-video').css('height', '100%');
+	$('.campaign-video').css('width', '100%');
+	//CAMPAIGN POSTER END
+
+	$('.left').css('margin-top', $('.top-button-selfie').height() + 'px');
+	$('.left').css('min-width', bgWidth + 'px');
+	$('.left').css('max-width', bgWidth + 'px');
+	$('.right').css('margin-top', $('.top-button-selfie').height() + 'px');
+	if($(window).width() < ($('.left').width()+350))
+	{
+		campWidth = $(window).width();
+		campHeight = campWidth*campRel;
+		
+		$('.left').css('float', 'none');
+		$('.left').css('width', campWidth);
+		$('.left').css('height', campHeight);
+		$('.left').css('min-width', campWidth);
+
+		commentHeight = $(window).height()-($('.left').height()+$('.top-button-selfie').height());
+		if(commentHeight > 300)
+		{
+			totalHeight = commentHeight;
+		}
+		else
+		{
+			totalHeight = 300;
+		}
+		$('.right').css('height', totalHeight + 'px');
+		$('.right').css('float', 'none');
+		$('.right').css('margin-top', '0px');
+		$('.right').css('max-width', $(window).width() + 'px');
+	}
+	else
+	{
+		minHeight = ((($(window).height()-$('.top-button-selfie').height())-bgHeight)/2)+$('.top-button-selfie').height();
+		$('.left').css('float', 'left');
+		$('.left').css('margin-right', '0px');
+		$('.left').css('margin-top', minHeight + 'px');
+
+		$('.right').css('float', 'right');
+		$('.right').css('height', $('.left').height() + 'px');
+		$('.right').css('min-width', '350px');
+		$('.right').css('margin-top', minHeight + 'px');
+
+		var wrapperW = bgWidth + $('.right').width() + 1;
+		$('.camp-wrapper').css('max-width', wrapperW + 'px' );
+	}
+	$('.camp-wrapper').css('opacity', 1);
+}
+
 function rate_initialize(){
     var img = new Image(), logoUrl ='',logo='',bgback='';
     var bgHeight = '', bgWidth='';
@@ -804,7 +1051,20 @@ function rate_initialize(){
 
 	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 
-		$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
+		var bimage = bgback.bckimage;
+		var n = bimage.indexOf("images/profile");
+		if(n >= 0)
+		{
+			$('.campaign-image').attr('src',(bgback.bckimage != '' ? bgback.bckimage : ''));
+			$('.campaign-video').css('visibility', 'hidden');
+			$('.campaign-video').css('position', 'absolute');
+		}
+		else
+		{
+			$('.campaign-video').attr('src', 'http://www.youtube.com/embed/' + bgback.bckimage + '?autoplay=1');
+			$('.campaign-image').css('visibility', 'hidden');
+			$('.campaign-image').css('position', 'absolute');
+		}
 		$('.rate').css('overflow-y', 'hidden');
 	}	
 

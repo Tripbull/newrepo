@@ -607,6 +607,17 @@ switch($opt){
 			echo $json = array2json($obj);
 			$sql = "UPDATE businessCustom SET reviewPost= '".$json."' WHERE customPlaceId = $placeId";
 		}	
+		else if($case ==11)
+		{
+			$vid = $_REQUEST['imgurlvid'];$obj='';$json='';
+			$query = array();
+			$parts = parse_url($vid);
+			parse_str($parts['query'], $query);
+			$obj = (object) array('bckimage' => $query['v']);
+			echo json_encode($obj);
+			$sql = "UPDATE businessCustom SET backgroundImg= '" . json_encode($obj) . "' WHERE customPlaceId = $placeId";
+		}
+
 		mysql_query($sql) or die(mysql_error());	
 		if(mysql_affected_rows()){
 			//echo mysql_affected_rows();		

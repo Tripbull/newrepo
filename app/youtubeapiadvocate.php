@@ -47,13 +47,11 @@
 	if(isset($_REQUEST['placeId']))
 	{
 		$_SESSION['placeIdVid'] = $_REQUEST['placeId'];
-		$_SESSION['typeVid'] = $_REQUEST['name'];
 		$_SESSION['titleVid'] = $_REQUEST['videotitle'];
-		$_SESSION['videotypeVid'] = $_REQUEST['videotype'];
 		$get_info = get_video_upload_info();
 	}
 
-	$redirectUri = urlencode('http://camrally.com/app/youtubeapi.html');
+	$redirectUri = urlencode('http://camrally.com/staging/youtubeapiadvocate.html');
 
 	function get_video_upload_info()  
 	{  
@@ -166,7 +164,7 @@
     	<script src="http://malsup.github.com/jquery.form.js"></script>
 		<script type="text/javascript" src="js/dialog.js"></script>
         <script>
-        	var resizeTimeout,getVideoId,getStatus, getPlaceId, getTypevid, getTitleVid, getUrlVid;
+        	var resizeTimeout, getVideoId, getStatus, getPlaceId, getTitleVid, getUrlVid;
 
 			$(document).ready(function(){
         		$('#browsevid').click(function(e){e.preventDefault();$('#filevid').click();});
@@ -212,26 +210,19 @@
         	{
         		getPlaceId = $('#placeIdVid').val();
         		getTitleVid = $('#titleVid').val();
-        		getVideotypeVid = $('#videotypeVid').val();
         		getUrlVid = urlVid;
 
-        		if(getVideotypeVid == 'gallery')
-        		{
-        			getTypevid = $('#typeVid').val();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+getPlaceId+'&typevid='+getTypevid+'&imgurlvid='+getUrlVid+'&imgtitlevid='+getTitleVid+'&opt=saveVid',async: false,success:function(returnUrl){
-						if(getUrlVid == returnUrl)
-						{
-							window.close();
+    			getTypevid = $('#typeVid').val();
+				$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+getPlaceId+'&imgurlvid='+getUrlVid+'&imgtitlevid='+getTitleVid+'&opt=saveVid',async: false,success:function(returnUrl){
+					if(getUrlVid == returnUrl)
+					{
+						try {
+						  window.opener.HandlePopupResultVid(returnUrl);
 						}
-					}});
-        		}
-        		else
-        		{
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+getPlaceId+'&imgurlvid='+getUrlVid+'&opt=setcustom&case=11',async: false,success:function(returnUrl){
+						catch (err) {}
 						window.close();
-					}});
-
-        		}
+					}
+				}});
         	}
 
         	function getParameter(theParameter) { 
@@ -289,9 +280,7 @@
 	<body style="overflow:hidden;">
 		<div id="ytupload" style="margin:15px;position:absolute;width:93%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
-			<input type="hidden" value="<?=$_SESSION['typeVid']?>" name="typeVid" id="typeVid" />
 			<input type="hidden" value="<?=$_SESSION['titleVid']?>" name="titleVid" id="titleVid" />
-			<input type="hidden" value="<?=$_SESSION['videotypeVid']?>" name="videotypeVid" id="videotypeVid" />
 		<?php 
 			if(isset($_REQUEST['id']))
 			{ ?>
