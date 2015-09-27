@@ -1337,7 +1337,7 @@ $(document).ready(function(){
 			
 		$("#backgroundthumb").click(function (){ 
 			if(customArray.backgroundImg != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+				$.box_Dialog('Delete this video/image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
 						showLoader();
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=2',success:function(lastId){
 							hideLoader();
@@ -1629,7 +1629,16 @@ $(document).ready(function(){
 				if(customArray.backgroundImg != ''){ 
 					var logoArray = $.parseJSON(customArray.backgroundImg);
 					$('#frmbackground').css({display:'none'});	
-					$('#backgroundthumb').attr('src', logoArray.bckimage);
+					var bimage = logoArray.bckimage;
+					var n = bimage.indexOf("images/profile");
+					if(n >= 0)
+					{
+						$('#backgroundthumb').attr('src', logoArray.bckimage);
+					}
+					else
+					{
+						$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+					}
 				}
 				setTimeout(function(){
 					$(function() {
