@@ -8,7 +8,7 @@ var liteID = 3720054,basicID=3716169,proID=3716170;
 var com_basicID=26331,com_basic12 = 39047,com_basic24 = 39048,com_proID=26332,com_pro12 = 39050,com_pro24 = 39051,com_enterprise=26333,com_enterprise12 =39053,com_enterprise24 =39054,newentryloc = 0; 
 //compoentprice
 com_basicID_price=9.90,com_basic12_price = 99.00,com_basic24_price = 178.20,com_proID_price=29.90,com_pro12_price = 299.00,com_pro24_price = 538.20,com_enterprise_price=59.90,com_enterprise12_price =599.00,com_enterprise24_price =1078.20;
-var istest=true,domainpath='',pathfolder='';
+var istest=false,domainpath='',pathfolder='';
 var creditsFree=0,creditsBasic = 2000, creditsPro = 5000, creditsEnterprise = 10000,creditsPrise = 6000;
 var newplaceId,profilewizardsetup=0,profilewizardwebImg = 0,profilewizardwebVid = 0,uicwizardsetup=0,questionwizardsetup=0,campaignwizard=0,vanitywizard=0,emailwizardsetup=0,resizeTimeout,isdonewizard=0,logowizard=0;
 var state_Array = ['unpaid','canceled'];
@@ -101,6 +101,7 @@ $(document).ready(function(){
 			});	
 		//}
 	}
+	
 	function wizardforloction(){
 		locId = newplaceId;
 		var locOption = locId.split('|');
@@ -488,34 +489,67 @@ $(document).ready(function(){
 		}else
 			defaulAlertBox('alert','invalid request','Please contact your administrator(s) for this request.',1);
 	});	
+	
+    function  removecampaign(){
+		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val()+'&email='+userArray.email,success:function(ispwdcorrect){
+		if(ispwdcorrect > 0){
+			setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
+		}else{
+			setTimeout(function(){ 
+			$.box_Dialog('Your password is incorrect', {
+				'type': 'information',
+				'title': '<span class="color-white">incorrect</span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
+			});
+			},500);
+		}
+	}});
+	}	
+	
 	function loginpwd(){
 			var placeId = locId.split('|');
+			showLoader();
 			setTimeout(function(){
+			/*
+				setTimeout(function(){
+				$( "#resetpw" ).keypress(function(e) {
+					if(e.which == 13){
+						resizeTimeout = setTimeout(function(){ 
+							removecampaign();
+						},500);
+					}
+				});
+				},400); */
 				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpw" id="resetpw" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 				{caption: 'okay', callback: function() {
 					//clearTimeout(resizeTimeout);
 					//resizeTimeout = setTimeout(function(){ 
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val(),success:function(ispwdcorrect){
-						if(ispwdcorrect > 0){
-							setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
-						}else{
-							setTimeout(function(){ 
-							$.box_Dialog('Your password is incorrect', {
-								'type': 'information',
-								'title': '<span class="color-white">incorrect</span>',
-								'center_buttons': true,
-								'show_close_button':false,
-								'overlay_close':false,
-								'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
-							});
-							},500);
-						}
-					}});
+						$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val()+'&email='+userArray.email,success:function(ispwdcorrect){
+							hideLoader();
+							if(ispwdcorrect > 0){
+								setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
+							}else{
+								setTimeout(function(){ 
+								$.box_Dialog('Your password is incorrect', {
+									'type': 'information',
+									'title': '<span class="color-white">incorrect</span>',
+									'center_buttons': true,
+									'show_close_button':false,
+									'overlay_close':false,
+									'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
+								});
+								},500);
+							}
+						}});
 					//},500);
-				}}]
+				}},{caption: 'cancel',callback:function(){hideLoader();}}]
 			});	
 				setTimeout(function(){$('#resetpw').focus()},300);
 			},300);
+			
 		}
 	$(".addnew-loc li a").click(function () {  // listview when tried to add new location
 		$('.addnew-loc').hide();
@@ -531,30 +565,34 @@ $(document).ready(function(){
 	});
 	
 	$( "#text-6" ).keypress(function(e) {
-		
 		if(e.which == 13){
-            var user = userArray;
+            showLoader();
+			var user = userArray;
 			var name = $.trim($("#text-6").val());
-            if(user.permission < 2){
-                var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
-				if(userArray.productId == basicID || userArray.productId == proID){
-					if(rows >= parseInt(numofcampaign))
-						defaulAlertBox('alert','no access',"Please request to add more campaigns.");
-					else
+			if(name == '')
+				defaulAlertBox('alert','invalid',"Campaign name is empty");
+			else{
+				if(user.permission < 2){
+					var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
+					if(userArray.productId == basicID || userArray.productId == proID){
+						if(rows >= parseInt(numofcampaign))
+							defaulAlertBox('alert','no access',"Please request to add more campaigns.");
+						else
+							_setBusinessName(name);
+					}else
 						_setBusinessName(name);
-				}else
-					_setBusinessName(name);
-                /*if(user.productId == everFree){
-                    if(rows > 0){
-                        defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
-                    }else{
-                        _setBusinessName(name);
-                    }
-                }else{ */
-					// _setBusinessName(name);
-				//}
-		  }else
-			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
+					/*if(user.productId == everFree){
+						if(rows > 0){
+							defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
+						}else{
+							_setBusinessName(name);
+						}
+					}else{ */
+						// _setBusinessName(name);
+					//}
+			  }else
+				defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
+			}
 		}
 	});
     function loclabel(){
@@ -870,7 +908,7 @@ $(document).ready(function(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'key='+s.placeId+'&opt='+s.opt,success:function(lastId){
 				setTimeout(function(){
-				$.box_Dialog('Data for this campaign deleted', {
+				$.box_Dialog('Data for this campaign is deleted', {
 					'type': 'information',
 					'title': '<span class="color-white">successful</span>',
 					'center_buttons': true,
@@ -1248,15 +1286,16 @@ $(document).ready(function(){
 			});
 		});
 		function loginreset(){
+			showLoader();
 			setTimeout(function(){
 				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpwd" id="resetpwd" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 				{caption: 'okay', callback: function() {
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val(),success:function(ispwdcorrect){
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val()+'&email='+userArray.email,success:function(ispwdcorrect){
 						if(ispwdcorrect > 0){
 							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
 								hideLoader();
 								setTimeout(function(){
-								$.box_Dialog('Data for this campaign deleted', {
+								$.box_Dialog('Data for this campaign is deleted', {
 									'type': 'information',
 									'title': '<span class="color-white">successful</span>',
 									'center_buttons': true,
@@ -1267,6 +1306,7 @@ $(document).ready(function(){
 								},500);
 							}});	
 						}else{
+							hideLoader();
 							setTimeout(function(){
 							$.box_Dialog('Your password is incorrect', {
 								'type': 'information',
@@ -1281,16 +1321,49 @@ $(document).ready(function(){
 							
 					}});
 					
-				}}]
+				}},{caption: 'cancel',callback:function(){hideLoader();}}]
 				});
 				setTimeout(function(){$('#resetpwd').focus()},300);
 			},500);
 		}
-		$('#uploadbackground').click(function(e){e.preventDefault();$('#filebackground').click();});
+
+		$('#uploadbackground').click(function(e){
+			e.preventDefault();
+			showLoader();
+			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
+					$('#filebackground').click();
+				}},{caption: 'video', callback: function() {
+					ytUploadPoster();
+				}}]
+			});	
+		});
+		
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();
 			$('#frmbackground').ajaxSubmit({beforeSubmit:  beforeSubmitImage2,success: showResponsebck,resetForm: true });
 		});
+
+		function ytUploadPoster()  
+		{
+			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
+			var timer = setInterval(function() {   
+			    if(win.closed) {  
+			        clearInterval(timer);  
+			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getVideoIdPoster',async: false,success:function(videoId){
+			        	if(videoId != '')
+			        	{
+							var getParse = $.parseJSON(videoId);
+							var logoArray = $.parseJSON(getParse);		
+							$('#frmbackground').css({display:'none'});		
+							$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+							customArray.backgroundImg = getParse;
+							validatedetails();
+			        	}
+				        hideLoader();
+			        }}); 
+			    }  
+			}, 500);  
+		}
 		
 		function showResponsebck(responseText, statusText, xhr, $form)  { 
 			hideLoader();
@@ -1303,7 +1376,7 @@ $(document).ready(function(){
 			
 		$("#backgroundthumb").click(function (){ 
 			if(customArray.backgroundImg != ''){
-				$.box_Dialog('Delete this image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
+				$.box_Dialog('Delete this video/image?', {'type':'confirm','title': '<span class="color-gold">please confirm<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'yes', callback: function() {
 						showLoader();
 						$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=setcustom&case=2',success:function(lastId){
 							hideLoader();
@@ -1391,7 +1464,7 @@ $(document).ready(function(){
 			curClick = 1;
 			showHideMenuSetup(curClick);
 			defaultMenuSetup();
-			diabledTab('#setup .setup-left-menu',[0,2,3]);
+			diabledTab('#setup .setup-left-menu',[0,2,3,4]);
 		}else{
 			curClick = defaultSetup;
 			showHideMenuSetup(curClick);
@@ -1559,10 +1632,26 @@ $(document).ready(function(){
 		   }
 			
 		});
-		
+		$('#website-widget-update').click(function(e){
+			e.preventDefault();
+			var placeId = locId.split('|'),top=0,bot=0;
+			showLoader();
+			$(".feedback-widget input[type='checkbox']").each(function(index){
+				if($(this).is(':checked')){
+					if($(this).val() == 1)
+						bot = 1; 
+					else if($(this).val() == 0)
+						top = 1;
+				}	
+			 });
+			$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget&top='+top+'&bot='+bot,success:function(result){
+				hideLoader();
+				alertBox('updated','Website widget updated');
+			}});
+		});
 		function showHideMenuSetup(row){
 			curClick = row;
-			$('.panel-question').hide();$('.panel-post').hide();$('.panel-profile').hide();$('.panel-UIC').hide();$('.setup-cust-post').hide();$('.setup-email-alert').hide();$('.panel-fbpost').hide();$('.panel-redirect').hide();	
+			$('.panel-question').hide();$('.panel-post').hide();$('.panel-profile').hide();$('.panel-UIC').hide();$('.setup-cust-post').hide();$('.setup-email-alert').hide();$('.panel-fbpost').hide();$('.panel-redirect').hide();$(".feedback-widget").hide();	
 			$( '#setup .right-content' ).removeClass("right-bgblue bgwhite");$('.panel-postFB').hide();
 			if(row < 1)
 				 $( '#setup .right-content' ).addClass("right-bgblue");
@@ -1579,7 +1668,16 @@ $(document).ready(function(){
 				if(customArray.backgroundImg != ''){ 
 					var logoArray = $.parseJSON(customArray.backgroundImg);
 					$('#frmbackground').css({display:'none'});	
-					$('#backgroundthumb').attr('src', logoArray.bckimage);
+					var bimage = logoArray.bckimage;
+					var n = bimage.indexOf("images/profile");
+					if(n >= 0)
+					{
+						$('#backgroundthumb').attr('src', logoArray.bckimage);
+					}
+					else
+					{
+						$('#backgroundthumb').attr('src', "http://i.ytimg.com/vi/" + logoArray.bckimage + "/default.jpg");
+					}
 				}
 				setTimeout(function(){
 					$(function() {
@@ -1619,6 +1717,28 @@ $(document).ready(function(){
 				$('#optionredirect input[value="'+customArray.redirect+'"]').attr('checked',true).checkboxradio('refresh');
 				if(customArray.redirect == 1)
 					$('.txtdesirepage').show();
+			} else if(row == 4){
+				var placeId = locId.split('|');
+				showLoader();
+				$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget',success:function(result){
+					hideLoader();
+					$(".feedback-widget").show();
+					if(result != ''){
+						data = $.parseJSON(result);
+						if(data.top == 1)
+							$('.feedback-widget input[id="checkbox-top"]').attr("checked",true).checkboxradio();
+						else
+							$('.feedback-widget input[id="checkbox-top"]').attr("checked",false).checkboxradio();
+						if(data.bot == 1)
+							$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",true).checkboxradio();
+						else
+							$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",false).checkboxradio();	
+				   }else
+					  $('.feedback-widget input[type="checkbox"]').attr("checked",true).checkboxradio();
+					$(".feedback-widget [data-role=controlgroup]").controlgroup("refresh");
+				
+				}});
+				$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="camrally-script" src= "http://camrally.com/app/campaign/js/camrallyfeed.min.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
 			}
 		}
 		$('#optionredirect').change(function(){
@@ -2243,7 +2363,7 @@ $(document).ready(function(){
 		if(str != '' && str.indexOf("campaign.html") == -1){
 			$('#txtbooknow').val(customArray.booknow);			
 		}else{
-			$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
+			//$('#txtbooknow').val('http://camrally.com/app/campaign.html?p='+customArray.nicename);	
 		}
 		if(customArray.webImg != ''){
 			$('#webthumb1').attr('src', customArray.webImg);
@@ -2953,14 +3073,15 @@ $(document).ready(function(){
 
 		function ytBrowserUpload(txtvideotitle)  
 		{
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val(), " ","width=410, height=294");   
+			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=410, height=294");   
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
-				        	alertBox('Youtube upload','Video successfully uploaded!');
+							if(profilewizardwebVid == 0)
+				        	setTimeout(function(){alertBox('Youtube upload','Video successfully uploaded!');},500);
 				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
 			        	}
 				        hideLoader();
@@ -3282,7 +3403,7 @@ $(document).ready(function(){
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 			$('#txt-camdetails').val((typeof(boxArray.campdetails) != 'undefined' ? decodequote(boxArray.campdetails[0]) : 'Campaign details'));
-			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Respond Now!'));
+			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Show me!'));
 		}	
 		
 		$('#pickerbackground').colpick({
@@ -4471,23 +4592,7 @@ $(document).on('pageinit','#feedback', function () {
 		//window.open('campaign.html?p='+customArray.nicename,'_blank');
 		window.open(domainpath+arrayDataURL.source_1.link,'_blank');
 	});
-	$('#website-widget-update').click(function(e){
-		e.preventDefault();
-		var placeId = locId.split('|'),top=0,bot=0;
-		showLoader();
-		$(".feedback-widget input[type='checkbox']").each(function(index){
-			if($(this).is(':checked')){
-				if($(this).val() == 1)
-					bot = 1; 
-				else if($(this).val() == 0)
-					top = 1;
-			}	
-		 });
-		$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget&top='+top+'&bot='+bot,success:function(result){
-			hideLoader();
-			alertBox('updated','Website widget updated');
-		}});
-	});
+	
 	$('#surveyopen').click(function(e){
 		e.preventDefault();
 		feedbackpage(5);
@@ -4577,7 +4682,7 @@ $(document).on('pageinit','#feedback', function () {
 
 	function showFeedbackMenu(row){
 
-	$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();$(".feedback-widget").hide();
+	$(".feedback-weblink").hide();$(".tellafriend").hide();$(".feedback-photo").hide();$(".survey").hide();
 		if(row == 1){
 			$( '#feedback .right-content' ).addClass("bgwhite");
 			if(customArray.nicename == ''){
@@ -4637,29 +4742,7 @@ $(document).on('pageinit','#feedback', function () {
 					$(".feedback-photo").show();
 			}
 		}else if(row == 4){	
-			var placeId = locId.split('|');
-			showLoader();
-			if(isdonewizard > 0)
-				wizardstep7();
-			$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=webwidget',success:function(result){
-				hideLoader();
-				$(".feedback-widget").show();
-				if(result != ''){
-					data = $.parseJSON(result);
-					if(data.top == 1)
-						$('.feedback-widget input[id="checkbox-top"]').attr("checked",true).checkboxradio();
-					else
-						$('.feedback-widget input[id="checkbox-top"]').attr("checked",false).checkboxradio();
-					if(data.bot == 1)
-						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",true).checkboxradio();
-					else
-						$('.feedback-widget input[id="checkbox-bottom"]').attr("checked",false).checkboxradio();	
-			   }else
-				  $('.feedback-widget input[type="checkbox"]').attr("checked",true).checkboxradio();
-				$(".feedback-widget [data-role=controlgroup]").controlgroup("refresh");
 			
-			}});
-			$('.feedback-widget .script-tag').html('<div style="overflow-x:scroll;white-space:wrap;line-height:1.2em;padding:10px;border:1px solid #ccc">&lt;script type="text/javascript" id="camrally-script" src= "http://camrally.com/app/campaign/js/camrallyfeed.js?pubId='+customArray.nicename+'"&gt;&lt;/script&gt;</div>');
 		}
 		feedbackActiveMenu();
 	}

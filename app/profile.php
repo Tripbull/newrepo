@@ -65,8 +65,8 @@ foreach($time_zones as $zones){
 									<label for="number-1"></label>
 									<input type="text" data-clear-btn="false" name="txttwit" id="txttwit" value="" placeholder="twitter url (optional)">
 									<label for="number-1"></label>
-									<input type="text" data-clear-btn="false" name="txtbooknowlabel" id="txtbooknowlabel" value="Take action today!" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
-									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Take a advocates!, etc.)</label>
+									<input type="text" data-clear-btn="false" name="txtbooknowlabel" id="txtbooknowlabel" value="" placeholder="custom button (optional)" style="background-color: #C7E6F5;">
+									<label for="number-1" style="font-size:12px;">(custom button - you may leave this input box as is or change it to something else. e.g. Buy Now, Donate, Learn more, etc.)</label>
 									<input type="text" data-clear-btn="false" name="txtbooknow" id="txtbooknow" value="" placeholder="custom button url">
 									<label for="number-1" style="font-size:12px;">(custom button url)</label>
 								<div class="btn-submit">

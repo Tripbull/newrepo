@@ -444,6 +444,15 @@ switch($opt){
 			echo $row->video_id;
 		}
 	break;
+	case 'getVideoIdPoster':
+		$placeId = $_REQUEST['placeId'];
+
+		$result = mysql_query("SELECT backgroundImg FROM businessCustom WHERE customPlaceId = $placeId LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			echo json_encode($row->backgroundImg);
+		}
+	break;
 	case 'getReviewProduct': 
 		$placeId = $_REQUEST['placeId'];
 		$sql = "SELECT p.nicename,g.productId FROM businessList AS l
@@ -947,9 +956,9 @@ switch($opt){
 			echo 0;
 	break;
 	case 'resetdata':
-		$pwd = md5($_REQUEST['pwd']);
+		$pwd = md5($_REQUEST['pwd']);$email = $_REQUEST['email'];
 		$sql = "SELECT id FROM businessUsers 
-		WHERE pwd ='$pwd'";
+		WHERE pwd ='$pwd' AND email = '$email'";
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) > 0){
 			echo 1;
