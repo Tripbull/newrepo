@@ -489,34 +489,67 @@ $(document).ready(function(){
 		}else
 			defaulAlertBox('alert','invalid request','Please contact your administrator(s) for this request.',1);
 	});	
+	
+    function  removecampaign(){
+		$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val()+'&email='+userArray.email,success:function(ispwdcorrect){
+		if(ispwdcorrect > 0){
+			setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
+		}else{
+			setTimeout(function(){ 
+			$.box_Dialog('Your password is incorrect', {
+				'type': 'information',
+				'title': '<span class="color-white">incorrect</span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
+			});
+			},500);
+		}
+	}});
+	}	
+	
 	function loginpwd(){
 			var placeId = locId.split('|');
+			showLoader();
 			setTimeout(function(){
+			/*
+				setTimeout(function(){
+				$( "#resetpw" ).keypress(function(e) {
+					if(e.which == 13){
+						resizeTimeout = setTimeout(function(){ 
+							removecampaign();
+						},500);
+					}
+				});
+				},400); */
 				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpw" id="resetpw" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 				{caption: 'okay', callback: function() {
 					//clearTimeout(resizeTimeout);
 					//resizeTimeout = setTimeout(function(){ 
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val(),success:function(ispwdcorrect){
-						if(ispwdcorrect > 0){
-							setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
-						}else{
-							setTimeout(function(){ 
-							$.box_Dialog('Your password is incorrect', {
-								'type': 'information',
-								'title': '<span class="color-white">incorrect</span>',
-								'center_buttons': true,
-								'show_close_button':false,
-								'overlay_close':false,
-								'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
-							});
-							},500);
-						}
-					}});
+						$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+placeId[0]+'&opt=resetdata&pwd='+$('#resetpw').val()+'&email='+userArray.email,success:function(ispwdcorrect){
+							hideLoader();
+							if(ispwdcorrect > 0){
+								setTimeout(function(){setData({opt:'delLoc',placeId:placeId[0]});},300);
+							}else{
+								setTimeout(function(){ 
+								$.box_Dialog('Your password is incorrect', {
+									'type': 'information',
+									'title': '<span class="color-white">incorrect</span>',
+									'center_buttons': true,
+									'show_close_button':false,
+									'overlay_close':false,
+									'buttons': [{caption:'okay',callback:function(){setTimeout(function(){loginpwd()},300);}}]
+								});
+								},500);
+							}
+						}});
 					//},500);
-				}}]
+				}},{caption: 'cancel',callback:function(){hideLoader();}}]
 			});	
 				setTimeout(function(){$('#resetpw').focus()},300);
 			},300);
+			
 		}
 	$(".addnew-loc li a").click(function () {  // listview when tried to add new location
 		$('.addnew-loc').hide();
@@ -532,30 +565,34 @@ $(document).ready(function(){
 	});
 	
 	$( "#text-6" ).keypress(function(e) {
-		
 		if(e.which == 13){
-            var user = userArray;
+            showLoader();
+			var user = userArray;
 			var name = $.trim($("#text-6").val());
-            if(user.permission < 2){
-                var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
-				if(userArray.productId == basicID || userArray.productId == proID){
-					if(rows >= parseInt(numofcampaign))
-						defaulAlertBox('alert','no access',"Please request to add more campaigns.");
-					else
+			if(name == '')
+				defaulAlertBox('alert','invalid',"Campaign name is empty");
+			else{
+				if(user.permission < 2){
+					var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
+					if(userArray.productId == basicID || userArray.productId == proID){
+						if(rows >= parseInt(numofcampaign))
+							defaulAlertBox('alert','no access',"Please request to add more campaigns.");
+						else
+							_setBusinessName(name);
+					}else
 						_setBusinessName(name);
-				}else
-					_setBusinessName(name);
-                /*if(user.productId == everFree){
-                    if(rows > 0){
-                        defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
-                    }else{
-                        _setBusinessName(name);
-                    }
-                }else{ */
-					// _setBusinessName(name);
-				//}
-		  }else
-			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
+					/*if(user.productId == everFree){
+						if(rows > 0){
+							defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
+						}else{
+							_setBusinessName(name);
+						}
+					}else{ */
+						// _setBusinessName(name);
+					//}
+			  }else
+				defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
+			}
 		}
 	});
     function loclabel(){
@@ -871,7 +908,7 @@ $(document).ready(function(){
 			showLoader();
 			$.ajax({type: "POST",url:"setData.php",cache: false,data:'key='+s.placeId+'&opt='+s.opt,success:function(lastId){
 				setTimeout(function(){
-				$.box_Dialog('Data for this campaign deleted', {
+				$.box_Dialog('Data for this campaign is deleted', {
 					'type': 'information',
 					'title': '<span class="color-white">successful</span>',
 					'center_buttons': true,
@@ -1249,15 +1286,16 @@ $(document).ready(function(){
 			});
 		});
 		function loginreset(){
+			showLoader();
 			setTimeout(function(){
 				$.box_Dialog('<div style="text-align:left;padding-bottom:5px">Please enter your account password to proceed.</div><input type="password" name="resetpwd" id="resetpwd" style="width:100%" placeholder="password" />', {'type':'confirm','title': '<span class="color-gold">enter password</span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [
 				{caption: 'okay', callback: function() {
-					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val(),success:function(ispwdcorrect){
+					$.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=resetdata&pwd='+$('#resetpwd').val()+'&email='+userArray.email,success:function(ispwdcorrect){
 						if(ispwdcorrect > 0){
 							$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+places[0]+'&opt=createTable&case=0&set=0',success:function(lastId){
 								hideLoader();
 								setTimeout(function(){
-								$.box_Dialog('Data for this campaign deleted', {
+								$.box_Dialog('Data for this campaign is deleted', {
 									'type': 'information',
 									'title': '<span class="color-white">successful</span>',
 									'center_buttons': true,
@@ -1268,6 +1306,7 @@ $(document).ready(function(){
 								},500);
 							}});	
 						}else{
+							hideLoader();
 							setTimeout(function(){
 							$.box_Dialog('Your password is incorrect', {
 								'type': 'information',
@@ -1282,7 +1321,7 @@ $(document).ready(function(){
 							
 					}});
 					
-				}}]
+				}},{caption: 'cancel',callback:function(){hideLoader();}}]
 				});
 				setTimeout(function(){$('#resetpwd').focus()},300);
 			},500);
@@ -1425,7 +1464,7 @@ $(document).ready(function(){
 			curClick = 1;
 			showHideMenuSetup(curClick);
 			defaultMenuSetup();
-			diabledTab('#setup .setup-left-menu',[0,2,3]);
+			diabledTab('#setup .setup-left-menu',[0,2,3,4]);
 		}else{
 			curClick = defaultSetup;
 			showHideMenuSetup(curClick);
@@ -3041,7 +3080,8 @@ $(document).ready(function(){
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
-				        	alertBox('Youtube upload','Video successfully uploaded!');
+							if(profilewizardwebVid == 0)
+				        	setTimeout(function(){alertBox('Youtube upload','Video successfully uploaded!');},500);
 				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
 			        	}
 				        hideLoader();

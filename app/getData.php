@@ -956,9 +956,9 @@ switch($opt){
 			echo 0;
 	break;
 	case 'resetdata':
-		$pwd = md5($_REQUEST['pwd']);
+		$pwd = md5($_REQUEST['pwd']);$email = $_REQUEST['email'];
 		$sql = "SELECT id FROM businessUsers 
-		WHERE pwd ='$pwd'";
+		WHERE pwd ='$pwd' AND email = '$email'";
 		$result = mysql_query($sql);
 		if(mysql_num_rows($result) > 0){
 			echo 1;
