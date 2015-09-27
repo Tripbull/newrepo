@@ -1,4 +1,15 @@
 <?php
+session_start();
+$ur_session = rand(0, 15);
+$_SESSION['session']=$ur_session;
+$nice = $_REQUEST['p'];
+$type = (isset($_REQUEST['s']) ? isset($_REQUEST['s']) : '');
+$istest = true;
+if($istest){
+   $curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}else
+	$curDomain = '../';	
 include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
@@ -17,6 +28,7 @@ if(isset($_REQUEST['p'])){
 	if($width > 820)
 		$width = 820;
 }
+$curDomain = 'http://camrally.com/';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
@@ -83,10 +95,10 @@ $redirectpage = '#';
 </div>		
 <div class="overlay"> </div>
 <div class="ColumnContainer">
-	<div class="wrapheader" style="border:1px solid red;overflow:hidden;">
+	<div class="wrapheader" >
 	    <div class="MerchantHead" style="max-width:<?=$width+380?>px;">
 			<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
-			<div style="overflow:hidden;padding-bottom:10px">
+			<div style="overflow:hidden;">
 			<!-- campaign page -->
 				
 		
@@ -115,12 +127,11 @@ $redirectpage = '#';
 					  <div class="left text-center" style="max-width:<?=$width?>px;">
 						<img src="<?=$srcimg;?>" width="<?=$width?>" height="<?=$height?>"  alt="selfie photo" />
 					  </div>
-					 <div class="right">
+					 <div class="right" style="max-height:<?=$height?>px">
 							<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
-						<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+						<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice?>" height="400px" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 					  </div> 
 				</div>
-				
 				<div class="content-wrap">
 					<div role="main" class="ui-content">
 						<div class="ratewrap">

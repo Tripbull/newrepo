@@ -561,7 +561,7 @@ function showCamera(IDparam){
 	$('.cam-f').show();
 
     $('.usesnap').show(); // button fo
-    $('.usesnap').hide(); // button fo
+    //$('.usesnap').hide(); // button fo
 	var curHeight = window.innerWidth,width=0,height=0,ratio;
 	ratio = 0.68;
 	width =  curHeight * ratio;
