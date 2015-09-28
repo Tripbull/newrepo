@@ -329,7 +329,7 @@ echo '<title>'. $businessTitle . '</title>';
 		$array_product1 = array();$j=0;
 		$resultproduct1 = mysql_query("SELECT id,placeId,video_id,title,url,name FROM businessVideos AS ps WHERE placeId =$placeId AND video_id <> '' ORDER BY id ASC LIMIT 10") or die(mysql_error());
 		while($row4 = mysql_fetch_object($resultproduct1)){
-			$src1 = $path . 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
+			$src1 = 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
 			$url1 = 'http://www.youtube.com/embed/' . $row4->video_id . '?autoplay=1';	
 			?>		
 			<div class="sysPinItemContainer pin">
@@ -470,7 +470,7 @@ echo '<title>'. $businessTitle . '</title>';
 					if(mysql_num_rows($resultproduct1))
 						mysql_data_seek($resultproduct1, 0);
 					while($row4 = mysql_fetch_object($resultproduct1)){
-						$src1 = $path . 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
+						$src1 = 'http://i.ytimg.com/vi/' . $row4->video_id . '/0.jpg';	
 						$url1 = 'http://www.youtube.com/embed/' . $row4->video_id . '?autoplay=1';	
 						?>		
 						<div class="sysPinItemContainer pin">
