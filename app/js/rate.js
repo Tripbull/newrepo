@@ -560,15 +560,15 @@ function showCamera(IDparam){
 
 	$('.cam-f').show();
 
-    $('.usesnap').show(); // button fo
-    //$('.usesnap').hide(); // button fo
+    $('.usesnap').removeClass('hide').show(); // button fo
+    $('.usesnap').hide(); // button fo
 	var curHeight = window.innerWidth,width=0,height=0,ratio;
 	ratio = 0.68;
 	width =  curHeight * ratio;
 	height = window.innerHeight * 0.68;
     
 	//set video snapshot
-	$('.snapshot').show(); // Show snapshot buttons
+	$('.snapshot').removeClass('hide').show(); // Show snapshot buttons
 
 	var shootEnabled = false;
 	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 

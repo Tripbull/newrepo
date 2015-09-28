@@ -42,10 +42,10 @@ $path = '';
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link href="css/bootstrap.css" rel="stylesheet" media="all">
 <link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
-<link href="css/campaign.css" media="screen" rel="stylesheet" type="text/css" />
 	<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
+	<link href="css/campaign.css" media="screen" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
@@ -58,7 +58,7 @@ $path = '';
 <link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
-<body>
+<body style="overflow:hidden">
 <div id="shared-like-page" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
 <?php
