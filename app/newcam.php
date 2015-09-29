@@ -8,12 +8,6 @@ include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
 $istest = $connect->istest;
-if($istest){
-   $curDomain = 'http://camrally.com/';
-   $cur = 'http://camrally.com/';
-}else
-	$curDomain = 'http://camrally.com/staging/';
-
 if(isset($_REQUEST['p'])){
 	$nice = strtolower($_REQUEST['p']);
 	$sql = "SELECT c.backgroundImg FROM businessProfile AS p
@@ -27,8 +21,14 @@ if(isset($_REQUEST['p'])){
 	$srcimg = $bckbg->bckimage;
 	//if($width > 820)
 		//$width = 820;
+	if($istest){
+		$curDomain = 'http://camrally.com/staging/';	
+		$redirectpage = 'http://camrally.com/staging/'.$nice.'.html';
+	}else{
+		$curDomain = 'http://camrally.com/';
+	   $redirectpage = 'http://camrally.com/'.$nice.'.html';
+	}	
 }
-$curDomain = 'http://camrally.com/';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
@@ -61,9 +61,6 @@ $path = '';
 <body>
 <div id="shared-like-page" style="overflow:visible" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
-<?php
-$redirectpage = '#';
-?>
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
