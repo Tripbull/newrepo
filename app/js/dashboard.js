@@ -3080,12 +3080,13 @@ $(document).ready(function(){
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
-							if(profilewizardwebVid == 0)
-				        	setTimeout(function(){alertBox('Youtube upload','Video successfully uploaded!');},500);
+			        		if(profilewizardwebVid == 0){
+				        		alertBox('Youtube upload','Video successfully uploaded!');
+				        	}
 				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
 			        	}
 				        hideLoader();
-			        }}); 
+			        }});
 			    }  
 			}, 500);  
 		}
