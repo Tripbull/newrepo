@@ -4,16 +4,16 @@ $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
 $type = (isset($_REQUEST['s']) ? isset($_REQUEST['s']) : '');
-$istest = true;
+include_once('class/class.main.php');
+$connect = new db();
+$connect->db_connect();
+$istest = $connect->istest;
 if($istest){
    $curDomain = 'http://camrally.com/';
    $cur = 'http://camrally.com/';
 }else
-	$curDomain = '../';	
-include_once('class/class.main.php');
-$connect = new db();
-$connect->db_connect();
-$imgrotate = new fucn();
+	$curDomain = 'http://camrally.com/staging/';
+
 if(isset($_REQUEST['p'])){
 	$nice = strtolower($_REQUEST['p']);
 	$sql = "SELECT c.backgroundImg FROM businessProfile AS p
@@ -23,10 +23,10 @@ if(isset($_REQUEST['p'])){
 	$result1 = mysql_query($sql);
 	$row = mysql_fetch_object($result1);
 	$bckbg = json_decode($row->backgroundImg);
-	list($width, $height) = getimagesize($bckbg->bckimage);
+	//list($width, $height) = getimagesize($bckbg->bckimage);
 	$srcimg = $bckbg->bckimage;
-	if($width > 820)
-		$width = 820;
+	//if($width > 820)
+		//$width = 820;
 }
 $curDomain = 'http://camrally.com/';
 ?>
@@ -58,8 +58,8 @@ $path = '';
 <link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
-<body style="overflow:hidden">
-<div id="shared-like-page" data-dom-cache="false" data-role="page" data-prefetch="false">
+<body>
+<div id="shared-like-page" style="overflow:visible" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
 <?php
 $redirectpage = '#';
@@ -94,14 +94,10 @@ $redirectpage = '#';
 	</div>
 </div>		
 <div class="overlay"> </div>
-<div class="ColumnContainer">
-	<div class="wrapheader" >
-	    <div class="MerchantHead" style="max-width:<?=$width+380?>px;">
-			<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
-			<div style="overflow:hidden;">
+	  <div class="MerchantHead" style="width:90%">
+		<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
+		<div style="overflow:hidden;">
 			<!-- campaign page -->
-				
-		
 				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post Your Photo or Selfie!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 			<div style="position:absolute;opacity:0;overflow:hidden;">
 				<div style="position:absolute;font-family:myriadpro;">.</div>
@@ -111,25 +107,27 @@ $redirectpage = '#';
 				<canvas id="canvas-image-test" style="position:absolute;"></canvas>
 				<canvas id="canvas-resize" style="position:absolute;"></canvas>
 			</div>
-				<!--
-				<div class="camp-wrapper">
-					<div class="left">
-						<img class="campaign-image" src="" alt="campaign poster" onload="campaign_poster()" />
-					</div>
-					<div class="right">
-						<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
-						<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
-					</div> 
-				</div> -->
-				
 				<div class="clear"></div>
-				<div style="margin:0 auto;width:100%;max-width:<?=$width+390?>px;">
-					  <div class="left text-center" style="max-width:<?=$width?>px;">
-						<img src="<?=$srcimg;?>" width="<?=$width?>" height="<?=$height?>"  alt="selfie photo" />
+				<div class="wrapleftright" style="margin:0 auto;width:100%;">
+					  <div class="left text-center">
+					    <?php
+						if(strstr($srcimg,'image')){
+						?>
+						<img src="<?=$srcimg;?>" style="height:auto;width:auto;max-height:500px"  alt="selfie photo" />
+						<?php
+						}else{
+						?>
+						<!--<iframe class="campaign-video" height="360" style="min-width:200px" frameborder="0" src=""></iframe>-->
+						<div class="fluidMedia">
+							<iframe src="http://www.youtube.com/embed/<?=$srcimg?>?autoplay=1" class="iframeshare" frameborder="0"> </iframe>
+						</div>
+						<?php
+						}
+						?>
 					  </div>
-					 <div class="right" style="max-height:<?=$height?>px">
-							<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
-						<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice?>" height="400px" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+					 <div class="right">
+							<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice?>" target="_blank">Campaign details</a></span></div>
+						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 					  </div> 
 				</div>
 				<div class="content-wrap">
@@ -167,10 +165,8 @@ $redirectpage = '#';
 			</div><!-- /content -->
 			<!-- end of campaign code -->		
 		</div>
-		</div>
 	</div>
-	</div> 
-	</div>
+</div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
