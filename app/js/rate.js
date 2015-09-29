@@ -742,6 +742,9 @@ $(document).on('pageinit','#shared-like-page', function() {
 	$( window ).resize(function() { // when window resize
 		camp_initialize();
 	});
+	$('.goescampage').click(function(e){
+		window.location = domainpath+nicename+'.html';
+	});
 });
 function camp_initialize(){
 	var img = new Image(),bgback='';
@@ -782,6 +785,7 @@ function camp_initialize(){
 			
 	}
 	$('.right').css({minHeight:200});
+	//$('.right').css('overflow-y', 'visible');
 	//$('.left').css({height:$(window).height() - 150});
 	//$('.left img').css({height:'100%',width:'100%'});
 }	

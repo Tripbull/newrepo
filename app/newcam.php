@@ -92,7 +92,7 @@ $path = '';
 </div>		
 <div class="overlay"> </div>
 	  <div class="MerchantHead" style="width:90%">
-		<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
+		<a href="#" rel="follow"><div class="xclose goescampage"></div></a>
 		<div style="overflow:hidden;">
 			<!-- campaign page -->
 				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post Your Photo or Selfie!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
@@ -122,9 +122,9 @@ $path = '';
 						}
 						?>
 					  </div>
-					 <div class="right">
+					 <div class="right" style="overflow-y:visible">
 							<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice?>" target="_blank">Campaign details</a></span></div>
-						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="5" data-colorscheme="light"></div>
+						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="10" data-colorscheme="light"></div>
 					  </div> 
 				</div>
 				<div class="content-wrap">
