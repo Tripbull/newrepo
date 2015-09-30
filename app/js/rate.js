@@ -674,16 +674,16 @@ function HandlePopupResultImgSet()
 
 function getCamResponse()
 {
-	$.box_Dialog(('Video or photo?'), {
+	$.box_Dialog(('Become an advocate by posting a video or photo.'), {
 		'type':     'question',
-		'title':    '<span class="color-white">Respond?<span>',
+		'title':    '<span class="color-white">Join the rally?<span>',
 		'center_buttons': true,
 		'show_close_button':false,
 		'overlay_close':false,
-		'buttons':  [{caption: 'video',callback:function(){
-				getVideo();
-			}},{caption: 'photo',callback:function(){
+		'buttons':  [{caption: 'photo',callback:function(){
 				getImage();
+			}},{caption: 'video',callback:function(){
+				getVideo();
 			}}]
 	});
 }
