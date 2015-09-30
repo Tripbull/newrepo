@@ -309,8 +309,7 @@
 				<button class="ui-btn" id="urlvid">Enter</button>
 				<p class="or">or</p>
 				<p class="browse">click browse to upload a video</p>
-				<p class="note" style="font-size:11.5px;color:#9C9797;">(Maximum file size is 2GB.)</p>
-				<p class="note" style="font-size:11.5px;color:#9C9797;">(It may take a few minutes before the video becomes available for viewing.)</p>
+				<p class="note" style="font-size:11.5px;color:#9C9797;">(Maximum file size is 2GB. It may take a few minutes before the video becomes available for viewing.)</p>
 				<form id="frmvid" action="<?=$get_info['post_url'] . '?nexturl=' . $redirectUri;?>" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmitvid();">
 					<div style="height:0px">
 					<button class="ui-btn" id="browsevid">Browse</button><br>

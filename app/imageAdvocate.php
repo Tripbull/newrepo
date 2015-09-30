@@ -143,9 +143,8 @@
 			<button class="ui-btn" id="urlimg">Enter</button>
 			<p class="or">or</p>
 			<p class="browse">click browse to upload an image</p>
-			<button class="ui-btn" id="browseimg">Browse</button>
-			<br>
 			<p class="note" style="font-size:11.5px;color:#9C9797;text-align:left !important;">*(Maximum file size is 1MB.)</p>
+			<button class="ui-btn" id="browseimg">Browse</button>
 		</div>
 	 </body>
  </html>
