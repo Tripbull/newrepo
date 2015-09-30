@@ -453,7 +453,8 @@
                             if (this.getRecordType() === this.AUDIO_VIDEO && isChrome)
                             {
                                 // store both audio and video
-                                this.player().recordedData = recording;
+                                // this.player().recordedData = recording;
+                                this.player().recordedData = this.mediaURL;
                             }
 
                             // notify listeners that data is available
@@ -462,6 +463,7 @@
                             // remove previous listeners
                             this.off(this.player(), 'pause', this.onPlayerPause);
                             this.off(this.player(), 'play', this.onPlayerStart);
+                            this.stream.stop();
 
                             // Pausing the player so we can visualize the recorded data
                             // will trigger an async videojs 'pause' event that we have

@@ -48,24 +48,48 @@ echo '<title>'. $businessTitle. '</title>';
 	list($width, $height) = getimagesize($srcimg);	
 $istest = true;
 if($istest){
-   $curDomain = 'http://camrally.com/';
-   $cur = 'http://camrally.com/';
+   $curDomain = 'http://camrally.com/staging/';
+   $cur = 'http://camrally.com/staging/';
 }else{
 	$curDomain = 'http://camrally.com/';
    $cur = 'http://camrally.com/';
 }	
+	$getpos = strpos($srcimg, 'images');
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-<meta property="og:description" content="<?php echo $desc_meta?>" />
-<meta property="og:title" content="<?php echo $rev?>" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="camrally.com" />
 <meta property="og:url" content="<?=$curDomain.'user/'.$nice?>" />
-<meta property="og:image" content="<?=$curDomain.'app/'.$srcimg;?>" />
-<meta property="og:image:url" content="<?=$curDomain.'app/'.$srcimg;?>" />
+<meta property="og:title" content="<?php echo $rev?>" />
+<meta property="og:description" content="<?php echo $desc_meta?>" />
+<meta property="og:site_name" content="camrally.com" />
+<meta property="og:type" content="website" />
+<?php if($getpos === false) { 
+	$width = 640;
+	$height = 380;
+
+	if(@getimagesize("https://i.ytimg.com/vi/".$srcimg."/0.jpg"))
+	{
+		echo '<meta property="og:image" content="https://i.ytimg.com/vi/'.$srcimg.'/0.jpg" />';
+		echo '<meta property="og:image:url" content="https://i.ytimg.com/vi/'.$srcimg.'/0.jpg" />';
+	}
+	else
+	{
+		$result = mysql_query("SELECT backgroundImg FROM businessCustom WHERE customPlaceId = $splitID[1] LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+			$getpath = json_decode($row->backgroundImg, true);
+			$path = $getpath['bckimage'];
+			echo '<meta property="og:image" content="'.$curDomain.$path.'" />';
+			echo '<meta property="og:image:url" content="'.$curDomain.$path.'" />';
+		}
+	}
+} 
+else { 
+	echo '<meta property="og:image" content="'.$curDomain.'app/'.$srcimg.'" />';
+	echo '<meta property="og:image:url" content="'.$curDomain.'app/'.$srcimg.'" />';
+} ?>
 <meta property="og:image:width" content="<?=$width?>" />
-<meta property="og:image:height" content="<?=$height?>" />
+<meta property="og:image:height" content="<?=$height?>" />';
 <meta property="fb:app_id" content="148972192103323" />
 <link href="<?=$path?>css/fbshared.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
@@ -110,7 +134,12 @@ if($width > 820)
 			<div class="clear"></div>
 			<div style="margin:0 auto;width:100%;max-width:<?=$width+390?>px;">
 			  <div class="left text-center" style="max-width:<?=$width?>px;">
+			  	<?php if($getpos === false) { ?>
+      				<iframe class="selfieVideo" frameborder="0" src="http://www.youtube.com/embed/<?=$srcimg?>?autoplay=1" width="<?=$width-10?>" height="<?=$height?>">
+      				</iframe>
+      			<?php } else { ?>
 				<a href="<?=$cur.$row->nicename?>.html"><img src="<?=$path.$srcimg;?>" width="<?=$width?>" height="<?=$height?>"  alt="selfie photo" /></a>
+			  	<?php } ?>
 			  </div>
 			 <div class="right">
 				<?php

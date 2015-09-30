@@ -9,6 +9,13 @@
 		$social_link = "http://www.facebook.com/";
 	else if($rowrate->source == 'tw')
 		$social_link = "https://www.twitter.com/";
+	
+	$getpos = strpos($fbsrc, 'images');
+
+	if($getpos === false)
+	{
+		$fbsrc = 'https://i.ytimg.com/vi/'.$rowrate->photo_url.'/0.jpg';
+	}
 ?>		
 <div class="sysPinItemContainer pin">
 	<div style="width:auto;">

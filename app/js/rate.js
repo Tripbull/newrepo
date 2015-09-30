@@ -1,5 +1,5 @@
 var placeId = '',blankstar = 'images/template/blankstar.png',colorstar = 'images/template/colorstar.png',fromtakephotopage=1;//fromtakephotopage 1 if from rateone else 2 from takephoto page
-var customArray = [],item2Rate=[],ratedObj= [],nicename,isTakeSelfie='',alertaverate=0,last_Id='',lastidbusiness='',photo_url='',get_img='',photo_saved=0;
+var customArray = [],item2Rate=[],ratedObj= [],nicename,isTakeSelfie='',alertaverate=0,last_Id='',lastidbusiness='',photo_url='',get_img='',photo_saved=0,photoType='';
 var count=0,sharedphoto=0,isphototakedone=0,takeaphoto=0,urlphotoshared,thumbnailurl,businessname='',txtname='',txtphone='',txtemail='',sharedlinkphoto='',sharedurl='',userCurEmail='';
 var defaultPostReview = {posted:1,percent:3.0},ratecomment='',timeInverval='',closeselfie=0,username='',hadlabel='',istakephoto = 0;
 var defaultrating = {vpoor:'Very poor',poor:'Poor',fair:'Average',good:'Good',excellent:'Excellent'};
@@ -620,12 +620,72 @@ function showCamera(IDparam){
 
 function getVideo()
 {
-	window.open(domainpath + "app/youtubeapiadvocate.html?placeId=" + placeId + "&videotitle=" + customArray.businessName + " advocate", " ","width=415, height=294");   
+	window.open(domainpath + "videoAdvocate.html?placeId=" + placeId + "&videotitle=" + customArray.businessName + " advocate", " ","width=415, height=390");   
 }
 
-function HandlePopupResultVid()
+function HandlePopupResultRecVid()
 {
+	showVideo();
+}
 
+function HandlePopupResultVid(data)
+{
+	sharedlinkphoto = data; 
+	thumbnailurl = data;
+	createTempSharedPage();
+}
+
+function getImage()
+{
+	window.open(domainpath + "imageAdvocate.html?placeId=" + placeId, " ","width=415, height=390");   
+}
+
+function HandlePopupResultImgUrl(getUrl)
+{
+	photoType = 'url';
+	showLoader();
+	sharedphoto=1;istakephoto = 1;
+	var img = new Image();
+	img.onload = function() {
+		resizeImage(img);
+		var p = 'placeId='+placeId+'&image_url='+getUrl; 
+		$.ajax({type: "POST",url:"setData.php",cache: false,data:'opt=unlinkImage&'+p,success:function(returnText){
+			messageaftertakeselfie();
+		}});
+	};
+	img.src = getUrl;
+	isphototakedone = 1;
+}
+
+function HandlePopupResultImgBrowse()
+{
+	photoType = 'browse';
+	getSelfie();
+}
+
+function HandlePopupResultImgSet()
+{
+	photoType = 'selfie';
+	if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+		getSelfie();
+	else
+		showCamera('#camera-modal');
+}
+
+function getCamResponse()
+{
+	$.box_Dialog(('Video or photo?'), {
+		'type':     'question',
+		'title':    '<span class="color-white">Respond?<span>',
+		'center_buttons': true,
+		'show_close_button':false,
+		'overlay_close':false,
+		'buttons':  [{caption: 'video',callback:function(){
+				getVideo();
+			}},{caption: 'photo',callback:function(){
+				getImage();
+			}}]
+	});
 }
 
 function showVideo(IDparam){
@@ -654,27 +714,8 @@ function showVideo(IDparam){
 
 	// change player background color
 	player.el().style.backgroundColor = "#000000";
-
-	// error handling
-	player.on('deviceError', function()
-	{
-	    console.log('device error:', player.deviceErrorCode);
-	});
-
-	// user clicked the record button and started recording
-	player.on('startRecord', function()
-	{
-	    console.log('started recording!');
-	});
-
-	// user completed recording and stream is available
-	player.on('finishRecord', function()
-	{
-	    // the blob object contains the recorded data that
-	    // can be downloaded by the user, stored on server etc.
-	    console.log('finished recording: ', player.recordedData);
-	});
 	
+	$('#recVideo').css('opacity', 0);
 	player.recorder.getDevice();
     $('.snapshot .takesnap').html('record');
 	$('.cam-f').show();
@@ -694,6 +735,7 @@ function showVideo(IDparam){
 	
 	$('.snapshot .takesnap').click(function(){
 
+		$('#recVideo').css('opacity', 1);
 		player.recorder.start();
 		//if(!shootEnabled) return false;
 		$('.snapshot').hide(); // button for snapshot
@@ -725,7 +767,15 @@ function showVideo(IDparam){
         sharedphoto=1;istakephoto = 1;
 
 		player.recorder.stop();
-    	console.log('finished recording: ', player.recordedData);
+
+		// user completed recording and stream is available
+		player.on('finishRecord', function()
+		{
+		    // the blob object contains the recorded data that
+		    // can be downloaded by the user, stored on server etc.
+
+		    console.log('finished recording: ', player.recordedData);
+		});
 
 		$.fancybox.close();
 		closeselfie=1;clearInterval(timeInverval);refresh_handler();
@@ -734,70 +784,154 @@ function showVideo(IDparam){
 	});
 }
 
-function getCamResponse()
-{
-	$.box_Dialog(('Video or photo?'), {
-		'type':     'question',
-		'title':    '<span class="color-white">Respond?<span>',
-		'center_buttons': true,
-		'show_close_button':false,
-		'overlay_close':false,
-		'buttons':  [{caption: 'video',callback:function(){setTimeout(function() {
-				getVideo();
-			}, 300);}},{caption: 'photo',callback:function(){setTimeout(function() {
-				getCamPhoto();
-			}, 300);}}]
-	});
+ // var workerPath = location.href.replace(location.href.split('/').pop(), '') + 'ffmpeg_asm.js';
+var workerPath = 'https://4dbefa02675a4cdb7fc25d009516b060a84a3b4b.googledrive.com/host/0B6GWd_dUUTT8WjhzNlloZmZtdzA/ffmpeg_asm.js';
+
+function processInWebWorker() {
+    var blob = URL.createObjectURL(new Blob(['importScripts("' + workerPath + '");var now = Date.now;function print(text) {postMessage({"type" : "stdout","data" : text});};onmessage = function(event) {var message = event.data;if (message.type === "command") {var Module = {print: print,printErr: print,files: message.files || [],arguments: message.arguments || [],TOTAL_MEMORY: message.TOTAL_MEMORY || false};postMessage({"type" : "start","data" : Module.arguments.join(" ")});postMessage({"type" : "stdout","data" : "Received command: " +Module.arguments.join(" ") +((Module.TOTAL_MEMORY) ? ".  Processing with " + Module.TOTAL_MEMORY + " bits." : "")});var time = now();var result = ffmpeg_run(Module);var totalTime = now() - time;postMessage({"type" : "stdout","data" : "Finished processing (took " + totalTime + "ms)"});postMessage({"type" : "done","data" : result,"time" : totalTime});}};postMessage({"type" : "ready"});'], {
+        type: 'application/javascript'
+    }));
+
+    var worker = new Worker(blob);
+    URL.revokeObjectURL(blob);
+    return worker;
 }
 
-function getCamVideo()
-{
-	$('.ZebraDialogOverlay').remove();
-	$('.ZebraDialog').remove();
-	setTimeout(function(){
-		$.box_Dialog(('Please select an option.'), {
-			'type':     'question',
-			'title':    '<span class="color-white">Video or photo?<span>',
-			'center_buttons': true,
-			'show_close_button':false,
-			'overlay_close':false,
-			'buttons':  [{caption: 'video',callback:function(){setTimeout(function() {
-				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-					getVideo();
-				else
-					showVideo('#camera-modal');
-			}, 300);}},{caption: 'photo',callback:function(){setTimeout(function() {
-				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-					getSelfie();
-				else
-					showCamera('#camera-modal');
-			}, 300);}}]
-		});
-	},500);
+var isFirefox = !!navigator.mozGetUserMedia;
+var videoFile = !!navigator.mozGetUserMedia ? 'video.gif' : 'video.webm';
+var worker;
+
+function convertStreams(videoBlob, audioBlob) {
+    var vab;
+    var aab;
+    var buffersReady;
+    var workerReady;
+    var posted = false;
+
+    var fileReader1 = new FileReader();
+    fileReader1.onload = function() {
+        vab = this.result;
+
+        if (aab) buffersReady = true;
+
+        if (buffersReady && workerReady && !posted) postMessage();
+    };
+    var fileReader2 = new FileReader();
+    fileReader2.onload = function() {
+        aab = this.result;
+
+        if (vab) buffersReady = true;
+
+        if (buffersReady && workerReady && !posted) postMessage();
+    };
+
+    fileReader1.readAsArrayBuffer(videoBlob);
+    fileReader2.readAsArrayBuffer(audioBlob);
+
+    if (!worker) {
+        worker = processInWebWorker();
+    }
+
+    worker.onmessage = function(event) {
+        var message = event.data;
+        if (message.type == "ready") {
+            console.log(file has been loaded);
+            workerReady = true;
+            if (buffersReady)
+                postMessage();
+        } else if (message.type == "stdout") {
+            console.log(message.data);
+        } else if (message.type == "start") {
+            console.log(file received ffmpeg command);
+        } else if (message.type == "done") {
+            console.log(JSON.stringify(message));
+
+            var result = message.data[0];
+            console.log(JSON.stringify(result));
+
+            var blob = new Blob([result.data], {
+                type: 'video/mp4'
+            });
+
+            console.log(JSON.stringify(blob));
+
+            PostBlob(blob);
+        }
+    };
+    var postMessage = function() {
+        posted = true;
+
+        if(isFirefox) {
+            worker.postMessage({
+                type: 'command',
+                arguments: [
+                    '-i', videoFile, 
+                    '-c:v', 'mpeg4', 
+                    '-c:a', 'vorbis', 
+                    '-b:v', '6400k', 
+                    '-b:a', '4800k', 
+                    '-strict', 'experimental', 'output.mp4'
+                ],
+                files: [
+                    {
+                        data: new Uint8Array(vab),
+                        name: videoFile
+                    }
+                ]
+            });
+            return;
+        }
+
+        worker.postMessage({
+            type: 'command',
+            arguments: [
+                '-i', videoFile, 
+                '-i', 'audio.wav', 
+                '-c:v', 'mpeg4', 
+                '-c:a', 'vorbis', 
+                '-b:v', '6400k', 
+                '-b:a', '4800k', 
+                '-strict', 'experimental', 'output.mp4'
+            ],
+            files: [
+                {
+                    data: new Uint8Array(vab),
+                    name: videoFile
+                },
+                {
+                    data: new Uint8Array(aab),
+                    name: "audio.wav"
+                }
+            ]
+        });
+    };
+
+    function PostBlob(blob) {
+
+    var fileType = 'video';
+
+	    var formData = new FormData();
+	    formData.append(fileType + '-blob', blob);
+	    formData.append(fileType + '-placeid', placeId);
+
+	    xhr('setPhoto.php', formData, function (resp) {
+	    	console.log(resp);
+			window.open(domainpath + "resumable_upload.html?placeId=" + placeId + "&url=" + resp, " ","width=415, height=390");  
+	    });
+
+	    function xhr(url, data, callback) {
+	        var request = new XMLHttpRequest();
+	        request.onreadystatechange = function () {
+	            	if (request.readyState == 4 && request.status == 200) {
+	                	callback(request.responseText);
+	            	}
+	        };
+	        request.open('POST', url);
+	        request.send(data);
+	    }
+    }
 }
 
-function getCamPhoto()
-{
-	$('.ZebraDialogOverlay').remove();
-	$('.ZebraDialog').remove();
-	setTimeout(function(){
-		$.box_Dialog(('Please select an option.'), {
-			'type':     'question',
-			'title':    '<span class="color-white">Video or photo?<span>',
-			'center_buttons': true,
-			'show_close_button':false,
-			'overlay_close':false,
-			'buttons':  [{caption: 'take a photo',callback:function(){setTimeout(function() {
-				if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-					getSelfie();
-				else
-					showCamera('#camera-modal');
-			}, 300);}},{caption: 'browse',callback:function(){setTimeout(function() {
-					getImage();
-			}, 300);}}]
-		});
-	},500);
-}
 
 function getUrlVar(key){
 	var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
@@ -1542,17 +1676,19 @@ function setCanvasSelfie(img_type)
 	}
 
 	imgLogo.onload = function() {
+		if(photoType == 'selfie')
+		{
+			logoTextHeight = height*0.045;
+			
+			// POWERED BY
+			context.font = logoTextFont + "pt Lato-Light";
+			context.fillText(logoText,width*0.834,logoTextHeight);
+			logoWidth =context.measureText(logoText).width;
 
-		logoTextHeight = height*0.045;
-		
-		// POWERED BY
-		context.font = logoTextFont + "pt Lato-Light";
-		context.fillText(logoText,width*0.834,logoTextHeight);
-		logoWidth =context.measureText(logoText).width;
+			logoImageHeight = (height*0.035)+logoTextFont;
 
-		logoImageHeight = (height*0.035)+logoTextFont;
-
-		context.drawImage(imgLogo, width*0.794, logoImageHeight, imgLogoWidth, imgLogoHeight);
+			context.drawImage(imgLogo, width*0.794, logoImageHeight, imgLogoWidth, imgLogoHeight);
+		}
 	};
 	imgLogo.src = logourl;
 }

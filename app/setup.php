@@ -88,7 +88,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Your call to action button:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="false" name="txtbtnselfie" id="txtbtnselfie" value="Post Your Photo or Selfie!" placeholder="Post Your Photo or Selfie!">
+								<input type="text" data-clear-btn="false" name="txtbtnselfie" id="txtbtnselfie" value="Post a response!" placeholder="Post a response!">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<select name="select-category" id="select-category">
 										<option value="">Select a Category</option>
