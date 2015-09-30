@@ -56,10 +56,10 @@ foreach($time_zones as $zones){
                                 </select>
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="false" name="txtpho" id="txtpho" value="" placeholder="telephone (optional)">
-                                <label for="number-1"></label>
-								<input type="text" data-clear-btn="false" name="txtfb" id="txtfb" value="" placeholder="facebook page url (optional)">
 								<label for="number-1"></label>
 								<input type="text" data-clear-btn="false" name="txtweb" id="txtweb" value="" placeholder="website url (optional)">
+                                <label for="number-1"></label>
+								<input type="text" data-clear-btn="false" name="txtfb" id="txtfb" value="" placeholder="facebook page url (optional)">
 									<label for="number-1"></label>
 									<input type="text" data-clear-btn="false" name="txtlink" id="txtlink" value="" placeholder="linkedIn url (optional)">
 									<label for="number-1"></label>

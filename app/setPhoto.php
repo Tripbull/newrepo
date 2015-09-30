@@ -136,6 +136,10 @@ if(isset($_FILES["campaignlogo"]))
 			echo 'greater';
 			unlink($img);
 			die();
+		}else if($image->getWidth() < 50 || $image->getHeight() < 50){
+			echo 'less';
+			unlink($img);
+			die();
 		}
 		if($image->image_type == 1)
 			$extn = '.gif';
@@ -260,7 +264,7 @@ if(isset($_FILES["fileweb"]))
 			$img = $UploadDirectory.'/'.$NewFileName;
 			$image = new Photos();
 			$image->load($img);
-			if($image->getWidth() < 600 || $image->getHeight() < 200){
+			if($image->getWidth() < 100 || $image->getHeight() < 50){
 				echo 'less';
 				unlink($img);
 				die();

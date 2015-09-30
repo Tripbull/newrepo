@@ -2195,6 +2195,8 @@ $(document).ready(function(){
 			hideLoader();
 			if(responseText == 'greater'){
 				alertBox('incorrect size','Please upload a image with max width 600px & max height 600px');
+			}else if(responseText == 'less'){
+				alertBox('incorrect image size','Please upload a image with min width 50px & min height 50px');
 			}else{
 				$('#frmlogocampaign').css({display:'none'});
 				var logoArray = $.parseJSON(responseText);			
@@ -2912,7 +2914,7 @@ $(document).ready(function(){
 				}else if(customArray.webImg8 == ''){
 					$('#webthumb8').attr('src', noPhoto);
 				}
-				alertBox('incorrect image size','Please upload images products with min width 600px & min height 200px');
+				alertBox('incorrect image size','Please upload images products with min width 100px & min height 50px');
 			}else{
 				if(profilewizardwebImg == 1){
 					setTimeout(function() {profilewizardwebImg = 0;wizardsetup();},200);
