@@ -59,7 +59,7 @@ $connect->db_disconnect();
 	<!--
 	<div class="hide top-button-selfie"><div style="text-align:center;"><div style="display: inline-block;vertical-align: middle;height: 50px;margin:8px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><img src="images/tabluu-logo-mono-xsmall.png"></div><span style="display: inline-block;margin-left: auto;margin-right: 20px;" class="btn-take-isselfie">Your Selfie Now!</span></div></div> -->
 
-	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Joint the Rally</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+	<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Join the Rally</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 	<div style="position:absolute;opacity:0;overflow:hidden;">
 		<div style="position:absolute;font-family:myriadpro;">.</div>
 		<div style="position:absolute;font-family:Lato-Light;">.</div>
@@ -77,7 +77,9 @@ $connect->db_disconnect();
       			<iframe class="campaign-video" width="640" height="360" frameborder="0" src="" onload="campaign_video()"></iframe>
 			</div>
 			<div class="right">
-				<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>
+			    <!--
+				<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice.'.html'?>" target="_blank">Campaign details</a></span></div>-->
+				<div class="fb-like" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
 				<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.'&s='.$type;?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 			</div> 
 		</div>
