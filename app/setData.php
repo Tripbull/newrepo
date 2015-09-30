@@ -656,7 +656,7 @@ switch($opt){
 
 		mysql_query($sql) or die(mysql_error());	
 		if(mysql_affected_rows()){
-			//echo mysql_affected_rows();		
+			echo mysql_affected_rows();		
 		}//else
 			//echo 0;			
 	break;

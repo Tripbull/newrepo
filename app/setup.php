@@ -40,10 +40,10 @@ $noPhoto = 'images/template/no-photo.gif';
 								<ul class="right-menu" data-role="listview"><li ><a href="uic.html" data-prefetch="true">Background Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" >Font Color<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Buttons<span class="listview-arrow-default"></span></a></li><li ><a href="uic.html" data-prefetch="true">Text in Messages<span class="listview-arrow-default"></span></a></li></ul>
 							</section>
 							<section class="panel-question hide">
-								<p class="font-17 bgrey" style="padding:10px">Please upload a campaign poster or video...</p>
+								<p class="font-17 bgrey" style="padding:10px">Please provide a campaign poster or video</p>
 								 <div class="clear" style="padding-top:1em"></div>
 								<form id="frmbackground" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-									<button class="ui-btn" id="uploadbackground">Upload an Image or Video</button>
+									<button class="ui-btn" id="uploadbackground">Provide a photo or video</button>
 									<input type="file" name="filebackground" style="visibility:hidden;height:0px" id="filebackground" value="">
 									<input type="hidden" value="" name="placeIdbackground" id="placeIdbackground" />
 								 </form>
@@ -88,7 +88,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								<div class="clear" style="padding-top:1em"></div>
 								<span class="font-17 fl darkgrey"><i>Your call to action button:</i></span>
 								<div class="clear" style="padding-top:0.5em"></div>
-								<input type="text" data-clear-btn="false" name="txtbtnselfie" id="txtbtnselfie" value="Post a response!" placeholder="Post a response!">
+								<input type="text" data-clear-btn="false" name="txtbtnselfie" id="txtbtnselfie" value="Join the rally!" placeholder="Join the rally!">
 								<div class="clear" style="padding-top:0.5em"></div>
 								<select name="select-category" id="select-category">
 										<option value="">Select a Category</option>

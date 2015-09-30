@@ -53,7 +53,7 @@
 		$get_info = get_video_upload_info();
 	}
 
-	$redirectUri = urlencode('http://camrally.com/app/youtubeapi.html');
+	$redirectUri = urlencode('http://camrally.com/staging/youtubeapi.html');
 
 	function get_video_upload_info()  
 	{  
