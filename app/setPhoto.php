@@ -136,6 +136,10 @@ if(isset($_FILES["campaignlogo"]))
 			echo 'greater';
 			unlink($img);
 			die();
+		}else if($image->getWidth() < 50 || $image->getHeight() < 50){
+			echo 'less';
+			unlink($img);
+			die();
 		}
 		if($image->image_type == 1)
 			$extn = '.gif';

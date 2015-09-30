@@ -2195,6 +2195,8 @@ $(document).ready(function(){
 			hideLoader();
 			if(responseText == 'greater'){
 				alertBox('incorrect size','Please upload a image with max width 600px & max height 600px');
+			}else if(responseText == 'less'){
+				alertBox('incorrect image size','Please upload a image with min width 50px & min height 50px');
 			}else{
 				$('#frmlogocampaign').css({display:'none'});
 				var logoArray = $.parseJSON(responseText);			
