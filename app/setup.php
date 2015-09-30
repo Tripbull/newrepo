@@ -45,7 +45,6 @@ $noPhoto = 'images/template/no-photo.gif';
 								 <div class="clear" style="padding-top:1em"></div>
 								<form id="frmbackground" action="setPhoto.php" method="post" enctype="multipart/form-data" >
 									<button class="ui-btn" id="uploadbackground">Provide a photo or video</button>
-
 									<input type="file" name="filebackground" style="visibility:hidden;height:0px" id="filebackground" value="">
 									<input type="hidden" value="" name="placeIdbackground" id="placeIdbackground" />
 								 </form>
