@@ -1,0 +1,113 @@
+/* reset css */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {margin: 0;padding: 0;border: 0;outline: 0;font-size: 100%;vertical-align: baseline;background: transparent;}
+body {line-height: 1;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {display: block;}
+nav ul {list-style: none;}
+blockquote,q {quotes: none;}
+blockquote:before,blockquote:after,q:before,q:after {content: '';content: none;}
+a {margin: 0;padding: 0;font-size: 100%;vertical-align: baseline;background: transparent;}
+*:focus {
+    outline: 0;
+}
+* {
+    -moz-box-sizing: border-box;
+    -webkkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body,html{font-family: "Helvetica Neue","Helvetica","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ","Meiryo","ＭＳ Ｐゴシック",arial,sans-serif;}
+body{background-color:#e9e9e9;color:#211922}
+.fl{float:left}
+.fr{float:right}
+.text-center{text-align:center}
+.text-left{text-align:left}
+.text-right{text-align:right}
+.clear{clear:both}
+.wrap-content{margin:0 auto;}
+.MerchantHead .left{float:left;overflow:visible;padding:0;}
+.MerchantHead .left img{width:100%;height:auto;}
+.MerchantHead .right{float:none;width:auto;overflow:hidden;background-color:#fff}
+.MerchantHead .right{padding:0 20px !important} 
+#vdesktop{display:block;}
+#vmobile{display:none;}
+#vdesktop .header {box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4); -moz-box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4); -webkit-box-shadow: inset 0 1px #fff, 0 1px 2px rgba(34,25,25,0.4);position: relative;height: 48px;position: fixed;top:0px;width: 100%;background-color: #fff;}
+#vdesktop .header .HeaderContainer {margin: 0 auto;text-align: center;width: auto;}
+#vdesktop .header .HeaderContainer .Pinme {position: relative;top: 7px;}
+#vdesktop .header .d-logo {margin: 0 auto;max-width: 92px;width: 100%;}
+#vdesktop .header .d-logo img {height: auto;width: 100%;}
+.ColumnContainer {margin: auto 0;min-height: 500px;}
+.wrapheader {margin: 0 auto;width: auto;}
+.MerchantHead{margin:0 auto;background-color:#fff;height:100%;z-index:2000;position:relative;top:65px;}
+.xclose{position:absolute;right:-18px;top:-10px;background: transparent url(../js/source/fancybox_sprite.png) 0 0 no-repeat; width:38px;height:35px;z-index:1000;cursor:pointer;} 
+.overlay{display:block;height:100%;width:100%;position:fixed;top:0;left:0; background: url(../js/source/fancybox_overlay.png) repeat scroll 0 0 rgba(0, 0, 0, 0);z-index: 1000;}
+#vmobile .topleftmenu{background:#009ad3;cursor:pointer;padding-top:3px;float:right;border-left:1px solid #ccc;width:51px;height:40px;margin-top:1px;}
+#vmobile .topleftmenu .mobile_search{margin:0 auto;background:url(../images/menu-alt-512.png) no-repeat;height:33px;width:33px;display:block}
+.fb-comments, .fb-comments iframe[style], .fb-comments span[style] {width: 100% !important;min-height:100% !important}
+.activeMenu{background-color:#C7E6F5}
+.noActiveMenu{background-color:#DDF0F9}
+.tag-occation{font-size:30px;padding:1px 0;}
+.tag-row{font-size:20px;padding:1px 0;}
+.tag-date{font-size:16px;padding:1px 0 2px 0;}
+.navbar{margin-top:0px !important}
+.fluidMedia {
+    position: relative;
+    padding-bottom: 55%; /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+.fluidMedia iframe {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+@media screen and (max-width: 1100px){ 
+	.MerchantHead .left,.MerchantHead .right{float:none;width:100%;margin: 0 auto !important;}
+	.MerchantHead .left{padding-bottom:0px !important;}
+	.MerchantHead .right{padding:20px 20px !important;}
+	
+}
+@media screen and (max-width: 768px){
+	#vdesktop{display:none;}
+	#vmobile{display:block;}
+	.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus { color: #111; background-color: transparent;}
+.navbar-default .navbar-nav > li > a {font-weight:normal;color:#777; text-align:center; border-bottom:1px solid #d9d9d9;border-bottom: 1px solid #d9d9d9;
+    border-top: 1px solid #fff; }
+.pull-right { float:left !important; width:100%;z-index:1000000 }
+.navbar-toggle { margin-top:8px;margin-left:5px }
+.navbar-nav > li > a { padding-top:21px; padding-bottom:22px; text-shadow:1px 1px 0 #fff;}
+.navbar-nav { margin:0px !important; }
+.navbar-collapse { padding:0!important; }
+.navbar-nav{background:#eff0f1}
+.navbar-header{margin-top:18px;height:67px;}
+.m-header{min-height:86px; background:#00aeef;min-width:287px;box-shadow: none;-moz-box-shadow: none;-webkit-box-shadow: none;}
+	.navbar{margin-top:0px;}
+	header{min-height:86px;}
+	.MerchantHead{top:10px;}
+	.logo{padding-top:0px;width:130px;float:left;margin: 17px 0 0 15px}
+	.header .wrapper{display:block;height:31px;padding:9px 8px;border-left:1px solid #FFF;}
+	.wrapper{-webkit-background:rgba(4,169,254,0.3);-moz-background:rgba(4,169,254,0.3);-o-background:rgba(4,169,254,0.3);-ms-background:rgba(4,169,254,0.3);background:rgba(4,169,254,0.3)}
+	.tag-occation{font-size:25px;padding:1px 0;}
+	.tag-row{font-size:17px;padding:1px 0;}
+	.tag-date{font-size:14px;padding:1px 0 2px 0;}
+	#vmobile .header{position:fixed;top:1px;width:100%;height:40px;z-index:50;background-color:#00AEEF}
+	#vmobile .header .logo{float:left;margin:4px 0 2px 10px;width:100%;max-width:79px;}
+	#vmobile .header .logo img{width:100%;height:auto;}
+	.wrapheader {border: 1px solid #bfbfbf;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;margin: 10px auto 0}
+	#topmenu{width:100%;z-index:10;height:42px;background-color:#DDF0F9;text-align:center}
+	#topmenu ul{list-style:none;width:100%;margin:0 auto;padding:0}
+	.borderright{border-right:1px solid #e9e9e9}
+	#topmenu li#showcase{float:left;width:50%;height:42px}
+	#topmenu li#top-reviews{float:none;overflow:hidden;width:auto;}
+	#topmenu li a{display:block;padding-top:10px;font-size:15px;text-decoration:none;height:42px;text-align:center;color:#00AEEF;font-weight:bold;outline: 0;}
+	#socialmenu{text-align:center}
+	#socialmenu ul{list-style:none;width:100%;margin:0 auto;padding:0}
+	#socialmenu li{width:100%}
+	#socialmenu li a{display:block;padding:10px 0;font-size:12px;text-decoration:underline;text-align:center;color:#7BCEEF;font-weight:bold}
+}
+@media screen and (max-width: 375px){ 
+	/*.right{margin: 0 !important;}*/
+}

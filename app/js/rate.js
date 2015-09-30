@@ -8,7 +8,7 @@ var defaultButtonText = {campdetails:['Campaign details'],logout:['okay'],btnsha
 var defaultTextMessage2 = {};
 var defaultTextMessage = {sharedT:"You're logged in to <social_media>",sharedB:"Click <double>okay<double> to start sharing!",logoutT:'Auto logout',logoutB:"You'll be logged out of <social_media> after sharing.",followT:'Follow this campaign?',followB:'Press the <double>yes<double> button to agree with Camrally\'s <privacy_policy_link> & allow <campaigner> to contact you.',takePhoto:'Take a new photo?',share:'Share your Camrally Post?',takeselfieT:'Take a selfie!',shareB:'Use a social media button below to recommend <campaigner>. By sharing you agree with Camrally\'s <privacy_policy_link>.'},resizeTimeout;
 
-var istest = false,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
+var istest = true,domainpath='',fbPhotoPathShare='',state_Array = ['unpaid','canceled'];
 
 function alertBox(title,message){ // testing
 	clearTimeout(resizeTimeout);
@@ -415,8 +415,8 @@ $(document).ready(function(){
    $('.fancybox').fancybox();
    
    if(istest == true){
-		//domainpath = 'http://camrally.com/staging/';
-		 domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
+		domainpath = 'http://camrally.com/staging/';
+		 //domainpath = 'http://localhost.tabluu.com/dinocam/newrepo/app/';
 	}else{
 		domainpath = 'http://camrally.com/';
 	}
@@ -560,7 +560,7 @@ function showCamera(IDparam){
 
 	$('.cam-f').show();
 
-    $('.usesnap').show(); // button fo
+    $('.usesnap').removeClass('hide').show(); // button fo
     $('.usesnap').hide(); // button fo
 	var curHeight = window.innerWidth,width=0,height=0,ratio;
 	ratio = 0.68;
@@ -568,7 +568,7 @@ function showCamera(IDparam){
 	height = window.innerHeight * 0.68;
     
 	//set video snapshot
-	$('.snapshot').show(); // Show snapshot buttons
+	$('.snapshot').removeClass('hide').show(); // Show snapshot buttons
 
 	var shootEnabled = false;
 	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
@@ -636,7 +636,7 @@ function invalidUsedBackbtn(){
 }
 
 
-function getLocationData(){
+function getLocationData(show){
 	var ispageok = false;nicename = $('#nicename').val();
 	var ios_ver = iOSversion();
 	 
@@ -657,6 +657,8 @@ function getLocationData(){
 			alertErrorPage('setup incomplete','Go to Setup > Your Camrally Page');
 		else if(customArray.subscribe < 1)
 			alertErrorPage('this campaign is offline','Please change the status to online');
+		else if(customArray.backgroundImg == '')	
+			alertErrorPage('setup incomplete','Go to Setup > Campaign Details > Provide campaign Poster or Video');
 		else{
 			
 			changetextcamerabutton();
@@ -665,7 +667,28 @@ function getLocationData(){
 				if($.inArray(getUrlVar('s'),['0','2','3','4','5','e','','6','8'] ) == -1){
 					alertErrorPage('Unauthorized',"Please contact Camrally support");
 				}else {
-					rate_initialize();
+					if(show == 1)
+						rate_initialize();
+					else{
+						camp_initialize();
+					var bgback = $.parseJSON(customArray.backgroundImg);		
+					if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){					
+						var bimage = bgback.bckimage;
+						var n = bimage.indexOf("images/profile");
+						if(n >= 0){ // images uploaded
+							$('.left').css({maxWidth:$('.left img').width()});
+							$('.right').css({maxWidth:390});
+							setTimeout(function(){
+								if($('.left img').width() > $(window).width())
+									$('.left img').css({width:'100%'});
+							},500)
+							$('.left img').css({width:'auto'});
+						}else{
+							$('.left').css({maxWidth:$('.MerchantHead').width() - 380,width:'100%'});
+							$('.right').css({maxWidth:$('.left').width()});
+						}	
+					}
+					}	
 					if(ios_ver[0] == 6)
 					{
 						$.box_Dialog(('iOS 6 is not supported by Camrally. Please use a device running on iOS 7 and above.'), {
@@ -707,12 +730,65 @@ $(document).on('pageinit','#rateone', function() {
 	hideLoader();	
 	if(typeof(ratedObj[0]) != 'undefined')
 		invalidUsedBackbtn();
-	getLocationData();
+	getLocationData(1);
 	$( window ).resize(function() { // when window resize
 		rate_initialize();
 	});
 });
+$(document).on('pageinit','#shared-like-page', function() {
+	hideLoader();	
+	//$('.left').css({height:$(window).height() - 150});
+	getLocationData(0);
+	$( window ).resize(function() { // when window resize
+		camp_initialize();
+	});
+	$('.goescampage').click(function(e){
+		window.location = domainpath+nicename+'.html';
+	});
+});
+function camp_initialize(){
+	var img = new Image(),bgback='';
+	if(customArray.backgroundImg)
+		bgback = $.parseJSON(customArray.backgroundImg);
+	$('.wraptext-com').html((typeof(defaultButtonText.campdetails) != 'undefined' ? decodequote(defaultButtonText.campdetails[0]) : decodequote(defaultButtonText2.campdetails[0])));
+	$( '.MerchantHead' ).css({'color':(customArray.backgroundFont != '' ? customArray.backgroundFont : '#3b3a26')});
+	$( '.MerchantHead' ).css({'background-color':(customArray.backgroundcolor != '' ? customArray.backgroundcolor : '#7f7f7f')});
+	if(bgback.bckimage != '' || typeof(bgback.bckimage) != 'undefined'){
 
+		var bimage = bgback.bckimage;
+		var n = bimage.indexOf("images/profile");
+		if(n >= 0) // images uploaded
+		{
+			setTimeout(function(){
+				if($('.left').css('max-width') > $('.right').css('max-width'))
+					$('.right').css({maxWidth:$('.left img').width()});
+				//else
+					//$('.right').css({maxWidth:390});
+			},500)
+			$('.MerchantHead').css({maxWidth:$('.left img').width() + 380});
+			$('.wrapleftright').css({maxWidth:$('.left img').width() + 390});	
+			if($(window).width() <= $('.left img').width())
+				$('.left img').css({width:'100%'});
+		}
+		else
+		{      
+			$('.wrapleftright').css({maxWidth:$('.MerchantHead').width()});
+			//$('.campaign-video').css({width:'100%'});
+			//$('.campaign-video').css({width:$('.left').width()});
+			$('.right').css({maxWidth:$('.left').width()});
+			
+		}
+		if($('.right').css('width') == $('.left').css('width'))
+		   $('.right').css({height:'auto'});
+		else
+		   setTimeout(function(){$('.right').css({height:$('.left').height()});},500);
+			
+	}
+	$('.right').css({minHeight:200});
+	//$('.right').css('overflow-y', 'visible');
+	//$('.left').css({height:$(window).height() - 150});
+	//$('.left img').css({height:'100%',width:'100%'});
+}	
 function campaign_poster()
 {	
 	//CAMPAIGN POSTER DO NOT REMOVE
