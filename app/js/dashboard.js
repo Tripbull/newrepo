@@ -1326,7 +1326,6 @@ $(document).ready(function(){
 				setTimeout(function(){$('#resetpwd').focus()},300);
 			},500);
 		}
-
 		$('#uploadbackground').click(function(e){
 			e.preventDefault();
 			showLoader();
@@ -1345,7 +1344,8 @@ $(document).ready(function(){
 
 		function ytUploadPoster()  
 		{
-			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
+			var win = window.open(domainpath + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
+
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
@@ -1528,8 +1528,9 @@ $(document).ready(function(){
 		}else{
 			if(customArray.nicename != "")
 				addli = '<li ><a href="'+domainpath+newnice+'" class="link-visit-page" target="_blank" >See Your Camrally Page<span class="listview-arrow-default"></span></a></li>';
+
 			var newli = '<ul class="profile-left-menu1" id="setup-profile-menu" data-role="listview"><li ><a href="profile.html" data-prefetch="true">Profile<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="addlogo">Your Profile Image or Organizational Logo<span class="listview-arrow-default"></span></a></li><li><a href="profile.html" data-prefetch="true" class="vanity">Your Custom Camrally URL<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html" data-prefetch="true">Images<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Videos<span class="listview-arrow-default"></span></a></li><li ><a href="profile.html"  data-prefetch="true">Map (Marker & Display)<span class="listview-arrow-default"></span></a></li>'+addli+'</ul>';	
-				
+
 		}
 			$('.profile-left-menu1').html(newli);
 			$('.profile-left-menu1').on('click', ' > li', function () {
@@ -1668,6 +1669,7 @@ $(document).ready(function(){
 				if(customArray.backgroundImg != ''){ 
 					var logoArray = $.parseJSON(customArray.backgroundImg);
 					$('#frmbackground').css({display:'none'});	
+
 					var bimage = logoArray.bckimage;
 					var n = bimage.indexOf("images/profile");
 					if(n >= 0)
@@ -3073,9 +3075,10 @@ $(document).ready(function(){
 			});	
 		}
 
-		function ytBrowserUpload(txtvideotitle)  
+		function ytUploadGallery(txtvideotitle)  
 		{
-			var win = window.open(domainpath + "app/youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=410, height=294");   
+			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=435, height=294");   
+
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
@@ -3179,7 +3182,7 @@ $(document).ready(function(){
 				$('#typevid').val('vidImg8');
 				$('#imgtitlevid').val(txtvideotitle);
 			}			
-			ytBrowserUpload(txtvideotitle);
+			ytUploadGallery(txtvideotitle);
 		}
 
 		function changephotovid(){

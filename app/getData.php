@@ -434,7 +434,6 @@ switch($opt){
 		echo json_encode(array_merge(mysql_fetch_array($result),$imagesArray,$videosArray)); 
 	break;
 	case 'getVideoId':
-		$sql='';
 		$placeId = $_REQUEST['placeId'];
 		$name = $_REQUEST['typevid'];
 		

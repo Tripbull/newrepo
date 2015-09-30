@@ -11,6 +11,13 @@
 		$social_link = "https://www.twitter.com/";
 //if($rowrate->hideimg > 0 && $rowrate->hideimg != null)
 	//$fbsrc =  $path."images/profileDefault.png";
+
+	$getpos = strpos($fbsrc, 'images');
+
+	if($getpos === false)
+	{
+		$fbsrc = 'https://i.ytimg.com/vi/'.$rowrate->photo_url.'/0.jpg';
+	}
 ?>		
 <div class="sysPinItemContainer pin">
 	<?php

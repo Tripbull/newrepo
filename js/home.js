@@ -1,36 +1,3 @@
-function wordwrap(questionContainer) {
-	$('.' + questionContainer).css('width', 'auto');
-	var str = $('.' + questionContainer).html();
-	var textWidth = txtWidth(str, 'width');
-	var textHeight = txtWidth(str, 'height');
-	var lines = Math.ceil(textWidth/$('.' + questionContainer).width());
-	var senHeight = textHeight*lines;
-	var fontWidth = txtWidth('W', 'width');
-	if(lines > 1)
-	{
-		$('.' + questionContainer).width(textWidth/lines);
-
-		while($('.' + questionContainer).height() > senHeight)
-		{
-			$('.' + questionContainer).width($('.' + questionContainer).width()+fontWidth);
-		}
-	}
-}
-
-function txtWidth(str, type){
-	$('.widthDiv').html(str);
-	var width = $('.widthDiv').width();
-	var height = $('.widthDiv').height();
-	if(type == 'width')
-	{
-	  	return width;
-	}
-	else
-	{
-	  	return height;
-	}
-}
-
 function openVideo()
 {
 	$('.overlay').css('display', 'block');
@@ -65,6 +32,39 @@ $(document).ready(function() {
 		wordwrap('title4');
 		wordwrap('title5');
 	});	
+
+	function wordwrap(questionContainer) {
+		$('.' + questionContainer).css('width', 'auto');
+		var str = $('.' + questionContainer).html();
+		var textWidth = txtWidth(str, 'width');
+		var textHeight = txtWidth(str, 'height');
+		var lines = Math.ceil(textWidth/$('.' + questionContainer).width());
+		var senHeight = textHeight*lines;
+		var fontWidth = txtWidth('W', 'width');
+		if(lines > 1)
+		{
+			$('.' + questionContainer).width(textWidth/lines);
+
+			while($('.' + questionContainer).height() > senHeight)
+			{
+				$('.' + questionContainer).width($('.' + questionContainer).width()+fontWidth);
+			}
+		}
+	}
+
+	function txtWidth(str, type){
+		$('.widthDiv').html(str);
+		var width = $('.widthDiv').width();
+		var height = $('.widthDiv').height();
+		if(type == 'width')
+		{
+		  	return width;
+		}
+		else
+		{
+		  	return height;
+		}
+	}
 
 		var istimerunning = 1;
 	$('.signupbtn').click(function(e){

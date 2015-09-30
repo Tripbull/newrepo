@@ -347,6 +347,22 @@ if(isset($_FILES["filevid"]))
 		die('error uploading File!');
 	}
 }
+
+if (isset($_FILES["video-blob"])) {
+
+    $placeId = $_POST["video-placeid"];
+    $Random_Number      = rand(); //Random number to be added to name.
+    $NewFileName        = $Random_Number.'.mp4'; //new file name
+    $uploadDirectory = 'images/shared/' . $placeId;
+	if (!file_exists($UploadDirectory))
+		mkdir($UploadDirectory,0777);
+
+    if (!move_uploaded_file($_FILES["video-blob"]["tmp_name"], $uploadDirectory . '/' . $NewFileName)) {
+        echo(" problem moving uploaded file");
+    }
+    echo($NewFileName);
+}
+
  class Photos{
  
    var $image;
