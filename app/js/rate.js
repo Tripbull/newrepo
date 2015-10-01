@@ -625,7 +625,6 @@ function getVideo()
 
 function HandlePopupResultRecVid()
 {
-    alert();
 	showVideo();
 }
 
@@ -740,7 +739,7 @@ function showVideo(IDparam){
 		player.recorder.start();
 		//if(!shootEnabled) return false;
 		$('.snapshot').hide(); // button for snapshot
-		$('.usesnap').show(); // button for use
+		$('.usesnap').removeClass('hide');// button for use
 		return false;
 	});
 	$('.snapshot .cancelsnap').click(function(e){
@@ -760,7 +759,7 @@ function showVideo(IDparam){
 
 		player.recorder.stop();
 
-		$('.snapshot').show(); // button for snapshot
+		$('.snapshot').removeClass('hide');  // button for snapshot
 		$('.usesnap').hide(); // button for use
 		return false;
 	});
