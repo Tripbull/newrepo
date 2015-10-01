@@ -1892,7 +1892,7 @@ $(document).ready(function(){
 				//if($(this).index() == 1){
 					//defaultSetup = 2;
 					//$( ":mobile-pagecontainer" ).pagecontainer( "change", "setup.html",{});
-				if($(this).index() > 4){
+				if($(this).index() > 5){
 				}else{	
 					curClick = $(this).index();
 					showHideMenuProfile(curClick);
