@@ -132,8 +132,8 @@ if(isset($_FILES["campaignlogo"]))
         $img = $UploadDirectory.'/'.$NewFileName;
 		$image = new Photos();
 		$image->load($img);
-		if($image->getWidth() > 600 || $image->getHeight() > 600){
-			echo 'greater';
+		if($image->getWidth() < 50 || $image->getHeight() < 50){
+			echo 'less';
 			unlink($img);
 			die();
 		}
@@ -260,7 +260,7 @@ if(isset($_FILES["fileweb"]))
 			$img = $UploadDirectory.'/'.$NewFileName;
 			$image = new Photos();
 			$image->load($img);
-			if($image->getWidth() < 600 || $image->getHeight() < 200){
+			if($image->getWidth() < 100 || $image->getHeight() < 50){
 				echo 'less';
 				unlink($img);
 				die();
