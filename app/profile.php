@@ -100,10 +100,11 @@ foreach($time_zones as $zones){
 								 </div>
 								 <div class="clear" style="padding-top:0.5em"></div>
 								<span class="color-grey font-12 fl">
-									<p>Max width 600px; Max height 600px</p>
+									<p>Min width 50px; Min height 50px</p>
+									<!--
 									<p>Recommended logo sizes: Horizontal logo: 500px by 200px Vertical logo: 300px by 450px</p>
 									<p>Tip 1: Uploaded logo image will be used for laptop resolution: 1366 x 768. Logo's size will be automatically reduced to fit multiple device resolution.</p>
-									<p>Tip 2: Lock device's screen orientation to landscape for horizontal logo. Lock device's screen orientation to portrait for vertical logo</p>
+									<p>Tip 2: Lock device's screen orientation to landscape for horizontal logo. Lock device's screen orientation to portrait for vertical logo</p>-->
 								</span>
 							</section>
 							<section class="photo-section hide">

@@ -59,8 +59,8 @@ $path = '';
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
 <body>
-<div id="shared-like-page" style="overflow:visible" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
+<div id="shared-like-page" style="overflow:visible" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
@@ -115,7 +115,7 @@ $path = '';
 						}else{
 						?>
 						<!--<iframe class="campaign-video" height="360" style="min-width:200px" frameborder="0" src=""></iframe>-->
-						<div class="fluidMedia">
+						<div class="fluidMedia2">
 							<iframe src="http://www.youtube.com/embed/<?=$srcimg?>?autoplay=1" class="iframeshare" frameborder="0"> </iframe>
 						</div>
 						<?php
