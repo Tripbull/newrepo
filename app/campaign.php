@@ -45,12 +45,9 @@ $path = '';
 	<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
-<<<<<<< HEAD
 	<link href="css/campaign.css" media="screen" rel="stylesheet" type="text/css" />
-=======
 	<link href="http://vjs.zencdn.net/4.12.12/video-js.css" rel="stylesheet">
 	<link href="css/videojs.record.css" rel="stylesheet">
->>>>>>> all-changes
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
@@ -67,7 +64,6 @@ $path = '';
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
 </head>
 <body>
-<<<<<<< HEAD
 <div id="shared-like-page" style="overflow:visible" data-dom-cache="false" data-role="page" data-prefetch="false">
 <div id="fb-root"></div>
 <div id="vdesktop">
