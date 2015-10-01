@@ -78,9 +78,9 @@ if($istest){
 		if(mysql_num_rows($result)){
 			$row = mysql_fetch_object($result);
 			$getpath = json_decode($row->backgroundImg, true);
-			$path = $getpath['bckimage'];
-			echo '<meta property="og:image" content="'.$curDomain.$path.'" />';
-			echo '<meta property="og:image:url" content="'.$curDomain.$path.'" />';
+			$pathback = $getpath['bckimage'];
+			echo '<meta property="og:image" content="'.$curDomain.$pathback.'" />';
+			echo '<meta property="og:image:url" content="'.$curDomain.$pathback.'" />';
 		}
 	}
 } 
@@ -93,7 +93,9 @@ else {
 <meta property="fb:app_id" content="148972192103323" />
 <link href="<?=$path?>css/fbshared.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
+<link href="<?=$path?>css/bootstrap.css" rel="stylesheet" media="all">
 <script type="text/javascript" src="<?=$path?>js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="<?=$path?>js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="<?=$path?>js/fbshared.js"></script>
 <script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
 <link rel="Shortcut Icon" href="<?=$path?>images/Logo/ico/Icon_2.ico" type="image/x-icon">
@@ -114,6 +116,33 @@ if($width > 820)
 	</div>
 </div>
 <div id="vmobile">
+<div class="m-header">
+            <div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
+			<header>
+			<nav class="navbar navbar-default" role="navigation"> 
+			  <!-- Brand and toggle get grouped for better mobile display -->
+			  <div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button> </div>
+			  <!-- Collect the nav links, forms, and other content for toggling -->
+			  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav pull-right">
+					<li><a href="/">Camrally.com</a></li>
+				</ul>
+			  </div>
+			  <!-- /.navbar-collapse --> 
+			</nav>
+		</header>
+			<!--<a href="#socialmenu" rel="nofollow" class="fancybox"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>-->
+		</div>
+		<div id="topmenu">
+			<ul>
+				<li class="borderright" id="showcase"><a href="#">Gallery</a></li>
+				<li class="activeMenu" id="top-reviews"><a href="#">Posts</a></li>
+			</ul>
+		</div>
+</div>		
+<!--
+<div id="vmobile">
 	<div class="header">
 		<div class="logo"><a href="/"><img src="<?=$path?>images/white-logo-tabluu-page.png" > </a></div>
 		<a href="<?=$cur.$row->nicename?>.html" rel="follow"><div class="topleftmenu"> <span class="mobile_search"></span></div></a>
@@ -124,7 +153,7 @@ if($width > 820)
 			<li class="activeMenu" id="top-reviews"><a href="http://camrally.com/<?=$row->nicename?>.html" rel="follow">Reviews</a></li>
 		</ul>
 	</div>
-</div>
+</div> -->
 <!--<div style="position:fixed;top:0;left:0;background-color:#000;height:100%;width:100%"> </div>-->
 <div class="overlay"> </div>
 <div class="ColumnContainer">
