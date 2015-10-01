@@ -633,6 +633,7 @@ function HandlePopupResultVid(data)
 	sharedlinkphoto = data; 
 	thumbnailurl = data;
 	createTempSharedPage();
+	hideLoader();
 }
 
 function getImage()
@@ -729,6 +730,7 @@ function showVideo(IDparam){
     
 	//set video snapshot
 	$('.snapshot').removeClass('hide'); // Show snapshot buttons
+	$('.snapshot').show();
 
 	var shootEnabled = false;
 	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
@@ -740,6 +742,7 @@ function showVideo(IDparam){
 		//if(!shootEnabled) return false;
 		$('.snapshot').hide(); // button for snapshot
 		$('.usesnap').removeClass('hide');// button for use
+		$('.usesnap').show();
 		return false;
 	});
 	$('.snapshot .cancelsnap').click(function(e){
@@ -760,6 +763,7 @@ function showVideo(IDparam){
 		player.recorder.stop();
 
 		$('.snapshot').removeClass('hide');  // button for snapshot
+		$('.snapshot').show();
 		$('.usesnap').hide(); // button for use
 		return false;
 	});
@@ -775,12 +779,12 @@ function showVideo(IDparam){
 		    // can be downloaded by the user, stored on server etc.
 
 		    console.log('finished recording: ', player.recordedData);
+			showLoader();
     		convertStreams(player.recordedData.audio, player.recordedData.video);
 		});
 
 		$.fancybox.close();
 		closeselfie=1;clearInterval(timeInverval);refresh_handler();
-		messageaftertakeselfie();
 		return false;
 	});
 }

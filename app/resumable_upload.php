@@ -13,6 +13,10 @@ $connect = new db();
 $connect->db_connect();  
 $getStatus = '';
 
+$placeId = $_REQUEST['placeId'];
+$videourl = $_REQUEST['url'];
+$title = '';
+
 
 defined('__DIR__') or define('__DIR__', dirname(__FILE__));
 /*
@@ -31,7 +35,7 @@ $client->setClientSecret($OAUTH2_CLIENT_SECRET);
 $client->setScopes('https://www.googleapis.com/auth/youtube');
 $redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'],
     FILTER_SANITIZE_URL);
-$client->setRedirectUri($redirect);
+$client->setRedirectUri('http://camrally.com/staging/resumable_upload.html?placeId='.$placeId.'&url='.$videourl);
 $client->setAccessType('offline');
 
 // Define an object that will be used to make all API requests.
@@ -65,10 +69,6 @@ if ($client->getAccessToken()) {
       //Here's where the magical refresh_token comes into play
       $client->refreshToken($refreshToken);
     }
-
-    $placeId = $_REQUEST['placeId'];
-    $videourl = $_REQUEST['url'];
-    $title = '';
 
     // REPLACE this value with the path to the file you are uploading.
     $videoPath = __DIR__.'/images/shared/'.$placeId.'/'.$videourl;
