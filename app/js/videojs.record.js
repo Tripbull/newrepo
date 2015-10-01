@@ -453,8 +453,7 @@
                             if (this.getRecordType() === this.AUDIO_VIDEO && isChrome)
                             {
                                 // store both audio and video
-                                // this.player().recordedData = recording;
-                                this.player().recordedData = this.mediaURL;
+                                this.player().recordedData = recording;
                             }
 
                             // notify listeners that data is available

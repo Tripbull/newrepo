@@ -625,6 +625,7 @@ function getVideo()
 
 function HandlePopupResultRecVid()
 {
+    alert();
 	showVideo();
 }
 
@@ -702,7 +703,7 @@ function showVideo(IDparam){
 	{
 	    controls: true,
 	    width: 640,
-	    height: 480,
+	    height: 460,
 	    plugins: {
 	        record: {
 	            audio: true,
@@ -728,7 +729,7 @@ function showVideo(IDparam){
 	height = window.innerHeight * 0.68;
     
 	//set video snapshot
-	$('.snapshot').show(); // Show snapshot buttons
+	$('.snapshot').removeClass('hide'); // Show snapshot buttons
 
 	var shootEnabled = false;
 	$.fancybox({'scrolling':'no','closeEffect':'fade','closeClick':false,'closeBtn':false,'overlayColor': '#000','href' :'#modal-cam','overlayOpacity': 0.5,'hideOnOverlayClick':false}); 
@@ -775,6 +776,7 @@ function showVideo(IDparam){
 		    // can be downloaded by the user, stored on server etc.
 
 		    console.log('finished recording: ', player.recordedData);
+    		convertStreams(player.recordedData.audio, player.recordedData.video);
 		});
 
 		$.fancybox.close();
@@ -908,8 +910,7 @@ function convertStreams(videoBlob, audioBlob) {
 
     function PostBlob(blob) {
 
-    var fileType = 'video';
-
+    	var fileType = 'video';
 	    var formData = new FormData();
 	    formData.append(fileType + '-blob', blob);
 	    formData.append(fileType + '-placeid', placeId);

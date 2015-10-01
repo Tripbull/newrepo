@@ -95,7 +95,7 @@ $path = '';
 		<a href="#" rel="follow"><div class="xclose goescampage"></div></a>
 		<div style="overflow:hidden;">
 			<!-- campaign page -->
-			<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Join the Rally</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post Your Photo or Selfie!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 			<div style="position:absolute;opacity:0;overflow:hidden;">
 				<div style="position:absolute;font-family:myriadpro;">.</div>
 				<div style="position:absolute;font-family:Lato-Light;">.</div>
@@ -123,11 +123,7 @@ $path = '';
 						?>
 					  </div>
 					 <div class="right" style="overflow-y:visible">
-							<iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=<?php echo $curDomain.'newcam.html?p='.$nice?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px; position:relative; top:1px;margin-top:15px" ></iframe>
-							<!--
-							<div class="wrapbtn-com" style="margin-top:15px">
-								<div class="fb-like" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>
-							</div>-->
+							<div class="wrapbtn-com"><span class="btn-take-isselfie-com"><a class="wraptext-com" style="text-decoration:none;color: #fff;" href="<?='http://camrally.com/'.$nice?>" target="_blank">Campaign details</a></span></div>
 						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="10" data-colorscheme="light"></div>
 					  </div> 
 				</div>

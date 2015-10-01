@@ -2240,9 +2240,6 @@ a.m-btncomment:hover,a.m-btncomment{text-decoration:none;outline:none;color:#fff
 /*.morebtn{position: fixed;bottom:0px;right:0;width: 100%;background-color: #5890ff;height:auto;overflow:hidden;padding:10px 0;z-index:9999;text-align:center;font-size:16px;cursor:pointer;font-weight:bold;color:#fff;} */
 .btnwrap{float:right;padding-right:10px;max-width:1000px}
 .fb-comments, .fb-comments iframe[style], .fb-comments span[style] {width: 100% !important;border-radius: 6px;background-color:#fff}
-#parent {overflow: hidden;}
-#right {float: right;width: auto;height: auto;}
-#left {overflow: hidden;height: auto;padding-right:5px}
 @media screen and (max-width: 1000px){
 	.btnwrap{float:right;padding-right:10px;max-width:300px}
 	.btn-take-isselfie{margin-top:10px}
