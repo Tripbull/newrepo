@@ -36,7 +36,7 @@ $_SESSION['session']=$ur_session;
     </div>
   </div>
 </div>
-	
+<div class="widthDiv" style="opacity:0;position:absolute;font-size:35px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>
 <div class="qrcode-wrap">
   <div class="container">
       <div class="qrcode-content" style="margin-top:30px;">
@@ -201,7 +201,6 @@ $_SESSION['session']=$ur_session;
   </div>
 </div>  
 </div>
-<div class="widthDiv" style="opacity:0;position:absolute;font-size:35px !important;font-weight: bold;white-space: nowrap;font-family: OpenSansRegular;"></div>
 <div style="background-color:#F5F5F5">
 <div class="container">
   <div class="plan">

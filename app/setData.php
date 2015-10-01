@@ -498,6 +498,42 @@ switch($opt){
 		$query = mysql_query('INSERT INTO advocates_all SET campaignId = '.$id.', sharedId = '.$sharedId[1].', date="'.$date.'"') or die(mysql_error());
 		echo $last_Id.'_'.$lastId; 
 	break;
+	case 'setUrlImage':
+		$placeId = $_REQUEST['placeId'];$imgurl = $_REQUEST['image_url'];
+
+		$temp_filename = rand() . '.jpg';
+	    $UploadDirectory    = 'images/shared/'.$placeId. '/';
+		
+		if (!file_exists($UploadDirectory))
+			mkdir($UploadDirectory,0777);   
+
+		$handle = fopen($UploadDirectory . $temp_filename, "w+"); 
+		$fwrite = fwrite($handle, file_get_contents($imgurl)); 
+		fclose($handle); 
+
+		if($fwrite !== false)
+		{
+			if (filesize($UploadDirectory . $temp_filename) > 1000000){
+				unlink($UploadDirectory . $temp_filename);
+				echo 'max file size';
+			}
+			else
+			{
+				echo $UploadDirectory . $temp_filename; 
+			}
+		}
+		else
+		{
+			echo 'error';
+		}
+	break;
+	case 'unlinkImage':
+		$id = $_REQUEST['placeId'];$imgurl = $_REQUEST['image_url'];
+
+		unlink($imgurl);
+
+		echo 'success';
+	break;
 	case 'photoshare':
 		$rated1 = $_REQUEST['rated1'];$rated2 = $_REQUEST['rated2'];$rated3 = $_REQUEST['rated3'];$rated4 = $_REQUEST['rated4'];$rated5 = $_REQUEST['rated5'];$rated6 = $_REQUEST['rated6'];$rated7 = $_REQUEST['rated7'];$aveRated = $_REQUEST['aveRate'];$comment = $_REQUEST['comment']; $userName = $_REQUEST['userName'];$userId = $_REQUEST['userId'];$photo_url = $_REQUEST['photo_url'];$id = $_REQUEST['placeId'];$date = date('Y-m-d h:i:s');$email = $_REQUEST['email'];
 		$data = $_REQUEST['data'];$source = $_REQUEST['source'];
@@ -619,7 +655,7 @@ switch($opt){
 		}
 		mysql_query($sql) or die(mysql_error());	
 		if(mysql_affected_rows()){
-			//echo mysql_affected_rows();		
+			echo mysql_affected_rows();		
 		}//else
 			//echo 0;			
 	break;

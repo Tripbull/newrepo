@@ -46,6 +46,8 @@ $path = '';
 	<link type="text/css" rel="stylesheet" href="js/source/jquery.fancybox.css?v=2.1.5" media="screen" />
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 	<link href="css/campaign.css" media="screen" rel="stylesheet" type="text/css" />
+	<link href="http://vjs.zencdn.net/4.12.12/video-js.css" rel="stylesheet">
+	<link href="css/videojs.record.css" rel="stylesheet">
 	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mobile-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script> 
@@ -54,6 +56,9 @@ $path = '';
 	<script type="text/javascript" src="js/dialog.js"></script>
 	<script type="text/javascript" src="js/rate.js"></script>
 	<script type="text/javascript" src="js/webcam.js"></script>
+	<script src="http://vjs.zencdn.net/4.12.12/video.js"></script>
+	<script src="http://cdn.webrtc-experiment.com/RecordRTC.js"></script>
+	<script type="text/javascript" src="js/videojs.record.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 <link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
 <!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->

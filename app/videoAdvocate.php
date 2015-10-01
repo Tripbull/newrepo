@@ -1,7 +1,7 @@
 <?php
 
 // GET NEW REFRESH TOKEN START (DO NOT REMOVE!!!)
-// $redirectUri = urlencode('http://camrally.com/app/youtubeapi.html');
+// $redirectUri = urlencode('http://camrally.com/app/videoAdvocate.html');
 // $scope = urlencode('https://gdata.youtube.com');
 
 // $url = 'https://accounts.google.com/o/oauth2/auth?client_id=412216158543-2uktl2tm6mejq2q9dl9l1rpu6a4upra3.apps.googleusercontent.com&redirect_uri='.$redirectUri.'&scope='.$scope.'&response_type=code&access_type=offline&approval_prompt=force';
@@ -16,7 +16,7 @@
 //   'code'     => $_REQUEST['code'],  
 //   'client_id'   => '412216158543-2uktl2tm6mejq2q9dl9l1rpu6a4upra3.apps.googleusercontent.com',  
 //   'client_secret' => 'vFVpxX-auwFZ-CrdRoGVN1Lp',  
-//   'redirect_uri' => 'http://camrally.com/app/youtubeapi.html', //this doesn't do anything, but it's validated so i needs to match what you've been using  
+//   'redirect_uri' => 'http://camrally.com/app/videoAdvocate.html', //this doesn't do anything, but it's validated so i needs to match what you've been using  
 //   'grant_type'  => 'authorization_code' 
 // );  
  
@@ -47,13 +47,11 @@
 	if(isset($_REQUEST['placeId']))
 	{
 		$_SESSION['placeIdVid'] = $_REQUEST['placeId'];
-		$_SESSION['typeVid'] = $_REQUEST['name'];
 		$_SESSION['titleVid'] = $_REQUEST['videotitle'];
-		$_SESSION['videotypeVid'] = $_REQUEST['videotype'];
 		$get_info = get_video_upload_info();
 	}
 
-	$redirectUri = urlencode('http://camrally.com/staging/youtubeapi.html');
+	$redirectUri = urlencode('http://camrally.com/staging/videoAdvocate.html');
 
 	function get_video_upload_info()  
 	{  
@@ -166,11 +164,19 @@
     	<script src="http://malsup.github.com/jquery.form.js"></script>
 		<script type="text/javascript" src="js/dialog.js"></script>
         <script>
-        	var resizeTimeout,getVideoId,getStatus, getPlaceId, getTypevid, getTitleVid, getUrlVid;
+        	var resizeTimeout, getVideoId, getStatus, getPlaceId, getTitleVid, getUrlVid;
 
 			$(document).ready(function(){
         		$('#browsevid').click(function(e){e.preventDefault();$('#filevid').click();});
         		$('#urlvid').click(function(){showLoader();setUrl();});
+        		$('#takevid').click(function(){
+        			showLoader();
+
+					if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+						$('#filevid').click();
+					else
+						recVid();
+        		});
 
 				$('#filevid').on('change',function(){
 					showLoader();
@@ -181,7 +187,7 @@
 				getVideoId = getParameter('id');
 				if(getStatus == '200' && getVideoId != 'false')
 				{
-					setVideo('https://www.youtube.com/watch?v=' + getVideoId);
+					setVideo('https://www.youtube.com/watch?v='+getVideoId);
 				}
         	});
 
@@ -212,26 +218,24 @@
         	{
         		getPlaceId = $('#placeIdVid').val();
         		getTitleVid = $('#titleVid').val();
-        		getVideotypeVid = $('#videotypeVid').val();
-        		getUrlVid = urlVid;
 
-        		if(getVideotypeVid == 'gallery')
-        		{
-        			getTypevid = $('#typeVid').val();
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+getPlaceId+'&typevid='+getTypevid+'&imgurlvid='+getUrlVid+'&imgtitlevid='+getTitleVid+'&opt=saveVid',async: false,success:function(returnUrl){
-						if(getUrlVid == returnUrl)
-						{
-							window.close();
-						}
-					}});
-        		}
-        		else
-        		{
-					$.ajax({type: "POST",url:"setData.php",cache: false,data:'placeId='+getPlaceId+'&imgurlvid='+getUrlVid+'&opt=setcustom&case=11',async: false,success:function(returnUrl){
-						window.close();
-					}});
+				var n = urlVid.indexOf("=");
+				getUrlVid = urlVid.substr(n+1);
 
-        		}
+				try {
+				  window.opener.HandlePopupResultVid(getUrlVid);
+				}
+				catch (err) {}
+				window.close();
+        	}
+
+        	function recVid()
+        	{
+				try {
+				  window.opener.HandlePopupResultRecVid();
+				}
+				catch (err) {}
+				window.close();
         	}
 
         	function getParameter(theParameter) { 
@@ -257,9 +261,10 @@
 						case 'video/avi':
 						case 'video/wmv':
 						case 'video/flv':
+						case 'video/webm':
 							return true;
 						break;
-						default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv file types');
+						default: alertBox('unsupported file type','Please upload only mov, mp4, avi, wmv, flv, webm file types');
 							hideLoader();	
 							return false;
 					}
@@ -289,9 +294,7 @@
 	<body style="overflow:hidden;">
 		<div id="ytupload" style="margin:15px;position:absolute;width:93%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
-			<input type="hidden" value="<?=$_SESSION['typeVid']?>" name="typeVid" id="typeVid" />
 			<input type="hidden" value="<?=$_SESSION['titleVid']?>" name="titleVid" id="titleVid" />
-			<input type="hidden" value="<?=$_SESSION['videotypeVid']?>" name="videotypeVid" id="videotypeVid" />
 		<?php 
 			if(isset($_REQUEST['id']))
 			{ ?>
@@ -299,13 +302,14 @@
 		<?php }
 			else
 			{ ?>
+				<p class="record">Record a video</p>
+				<button class="ui-btn" id="takevid">Camera</button>
 				<p class="url">Enter a Youtube URL</p>
 				<input type="text" style="margin-top:5px;width:70%;" data-clear-btn="true" name="txtvideourl" id="txtvideourl" value="" placeholder="Youtube video URL">
 				<button class="ui-btn" id="urlvid">Enter</button>
 				<p class="or">or</p>
 				<p class="browse">click browse to upload a video</p>
-				<p class="note" style="font-size:11.5px;color:#9C9797;">(Maximum file size is 2GB.)</p>
-				<p class="note" style="font-size:11.5px;color:#9C9797;">(It may take a few minutes before the video becomes available for viewing.)</p>
+				<p class="note" style="font-size:11.5px;color:#9C9797;">(Maximum file size is 2GB. It may take a few minutes before the video becomes available for viewing.)</p>
 				<form id="frmvid" action="<?=$get_info['post_url'] . '?nexturl=' . $redirectUri;?>" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmitvid();">
 					<div style="height:0px">
 					<button class="ui-btn" id="browsevid">Browse</button><br>

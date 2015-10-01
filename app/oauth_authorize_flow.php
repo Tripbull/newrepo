@@ -186,9 +186,47 @@ function tweet_photo($tmhOAuth)
   $row = mysql_fetch_object($result1);
   $dir = __DIR__.'/'.$row->pathimg;
   $getpath = explode('/',$row->pathimg);
+  $getfile = $getpath[3];
+
+  $getpos = strpos($row->pathimg, 'images');
+  $unlinkUrl = '';
+  if($getpos === false) { 
+
+    if(@getimagesize("https://i.ytimg.com/vi/".$row->pathimg."/0.jpg"))
+    {
+      $temp_filename = rand() . '.jpg';
+      $UploadDirectory    = 'images/shared/'.$splitID[1]. '/';
+      
+      if (!file_exists($UploadDirectory))
+        mkdir($UploadDirectory,0777);   
+
+      $handle = fopen($UploadDirectory . $temp_filename, "w+"); 
+      $fwrite = fwrite($handle, file_get_contents("https://i.ytimg.com/vi/".$row->pathimg."/0.jpg")); 
+      fclose($handle); 
+
+      if($fwrite !== false)
+      {
+        $unlinkUrl = $UploadDirectory.$temp_filename; 
+        $dir = __DIR__.'/'.$UploadDirectory.$temp_filename; 
+        $getfile = $temp_filename;
+      }
+    }
+    else
+    {
+      $result = mysql_query("SELECT backgroundImg FROM businessCustom WHERE customPlaceId = $splitID[1] LIMIT 1") or die(mysql_error());
+      if(mysql_num_rows($result)){
+        $row1 = mysql_fetch_object($result);
+        $getpath1 = json_decode($row1->backgroundImg, true);
+        $path = $getpath1['bckimage'];
+        $dir = __DIR__.'/'.$path;
+        $getpath = explode('/',$path);
+        $getfile = $getpath[3];
+      }
+    }
+  }
 
   $params = array(
-    'media[]' => "@{$dir};type={'jpg'};filename={$getpath[3]}",
+    'media[]' => "@{$dir};type={'jpg'};filename={$getfile}",
     'status'  => $row->businessName . ' -- ' . strtolower($row->tag1) . ' ' . strtolower($row->tag2) . ' by ' . $row->brand . ' ' . 'http://camrally.com/app/user/' . $nice
   );
   
@@ -201,6 +239,9 @@ function tweet_photo($tmhOAuth)
 
   if ($code == 200)
   {
+    if($getpos === false) { 
+      unlink($unlinkUrl);
+    }
     $data = json_decode($tmhOAuth->response['response'], true);
   }
   else
