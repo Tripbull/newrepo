@@ -81,6 +81,7 @@ echo '<title>'. $businessTitle . '</title>';
 <script type="text/javascript" src="<?=$path?>js/css3-mediaqueries.js"></script>
 </head>
 <body>
+
 <div id="overlay" class="hide"></div>
 <div class="vdesktop">
 <input type="hidden" name="placeid" id="placeid" value="<?php echo $placeId ?>" />
@@ -130,13 +131,10 @@ echo '<title>'. $businessTitle . '</title>';
 			</div>
 		</div>
 		<div class="right">
-			<div style="width:100%;padding-top:15px;">
-			 <div class="FLeft" style="max-width:400px;"><span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=formatWithSuffix($rowAvg->advocates)?> advocates, <?=formatWithSuffix($follow)?> followers</i></span><iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=http://camrally.com/<?php echo $_REQUEST['link']?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px; position:relative; top:1px;margin-left:10px" ></iframe>
-			 <!--<div class="fb-like" data-href="http://camrally.com/<?php echo $_REQUEST['link'] ?>" data-layout="standard" data-action="like" data-show-faces="false" data-share="false"></div>-->
-			 </div>
-			 <?php 
-		if($hadTable){
-		
+			<div id="parent" style="padding-top:15px;">
+			<div id="right">
+				<?php 
+			if($hadTable){
 			?>
 			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
@@ -154,13 +152,15 @@ echo '<title>'. $businessTitle . '</title>';
 						}
 					}
 					?>
-					
-					<!--<span style="font-weight:normal;text-decoration:none;color: #777;font-size:14px;margin-right: 15px;"><?php//echo $rowAvg->totalAvg .' advocates' ?></span> -->
 				</div>
 			</div>
-		<?php
-		}
-		?>
+			<?php
+			}
+			?>
+			</div>
+			<div id="left">
+				<span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=formatWithSuffix($rowAvg->advocates)?> advocates, <?=formatWithSuffix($follow)?> followers</i></span><iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=http://camrally.com/<?php echo $_REQUEST['link']?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:120px; height:21px; position:relative; top:1px;margin-left:10px" ></iframe>
+			</div>
 		</div>
 		<div class="devider">
 			<hr/>
