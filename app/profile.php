@@ -341,7 +341,7 @@ foreach($time_zones as $zones){
 							</section>
 							<section class="map-section hide">	
 								<div class="clear" style="padding-top:0.2em"></div>
-								<span class="font-17 fl">Flick the switch Off to remove the map on your Tabluu page</span>
+								<span class="font-17 fl">Flick the switch off to remove the map on your Camrally page</span>
 								<div class="clear"></div>
 								<select name="flipmap" id="flipmap" data-role="flipswitch" data-corners="false">
 									<option value="0">Off</option>

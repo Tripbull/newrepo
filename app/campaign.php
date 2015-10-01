@@ -10,17 +10,17 @@ $connect->db_connect();
 $istest = $connect->istest;
 if(isset($_REQUEST['p'])){
 	$nice = strtolower($_REQUEST['p']);
-	$sql = "SELECT c.backgroundImg FROM businessProfile AS p
+	$sql = "SELECT c.backgroundImg,cam.tag1, cam.tag2,l.businessName FROM businessProfile AS p
 			LEFT JOIN businessCustom AS c ON c.customPlaceId = p.profilePlaceId
+			LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
+			LEFT JOIN campaigndetails AS cam ON cam.posterId = p.profilePlaceId
 			WHERE p.nicename =  '$nice'
 			LIMIT 1";
 	$result1 = mysql_query($sql);
 	$row = mysql_fetch_object($result1);
 	$bckbg = json_decode($row->backgroundImg);
-	//list($width, $height) = getimagesize($bckbg->bckimage);
 	$srcimg = $bckbg->bckimage;
-	//if($width > 820)
-		//$width = 820;
+	$businessTitle = $row->businessName .' - '.$row->tag1.' '.$row->tag2;
 	if($istest){
 		$curDomain = 'http://camrally.com/staging/';	
 		$redirectpage = 'http://camrally.com/staging/'.$nice.'.html';
@@ -35,9 +35,9 @@ if(isset($_REQUEST['p'])){
 <head>
 
 <?php
-echo '<title></title>';
-$path = '';	
+echo '<title>'.$businessTitle.'</title>';
 ?>
+<meta name="robots" content="index, follow"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link href="css/bootstrap.css" rel="stylesheet" media="all">
@@ -61,7 +61,7 @@ $path = '';
 	<script type="text/javascript" src="js/videojs.record.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 <link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
-<!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
+<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
 </head>
 <body>
 <div id="fb-root"></div>
