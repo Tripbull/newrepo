@@ -1,7 +1,7 @@
 <?php
 session_start();
   //check if this is an ajax request OR user session was setting up
-if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) || !isset($_SESSION['session'])){
+if (!isset($_SESSION['session'])){
 	echo 'access is forbidden';
 	die();
 }
