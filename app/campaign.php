@@ -95,7 +95,7 @@ $path = '';
 		<a href="#" rel="follow"><div class="xclose goescampage"></div></a>
 		<div style="overflow:hidden;">
 			<!-- campaign page -->
-				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Post Your Photo or Selfie!</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext"></span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 			<div style="position:absolute;opacity:0;overflow:hidden;">
 				<div style="position:absolute;font-family:myriadpro;">.</div>
 				<div style="position:absolute;font-family:Lato-Light;">.</div>
