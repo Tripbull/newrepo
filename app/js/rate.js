@@ -835,14 +835,14 @@ function convertStreams(videoBlob, audioBlob) {
     worker.onmessage = function(event) {
         var message = event.data;
         if (message.type == "ready") {
-            console.log(file has been loaded);
+            console.log('file has been loaded');
             workerReady = true;
             if (buffersReady)
                 postMessage();
         } else if (message.type == "stdout") {
             console.log(message.data);
         } else if (message.type == "start") {
-            console.log(file received ffmpeg command);
+            console.log('file received ffmpeg command');
         } else if (message.type == "done") {
             console.log(JSON.stringify(message));
 
