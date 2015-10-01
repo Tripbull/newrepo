@@ -97,7 +97,7 @@ $(document).ready(function(){
 				'buttons':  [{caption: 'okay',callback:function(){
 					$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
 					setTimeout(function(){$('#text-6').focus();},300);
-				}},{caption:'cancel',callback:function(){
+				}},{caption:'skip',callback:function(){
 					if(whatsetup == 5){
 						profilewizardwebImg = 0;
 						iscancel1 = 1;
