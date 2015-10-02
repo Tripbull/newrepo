@@ -78,9 +78,9 @@ if($istest){
 		if(mysql_num_rows($result)){
 			$row = mysql_fetch_object($result);
 			$getpath = json_decode($row->backgroundImg, true);
-			$path = $getpath['bckimage'];
-			echo '<meta property="og:image" content="'.$curDomain.$path.'" />';
-			echo '<meta property="og:image:url" content="'.$curDomain.$path.'" />';
+			$pathback = $getpath['bckimage'];
+			echo '<meta property="og:image" content="'.$curDomain.$pathback.'" />';
+			echo '<meta property="og:image:url" content="'.$curDomain.$pathback.'" />';
 		}
 	}
 } 

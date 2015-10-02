@@ -357,10 +357,13 @@ if (isset($_FILES["video-blob"])) {
 	if (!file_exists($UploadDirectory))
 		mkdir($UploadDirectory,0777);
 
-    if (!move_uploaded_file($_FILES["video-blob"]["tmp_name"], $uploadDirectory . '/' . $NewFileName)) {
+    if (move_uploaded_file($_FILES["video-blob"]["tmp_name"], $uploadDirectory . '/' . $NewFileName)) {
+    	echo($NewFileName);
+    }
+    else
+    {
         echo(" problem moving uploaded file");
     }
-    echo($NewFileName);
 }
 
  class Photos{
