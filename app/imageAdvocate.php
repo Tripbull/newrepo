@@ -116,7 +116,6 @@
 				  window.opener.HandlePopupResultImgSet();
 				}
 				catch (err) {}
-				window.close();
         	}
 
 			function alertBox(title,message){
