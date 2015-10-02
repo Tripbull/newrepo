@@ -1372,12 +1372,8 @@ $(document).ready(function(){
 
 		function ytUploadPoster()  
 		{
-<<<<<<< HEAD
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
-
-=======
 			var win = window.open(photourl2 + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=" + $(window).width() + ", height=" + $(window).height());   
->>>>>>> all-changes
+			
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
@@ -3111,11 +3107,7 @@ $(document).ready(function(){
 
 		function ytUploadGallery(txtvideotitle)  
 		{
-<<<<<<< HEAD
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=435, height=294");   
-=======
 			var win = window.open(photourl2 + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=" + $(window).width() + ", height=" + $(window).height());   
->>>>>>> all-changes
 
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
