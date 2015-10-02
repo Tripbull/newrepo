@@ -135,7 +135,7 @@
         </script>
 	</head>
 	<body style="overflow:hidden;">
-		<div id="ytupload" style="margin:15px;position:absolute;width:93%;height:100%;">
+		<div id="ytupload" style="margin:15px;position:absolute;width:98%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
 			<p class="take">Take a photo</p>
 			<button class="ui-btn" id="takeimg">Camera</button>
