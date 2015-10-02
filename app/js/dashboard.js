@@ -1,6 +1,6 @@
 var curClick=0,locId=0,frmpagemanage=0,setupclickmenu=0,defaultSetup=0,noPhoto = 'images/template/no-photo.gif',loadingPhoto = 'images/template/no-photo-tran.gif',isprofileupdated=0,reviewQuestion=[],feedbackArray=[],featureArray=[],inviteEmailvisited=0,isAdminCreatedLocation=0,lab='',vanitylinkupdate=0,newvanitylink='',selfieonly = 0,bgwizard=0,invited=0,invitedemail='';
 var locArray=[],userArray=[],customArray=[],viewOnce=0,geocoder,lat=0,lng=0,domainFile="http://camrally.com";chargifydomain = 'https://tabluu.chargify.com';
-var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[];
+var locDefault = '',placeId=0,placename='',keyId=0,loader='',activeLocLength=1,isfocus=0,t=0,comp_id_old=0,locname='',arraylabel=[],iscancel1=0,iscancel2=0;
 var online ='images/template/active.png',onlineBg='images/template/activeOnline.png',offline ='images/template/inactive.png',offlineBg='images/template/activeOffline.png',imagesArray=[],videosArray=[],txtdescription='',txtimg='',txtvideourl='',txtvideotitle='',product_plan_array=[],component_array=[],transac=[],activity_array=[],issetup = 0,postwizard=0,isselfie=0;
 //live mode chargify ids
 var liteID = 3720054,basicID=3716169,proID=3716170;
@@ -87,7 +87,28 @@ $(document).ready(function(){
 			isdonewizard = 1;
 			return;
         }
-		//if(whatsetup != 6){
+		if(whatsetup == 5 || whatsetup == 6){
+			$.box_Dialog(body, {
+				'type':     'question',
+				'title':    '<span class="color-white">'+title+'<span>',
+				'center_buttons': true,
+				'show_close_button':false,
+				'overlay_close':false,
+				'buttons':  [{caption: 'okay',callback:function(){
+					$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
+					setTimeout(function(){$('#text-6').focus();},300);
+				}},{caption:'skip',callback:function(){
+					if(whatsetup == 5){
+						profilewizardwebImg = 0;
+						iscancel1 = 1;
+					}else{
+						profilewizardwebVid=0;
+						iscancel2 = 1;
+					}	
+					setTimeout(function(){wizardsetup();},400);
+					}}]
+			});	
+		}else{
 			$.box_Dialog(body, {
 				'type':     'question',
 				'title':    '<span class="color-white">'+title+'<span>',
@@ -98,8 +119,8 @@ $(document).ready(function(){
 					$( ":mobile-pagecontainer" ).pagecontainer( "change",redirect,{});
 					setTimeout(function(){$('#text-6').focus();},300);
 				}}]
-			});	
-		//}
+			});
+		}
 	}
 	
 	function wizardforloction(){
@@ -130,7 +151,6 @@ $(document).ready(function(){
 					j++;
 				if(customArray.webImg8 != '')
 					j++;	
-
 				if(customArray.vidImg != '')
 					v++;
 				if(customArray.vidImg2 != '')
@@ -147,17 +167,17 @@ $(document).ready(function(){
 					v++;
 				if(customArray.vidImg8 != '')
 					v++;
-
 				if(customArray.organization == ''){
 					profilewizardsetup=1;logowizard=1; 
 					wizardAlert(3,1,6);
 				}else if(customArray.logo == ''){
-					bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
+					bgwizard = 1;campaignwizard=1;imgproductwizard=1;
 					wizardAlert(4,2,6);	
-				}else if(j == 0){
-					profilewizardwebVid = 1;
+				}else if(j == 0 && iscancel1 == 0){
+					profilewizardwebImg = 1
 					wizardAlert(5,3,6);
-				}else if(v == 0){
+				}else if(v == 0 && iscancel2 == 0){
+					profilewizardwebVid = 1;
 					wizardAlert(6,4,6);
 				}else if(campaignwizard == 1){
 					vanitywizard=1;
@@ -231,12 +251,13 @@ $(document).ready(function(){
 								profilewizardsetup=1;logowizard=1; 
 								wizardAlert(3,3,6);
 							}else if(customArray.logo == ''){
-								bgwizard = 1;campaignwizard=1;imgproductwizard=1;profilewizardwebImg = 1;
+								bgwizard = 1;campaignwizard=1;imgproductwizard=1;
 								wizardAlert(4,4,6);	
-							}else if(j == 0){
-								profilewizardwebVid = 1;
+							}else if(j == 0 && iscancel1 == 0){
+								profilewizardwebImg = 1;
 								wizardAlert(5,5,6);
-							}else if(v == 0){
+							}else if(v == 0 && iscancel2 == 0){
+								profilewizardwebVid = 1;
 								wizardAlert(6,6,6);
 							}else if(campaignwizard == 1){
 								vanitywizard=1;
@@ -566,7 +587,7 @@ $(document).ready(function(){
 	
 	$( "#text-6" ).keypress(function(e) {
 		if(e.which == 13){
-            showLoader();
+            //showLoader();
 			var user = userArray;
 			var name = $.trim($("#text-6").val());
 			if(name == '')
@@ -1157,7 +1178,7 @@ $(document).ready(function(){
 	function wizardstep7(){
 		showLoader();
 		var placeId = locId.split('|');
-		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;profilewizardwebVid = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;
+		selfieonly = 0;vanitywizard=0;bgwizard = 0;campaignwizard=0;imgproductwizard=1;profilewizardwebImg = 0;profilewizardwebVid = 0;wizardcreatedlink=0;issetup = 0;uicwizardsetup = 0;profilewizardsetup=0;logowizard=0;iscancel1=0,iscancel2=0;
 		$.ajax({type: "POST",url:"getData.php",cache: false,async: true,data:'key='+placeId[0]+'&opt=getFeedbackUser',success:function(result){
 			hideLoader();
 			customArray =  $.parseJSON(result);
@@ -1328,7 +1349,7 @@ $(document).ready(function(){
 		}
 		$('#uploadbackground').click(function(e){
 			e.preventDefault();
-			showLoader();
+			//showLoader();
 			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
 					$('#filebackground').click();
 				}},{caption: 'video', callback: function() {
@@ -1458,9 +1479,7 @@ $(document).ready(function(){
 		/*pageshow event script*/
 		var val,val2;
 		$('.star').show();
-		
 		if(campaignwizard == 1){
-			clas = 'ui-state-disabled';
 			curClick = 1;
 			showHideMenuSetup(curClick);
 			defaultMenuSetup();
@@ -1819,7 +1838,7 @@ $(document).ready(function(){
 		if(newvanitylink != ""){
 			$('.link-visit-page').attr('href',domainpath+newvanitylink);
 		}	
-		if(userArray.productId == liteID || userArray.productId == basicID)
+		if((userArray.productId == liteID || userArray.productId == basicID) && campaignwizard == 0)
 			diabledTab('.setup-left-menu',[3]);
 		
 	});
@@ -1911,6 +1930,7 @@ $(document).ready(function(){
 			diabledTab('#profile .profile-left-menu2',[0,2,3,4,5,6]);		
 		}else if(profilewizardwebImg==1){
 			curClick = 3;
+			
 			diabledTab('#profile .profile-left-menu2',[0,1,2,4,5,6]);
 		}else if(profilewizardwebVid==1){
 			curClick = 4;
