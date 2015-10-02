@@ -107,7 +107,7 @@ sdf
 							<ul class="addnew-loc" data-role="listview">
 							    <li><a href="#"><img src="images/template/plus.png" alt="" class="ui-li-icon ui-corner-none">Add a new campaign...</a></li>
 							</ul>
-                            <div class="text-loc ">
+                            <div class="text-loc hide">
 								<div class="keyright">
 									<span class="keyicon hide">
 									<img src="images/keyicon.png" class="iconkey" alt="" width="45" height="45">
