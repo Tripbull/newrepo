@@ -668,7 +668,9 @@ function HandlePopupResultImgSet()
 {
 	photoType = 'selfie';
 	if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
-		getSelfie();
+		//getSelfie();
+
+		setTimeout(function() {getSelfie();},1800);
 	else
 		showCamera('#camera-modal');
 }

@@ -295,7 +295,7 @@
         </script>
 	</head>
 	<body style="overflow:hidden;">
-		<div id="ytupload" style="margin:15px;position:absolute;width:93%;height:100%;">
+		<div id="ytupload" style="margin:15px;position:absolute;width:98%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
 			<input type="hidden" value="<?=$_SESSION['titleVid']?>" name="titleVid" id="titleVid" />
 		<?php 
