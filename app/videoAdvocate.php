@@ -313,7 +313,7 @@
 				<form id="frmvid" action="<?=$get_info['post_url'] . '?nexturl=' . $redirectUri;?>" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmitvid();">
 					<div style="height:0px">
 					<button class="ui-btn" id="browsevid">Browse</button><br>
-					<input type="file" name="filevid" style="visibility:hidden;height:0px;width:0px;" id="filevid" value="">
+					<input type="file" name="filevid" style="visibility:hidden;height:0px;width:0px;" id="filevid" value="" accept="video/*" capture="camera">
 					</div>
 					<input type="hidden" value="<?=$get_info['upload_token']?>" name="token" id="token" />
 				</form>	
