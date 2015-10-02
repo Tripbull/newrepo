@@ -422,17 +422,11 @@ echo '<title>'. $businessTitle . '</title>';
 					  if($hadTable){
 						?>
 						 <div style="margin-top:5px;">
-<<<<<<< HEAD
-						 
-						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span>
-=======
 						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=formatWithSuffix($rowAvg->advocates)?> advocates, <?=formatWithSuffix($follow)?> followers</i></span>
->>>>>>> fb-like-widget
 						 </div>
 						 <?php
 						}
 						?>
-					</div>
 						<?php
 						$shortchar = 180;
 						$descAll = strip_tags(htmldecode($row->description));
