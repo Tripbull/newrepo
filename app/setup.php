@@ -52,7 +52,7 @@ $noPhoto = 'images/template/no-photo.gif';
 								 </div>
 								 <div class="clear" style="padding-top:0.5em"></div>
 								<span class="color-grey font-12 fl">
-									<p>Recommended width and height: 650 x 450</p>
+									<p>Recommended image width and height: 650 x 450</p>
 								</span>	
 								<div class="clear" style="padding-top:1.5em"></div>
 								<hr>
