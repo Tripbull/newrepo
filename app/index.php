@@ -105,9 +105,18 @@ sdf
 								<li ><a href="#">Subscription<span class="listview-arrow-default"></span></a></li>
 							</ul>	
 							<ul class="addnew-loc" data-role="listview">
-							    <li><a href="#"><img src="images/template/plus.png" alt="" class="ui-li-icon ui-corner-none">Add a new campaign &amp; press enter...</a></li>
+							    <li><a href="#"><img src="images/template/plus.png" alt="" class="ui-li-icon ui-corner-none">Add a new campaign...</a></li>
 							</ul>
-                            <span class="text-loc hide"><input type="text" name="text-6" id="text-6" value="" placeholder="Add a new campaign &amp; press enter..."></span>	
+                            <div class="text-loc ">
+								<div class="keyright">
+									<span class="keyicon hide">
+									<img src="images/keyicon.png" class="iconkey" alt="" width="45" height="45">
+									</span>
+								</div>
+								<div class="keyleft">
+								<input type="text" name="text-6" id="text-6" value="" placeholder="Add a new campaign...">
+								</div>
+							</div>	
 						</div>
 						<div class="right-content right-bgblue fr">
 							<div class="right-header"></div>
