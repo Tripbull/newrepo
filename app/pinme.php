@@ -140,7 +140,7 @@ echo '<title>'. $businessTitle . '</title>';
 				<div style="clear:both;text-align:right;">
 					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>"><?php echo ($btntxt == '' ? 'Show me!' : $btntxt)  ?></a></div>
 					<?php
-					//if($connect->liteID != $row->productId){
+					if($connect->liteID != $row->productId){
 						if($row->booknow){
 							$booksite = (strstr($row->booknow,'http') ? (strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.html?p='.$row->nicename : $row->booknow) : 'http://'.(strstr($row->booknow,'&s=b') ? 'http://camrally.com/app/campaign.?p='.$row->nicename : $row->booknow));
 						}
@@ -150,7 +150,7 @@ echo '<title>'. $businessTitle . '</title>';
 						<div class="clear" style="padding-top:5px"></div>
 					<?php
 						}
-					//}
+					}
 					?>
 				</div>
 			</div>
@@ -159,8 +159,8 @@ echo '<title>'. $businessTitle . '</title>';
 			?>
 			</div>
 			<div id="left">
-				<span class="title-name"><?php echo $row->businessName?></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span>
-			</div>
+				<span class="title-name"><?php echo $row->businessName?><iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=http://camrally.com/<?php echo $_REQUEST['link']?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;margin-left:10px" ></iframe></span><br/> <span style="font-weight:bold;color: #576A6E;font-size:12px;"><i><?=formatWithSuffix($rowAvg->advocates)?> advocates, <?=formatWithSuffix($follow)?> followers</i></span>
+			</div>	
 		</div>
 		<div class="devider">
 			<hr/>
@@ -415,14 +415,13 @@ echo '<title>'. $businessTitle . '</title>';
 					  <img class="resizeme" src="<?php echo ($logo != '' ? ($logo->dLogo == "images/desktop_default.png" ? 'images/default-logo.png' : $path.$logo->dLogo) : $path.'images/default-logo.png') ?>" alt="Merchant Logo" align="center" />
 					  </div>
 					  <div class="clear btitle" style="color: #777;">
-					  <?php echo $row->businessName ?>
+					  <?php echo $row->businessName ?><iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=http://camrally.com/<?php echo $_REQUEST['link']?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;margin-left:10px" ></iframe>
 					  </div>
 					  <?php
 					  if($hadTable){
 						?>
 						 <div style="margin-top:5px;">
-						 
-						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=$rowAvg->advocates?> advocates, <?=$follow?> followers</i></span>
+						 <span style="font-weight:bold;color: #777;font-size:12px;"><i><?=formatWithSuffix($rowAvg->advocates)?> advocates, <?=formatWithSuffix($follow)?> followers</i></span>
 						 </div>
 						 <?php
 						}
@@ -563,8 +562,23 @@ function htmldecode2($str){
 	$str = str_replace("|four","&quot;",$str);
 	return str_replace("|five","#",$str);
 }
+function formatWithSuffix($input)
+{ 
+    $suffixes = array('', 'k', 'm', 'g', 't');
+    $suffixIndex = 0;
+    while(abs($input) >= 1000 && $suffixIndex < sizeof($suffixes)){
+        $suffixIndex++;
+        $input /= 1000;
+    }
+    return (
+        $input > 0
+            // precision of 3 decimal places
+            ? floor($input * 1000) / 1000
+            : ceil($input * 1000) / 1000
+        )
+        . $suffixes[$suffixIndex];
+}
 ?> 
-
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
