@@ -563,7 +563,7 @@ function htmldecode2($str){
 	return str_replace("|five","#",$str);
 }
 function formatWithSuffix($input)
-{
+{ 
     $suffixes = array('', 'k', 'm', 'g', 't');
     $suffixIndex = 0;
     while(abs($input) >= 1000 && $suffixIndex < sizeof($suffixes)){
