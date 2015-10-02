@@ -3083,7 +3083,7 @@ $(document).ready(function(){
 					txtvideotitle=$('#txtvideotitle').val();
 					if(txtvideotitle == '')
 					{
-						alertBox('Youtube error','Youtube title is empty!');	
+						alertBox('oops!','Video title is empty!');	
 						hideLoader();
 					}
 					else
