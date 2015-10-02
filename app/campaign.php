@@ -10,17 +10,17 @@ $connect->db_connect();
 $istest = $connect->istest;
 if(isset($_REQUEST['p'])){
 	$nice = strtolower($_REQUEST['p']);
-	$sql = "SELECT c.backgroundImg FROM businessProfile AS p
+	$sql = "SELECT c.backgroundImg,cam.tag1, cam.tag2,l.businessName FROM businessProfile AS p
 			LEFT JOIN businessCustom AS c ON c.customPlaceId = p.profilePlaceId
+			LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
+			LEFT JOIN campaigndetails AS cam ON cam.posterId = p.profilePlaceId
 			WHERE p.nicename =  '$nice'
 			LIMIT 1";
 	$result1 = mysql_query($sql);
 	$row = mysql_fetch_object($result1);
 	$bckbg = json_decode($row->backgroundImg);
-	//list($width, $height) = getimagesize($bckbg->bckimage);
 	$srcimg = $bckbg->bckimage;
-	//if($width > 820)
-		//$width = 820;
+	$businessTitle = $row->businessName .' - '.$row->tag1.' '.$row->tag2;
 	if($istest){
 		$curDomain = 'http://camrally.com/staging/';	
 		$redirectpage = 'http://camrally.com/staging/'.$nice.'.html';
@@ -35,9 +35,9 @@ if(isset($_REQUEST['p'])){
 <head>
 
 <?php
-echo '<title></title>';
-$path = '';	
+echo '<title>'.$businessTitle.'</title>';
 ?>
+<meta name="robots" content="index, follow"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 <link href="css/bootstrap.css" rel="stylesheet" media="all">
@@ -56,7 +56,7 @@ $path = '';
 	<script type="text/javascript" src="js/webcam.js"></script>
 	<script type="text/javascript" src="js/exif.js"></script>
 <link rel="Shortcut Icon" href="images/Logo/ico/Icon_2.ico" type="image/x-icon">
-<!--<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>-->
+<script src="//load.sumome.com/" data-sumo-site-id="9e98d0a1ee03ad7942ebac5144759f147aafe068a407e46486c26b9a207c4300" async="async"></script>
 </head>
 <body>
 <div id="fb-root"></div>
@@ -64,13 +64,13 @@ $path = '';
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
-			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/Logo/Logo_2-small.png" /></a></div>
+			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="images/Logo/Logo_2-small.png" /></a></div>
 		</div>
 	</div>
 </div>
 <div id="vmobile">
 	<div class="m-header">
-		<div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
+		<div class="logo"><a href="/"><img src="images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
 		<header>
 			<nav class="navbar navbar-default" role="navigation"> 
 			  <div class="navbar-header">
@@ -95,7 +95,7 @@ $path = '';
 		<a href="#" rel="follow"><div class="xclose goescampage"></div></a>
 		<div style="overflow:hidden;">
 			<!-- campaign page -->
-			<div class="top-button-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext">Join the Rally</span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
+				<div class="new-btn-selfie"><div style="text-align:center;"><div class="wrapbtn"><span class="btn-take-isselfie"><span class="wraptext"></span></span></div><div style="display: inline-block;vertical-align: middle;height: 50px;margin:9px 0px 0px auto;"><p style="margin:0px !important;font-size:12px !important;">Powered by</p><div style="width:90px;margin-top:3px;"><img src="images/Logo/Logo_white_1camp.png" style="width:85%;height:auto"></div></div></div></div>
 			<div style="position:absolute;opacity:0;overflow:hidden;">
 				<div style="position:absolute;font-family:myriadpro;">.</div>
 				<div style="position:absolute;font-family:Lato-Light;">.</div>
@@ -122,7 +122,7 @@ $path = '';
 						}
 						?>
 					  </div>
-					 <div class="right" style="overflow-y:visible">
+					 <div class="right" style="overflow-y:visible;text-align:left">
 							<iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=<?php echo $curDomain.'campaign.html?p='.$nice?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;margin-top:15px" ></iframe>
 						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="10" data-colorscheme="light"></div>
 					  </div> 
