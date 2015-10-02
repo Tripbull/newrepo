@@ -580,40 +580,47 @@ $(document).ready(function(){
 	
 	$( ".text-loc .ui-input-text input" ).blur(function() { // input text when it blur
 		if($('#text-6').val() == ''){
+			$('.keyicon').addClass('hide');
 			$('.addnew-loc').show();
 			$('.text-loc').hide();
 		}
 	});
 	
-	$( "#text-6" ).keypress(function(e) {
-		if(e.which == 13){
-            //showLoader();
-			var user = userArray;
-			var name = $.trim($("#text-6").val());
-			if(name == '')
-				defaulAlertBox('alert','invalid',"Campaign name is empty");
-			else{
-				if(user.permission < 2){
-					var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
-					if(userArray.productId == basicID || userArray.productId == proID){
-						if(rows >= parseInt(numofcampaign))
-							defaulAlertBox('alert','no access',"Please request to add more campaigns.");
-						else
-							_setBusinessName(name);
-					}else
+	$(".keyright" ).click(function(e) {
+		setcampaign();
+	}); 
+	function setcampaign(){
+		var user = userArray;
+		var name = $.trim($("#text-6").val());
+		if(name == '')
+			defaulAlertBox('alert','invalid',"Campaign name is empty");
+		else{
+			if(user.permission < 2){
+				var rows = locArray.length,numofcampaign = parseInt(user.addLoc) + 1; //get total length of location
+				if(userArray.productId == basicID || userArray.productId == proID){
+					if(rows >= parseInt(numofcampaign))
+						defaulAlertBox('alert','no access',"Please request to add more campaigns.");
+					else
 						_setBusinessName(name);
-					/*if(user.productId == everFree){
-						if(rows > 0){
-							defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
-						}else{
-							_setBusinessName(name);
-						}
-					}else{ */
-						// _setBusinessName(name);
-					//}
-			  }else
-				defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
-			}
+				}else
+					_setBusinessName(name);
+				/*if(user.productId == everFree){
+					if(rows > 0){
+						defaulAlertBox('alert','no access',"Please upgrade to basic plan & above to add more campaign.");
+					}else{
+						_setBusinessName(name);
+					}
+				}else{ */
+					// _setBusinessName(name);
+				//}
+		  }else
+			defaulAlertBox('alert','invalid request',"Please contact your administrator(s) for this request");
+		}
+	}
+	$( "#text-6" ).keypress(function(e) {
+		$('.keyicon').removeClass('hide');
+		if(e.which == 13){
+			setcampaign();
 		}
 	});
     function loclabel(){
