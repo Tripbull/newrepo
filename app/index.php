@@ -109,8 +109,9 @@ sdf
 							</ul>
                             <div class="text-loc ">
 								<div class="keyright">
-									<div id="triangle-right"></div>
-									<!--<img src="images/keyicon.png" alt="" width="45" height="45">-->
+									<span class="keyicon hide">
+									<img src="images/keyicon.png" class="iconkey" alt="" width="45" height="45">
+									</span>
 								</div>
 								<div class="keyleft">
 								<input type="text" name="text-6" id="text-6" value="" placeholder="Add a new campaign...">

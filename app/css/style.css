@@ -493,7 +493,7 @@ p.ratetxt{margin: 0 auto;width:70%;}
     height: 100%;
 }
 .text-loc {overflow: hidden;padding:0;margin:0;}
-.text-loc .keyright {float: right;width: auto;height: auto;padding:0;margin:0;background-color:red}
+.text-loc .keyright {float: right;width: auto;height: auto;padding:0;margin:0;cursor:pointer}
 .text-loc .keyleft {overflow: hidden;height: auto;padding:0;margin:0;}
 #triangle-right { width: 0; height: 0; border-top: 50px solid transparent; border-left: 100px solid red; border-bottom: 50px solid transparent; }
 /* for iphone 325px */
