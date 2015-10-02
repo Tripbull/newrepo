@@ -69,13 +69,13 @@ echo '<title>'.$businessTitle.'</title>';
 <div id="vdesktop">
 	<div class="header">
 		<div class="HeaderContainer">
-			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="<?=$path?>images/Logo/Logo_2-small.png" /></a></div>
+			<div class="d-logo"><a href="/" rel="follow" class="Pinme"><img alt="camrally.com" src="images/Logo/Logo_2-small.png" /></a></div>
 		</div>
 	</div>
 </div>
 <div id="vmobile">
 	<div class="m-header">
-		<div class="logo"><a href="/"><img src="<?=$path?>images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
+		<div class="logo"><a href="/"><img src="images/Logo/Logo_1-small.png" alt="img" width="130" height="auto"></a></div>
 		<header>
 			<nav class="navbar navbar-default" role="navigation"> 
 			  <div class="navbar-header">
