@@ -27,14 +27,14 @@ $(document).ready(function() {
 			$(this).removeClass( "li-advocate" );
 			$(this).addClass( "li-showcase" );
 			$('.showcaseimg').hide();
-			$('.advocateimg').show();
+			$('.advocateimg').removeClass('hide').show();
 		}else if($(this).hasClass( "li-showcase" )){
 			$('.textadvo').html('Posts');
 			$('#campin-showimage').removeClass( "hide" );
 			$(this).removeClass( "li-showcase" );
 			$(this).addClass( "li-advocate" );
 			$('.advocateimg').hide();
-			$('.showcaseimg').show();
+			$('.showcaseimg').removeClass('hide').show();
 			App.tabledList.init("#campin-showimage");
 		}
 	});

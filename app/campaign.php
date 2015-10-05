@@ -3,7 +3,7 @@ session_start();
 $ur_session = rand(0, 15);
 $_SESSION['session']=$ur_session;
 $nice = $_REQUEST['p'];
-$type = (isset($_REQUEST['s']) ? isset($_REQUEST['s']) : '');
+$type = (isset($_REQUEST['s']) ? $_REQUEST['s'] : '');
 include_once('class/class.main.php');
 $connect = new db();
 $connect->db_connect();
@@ -128,8 +128,10 @@ echo '<title>'.$businessTitle.'</title>';
 						?>
 					  </div>
 					 <div class="right" style="overflow-y:visible;text-align:left">
-							<iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=<?php echo $curDomain.'campaign.html?p='.$nice?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;margin-top:15px" ></iframe>
-						<div class="fb-comments" data-href="<?=$curDomain.'newcam.html?p='.$nice?>" height="400px" mobile="true" data-numposts="10" data-colorscheme="light"></div>
+							<div style="padding:15px 0;clear:both">
+							<iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href=<?php echo $curDomain.'campaign.html?p='.$nice?>&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;" ></iframe>
+							</div>
+							<div class="fb-comments" data-href="<?=$curDomain.'app/campaign.html?p='.$nice.($type != '' ? '&s='.$type : '')?>" mobile="true" data-numposts="5" data-colorscheme="light"></div>
 					  </div> 
 				</div>
 				<div class="content-wrap">

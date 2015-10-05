@@ -618,7 +618,6 @@ $(document).ready(function(){
 		}
 	}
 	$( "#text-6" ).keypress(function(e) {
-		$('.keyicon').removeClass('hide');
 		if(e.which == 13){
 			setcampaign();
 		}
@@ -3436,7 +3435,7 @@ $(document).ready(function(){
 			$('#btncam3').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[2]) : 'discard'));
 			$('#btncam4').val((typeof(boxArray.cambtnoption) != 'undefined' ? decodequote(boxArray.cambtnoption[3]) : 'use'));
 			$('#txt-camdetails').val((typeof(boxArray.campdetails) != 'undefined' ? decodequote(boxArray.campdetails[0]) : 'Campaign details'));
-			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Show me!'));
+			$('#txt-widget').val((typeof(boxArray.btnwidget) != 'undefined' ? decodequote(boxArray.btnwidget[0]) : 'Join Now!'));
 		}	
 		
 		$('#pickerbackground').colpick({

@@ -137,7 +137,7 @@ echo '<title>'. $businessTitle . '</title>';
 			?>
 			 <div class="btnwrap">
 				<div style="clear:both;text-align:right;">
-					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>"><?php echo ($btntxt == '' ? 'Show me!' : $btntxt)  ?></a></div>
+					<div class="btn-take-isselfie1"><a style="text-decoration:none;color: #fff;" href="<?=$campaignsite?>"><?php echo ($btntxt == '' ? 'Join Now!' : $btntxt)  ?></a></div>
 					<?php
 					if($connect->liteID != $row->productId){
 						if($row->booknow){
@@ -445,7 +445,7 @@ echo '<title>'. $businessTitle . '</title>';
 					  <div class="" style="">
 					  <?php
 					  echo '<div class="clear" style="padding:5px 0"></div>';
-					echo '<a href="'.$campaignsite.'"  class="color-button"><span>' .($btntxt == '' ? 'Show me!' : $btntxt) . '</span></a>'; 
+					echo '<a href="'.$campaignsite.'"  class="color-button"><span>' .($btntxt == '' ? 'Join Now!' : $btntxt) . '</span></a>'; 
 					echo '<div class="clear" style="padding:5px 0"></div>';
                     if($connect->liteID != $row->productId){
 						if($booksite){
