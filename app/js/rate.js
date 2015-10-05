@@ -620,7 +620,7 @@ function showCamera(IDparam){
 
 function getVideo()
 {
-	window.open(domainpath + "videoAdvocate.html?placeId=" + placeId + "&videotitle=" + customArray.businessName + " advocate", " ","width=415, height=390");   
+	window.open(domainpath + "videoAdvocate.html?placeId=" + placeId + "&videotitle=" + customArray.businessName + " advocate", " ","width=" + $(window).width() + ", height=" + $(window).height());   
 }
 
 function HandlePopupResultRecVid()
@@ -636,9 +636,10 @@ function HandlePopupResultVid(data)
 	hideLoader();
 }
 
+var getPopImage;
 function getImage()
 {
-	window.open(domainpath + "imageAdvocate.html?placeId=" + placeId, " ","width=415, height=390");   
+	getPopImage = window.open(domainpath + "imageAdvocate.html?placeId=" + placeId, " ","width=" + $(window).width() + ", height=" + $(window).height());   
 }
 
 function HandlePopupResultImgUrl(getUrl)
@@ -666,6 +667,7 @@ function HandlePopupResultImgBrowse()
 
 function HandlePopupResultImgSet()
 {
+	getPopImage.close();
 	photoType = 'selfie';
 	if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
 		getSelfie();

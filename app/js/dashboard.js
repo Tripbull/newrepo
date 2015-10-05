@@ -1371,8 +1371,8 @@ $(document).ready(function(){
 
 		function ytUploadPoster()  
 		{
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=435, height=294");   
-
+			var win = window.open(photourl2 + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=" + $(window).width() + ", height=" + $(window).height());   
+			
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
@@ -3077,6 +3077,8 @@ $(document).ready(function(){
 
 		function setTitleVideo()
 		{
+			var win;
+			
 			showLoader();
 			txtvideotitle='';
 			$.box_Dialog('Enter a title for your video. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Video title" style="width:100%;"/>', {
@@ -3087,6 +3089,8 @@ $(document).ready(function(){
 				'overlay_close':false,
 				'buttons':  [{caption: 'enter',callback:function(){
 					txtvideotitle=$('#txtvideotitle').val();
+					changephotovid();
+					changephotovid2();
 					if(txtvideotitle == '')
 					{
 						alertBox('oops!','Video title is empty!');	
@@ -3094,8 +3098,7 @@ $(document).ready(function(){
 					}
 					else
 					{
-						changephoto();
-						changephotovid2();
+						ytUploadGallery(txtvideotitle);
 					}
 				}},{caption:'cancel'}]
 			});	
@@ -3103,7 +3106,7 @@ $(document).ready(function(){
 
 		function ytUploadGallery(txtvideotitle)  
 		{
-			var win = window.open(domainpath + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=435, height=294");   
+			var win = window.open(photourl2 + "youtubeapi.html?placeId=" + $('#placeidvid').val() + "&name=" + $('#typevid').val() + "&videotitle=" + $('#imgtitlevid').val() + "&videotype=gallery", " ","width=" + $(window).width() + ", height=" + $(window).height());   
 
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
@@ -3208,7 +3211,6 @@ $(document).ready(function(){
 				$('#typevid').val('vidImg8');
 				$('#imgtitlevid').val(txtvideotitle);
 			}			
-			ytUploadGallery(txtvideotitle);
 		}
 
 		function changephotovid(){
