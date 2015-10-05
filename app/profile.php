@@ -212,9 +212,9 @@ foreach($time_zones as $zones){
 							</section>
 
 							<section class="video-section hide">
-								<span class="font-17 fl">Upload videos for your Camrally page...</span>
+								<span class="font-17 fl">Submit videos for your Camrally page...</span>
 								<div class="clear"></div>
-								<button class="ui-btn" id="uploadvid">Upload Videos</button>
+								<button class="ui-btn" id="uploadvid">Submit Videos</button>
 								<input type="hidden" value="" name="placeidvid" id="placeidvid" />
 								<input type="hidden" value="" name="typevid" id="typevid" />
 								<input type="hidden" value="" name="imgtitlevid" id="imgtitlevid" />

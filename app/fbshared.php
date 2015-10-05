@@ -28,10 +28,18 @@ if($row->state == 'canceled' || $row->state == 'unpaid'){
 	header('Location: http://camrally.com');
 	exit;
 }
+$istest = false;
+if($istest){
+   $curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}else{
+	$curDomain = 'http://camrally.com/';
+   $cur = 'http://camrally.com/';
+}	
 $redirectpage = 'http://camrally.com/'.$row->nicename.'.html';
 $rev = $row->businessName;
 $desc_meta =  $row->tag1.' '.$row->tag2 .' '.$row->brand;  //'http://camrally.com/'.$row->nicename.'.html';
-$description = '<p class="tag-occation">'.$row->businessName.'</p><p class="tag-row">'.$row->tag1 .' '.$row->tag2.'</p><p class="tag-date">'.$row->brand.'</p>';
+$description = '<p class="tag-occation">'.$row->businessName.'<iframe src="http://www.facebook.com/plugins/like.php?app_id=148972192103323&amp;href='.$curDomain.'user'.$nice.'&amp;send=false&amp;layout=button_count&amp;width=80&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px; position:relative; top:1px;margin-left:10px" ></iframe></p><p class="tag-row">'.$row->tag1 .' '.$row->tag2.'</p><p class="tag-date">'.$row->brand.'</p>';
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -46,14 +54,6 @@ echo '<title>'. $businessTitle. '</title>';
 		echo '<meta name="robots" content="noindex, nofollow" />';	
 	$srcimg = $row->pathimg;
 	list($width, $height) = getimagesize($srcimg);	
-$istest = true;
-if($istest){
-   $curDomain = 'http://camrally.com/';
-   $cur = 'http://camrally.com/';
-}else{
-	$curDomain = 'http://camrally.com/';
-   $cur = 'http://camrally.com/';
-}	
 ?>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
