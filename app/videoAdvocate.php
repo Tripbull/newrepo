@@ -255,6 +255,8 @@
 			}
 
 			function beforeSubmitvid(){
+				
+				parent.HandleOpacity();
 				//check whether client browser fully supports all File API // if (window.File && window.FileReader && window.FileList && window.Blob)
 				if (window.File){
 					var ftype = $('#filevid')[0].files[0].type; // get file type
