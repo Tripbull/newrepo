@@ -89,7 +89,7 @@
 		     '<media:description type="plain">' . $video_desc . '</media:description>',  
 		     '<media:category scheme="http://gdata.youtube.com/schemas/2007/categories.cat">Animals</media:category>',  
 		     '<media:keywords>' . $video_keywords . '</media:keywords>',  
-		     //'<yt:private/>',  
+		     '<yt:unlisted/>',  
 		     '<yt:accessControl action="list" permission="denied"/>', //causes the video to be unlisted  
 		   '</media:group>',  
 		 '</entry>'));
