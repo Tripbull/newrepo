@@ -46,7 +46,8 @@ $_SESSION['session']=$ur_session;
             <div class="tblcontainer">
               <div class="row">
                 <div class="gallery">
-                  <a href="#" onclick="openVideo()"><img src="images/selfiemovementvideo.jpg"/></a>
+                  <img src="images/selfiemovement.jpg"/>
+                  <!-- <a href="#" onclick="openVideo()"><img src="images/selfiemovementvideo.jpg"/></a> -->
                 </div>
               </div>
             </div>

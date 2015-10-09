@@ -172,6 +172,7 @@ function tweet_photo($tmhOAuth)
   $connect->db_connect();
   $nice = strtolower($_REQUEST['l']);
   $splitID = explode('-',$nice);
+  $userName = $_SESSION['twitname'];$userId = $_SESSION['twitscreenname'];$photo_url = '';$id = $splitID[1];$date = date('Y-m-d H:i:s');$email = $_SESSION['twitemail'];$source = 'tw';$sharedId = explode("_",$_REQUEST['sharedurl']);
 
   $sql = "SELECT s.pathimg, p.profilePlaceId, p.nicename, l.businessName, l.subscribe,u.state,v.link,cam.brand, cam.tag1, cam.tag2 FROM businessProfile AS p
   LEFT JOIN businessList AS l ON l.id = p.profilePlaceId
@@ -241,8 +242,23 @@ function tweet_photo($tmhOAuth)
   {
     if($getpos === false) { 
       unlink($unlinkUrl);
+      $photo_url = $row->pathimg;
+    }
+    else
+    {
+      $photo_url = 'images/shared/'.$splitID[1]."/".$_REQUEST['filename'];
     }
     $data = json_decode($tmhOAuth->response['response'], true);
+
+    $table = 'sharedlink_'.$id; 
+    $cussource= ($source == 'fb' ? 1 : 2);
+    
+    $query = mysql_query('INSERT INTO businessplace_'.$id.' SET userName="'.$userName.'",userId="'.$userId.'",photo_url="'.$photo_url.'",source="'.$source .'",date="'.$date.'",feedsource="'.$param.'"') or die(mysql_error());
+    $last_Id = mysql_insert_id();
+    $query = mysql_query('INSERT INTO businessCustomer_'.$id.' SET source='.$cussource.',userId="'.$userId.'",name="'.$userName.'",email="'.$email.'"') or die(mysql_error());
+    $lastId = mysql_insert_id();
+    mysql_query("UPDATE {$table} SET feedbackId = {$last_Id},fbId = '".$userId."',isshared=1 WHERE id = {$sharedId[1]}");
+    $query = mysql_query('INSERT INTO advocates_all SET campaignId = '.$id.', sharedId = '.$sharedId[1].', date="'.$date.'"') or die(mysql_error());
   }
   else
   {
@@ -266,30 +282,11 @@ if (!isset($params['oauth_token']) && !isset($params['denied'])) {
         <script>
           function loadLink()
           {
-            var closeLink = document.getElementById('close-link');
-            closeLink.click();
-          }
-          function CloseMySelf(sender) {
-              try {
-                  window.opener.HandlePopupResult(sender.getAttribute("twitresult"),sender.getAttribute("twitemail"),sender.getAttribute("twitname"),sender.getAttribute("twitscreenname"));
-              }
-              catch (err) {}
-              window.close();
-              return false;
+            window.close();
           }
         </script>
     </head>
     <body onload="loadLink()">
-      <?php 
-        if($_SESSION['twitresult'] == 'allowed') 
-        { 
-            echo '<a id="close-link" href="#" twitresult="' . $_SESSION['twitresult'] . '" twitemail="' . $_SESSION['twitemail'] . '" twitname="' . $_SESSION['twitname'] . '" twitscreenname="' . $_SESSION['twitscreenname']. '" onclick="return CloseMySelf(this);">&nbsp;</a>';
-        }
-        else
-        {
-            echo '<a id="close-link" href="#" twitresult="' . $_SESSION['twitresult'] . '" twitemail="" twitname="" twitscreenname="" onclick="return CloseMySelf(this);">&nbsp;</a>';
 
-        }
-      ?>
     </body>
 </html>

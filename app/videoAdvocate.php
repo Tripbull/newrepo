@@ -169,15 +169,20 @@
         	var resizeTimeout, getVideoId, getStatus, getPlaceId, getTitleVid, getUrlVid;
 
 			$(document).ready(function(){
-        		$('#browsevid').click(function(e){e.preventDefault();$('#filevid').click();});
+        		$('#browsevid').click(function(){$('#filevid').click();});
         		$('#urlvid').click(function(){showLoader();setUrl();});
         		$('#takevid').click(function(){
         			showLoader();
 
 					if(/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()))
+					{
+						$('#filevid').attr('capture', 'camera');
 						$('#filevid').click();
+					}
 					else
+					{
 						recVid();
+					}
         		});
 
 				$('#filevid').on('change',function(){
@@ -193,7 +198,7 @@
 				}
         	});
 
-			function showLoader(){loader = jQuery('<div id="overlay"> </div><div class="ZebraDialogOverlay" style="position: fixed; left: 0px; top: 0px; opacity: 0.5;"></div>');loader.appendTo(document.body);}
+			function showLoader(){loader = jQuery('<div id="overlay"> </div>');loader.appendTo(document.body);}
 			function hideLoader(){$( "#overlay" ).remove();$( ".ZebraDialogOverlay" ).remove();}
 
         	function setUrl()
@@ -224,20 +229,17 @@
 				var n = urlVid.indexOf("=");
 				getUrlVid = urlVid.substr(n+1);
 
-				try {
-				  window.opener.HandlePopupResultVid(getUrlVid);
-				}
-				catch (err) {}
-				window.close();
+				parent.HandlePopupResultVid(getUrlVid);
         	}
 
         	function recVid()
         	{
-				try {
-				  window.opener.HandlePopupResultRecVid();
-				}
-				catch (err) {}
-				window.close();
+				parent.HandlePopupResultRecVid();
+        	}
+
+        	function cancelVid()
+        	{
+				parent.HandleCancel();
         	}
 
         	function getParameter(theParameter) { 
@@ -290,38 +292,34 @@
 						'overlay_close':false,
 						'buttons':  [{caption: 'okay'}]
 					});	
+					$('.ZebraDialog').css('width', '200px');
+					$('.ZebraDialog').css('min-width', '200px');
+					$('.ZebraDialog').css('left', '25px');
 				}, 500);//to prevent the events fire twice
 		    }
         </script>
 	</head>
 	<body style="overflow:hidden;">
-		<div id="ytupload" style="margin:15px;position:absolute;width:98%;height:100%;">
+		<div id="ytupload" style="width:100%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
 			<input type="hidden" value="<?=$_SESSION['titleVid']?>" name="titleVid" id="titleVid" />
-		<?php 
-			if(isset($_REQUEST['id']))
-			{ ?>
-				<p class="url">Video successfully uploaded!!!</p>
-		<?php }
-			else
-			{ ?>
-				<p class="record">Record a video</p>
-				<button class="ui-btn" id="takevid">Camera</button>
-				<p class="url">Enter a Youtube URL</p>
-				<input type="text" style="margin-top:5px;width:70%;" data-clear-btn="true" name="txtvideourl" id="txtvideourl" value="" placeholder="Youtube video URL">
-				<button class="ui-btn" id="urlvid">Enter</button>
-				<p class="or">or</p>
-				<p class="browse">click browse to upload a video</p>
-				<p class="note" style="font-size:11.5px;color:#9C9797;">(Maximum file size is 2GB. It may take a few minutes before the video becomes available for viewing.)</p>
-				<form id="frmvid" action="<?=$get_info['post_url'] . '?nexturl=' . $redirectUri;?>" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmitvid();">
-					<div style="height:0px">
-					<button class="ui-btn" id="browsevid">Browse</button><br>
-					<input type="file" name="filevid" style="visibility:hidden;height:0px;width:0px;" id="filevid" value="" accept="video/*" capture="camera">
-					</div>
-					<input type="hidden" value="<?=$get_info['upload_token']?>" name="token" id="token" />
-				</form>	
-		 <?php 
-			} ?>
+			<p class="record">Record a video</p>
+			<button class="ui-btn" id="takevid">Camera</button>
+			<p class="or">or</p>
+			<p class="url">enter a Youtube URL</p>
+			<input type="text" style="margin-top:5px;width:90%;font-size:13px;" data-clear-btn="true" name="txtvideourl" id="txtvideourl" value="" placeholder="Youtube video URL">
+			<button class="ui-btn" id="urlvid">Enter</button>
+			<p class="or">or</p>
+			<p class="browse">click browse to upload a video</p>
+			<p class="note" style="font-size:10.5px;color:#9C9797;">(Maximum file size is 2GB. It may take a few minutes before the video becomes available.)</p>
+			<button class="ui-btn" id="browsevid">Browse</button>
+			<form id="frmvid" action="<?=$get_info['post_url'] . '?nexturl=' . $redirectUri;?>" method="post" enctype="multipart/form-data" onsubmit="return beforeSubmitvid();" style="width:50px;">
+				<div style="height:0px">
+				<input type="file" name="filevid" style="visibility:hidden;height:0px;width:0px;" id="filevid" value="" accept="video/*">
+				</div>
+				<input type="hidden" value="<?=$get_info['upload_token']?>" name="token" id="token" />
+			</form>	
+			<p class="cancel" style="cursor:pointer;text-decoration:underline !important;margin-top: 10px;font-size: 13px;" onclick="cancelVid()">Cancel</p>
 		</div>
 	 </body>
  </html>

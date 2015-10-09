@@ -138,7 +138,7 @@ echo '<title>'.$businessTitle.'</title>';
 							<div class="hide isselfie">
 							<input type="hidden" id="nicename" name="nicename" value="<?php echo $_REQUEST['p']?>" />
 							<form id="frmtakeselfie" style="visibility:hidden;height:0px" action="setPhoto.php" method="post" enctype="multipart/form-data" >
-								<input type="file" name="fileselfie" style="visibility:hidden;height:0px" id="fileselfie" accept="image/*" capture="camera" />
+								<input type="file" name="fileselfie" style="visibility:hidden;height:0px" id="fileselfie" accept="image/*" />
 								<input type="hidden" value="" name="selfieId" id="selfieId" />
 							</form>
 							<div class="hide">

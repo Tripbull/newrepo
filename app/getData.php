@@ -360,6 +360,26 @@ switch($opt){
 		}else
 			echo 0;
 	break;
+	case 'getFeedbackId':
+		$placeId = $_REQUEST['placeId'];
+		$feedbackId = $_REQUEST['feedbackId'];
+    	$table = 'sharedlink_'.$placeId; 
+
+		$result = mysql_query("SELECT fbId FROM {$table} WHERE id = $feedbackId LIMIT 1") or die(mysql_error());
+		if(mysql_num_rows($result)){
+			$row = mysql_fetch_object($result);
+
+			$result1 = mysql_query("SELECT id FROM businessCustomer_".$placeId." WHERE userId = '".$row->fbId."'' ORDER BY id DESC LIMIT 1") or die(mysql_error());
+			if(mysql_num_rows($result1)){
+				$row1 = mysql_fetch_object($result1);
+				echo $row1->id;
+			}
+			else
+			{
+				echo 'unauthorized';
+			}
+		}
+	break;
 	case 'getshorturl':
 		$placeId = $_REQUEST['placeId'];$imagesArray = array();$issetselfie = false;$issetnoselfie = false;$iscreated = array();
 		$result = mysql_query("SELECT * FROM businessshorturl WHERE placeId = {$placeId} AND source = '1'") or die(mysql_error());
@@ -436,6 +456,7 @@ switch($opt){
 	case 'getVideoId':
 		$placeId = $_REQUEST['placeId'];
 		$name = $_REQUEST['typevid'];
+
 		
 		$result = mysql_query("SELECT video_id FROM businessVideos WHERE placeId = $placeId AND name = '$name' LIMIT 1") or die(mysql_error());
 		if(mysql_num_rows($result)){
