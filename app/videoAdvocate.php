@@ -198,7 +198,7 @@
 				}
         	});
 
-			function showLoader(){loader = jQuery('<div id="overlay"> </div>');loader.appendTo(document.body);}
+			function showLoader(){loader = jQuery('<div id="overlay"> </div><div class="ZebraDialogOverlay" style="position: fixed; left: 0px; top: 0px; opacity: 0.5;"></div>');loader.appendTo(document.body);}
 			function hideLoader(){$( "#overlay" ).remove();$( ".ZebraDialogOverlay" ).remove();}
 
         	function setUrl()
