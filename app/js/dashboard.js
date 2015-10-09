@@ -1355,14 +1355,22 @@ $(document).ready(function(){
 		}
 		$('#uploadbackground').click(function(e){
 			e.preventDefault();
-			//showLoader();
-			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
+			showLoader();
+			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">Choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
+
 					$('#filebackground').click();
 				}},{caption: 'video', callback: function() {
 					ytUploadPoster();
 				}}]
 			});	
+			$('.ZebraDialog_Buttons').append('<br><a style="border:none !important;cursor:pointer;text-decoration:underline !important;font-size:13px;" onclick="return HandleCancel();">Cancel</a>');
 		});
+
+		function HandleCancel()
+		{
+			$('.ZebraDialogOverlay').remove();
+			$('.ZebraDialog').remove();
+		}
 		
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();

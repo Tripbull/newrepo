@@ -89,7 +89,7 @@ else {
 	echo '<meta property="og:image:url" content="'.$curDomain.'app/'.$srcimg.'" />';
 } ?>
 <meta property="og:image:width" content="<?=$width?>" />
-<meta property="og:image:height" content="<?=$height?>" />';
+<meta property="og:image:height" content="<?=$height?>" />
 <meta property="fb:app_id" content="148972192103323" />
 <link href="<?=$path?>css/fbshared.css" media="screen" rel="stylesheet" type="text/css" />
 <link href="<?=$path?>js/source/jquery.fancybox.css?v=2.1.5" media="screen" rel="stylesheet" type="text/css" />
@@ -162,10 +162,12 @@ if($width > 820)
 			<a href="<?=$redirectpage?>" rel="follow"><div class="xclose"></div></a>
 			<div class="clear"></div>
 			<div style="margin:0 auto;width:100%;max-width:<?=$width+390?>px;">
-			  <div class="left text-center" style="max-width:<?=$width?>px;">
+			  <div class="left text-center" style="max-width:<?=$width?>px;width:100%;">
 			  	<?php if($getpos === false) { ?>
-      				<iframe class="selfieVideo" frameborder="0" src="http://www.youtube.com/embed/<?=$srcimg?>?autoplay=1" width="<?=$width-10?>" height="<?=$height?>">
-      				</iframe>
+			  		<div class="fluidMedia">
+	      				<iframe src="http://www.youtube.com/embed/<?=$srcimg?>?autoplay=1" class="iframeshare" frameborder="0">
+	      				</iframe>
+      				</div>
       			<?php } else { ?>
 				<a href="<?=$cur.$row->nicename?>.html"><img src="<?=$path.$srcimg;?>" width="<?=$width?>" height="<?=$height?>"  alt="selfie photo" /></a>
 			  	<?php } ?>

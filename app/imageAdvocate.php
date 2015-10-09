@@ -18,7 +18,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-		<title>Upload Videos</title>
+		<title>Upload Images</title>
 		<link type="text/css" rel="stylesheet" href="css/style.css" />
 		<link type="text/css" rel="stylesheet" href="css/jquery.mobile-1.4.2.min.css" />
 		<link type="text/css" rel="stylesheet" href="css/dialog.css" type="text/css">
@@ -35,7 +35,7 @@
         		$('#takeimg').click(function(){showLoader();setImage();});
         	});
 
-			function showLoader(){loader = jQuery('<div id="overlay"> </div><div class="ZebraDialogOverlay" style="position: fixed; left: 0px; top: 0px; opacity: 0.5;"></div>');loader.appendTo(document.body);}
+			function showLoader(){loader = jQuery('<div id="overlay"> </div>');loader.appendTo(document.body);}
 			function hideLoader(){$( "#overlay" ).remove();$( ".ZebraDialogOverlay" ).remove();}
 
         	function setUrl()
@@ -72,11 +72,7 @@
 						}
 						else
 						{
-							try {
-							  window.opener.HandlePopupResultImgUrl(returnText);
-							}
-							catch (err) {}
-							window.close();
+							parent.HandlePopupResultImgUrl(returnText);
 						}
 					}});
 				}
@@ -102,20 +98,18 @@
 
         	function setBrowse()
         	{
-				try {
-				  window.opener.HandlePopupResultImgBrowse();
-				}
-				catch (err) {}
-				window.close();
+				parent.HandlePopupResultImgBrowse();
         	}
 
 
         	function setImage()
         	{
-				try {
-				  window.opener.HandlePopupResultImgSet();
-				}
-				catch (err) {}
+				parent.HandlePopupResultImgSet();
+        	}
+
+        	function cancelImage()
+        	{
+				parent.HandleCancel();
         	}
 
 			function alertBox(title,message){
@@ -129,23 +123,27 @@
 						'overlay_close':false,
 						'buttons':  [{caption: 'okay'}]
 					});	
+					$('.ZebraDialog').css('width', '200px');
+					$('.ZebraDialog').css('min-width', '200px');
+					$('.ZebraDialog').css('left', '25px');
 				}, 500);//to prevent the events fire twice
 		    }
         </script>
 	</head>
 	<body style="overflow:hidden;">
-		<div id="ytupload" style="margin:15px;position:absolute;width:98%;height:100%;">
+		<div id="ytupload" style="width:100%;height:100%;">
 			<input type="hidden" value="<?=$_SESSION['placeIdVid']?>" name="placeIdVid" id="placeIdVid" />
 			<p class="take">Take a photo</p>
 			<button class="ui-btn" id="takeimg">Camera</button>
 			<p class="or">or</p>
 			<p class="url">enter your image URL</p>
-			<input type="text" style="margin-top:5px;width:70%;" data-clear-btn="true" name="txtimageurl" id="txtimageurl" value="" placeholder="Image URL">
+			<input type="text" style="margin-top:5px;width:90%;font-size:13px;" data-clear-btn="true" name="txtimageurl" id="txtimageurl" value="" placeholder="Image URL">
 			<button class="ui-btn" id="urlimg">Enter</button>
 			<p class="or">or</p>
 			<p class="browse">click browse to upload an image</p>
-			<p class="note" style="font-size:11.5px;color:#9C9797;">*(Maximum file size is 1MB.)</p>
+			<p class="note" style="font-size:11px;color:#9C9797;">*(Maximum file size is 1MB.)</p>
 			<button class="ui-btn" id="browseimg">Browse</button>
+			<p class="cancel" style="cursor:pointer;text-decoration:underline !important;margin-top: 15px;font-size: 13px;" onclick="cancelImage()">Cancel</p>
 		</div>
 	 </body>
  </html>
