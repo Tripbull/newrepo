@@ -659,6 +659,13 @@ function HandlePopupResultVid(data)
 	hideLoader();
 }
 
+function HandleOpacity()
+{
+	showLoader();
+	$('.ZebraDialogOverlay').remove();
+	$('.ZebraDialog').css('opacity', '0');
+}
+
 function getImage()
 {
 	// window.open(domainpath + "imageAdvocate.html?placeId=" + placeId, " ","width=" + $(window).width() + ", height=" + $(window).height());   
