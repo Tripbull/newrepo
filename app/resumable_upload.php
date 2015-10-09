@@ -106,7 +106,7 @@ if ($client->getAccessToken()) {
     // Set the video's status to "public". Valid statuses are "public",
     // "private" and "unlisted".
     $status = new Google_Service_YouTube_VideoStatus();
-    $status->privacyStatus = "public";
+    $status->privacyStatus = "private";
 
     // Associate the snippet and status objects with a new video resource.
     $video = new Google_Service_YouTube_Video();
