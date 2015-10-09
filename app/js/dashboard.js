@@ -3242,6 +3242,12 @@ $(document).ready(function(){
 		}
 	});
 	
+	function HandleCancel()
+	{
+		$('.ZebraDialogOverlay').remove();
+		$('.ZebraDialog').remove();
+	}
+	
 	function bytesToSize(bytes) {
 	   var sizes = ['Bytes', 'kb', 'mb', 'gb', 'tb'];
 	   if (bytes == 0) return '0 Bytes';
