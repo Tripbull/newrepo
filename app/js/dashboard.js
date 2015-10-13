@@ -1355,7 +1355,6 @@ $(document).ready(function(){
 		}
 		$('#uploadbackground').click(function(e){
 			e.preventDefault();
-			showLoader();
 			$.box_Dialog('Please choose the type of file to upload.', {'type':'question','title': '<span class="color-gold">Choose file type<span>','center_buttons': true,'show_close_button':false,'overlay_close':false,'buttons':  [{caption: 'image', callback: function() {
 
 					$('#filebackground').click();
@@ -1380,10 +1379,11 @@ $(document).ready(function(){
 		function ytUploadPoster()  
 		{
 			var win = window.open(photourl2 + "youtubeapi.html?placeId=" + places[0] + "&videotitle=" + placename + " Camrally Poster" + "&videotype=poster", " ","width=" + $(window).width() + ", height=" + $(window).height());   
-			
+			showLoader();
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
+		       		hideLoader();
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+places[0]+'&opt=getVideoIdPoster',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
@@ -1394,7 +1394,6 @@ $(document).ready(function(){
 							customArray.backgroundImg = getParse;
 							validatedetails();
 			        	}
-				        hideLoader();
 			        }}); 
 			    }  
 			}, 500);  
@@ -3086,8 +3085,6 @@ $(document).ready(function(){
 		function setTitleVideo()
 		{
 			var win;
-			
-			showLoader();
 			txtvideotitle='';
 			$.box_Dialog('Enter a title for your video. <br><br><input type="text" value="" name="txtvideotitle" id="txtvideotitle" placeholder="Video title" style="width:100%;"/>', {
 				'type':     'question',
@@ -3096,6 +3093,7 @@ $(document).ready(function(){
 				'show_close_button':false,
 				'overlay_close':false,
 				'buttons':  [{caption: 'enter',callback:function(){
+					showLoader();
 					txtvideotitle=$('#txtvideotitle').val();
 					changephotovid();
 					changephotovid2();
@@ -3119,6 +3117,7 @@ $(document).ready(function(){
 			var timer = setInterval(function() {   
 			    if(win.closed) {  
 			        clearInterval(timer);  
+				    hideLoader();
 			        $.ajax({type: "POST",url:"getData.php",cache: false,data:'placeId='+$('#placeidvid').val()+'&typevid='+$('#typevid').val()+'&opt=getVideoId',async: false,success:function(videoId){
 			        	if(videoId != '')
 			        	{
@@ -3127,7 +3126,6 @@ $(document).ready(function(){
 				        	}
 				        	showResponsevid2("http://i.ytimg.com/vi/" + videoId + "/default.jpg"); 
 			        	}
-				        hideLoader();
 			        }});
 			    }  
 			}, 500);  
@@ -3246,6 +3244,7 @@ $(document).ready(function(){
 	{
 		$('.ZebraDialogOverlay').remove();
 		$('.ZebraDialog').remove();
+		hideLoader();
 	}
 	
 	function bytesToSize(bytes) {
