@@ -1364,12 +1364,6 @@ $(document).ready(function(){
 			});	
 			$('.ZebraDialog_Buttons').append('<br><a style="border:none !important;cursor:pointer;text-decoration:underline !important;font-size:13px;" onclick="return HandleCancel();">Cancel</a>');
 		});
-
-		function HandleCancel()
-		{
-			$('.ZebraDialogOverlay').remove();
-			$('.ZebraDialog').remove();
-		}
 		
 		$('#filebackground').on('change',function(){ // save fb photo
 			showLoader();
